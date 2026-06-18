@@ -35,11 +35,45 @@
   .yh-float { animation:yhFloat 3.6s ease-in-out infinite; transform-origin:50% 50%; }
   .yh-scan { animation:yhBlink 2.2s ease-in-out infinite; }
   .yh-draw { stroke-dasharray:240; stroke-dashoffset:240; animation:yhDash 2.4s ease forwards; }
+  @media (max-width:767px) {
+    .nav-links { display:none !important; }
+    .nav-search { display:none !important; }
+    .nav-hamburger { display:flex !important; }
+  }
+  @media (min-width:768px) {
+    .nav-links { display:flex !important; }
+    .nav-search { display:flex !important; }
+    .nav-hamburger { display:none !important; }
+  }
+  .page-wrap { overflow-x:hidden; }
+  @media (max-width:767px) {
+    .hero-section { height:auto !important; min-height:240px !important; padding:44px 0 40px !important; }
+    .hero-img { display:none !important; }
+    .hero-inner {
+      position:relative !important;
+      height:auto !important;
+      padding:0 20px 32px !important;
+      align-items:flex-start !important;
+    }
+    .hero-inner > div { gap:20px !important; }
+    .hero-eyebrow { font-size:13px !important; }
+    .hero-title { font-size:22px !important; }
+    .hero-cta { width:140px !important; height:44px !important; font-size:14px !important; }
+    .sp-grid { grid-template-columns:1fr !important; }
+    .sp-card {
+      display:flex !important;
+      flex-wrap:wrap !important;
+      width:100% !important;
+      box-sizing:border-box !important;
+    }
+    .sp-card svg { width:60px !important; height:60px !important; }
+    .sp-card [style*="width:86px"] { width:60px !important; }
+  }
 </style>
 </head>
 <body>
 
-<div style="width:100%;">
+<div class="page-wrap">
 
   <!-- ============ UTILITY BAR ============ -->
   <div style="background:#0E1C3D;color:#aeb8cc;">
@@ -63,7 +97,7 @@
   <div style="background:#fff;border-bottom:1px solid #E5E8EC;position:sticky;top:0;z-index:40;">
     <div style="max-width:1200px;margin:0 auto;padding:0 32px;height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
       <img src="./assets/logo.png" alt="元新儀器 Ken Yuan Hsin" style="height:38px;width:auto;display:block;">
-      <div style="display:flex;align-items:center;gap:30px;font-size:15.5px;color:#3A4250;font-weight:500;">
+      <div class="nav-links" style="display:flex;align-items:center;gap:30px;font-size:15.5px;color:#3A4250;font-weight:500;">
         <span class="yh-link" style="color:#143A82;font-weight:700;cursor:pointer;">首頁</span>
         <span class="yh-link" style="cursor:pointer;">關於我們</span>
         <span class="yh-link" style="cursor:pointer;">產品與服務</span>
@@ -71,21 +105,22 @@
         <span class="yh-link" style="cursor:pointer;">輻防訓練</span>
         <span class="yh-link" style="cursor:pointer;">聯絡我們</span>
       </div>
-      <div style="display:flex;align-items:center;gap:14px;">
+      <div class="nav-search" style="display:flex;align-items:center;gap:14px;">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #D7DCE3;border-radius:999px;padding:9px 18px;font-size:13px;color:#9AA1AC;min-width:210px;" class="yh-en"><span>Search</span><span style="font-size:26px;line-height:1;">⌕</span></div>
       </div>
+      <div class="nav-hamburger" style="display:none;align-items:center;justify-content:center;width:40px;height:40px;cursor:pointer;color:#143A82;font-size:26px;font-weight:700;">☰</div>
     </div>
   </div>
 
   <!-- ============ HERO ============ -->
-  <div style="position:relative;height:560px;background:#32468A;overflow:hidden;">
+  <div class="hero-section" style="position:relative;height:560px;background:#2C478F;overflow:hidden;">
     <div style="position:relative;max-width:1578px;margin:0 auto;height:100%;">
-      <img src="./assets/hero-exclude.png" alt="核醫專業團隊為患者說明影像診斷" style="position:absolute;left:507px;top:0;width:969px;height:560px;object-fit:cover;">
-      <div style="position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:center;padding-left:70px;animation:yhFade .8s ease both;">
+      <img src="./assets/hero-exclude.png" alt="核醫專業團隊為患者說明影像診斷" style="position:absolute;left:507px;top:0;width:969px;height:560px;object-fit:cover;max-width:100%;" class="hero-img">
+      <div class="hero-inner" style="position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:center;padding-left:70px;animation:yhFade .8s ease both;">
         <div style="display:flex;flex-direction:column;gap:38px;max-width:448px;color:#fff;">
-          <div class="yh-en" style="font-size:20px;font-weight:800;line-height:1.45;">Precision and Smart Supply for Nuclear Medicine</div>
-          <div style="font-size:36px;line-height:1.22;font-weight:800;">核醫專業顧問，建構安全、<br>高效的核醫藥物生態系</div>
-          <div style="display:inline-flex;align-items:center;justify-content:center;background:#fff;color:#0C2049;border-radius:999px;width:234px;height:60px;font-size:18px;font-weight:600;cursor:pointer;">了解更多</div>
+          <div class="hero-eyebrow yh-en" style="font-size:20px;font-weight:800;line-height:1.45;">Precision and Smart Supply for Nuclear Medicine</div>
+          <div class="hero-title" style="font-size:36px;line-height:1.22;font-weight:800;">核醫專業顧問，建構安全、<br>高效的核醫藥物生態系</div>
+          <div class="hero-cta" style="display:inline-flex;align-items:center;justify-content:center;background:#fff;color:#0C2049;border-radius:999px;width:234px;height:60px;font-size:18px;font-weight:600;cursor:pointer;">了解更多</div>
         </div>
       </div>
     </div>
@@ -107,9 +142,9 @@
       <div class="yh-en" style="background:#1F5BB5;color:#fff;font-weight:800;letter-spacing:.08em;font-size:17px;padding:12px 42px 12px 26px;clip-path:polygon(0 0,100% 0,84% 100%,0 100%);border-radius:10px 0 0 0;">SERVICES</div>
       <div style="font-size:21px;font-weight:800;color:#1C2533;padding-bottom:9px;">我們的服務</div>
     </div>
-    <div style="border:1px solid #D6E2F4;border-radius:0 16px 16px 16px;background:#fff;display:grid;grid-template-columns:repeat(3,1fr);overflow:hidden;">
+    <div style="border:1px solid #D6E2F4;border-radius:0 16px 16px 16px;background:#fff;display:grid;grid-template-columns:repeat(3,1fr);overflow:hidden; class="sp-grid"">
 
-      <div class="yh-card" style="display:flex;gap:20px;padding:34px 30px;cursor:pointer;">
+      <div class="yh-card sp-card" style="display:flex;gap:20px;padding:34px 30px;cursor:pointer;">
         <div style="width:86px;flex-shrink:0;display:flex;align-items:flex-start;justify-content:center;padding-top:4px;">
           <svg class="yh-float" width="82" height="82" viewBox="0 0 80 80" fill="none">
             <path d="M16 18 C36 30,44 50,64 62" stroke="#2E72D6" stroke-width="2.4" stroke-linecap="round"/>
@@ -125,7 +160,7 @@
         </div>
       </div>
 
-      <div class="yh-card" style="display:flex;gap:20px;padding:34px 30px;cursor:pointer;border-left:1px solid #E9EEF6;">
+      <div class="yh-card sp-card" style="display:flex;gap:20px;padding:34px 30px;cursor:pointer;border-left:1px solid #E9EEF6;">
         <div style="width:86px;flex-shrink:0;display:flex;align-items:flex-start;justify-content:center;padding-top:4px;">
           <svg width="82" height="82" viewBox="0 0 80 80" fill="none">
             <g class="yh-orbit">
@@ -142,7 +177,7 @@
         </div>
       </div>
 
-      <div class="yh-card" style="display:flex;gap:20px;padding:34px 30px;cursor:pointer;border-left:1px solid #E9EEF6;">
+      <div class="yh-card sp-card" style="display:flex;gap:20px;padding:34px 30px;cursor:pointer;border-left:1px solid #E9EEF6;">
         <div style="width:86px;flex-shrink:0;display:flex;align-items:flex-start;justify-content:center;padding-top:4px;">
           <svg width="82" height="82" viewBox="0 0 80 80" fill="none">
             <circle cx="40" cy="40" r="30" stroke="#BcD3F3" stroke-width="2"/>
@@ -165,9 +200,9 @@
       <div class="yh-en" style="background:#2B8A4D;color:#fff;font-weight:800;letter-spacing:.08em;font-size:17px;padding:12px 42px 12px 26px;clip-path:polygon(0 0,100% 0,84% 100%,0 100%);border-radius:10px 0 0 0;">PRODUCTS</div>
       <div style="font-size:21px;font-weight:800;color:#1C2533;padding-bottom:9px;">我們的產品</div>
     </div>
-    <div style="border:1px solid #CFE6D7;border-radius:0 16px 16px 16px;background:#F4FAF6;display:grid;grid-template-columns:repeat(3,1fr);overflow:hidden;">
+    <div style="border:1px solid #CFE6D7;border-radius:0 16px 16px 16px;background:#F4FAF6;display:grid;grid-template-columns:repeat(3,1fr);overflow:hidden; class="sp-grid"">
 
-      <div class="yh-card" style="display:flex;gap:20px;padding:34px 30px;cursor:pointer;">
+      <div class="yh-card sp-card" style="display:flex;gap:20px;padding:34px 30px;cursor:pointer;">
         <div style="width:86px;flex-shrink:0;display:flex;align-items:flex-start;justify-content:center;padding-top:4px;">
           <svg class="yh-orbit" width="82" height="82" viewBox="0 0 80 80" fill="none">
             <ellipse cx="40" cy="40" rx="32" ry="13" stroke="#2B8A4D" stroke-width="2.4"/>
@@ -182,7 +217,7 @@
         </div>
       </div>
 
-      <div class="yh-card" style="display:flex;gap:20px;padding:34px 30px;cursor:pointer;border-left:1px solid #DCEBE1;">
+      <div class="yh-card sp-card" style="display:flex;gap:20px;padding:34px 30px;cursor:pointer;border-left:1px solid #DCEBE1;">
         <div style="width:86px;flex-shrink:0;display:flex;align-items:flex-start;justify-content:center;padding-top:4px;">
           <svg width="82" height="82" viewBox="0 0 80 80" fill="none">
             <rect x="11" y="15" width="58" height="40" rx="4" stroke="#2B8A4D" stroke-width="2.4"/>
@@ -197,7 +232,7 @@
         </div>
       </div>
 
-      <div class="yh-card" style="display:flex;gap:20px;padding:34px 30px;cursor:pointer;border-left:1px solid #DCEBE1;">
+      <div class="yh-card sp-card" style="display:flex;gap:20px;padding:34px 30px;cursor:pointer;border-left:1px solid #DCEBE1;">
         <div style="width:86px;flex-shrink:0;display:flex;align-items:flex-start;justify-content:center;padding-top:4px;">
           <svg class="yh-float" width="82" height="82" viewBox="0 0 80 80" fill="none">
             <circle cx="40" cy="26" r="12" stroke="#2B8A4D" stroke-width="2.4"/>
@@ -285,9 +320,9 @@
         </div>
         <div class="yh-en" style="font-size:14.5px;color:#cdd9ef;font-weight:600;cursor:pointer;border-bottom:1.5px solid rgba(205,217,239,.6);padding-bottom:3px;white-space:nowrap;">View all　→</div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px;" class="sp-grid">
 
-        <div class="yh-card" style="background:#fff;border-radius:14px;overflow:hidden;cursor:pointer;">
+        <div class="yh-card sp-card" style="background:#fff;border-radius:14px;overflow:hidden;cursor:pointer;">
           <div style="height:172px;overflow:hidden;"><div class="yh-card-img" style="height:100%;background:#143A82 url('https://yuanyu.com.tw/wp-content/uploads/2025/11/Image-18.jpg') center/cover no-repeat;"></div></div>
           <div style="padding:22px 22px 26px;">
             <div class="yh-en" style="font-size:12px;color:#1F5BB5;font-weight:600;letter-spacing:.04em;">2026.05 · 公告</div>
@@ -295,7 +330,7 @@
           </div>
         </div>
 
-        <div class="yh-card" style="background:#fff;border-radius:14px;overflow:hidden;cursor:pointer;">
+        <div class="yh-card sp-card" style="background:#fff;border-radius:14px;overflow:hidden;cursor:pointer;">
           <div style="height:172px;overflow:hidden;"><div class="yh-card-img" style="height:100%;background:#143A82 url('https://yuanyu.com.tw/wp-content/uploads/2025/11/cv-1500.jpg') center/cover no-repeat;"></div></div>
           <div style="padding:22px 22px 26px;">
             <div class="yh-en" style="font-size:12px;color:#1F5BB5;font-weight:600;letter-spacing:.04em;">2026.04 · 產品</div>
@@ -303,7 +338,7 @@
           </div>
         </div>
 
-        <div class="yh-card" style="background:#fff;border-radius:14px;overflow:hidden;cursor:pointer;">
+        <div class="yh-card sp-card" style="background:#fff;border-radius:14px;overflow:hidden;cursor:pointer;">
           <div style="height:172px;overflow:hidden;"><div class="yh-card-img" style="height:100%;background:#143A82 url('https://yuanyu.com.tw/wp-content/uploads/2025/12/530246998_122134538018829606_2925489910986241303_n-1.jpg') center/cover no-repeat;"></div></div>
           <div style="padding:22px 22px 26px;">
             <div class="yh-en" style="font-size:12px;color:#1F5BB5;font-weight:600;letter-spacing:.04em;">2026.03 · 活動</div>
@@ -327,7 +362,7 @@
     </div>
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:26px;">
 
-      <div class="yh-card" style="display:flex;gap:24px;border:1px solid #E5E8EC;border-radius:14px;padding:24px;cursor:pointer;">
+      <div class="yh-card sp-card" style="display:flex;gap:24px;border:1px solid #E5E8EC;border-radius:14px;padding:24px;cursor:pointer;">
         <div style="width:140px;height:140px;border-radius:11px;overflow:hidden;flex-shrink:0;"><div class="yh-card-img" style="height:100%;background:#fff url('https://yuanyu.com.tw/wp-content/uploads/2025/10/OTV-S700.png') center/cover no-repeat;"></div></div>
         <div style="flex:1;display:flex;flex-direction:column;">
           <div class="yh-en" style="font-size:12.5px;color:#1F5BB5;font-weight:600;">2026.06.18 · 台北 · 實體</div>
@@ -337,7 +372,7 @@
         </div>
       </div>
 
-      <div class="yh-card" style="display:flex;gap:24px;border:1px solid #E5E8EC;border-radius:14px;padding:24px;cursor:pointer;">
+      <div class="yh-card sp-card" style="display:flex;gap:24px;border:1px solid #E5E8EC;border-radius:14px;padding:24px;cursor:pointer;">
         <div style="width:140px;height:140px;border-radius:11px;overflow:hidden;flex-shrink:0;"><div class="yh-card-img" style="height:100%;background:#fff url('https://yuanyu.com.tw/wp-content/uploads/2025/10/EU-ME3.jpg') center/cover no-repeat;"></div></div>
         <div style="flex:1;display:flex;flex-direction:column;">
           <div class="yh-en" style="font-size:12.5px;color:#1F5BB5;font-weight:600;">2026.07.02 · 線上 · 直播</div>
@@ -367,7 +402,7 @@
       </div>
       <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:26px;">
 
-        <div class="yh-card" style="background:#fff;border-radius:14px;overflow:hidden;cursor:pointer;">
+        <div class="yh-card sp-card" style="background:#fff;border-radius:14px;overflow:hidden;cursor:pointer;">
           <div style="height:300px;overflow:hidden;"><div class="yh-card-img" style="height:100%;background:#143A82 url('https://yuanyu.com.tw/wp-content/uploads/2025/09/Internal.jpg') center/cover no-repeat;"></div></div>
           <div style="padding:26px 28px 30px;">
             <div class="yh-en" style="font-size:12px;color:#1F5BB5;font-weight:600;letter-spacing:.06em;">FEATURED · 專業觀點</div>
@@ -377,15 +412,15 @@
         </div>
 
         <div style="display:flex;flex-direction:column;justify-content:space-between;gap:18px;">
-          <div class="yh-card" style="flex:1;background:#fff;border-radius:12px;padding:20px 22px;cursor:pointer;display:flex;gap:18px;align-items:center;flex:1;">
+          <div class="yh-card sp-card" style="flex:1;background:#fff;border-radius:12px;padding:20px 22px;cursor:pointer;display:flex;gap:18px;align-items:center;flex:1;">
             <div style="width:84px;height:84px;border-radius:9px;overflow:hidden;flex-shrink:0;"><div class="yh-card-img" style="height:100%;background:#fff url('https://yuanyu.com.tw/wp-content/uploads/2026/03/SutuArt.jpg') center/cover no-repeat;"></div></div>
             <div><div class="yh-en" style="font-size:11.5px;color:#1F5BB5;font-weight:600;">活動</div><div style="font-size:15.5px;font-weight:700;color:#1C2533;line-height:1.5;margin-top:6px;">2026 台灣核醫年會展出預告</div></div>
           </div>
-          <div class="yh-card" style="background:#fff;border-radius:12px;padding:20px 22px;cursor:pointer;display:flex;gap:18px;align-items:center;">
+          <div class="yh-card sp-card" style="background:#fff;border-radius:12px;padding:20px 22px;cursor:pointer;display:flex;gap:18px;align-items:center;">
             <div style="width:84px;height:84px;border-radius:9px;overflow:hidden;flex-shrink:0;"><div class="yh-card-img" style="height:100%;background:#fff url('https://yuanyu.com.tw/wp-content/uploads/2025/11/GIF-EZ1500.jpg') center/cover no-repeat;"></div></div>
             <div><div class="yh-en" style="font-size:11.5px;color:#1F5BB5;font-weight:600;">產品新知</div><div style="font-size:15.5px;font-weight:700;color:#1C2533;line-height:1.5;margin-top:6px;">UG-05 注射輔助系統技術解析</div></div>
           </div>
-          <div class="yh-card" style="flex:1;background:#fff;border-radius:12px;padding:20px 22px;cursor:pointer;display:flex;gap:18px;align-items:center;">
+          <div class="yh-card sp-card" style="flex:1;background:#fff;border-radius:12px;padding:20px 22px;cursor:pointer;display:flex;gap:18px;align-items:center;">
             <div style="width:84px;height:84px;border-radius:9px;overflow:hidden;flex-shrink:0;"><div class="yh-card-img" style="height:100%;background:#fff url('https://yuanyu.com.tw/wp-content/uploads/2025/09/Surgical.jpg') center/cover no-repeat;"></div></div>
             <div><div class="yh-en" style="font-size:11.5px;color:#1F5BB5;font-weight:600;">專業觀點</div><div style="font-size:15.5px;font-weight:700;color:#1C2533;line-height:1.5;margin-top:6px;">輻防作業常見疏失與改善建議</div></div>
           </div>
@@ -425,7 +460,7 @@
       <div class="yh-eyebrow" style="margin-bottom:12px;">Contact Us</div>
       <div style="font-size:34px;font-weight:800;color:#143A82;margin-bottom:10px;">聯絡我們</div>
       <div style="font-size:15px;color:#5A6473;margin-bottom:40px;">依需求聯繫對應窗口，我們將盡快回覆。</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px;" class="sp-grid">
 
         <div style="background:#fff;border:1px solid #E5E8EC;border-radius:14px;padding:30px 28px;display:flex;flex-direction:column;gap:16px;">
           <div style="width:50px;height:50px;border-radius:12px;background:#EAF1FC;color:#1F5BB5;display:flex;align-items:center;justify-content:center;font-size:22px;">▤</div>
