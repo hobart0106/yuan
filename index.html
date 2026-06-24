@@ -35,6 +35,87 @@
   .yh-float { animation:yhFloat 3.6s ease-in-out infinite; transform-origin:50% 50%; }
   .yh-scan { animation:yhBlink 2.2s ease-in-out infinite; }
   .yh-draw { stroke-dasharray:240; stroke-dashoffset:240; animation:yhDash 2.4s ease forwards; }
+  .hero-section {
+    position:relative;
+    height:560px;
+    background:#32468A;
+    overflow:hidden;
+  }
+  .hero-row {
+    position:relative;
+    height:100%;
+    max-width:1578px;
+    margin:0 auto;
+  }
+  .hero-glow {
+    position:absolute;
+    left:max(425px, calc(100% - 1212.205px));
+    top:-617px;
+    width:1475.437px;
+    height:1346.426px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:0;
+  }
+  .hero-glow-inner {
+    flex-shrink:0;
+    width:867.358px;
+    height:1205.051px;
+    border-radius:50%;
+    background:rgba(255,255,255,.1);
+    transform:rotate(60.67deg);
+  }
+  .hero-art {
+    position:absolute;
+    top:-36px;
+    left:max(640px, calc(100% - 997.205px));
+    width:997.205px;
+    height:581.873px;
+    z-index:0;
+  }
+  .hero-img {
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .hero-inner {
+    position:relative;
+    z-index:1;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding-left:120px;
+    animation:yhFade .8s ease both;
+    pointer-events:none;
+  }
+  .hero-copy {
+    display:flex;
+    flex-direction:column;
+    gap:38px;
+    max-width:448px;
+    color:#fff;
+    background:transparent;
+  }
+  .hero-eyebrow {
+    font-size:20px !important;
+    line-height:1.45 !important;
+    max-width:332px !important;
+  }
+  .hero-title {
+    font-size:36px !important;
+    line-height:1.22 !important;
+  }
+  .hero-cta {
+    width:234px !important;
+    height:60px !important;
+    font-size:18px !important;
+  }
+  .hero-cta { pointer-events:auto; }
   @media (max-width:767px) {
     .nav-links { display:none !important; }
     .nav-search { display:none !important; }
@@ -45,29 +126,69 @@
     .nav-search { display:flex !important; }
     .nav-hamburger { display:none !important; }
   }
+
   .page-wrap { overflow-x:hidden; }
   @media (max-width:767px) {
-    .hero-section { height:auto !important; min-height:240px !important; padding:44px 0 40px !important; }
-    .hero-img { display:none !important; }
+    .hero-section { height:439.2781px !important; min-height:439.2781px !important; padding:0 !important; overflow:visible !important; background:#32468a !important; }
+    .hero-row { display:block !important; width:100% !important; max-width:767px !important; margin:0 auto !important; position:relative !important; overflow:visible !important; }
+    .hero-art { display:block !important; position:absolute !important; top:0 !important; left:19.5567% !important; width:100% !important; height:auto !important; z-index:0 !important; }
+    .hero-img { display:block !important; position:relative !important; width:100% !important; height:auto !important; object-fit:contain !important; }
     .hero-inner {
       position:relative !important;
-      height:auto !important;
-      padding:0 20px 32px !important;
+      z-index:2 !important;
+      height:100% !important;
+      padding:0 24px !important;
       align-items:flex-start !important;
+      justify-content:center !important;
     }
-    .hero-inner > div { gap:20px !important; }
-    .hero-eyebrow { font-size:13px !important; }
-    .hero-title { font-size:22px !important; }
-    .hero-cta { width:140px !important; height:44px !important; font-size:14px !important; }
-    .sp-grid { grid-template-columns:repeat(3,1fr) !important; }
+    .hero-copy { gap:24px !important; max-width:292px !important; }
+    .hero-eyebrow { font-size:13px !important; line-height:22.8px !important; max-width:184px !important; }
+    .hero-title { font-size:23.5px !important; line-height:28.7px !important; }
+    .hero-cta { width:152px !important; min-width:152px !important; height:40px !important; padding:0 16px !important; font-size:11.7px !important; }
+    .sp-grid { grid-template-columns:repeat(3,minmax(0,1fr)) !important; }
     .sp-card {
       display:flex !important;
       flex-wrap:wrap !important;
+      min-width:0 !important;
       width:100% !important;
       box-sizing:border-box !important;
     }
+    .sp-card .yh-en { overflow-wrap:anywhere !important; }
     .sp-card svg { width:60px !important; height:60px !important; }
     .sp-card [style*="width:86px"] { width:60px !important; }
+    .feature-grid {
+      width:calc(100vw - 64px) !important;
+      max-width:calc(100vw - 64px) !important;
+      min-width:0 !important;
+      grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    }
+    .feature-grid > .sp-card {
+      flex-direction:column !important;
+      flex-wrap:nowrap !important;
+      gap:18px !important;
+      min-width:0 !important;
+      padding:34px 8px !important;
+    }
+    .feature-grid > .sp-card .yh-en {
+      word-break:break-all !important;
+      overflow-wrap:anywhere !important;
+    }
+    .feature-grid > .sp-card > div:first-child {
+      width:100% !important;
+      justify-content:center !important;
+    }
+    .feature-grid > .sp-card > div:last-child {
+      width:100% !important;
+      min-width:0 !important;
+    }
+    .services-products-section {
+      width:100vw !important;
+      max-width:100vw !important;
+      margin:0 !important;
+      padding-left:32px !important;
+      padding-right:32px !important;
+      overflow:hidden !important;
+    }
   }
 </style>
 </head>
@@ -113,12 +234,15 @@
   </div>
 
   <!-- ============ HERO ============ -->
-  <div class="hero-section" style="position:relative;height:560px;background:#2C478F;overflow:hidden;">
-    <div style="position:relative;max-width:1578px;margin:0 auto;height:100%;">
-      <img src="./assets/hero-exclude.png" alt="核醫專業團隊為患者說明影像診斷" style="position:absolute;left:507px;top:0;width:969px;height:560px;object-fit:cover;max-width:100%;" class="hero-img">
-      <div class="hero-inner" style="position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:center;padding-left:70px;animation:yhFade .8s ease both;">
-        <div style="display:flex;flex-direction:column;gap:38px;max-width:448px;color:#fff;">
-          <div class="hero-eyebrow yh-en" style="font-size:20px;font-weight:800;line-height:1.45;">Precision and Smart Supply for Nuclear Medicine</div>
+  <div class="hero-section">
+    <div class="hero-glow" aria-hidden="true"><div class="hero-glow-inner"></div></div>
+    <div class="hero-art" aria-hidden="true">
+      <img src="./assets/hero-exclude.png" alt="" class="hero-img">
+    </div>
+    <div class="hero-row">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="hero-eyebrow yh-en" style="font-size:20px;font-weight:800;line-height:1.45;max-width:332px;">Precision and Smart Supply for Nuclear Medicine</div>
           <div class="hero-title" style="font-size:36px;line-height:1.22;font-weight:800;">核醫專業顧問，建構安全、<br>高效的核醫藥物生態系</div>
           <div class="hero-cta" style="display:inline-flex;align-items:center;justify-content:center;background:#fff;color:#0C2049;border-radius:999px;width:234px;height:60px;font-size:18px;font-weight:600;cursor:pointer;">了解更多</div>
         </div>
@@ -127,7 +251,7 @@
   </div>
 
   <!-- ============ SERVICES & PRODUCTS ============ -->
-  <div style="max-width:1200px;margin:0 auto;padding:88px 32px 80px;">
+  <div class="services-products-section" style="max-width:1200px;margin:0 auto;padding:88px 32px 80px;">
     <div style="text-align:center;margin-bottom:48px;">
       <div class="yh-en" style="font-size:42px;font-weight:800;color:#143A82;letter-spacing:.01em;">Services &amp; Products</div>
       <div style="display:flex;align-items:center;justify-content:center;gap:18px;margin-top:14px;">
@@ -138,11 +262,7 @@
     </div>
 
     <!-- SERVICES group -->
-    <div style="display:flex;align-items:flex-end;gap:18px;margin-bottom:-1px;position:relative;z-index:2;">
-      <div class="yh-en" style="background:#1F5BB5;color:#fff;font-weight:800;letter-spacing:.08em;font-size:17px;padding:12px 42px 12px 26px;clip-path:polygon(0 0,100% 0,84% 100%,0 100%);border-radius:10px 0 0 0;">SERVICES</div>
-      <div style="font-size:21px;font-weight:800;color:#1C2533;padding-bottom:9px;">我們的服務</div>
-    </div>
-    <div style="border:1px solid #D6E2F4;border-radius:0 16px 16px 16px;background:#fff;display:grid;grid-template-columns:repeat(3,1fr);overflow:hidden; class="sp-grid"">
+    <div class="sp-grid feature-grid" style="border:1px solid #D6E2F4;border-radius:16px;background:#fff;display:grid;grid-template-columns:repeat(3,1fr);overflow:hidden;">
 
       <div class="yh-card sp-card" style="display:flex;gap:20px;padding:34px 30px;cursor:pointer;">
         <div style="width:86px;flex-shrink:0;display:flex;align-items:flex-start;justify-content:center;padding-top:4px;">
@@ -196,11 +316,7 @@
     </div>
 
     <!-- PRODUCTS group -->
-    <div style="display:flex;align-items:flex-end;gap:18px;margin:42px 0 -1px;position:relative;z-index:2;">
-      <div class="yh-en" style="background:#2B8A4D;color:#fff;font-weight:800;letter-spacing:.08em;font-size:17px;padding:12px 42px 12px 26px;clip-path:polygon(0 0,100% 0,84% 100%,0 100%);border-radius:10px 0 0 0;">PRODUCTS</div>
-      <div style="font-size:21px;font-weight:800;color:#1C2533;padding-bottom:9px;">我們的產品</div>
-    </div>
-    <div style="border:1px solid #CFE6D7;border-radius:0 16px 16px 16px;background:#F4FAF6;display:grid;grid-template-columns:repeat(3,1fr);overflow:hidden; class="sp-grid"">
+    <div class="sp-grid feature-grid" style="border:1px solid #CFE6D7;border-radius:16px;background:#F4FAF6;display:grid;grid-template-columns:repeat(3,1fr);overflow:hidden;margin-top:42px;">
 
       <div class="yh-card sp-card" style="display:flex;gap:20px;padding:34px 30px;cursor:pointer;">
         <div style="width:86px;flex-shrink:0;display:flex;align-items:flex-start;justify-content:center;padding-top:4px;">
@@ -254,20 +370,20 @@
   <div id="yhTimeline" style="position:relative;height:120vh;background:#F7F9FC;">
     <div style="position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;">
       <div style="position:absolute;top:-12%;left:-8%;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(46,114,214,.07),transparent 65%);"></div>
-      <div style="position:relative;max-width:1200px;margin:0 auto;padding:0 32px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+      <div style="position:relative;max-width:1200px;margin:0 auto;padding:90px 32px 0;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
 
         <!-- LEFT -->
         <div>
           <div class="yh-eyebrow" style="margin-bottom:16px;">Milestones</div>
           <div style="font-size:38px;font-weight:800;color:#143A82;line-height:1.25;">四十年的<br>核醫發展歷程</div>
 
-          <div style="display:flex;align-items:stretch;gap:28px;margin-top:64px;min-height:300px;">
-            <div id="yhTlRail" style="position:relative;width:18px;flex:none;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:6px 0;">
-              <div style="position:absolute;top:8px;bottom:8px;left:50%;transform:translateX(-50%);width:2px;background:linear-gradient(#1F5BB5,#9BC0FF);border-radius:2px;"></div>
-              <div data-tick="0" style="position:relative;width:16px;height:16px;border-radius:50%;background:#1F5BB5;border:2px solid #1F5BB5;box-shadow:0 0 0 4px rgba(31,91,181,.12);transition:background .4s,border-color .4s,box-shadow .4s;"></div>
-              <div data-tick="1" style="position:relative;width:14px;height:14px;border-radius:50%;background:#F7F9FC;border:2px solid #9BC0FF;box-shadow:0 0 0 0 rgba(31,91,181,0);transition:background .4s,border-color .4s,box-shadow .4s;"></div>
-              <div data-tick="2" style="position:relative;width:14px;height:14px;border-radius:50%;background:#F7F9FC;border:2px solid #9BC0FF;box-shadow:0 0 0 0 rgba(31,91,181,0);transition:background .4s,border-color .4s,box-shadow .4s;"></div>
-              <div data-tick="3" style="position:relative;width:14px;height:14px;border-radius:50%;background:#F7F9FC;border:2px solid #9BC0FF;box-shadow:0 0 0 0 rgba(31,91,181,0);transition:background .4s,border-color .4s,box-shadow .4s;"></div>
+          <div style="display:flex;align-items:stretch;gap:28px;margin-top:64px;min-height:420px;">
+            <div id="yhTlRail" style="position:relative;width:18px;flex:none;align-self:stretch;">
+              <div style="position:absolute;top:8px;height:259px;left:50%;transform:translateX(-50%);width:2px;background:linear-gradient(#1F5BB5,#9BC0FF);border-radius:2px;"></div>
+              <div data-tick="0" style="position:absolute;top:6px;left:50%;transform:translateX(-50%);width:16px;height:16px;border-radius:50%;background:#1F5BB5;border:2px solid #1F5BB5;box-shadow:0 0 0 4px rgba(31,91,181,.12);transition:background .4s,border-color .4s,box-shadow .4s;"></div>
+              <div data-tick="1" style="position:absolute;top:92px;left:50%;transform:translateX(-50%);width:14px;height:14px;border-radius:50%;background:#F7F9FC;border:2px solid #9BC0FF;box-shadow:0 0 0 0 rgba(31,91,181,0);transition:background .4s,border-color .4s,box-shadow .4s;"></div>
+              <div data-tick="2" style="position:absolute;top:176px;left:50%;transform:translateX(-50%);width:14px;height:14px;border-radius:50%;background:#F7F9FC;border:2px solid #9BC0FF;box-shadow:0 0 0 0 rgba(31,91,181,0);transition:background .4s,border-color .4s,box-shadow .4s;"></div>
+              <div data-tick="3" style="position:absolute;top:260px;left:50%;transform:translateX(-50%);width:14px;height:14px;border-radius:50%;background:#F7F9FC;border:2px solid #9BC0FF;box-shadow:0 0 0 0 rgba(31,91,181,0);transition:background .4s,border-color .4s,box-shadow .4s;"></div>
             </div>
             <div style="flex:1;">
               <div id="yhTlYearWrap" style="position:relative;height:96px;"><div id="yhTlYear" class="yh-stat" style="position:absolute;left:0;top:0;font-size:96px;line-height:1;transition:opacity .5s ease,transform .5s ease;">1984</div></div>
@@ -277,23 +393,26 @@
         </div>
 
         <!-- RIGHT image stage -->
-        <div style="position:relative;height:300px;transform:translateY(-100px);">
-          <div data-stage="0" style="position:absolute;left:0;right:0;top:50%;height:300px;border-radius:18px;overflow:hidden;transform:translateY(-50%) scale(1);opacity:1;z-index:3;transition:transform .6s cubic-bezier(.4,0,.2,1),opacity .6s ease,filter .6s ease;box-shadow:0 38px 74px -36px rgba(14,28,61,.6);">
-            <div style="position:absolute;inset:0;background:linear-gradient(150deg,rgba(46,114,214,.8),rgba(20,58,130,.86) 72%,rgba(14,28,61,.92)),#143A82 url('https://yuanyu.com.tw/wp-content/uploads/2025/11/powerseal3.jpg') center/cover;"></div>
+        <div style="position:relative;height:420px;transform:translateY(0);">
+          <div data-stage="0" style="position:absolute;left:0;right:0;top:50%;height:420px;border-radius:18px;overflow:hidden;transform:translateY(-50%) scale(1);opacity:1;z-index:3;transition:transform .6s cubic-bezier(.4,0,.2,1),opacity .6s ease,filter .6s ease;box-shadow:0 38px 74px -36px rgba(14,28,61,.6);">
+            <div style="position:absolute;inset:0;background:#143A82;overflow:hidden;">
+              <img src="https://yuanyu.com.tw/wp-content/uploads/2025/11/powerseal3.jpg" alt="" style="position:absolute;left:-17.93%;top:-5%;width:135.86%;height:110%;max-width:none;">
+              <div style="position:absolute;inset:0;background:linear-gradient(150deg,rgba(46,114,214,.8),rgba(20,58,130,.86) 72%,rgba(14,28,61,.92));"></div>
+            </div>
             <div style="position:absolute;top:-12%;right:-10%;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(120,170,255,.4),transparent 62%);"></div>
             <div style="position:absolute;left:34px;bottom:34px;color:#fff;"><div class="yh-en" style="font-size:12px;letter-spacing:.14em;opacity:.7;">PHARMACEUTICAL SUPPLY</div><div style="font-size:22px;font-weight:700;margin-top:6px;">導入 FUJIFILM TOYAMA 藥物</div></div>
           </div>
-          <div data-stage="1" style="position:absolute;left:0;right:0;top:50%;height:300px;border-radius:18px;overflow:hidden;transform:translateY(calc(-50% + 250px)) scale(.82);opacity:.26;filter:blur(6px);z-index:2;transition:transform .6s cubic-bezier(.4,0,.2,1),opacity .6s ease,filter .6s ease;box-shadow:0 38px 74px -36px rgba(14,28,61,.6);">
+          <div data-stage="1" style="position:absolute;left:0;right:0;top:50%;height:420px;border-radius:18px;overflow:hidden;transform:translateY(calc(-50% + 340px)) scale(.82);opacity:.26;filter:blur(6px);z-index:2;transition:transform .6s cubic-bezier(.4,0,.2,1),opacity .6s ease,filter .6s ease;box-shadow:0 38px 74px -36px rgba(14,28,61,.6);">
             <div style="position:absolute;inset:0;background:linear-gradient(150deg,rgba(58,130,230,.78),rgba(31,91,181,.84) 70%,rgba(20,58,130,.92)),#1F5BB5 url('https://yuanyu.com.tw/wp-content/uploads/2025/11/THUNDERBEAT.jpg') center/cover;"></div>
             <div style="position:absolute;top:-12%;right:-10%;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(120,170,255,.4),transparent 62%);"></div>
             <div style="position:absolute;left:34px;bottom:34px;color:#fff;"><div class="yh-en" style="font-size:12px;letter-spacing:.14em;opacity:.7;">THERANOSTICS</div><div style="font-size:22px;font-weight:700;margin-top:6px;">ZEVALIN 放射免疫治療</div></div>
           </div>
-          <div data-stage="2" style="position:absolute;left:0;right:0;top:50%;height:300px;border-radius:18px;overflow:hidden;transform:translateY(calc(-50% + 500px)) scale(.82);opacity:0;filter:blur(6px);z-index:1;transition:transform .6s cubic-bezier(.4,0,.2,1),opacity .6s ease,filter .6s ease;box-shadow:0 38px 74px -36px rgba(14,28,61,.6);">
+          <div data-stage="2" style="position:absolute;left:0;right:0;top:50%;height:420px;border-radius:18px;overflow:hidden;transform:translateY(calc(-50% + 680px)) scale(.82);opacity:0;filter:blur(6px);z-index:1;transition:transform .6s cubic-bezier(.4,0,.2,1),opacity .6s ease,filter .6s ease;box-shadow:0 38px 74px -36px rgba(14,28,61,.6);">
             <div style="position:absolute;inset:0;background:linear-gradient(150deg,rgba(31,91,181,.8),rgba(20,58,130,.86) 74%,rgba(11,23,48,.92)),#143A82 url('https://yuanyu.com.tw/wp-content/uploads/2025/10/esg-300_1.jpg') center/cover;"></div>
             <div style="position:absolute;top:-12%;right:-10%;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(120,170,255,.38),transparent 62%);"></div>
             <div style="position:absolute;left:34px;bottom:34px;color:#fff;"><div class="yh-en" style="font-size:12px;letter-spacing:.14em;opacity:.7;">RADIATION SAFETY</div><div style="font-size:22px;font-weight:700;margin-top:6px;">UG-05 注射輔助系統</div></div>
           </div>
-          <div data-stage="3" style="position:absolute;left:0;right:0;top:50%;height:300px;border-radius:18px;overflow:hidden;transform:translateY(calc(-50% + 750px)) scale(.82);opacity:0;filter:blur(6px);z-index:1;transition:transform .6s cubic-bezier(.4,0,.2,1),opacity .6s ease,filter .6s ease;box-shadow:0 38px 74px -36px rgba(14,28,61,.6);">
+          <div data-stage="3" style="position:absolute;left:0;right:0;top:50%;height:420px;border-radius:18px;overflow:hidden;transform:translateY(calc(-50% + 1020px)) scale(.82);opacity:0;filter:blur(6px);z-index:1;transition:transform .6s cubic-bezier(.4,0,.2,1),opacity .6s ease,filter .6s ease;box-shadow:0 38px 74px -36px rgba(14,28,61,.6);">
             <div style="position:absolute;inset:0;background:linear-gradient(150deg,rgba(14,28,61,.86),rgba(20,58,130,.84) 60%,rgba(31,91,181,.8)),#0E1C3D url('https://yuanyu.com.tw/wp-content/uploads/2025/09/Related-Products.jpg') center/cover;"></div>
             <div style="position:absolute;top:-12%;right:-10%;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(120,170,255,.4),transparent 62%);"></div>
             <div style="position:absolute;left:34px;bottom:34px;color:#fff;"><div class="yh-en" style="font-size:12px;letter-spacing:.14em;opacity:.7;">PIC/S GMP CERTIFIED</div><div style="font-size:22px;font-weight:700;margin-top:6px;">可追溯核醫供應鏈</div></div>
@@ -607,7 +726,7 @@
     if (hint) hint.style.opacity = p > 0.04 ? "0" : "1";
 
     var fpos = p * (n - 1);
-    var SP = 250;
+    var SP = 340;
     var stages = root.querySelectorAll("[data-stage]");
     for (var i = 0; i < stages.length; i++) {
       var el = stages[i];
@@ -616,7 +735,7 @@
       var dist = Math.abs(si - idx);
       var scale = 1.1 - 0.28 * Math.min(1, Math.abs(off));
       var opacity = dist === 0 ? 1 : (dist === 1 ? 0.26 : 0);
-      var blur = dist === 0 ? 0 : 11;
+      var blur = dist === 0 ? 0 : 5.5;
       el.style.transition = "none";
       el.style.transform = "translateY(calc(-50% + " + (off * SP).toFixed(2) + "px)) scale(" + scale.toFixed(3) + ")";
       el.style.opacity = opacity.toFixed(3);
