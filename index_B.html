@@ -32,6 +32,13 @@
   .ytab.is-active { background:#143A82; color:#fff; box-shadow:none; }
   .ysvc { transition:transform .3s ease; }
   .ysvc-cell:hover .ysvc { transform:translateY(-4px) scale(1.04); }
+  @keyframes yhSpin { to { transform:rotate(360deg); } }
+  @keyframes yhFloat { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
+  @keyframes yhBlink { 0%,100% { opacity:.25; } 50% { opacity:1; } }
+  .yh-orbit { transform-origin:50% 50%; animation:yhSpin 16s linear infinite; }
+  .ysvc-cell:hover .yh-orbit { animation-duration:6s; }
+  .yh-float { animation:yhFloat 3.6s ease-in-out infinite; transform-origin:50% 50%; }
+  .yh-scan { animation:yhBlink 2.2s ease-in-out infinite; }
 
   /* milestones timeline */
   .yb-ms-num, .yb-ms-desc { position:absolute; left:0; top:0; opacity:0; transition:opacity .5s ease,transform .5s ease; }
@@ -117,7 +124,7 @@
       <!-- SERVICES group -->
       <div style="display:grid;grid-template-columns:repeat(3,1fr);border-radius:40px;background:#fff;box-shadow:inset 0 0 0 1px #D6E2F4;overflow:hidden;">
         <div class="ysvc-cell" style="display:flex;gap:20px;padding:40px 30px;align-items:flex-start;">
-          <div style="width:82px;height:82px;flex-shrink:0;color:#143A82;"><svg class="ysvc" width="82" height="82" viewBox="0 0 64 64" fill="none" stroke="currentColor"><circle cx="32" cy="32" r="6.5" fill="currentColor" stroke="none"/><line x1="20" y1="20" x2="44" y2="44" stroke-width="1.6"/><line x1="44" y1="20" x2="20" y2="44" stroke-width="1.6"/><circle cx="20" cy="20" r="5" stroke-width="2"/><circle cx="44" cy="20" r="5" stroke-width="2"/><circle cx="20" cy="44" r="5" stroke-width="2"/><circle cx="44" cy="44" r="5" stroke-width="2"/></svg></div>
+          <div style="width:82px;height:82px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><svg class="ysvc yh-float" width="70" height="70" viewBox="0 0 80 80" fill="none"><path d="M16 18 C36 30,44 50,64 62" stroke="#2E72D6" stroke-width="2.6" stroke-linecap="round"/><path d="M64 18 C44 30,36 50,16 62" stroke="#143A82" stroke-width="2.6" stroke-linecap="round"/><circle cx="16" cy="18" r="6" fill="#6FA6F2"/><circle cx="64" cy="18" r="6" fill="#143A82"/><circle cx="16" cy="62" r="6" fill="#143A82"/><circle cx="64" cy="62" r="6" fill="#6FA6F2"/></svg></div>
           <div style="display:flex;flex-direction:column;gap:4px;">
             <span style="font-size:21px;font-weight:800;color:#143A82;line-height:1.2;">專業顧問</span>
             <span class="en" style="font-size:13px;font-weight:600;letter-spacing:.04em;color:#2E72D6;">Professional Consulting</span>
@@ -125,7 +132,7 @@
           </div>
         </div>
         <div class="ysvc-cell" style="display:flex;gap:20px;padding:40px 30px;align-items:flex-start;box-shadow:inset 1px 0 0 #E9EEF6,inset -1px 0 0 #E9EEF6;">
-          <div style="width:82px;height:82px;flex-shrink:0;color:#143A82;"><svg class="ysvc" width="82" height="82" viewBox="0 0 64 64" fill="none" stroke="currentColor"><circle cx="32" cy="32" r="5.5" fill="currentColor" stroke="none"/><circle cx="32" cy="13" r="4" fill="currentColor" stroke="none"/><circle cx="48.5" cy="41" r="4" fill="#6FA6F2" stroke="none"/><circle cx="15.5" cy="41" r="4" fill="#6FA6F2" stroke="none"/><line x1="32" y1="32" x2="32" y2="15" stroke-width="1.6"/><line x1="32" y1="32" x2="47" y2="40" stroke-width="1.6"/><line x1="32" y1="32" x2="17" y2="40" stroke-width="1.6"/><circle cx="32" cy="32" r="22" stroke-width="1.4" stroke-dasharray="3 4" opacity=".5"/></svg></div>
+          <div style="width:82px;height:82px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><svg class="ysvc" width="70" height="70" viewBox="0 0 80 80" fill="none"><g class="yh-orbit"><line x1="40" y1="40" x2="66" y2="40" stroke="#6FA6F2" stroke-width="2"/><line x1="40" y1="40" x2="53" y2="62.5" stroke="#6FA6F2" stroke-width="2"/><line x1="40" y1="40" x2="27" y2="62.5" stroke="#6FA6F2" stroke-width="2"/><line x1="40" y1="40" x2="14" y2="40" stroke="#6FA6F2" stroke-width="2"/><line x1="40" y1="40" x2="27" y2="17.5" stroke="#6FA6F2" stroke-width="2"/><line x1="40" y1="40" x2="53" y2="17.5" stroke="#6FA6F2" stroke-width="2"/><circle cx="66" cy="40" r="5" fill="#2E72D6"/><circle cx="53" cy="62.5" r="5" fill="#2E72D6"/><circle cx="27" cy="62.5" r="5" fill="#2E72D6"/><circle cx="14" cy="40" r="5" fill="#2E72D6"/><circle cx="27" cy="17.5" r="5" fill="#2E72D6"/><circle cx="53" cy="17.5" r="5" fill="#2E72D6"/></g><circle cx="40" cy="40" r="8" fill="#143A82"/></svg></div>
           <div style="display:flex;flex-direction:column;gap:4px;">
             <span style="font-size:21px;font-weight:800;color:#143A82;line-height:1.2;">智慧訂藥</span>
             <span class="en" style="font-size:13px;font-weight:600;letter-spacing:.04em;color:#2E72D6;">Smart Ordering</span>
@@ -133,7 +140,7 @@
           </div>
         </div>
         <div class="ysvc-cell" style="display:flex;gap:20px;padding:40px 30px;align-items:flex-start;">
-          <div style="width:82px;height:82px;flex-shrink:0;color:#143A82;"><svg class="ysvc" width="82" height="82" viewBox="0 0 64 64" fill="none" stroke="currentColor"><circle cx="32" cy="32" r="23" stroke-width="1.6" stroke="#BCD3F3"/><circle cx="32" cy="32" r="14.5" stroke-width="1.8" stroke="#6FA6F2"/><circle cx="32" cy="32" r="6.5" fill="currentColor" stroke="none"/><circle cx="50" cy="14" r="3.4" fill="#2E72D6" stroke="none"/><circle cx="40" cy="46" r="2.6" fill="#6FA6F2" stroke="none"/></svg></div>
+          <div style="width:82px;height:82px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><svg class="ysvc" width="70" height="70" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="30" stroke="#BCD3F3" stroke-width="2"/><circle cx="40" cy="40" r="19" stroke="#6FA6F2" stroke-width="2"/><g class="yh-orbit"><circle cx="40" cy="10" r="4.5" fill="#2E72D6"/><circle cx="59" cy="40" r="3.5" fill="#6FA6F2"/></g><circle cx="40" cy="40" r="7" fill="#143A82"/></svg></div>
           <div style="display:flex;flex-direction:column;gap:4px;">
             <span style="font-size:21px;font-weight:800;color:#143A82;line-height:1.2;">輻防教育訓練</span>
             <span class="en" style="font-size:13px;font-weight:600;letter-spacing:.04em;color:#2E72D6;">Radiation Training</span>
@@ -145,21 +152,21 @@
       <!-- PRODUCTS group -->
       <div style="display:grid;grid-template-columns:repeat(3,1fr);border-radius:40px;background:#F4FAF6;box-shadow:inset 0 0 0 1px #CFE6D7;overflow:hidden;">
         <div class="ysvc-cell" style="display:flex;gap:20px;padding:34px 30px;align-items:flex-start;">
-          <div style="width:82px;height:82px;flex-shrink:0;color:#2B8A4D;"><svg class="ysvc" width="82" height="82" viewBox="0 0 64 64" fill="none" stroke="currentColor"><circle cx="32" cy="32" r="5.5" fill="currentColor" stroke="none"/><ellipse cx="32" cy="32" rx="22" ry="9" stroke-width="1.6"/><ellipse cx="32" cy="32" rx="22" ry="9" stroke-width="1.6" transform="rotate(60 32 32)"/><ellipse cx="32" cy="32" rx="22" ry="9" stroke-width="1.6" transform="rotate(120 32 32)"/></svg></div>
+          <div style="width:82px;height:82px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><svg class="ysvc yh-orbit" width="70" height="70" viewBox="0 0 80 80" fill="none"><ellipse cx="40" cy="40" rx="32" ry="13" stroke="#2B8A4D" stroke-width="2.6"/><ellipse cx="40" cy="40" rx="32" ry="13" stroke="#2B8A4D" stroke-width="2.6" transform="rotate(60 40 40)"/><ellipse cx="40" cy="40" rx="32" ry="13" stroke="#2B8A4D" stroke-width="2.6" transform="rotate(120 40 40)"/><circle cx="40" cy="40" r="6.5" fill="#1F6E3B"/></svg></div>
           <div style="display:flex;flex-direction:column;">
             <span class="en" style="font-size:18px;font-weight:800;color:#2B8A4D;line-height:1.3;">Radiopharmaceuticals</span>
             <span style="margin-top:12px;font-size:14px;line-height:1.85;color:#5A6473;">提供高品質核醫藥品，確保醫療品質與安全使用，支援精準核醫診斷。</span>
           </div>
         </div>
         <div class="ysvc-cell" style="display:flex;gap:20px;padding:34px 30px;align-items:flex-start;box-shadow:inset 1px 0 0 #DCEBE1,inset -1px 0 0 #DCEBE1;">
-          <div style="width:82px;height:82px;flex-shrink:0;color:#2B8A4D;"><svg class="ysvc" width="82" height="82" viewBox="0 0 64 64" fill="none" stroke="currentColor"><rect x="11" y="15" width="42" height="29" rx="3" stroke-width="2"/><line x1="26" y1="51" x2="38" y2="51" stroke-width="2"/><line x1="32" y1="44" x2="32" y2="51" stroke-width="2"/><path d="M17 31 L24 31 L27 24 L31 37 L34 28 L37 31 L47 31" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
+          <div style="width:82px;height:82px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><svg class="ysvc" width="70" height="70" viewBox="0 0 80 80" fill="none"><rect x="11" y="15" width="58" height="40" rx="4" stroke="#2B8A4D" stroke-width="2.6"/><path d="M30 67h20M40 55v12" stroke="#2B8A4D" stroke-width="2.6" stroke-linecap="round"/><circle class="yh-scan" cx="27" cy="35" r="4" fill="#2B8A4D"/><path d="M35 28h22M35 36h16M35 44h22" stroke="#7CC295" stroke-width="2.2" stroke-linecap="round"/></svg></div>
           <div style="display:flex;flex-direction:column;">
             <span class="en" style="font-size:18px;font-weight:800;color:#2B8A4D;line-height:1.3;">Radiation Safety Systems</span>
             <span style="margin-top:12px;font-size:14px;line-height:1.85;color:#5A6473;">提供輻射監測與管理系統，即時數據掌握，提升作業安全與合規性。</span>
           </div>
         </div>
         <div class="ysvc-cell" style="display:flex;gap:20px;padding:34px 30px;align-items:flex-start;">
-          <div style="width:82px;height:82px;flex-shrink:0;color:#2B8A4D;"><svg class="ysvc" width="82" height="82" viewBox="0 0 64 64" fill="none" stroke="currentColor"><path d="M32 9 L52 17 V33 C52 45 43 53 32 56 C21 53 12 45 12 33 V17 Z" stroke-width="2" stroke-linejoin="round"/><circle cx="32" cy="28" r="5" stroke-width="2"/><path d="M23 43 C23 37 27 34 32 34 C37 34 41 37 41 43" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <div style="width:82px;height:82px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><svg class="ysvc yh-float" width="70" height="70" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="26" r="12" stroke="#2B8A4D" stroke-width="2.6"/><path d="M33 25h14" stroke="#2B8A4D" stroke-width="2.6" stroke-linecap="round"/><path d="M22 70 C22 50,30 40,40 40 C50 40,58 50,58 70 Z" stroke="#2B8A4D" stroke-width="2.6" stroke-linejoin="round" fill="#D6ECDD"/><path d="M40 48v14" stroke="#7CC295" stroke-width="2.2" stroke-linecap="round"/></svg></div>
           <div style="display:flex;flex-direction:column;">
             <span class="en" style="font-size:18px;font-weight:800;color:#2B8A4D;line-height:1.3;">Radiation Protection</span>
             <span style="margin-top:12px;font-size:14px;line-height:1.85;color:#5A6473;">提供完整輻射防護設備與解決方案，守護人員與環境安全。</span>
