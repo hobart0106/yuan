@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&amp;display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#ecebe8; font-family:'PingFang TC','Microsoft JhengHei','Noto Sans TC',sans-serif; color:#2c2c2c; -webkit-font-smoothing:antialiased; }
+  * { box-sizing:border-box; }
+  .wire-nav-link { color:inherit; text-decoration:none; }
+  .wire-nav-link:hover { color:#2c2c2c; }
+</style>
+</helmet>
+
+<div style="width:1440px;margin:0 auto;background:#ecebe8;padding:34px 0 60px;">
+
+  <!-- title strip -->
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;padding:0 70px 22px;">
+    <div>
+      <div style="font-family:'Caveat',cursive;font-size:21px;color:#3b5bdb;letter-spacing:.04em;">Wireframe · Low-fidelity</div>
+      <div style="font-size:30px;font-weight:700;margin-top:2px;">元新醫藥 子網站 — 文章專區 / 產業洞察</div>
+    </div>
+    <div style="font-family:'Caveat',cursive;font-size:18px;color:#8a8a86;text-align:right;line-height:1.45;">
+      Desktop 1440 · 分類列表 + 文章內頁<br>醫學會資訊 / 核醫關係式 / 核醫白話百科 / 產業洞察
+    </div>
+  </div>
+
+  <!-- ===================== PAGE PAPER — 分類列表頁 ===================== -->
+  <div style="background:#fbfbf9;border:1.5px solid #d8d7d2;border-radius:14px;box-shadow:0 22px 50px -28px rgba(0,0,0,.28);overflow:hidden;margin-bottom:34px;">
+
+    <!-- ---------- 00 NAV ---------- -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 40px;border-bottom:1.5px solid #e3e2dd;background:#f4f3ef;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:40px;height:40px;border-radius:9px;border:1.5px dashed #b9b8b2;background:repeating-linear-gradient(45deg,#ededea,#ededea 7px,#e4e3df 7px,#e4e3df 14px);"></div>
+        <div style="line-height:1.05;"><div style="font-weight:700;font-size:18px;">元新醫藥</div><div style="font-size:11px;color:#9a9994;font-family:'Caveat';letter-spacing:.08em;">YuanHsin</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:26px;font-size:15px;color:#54534f;">
+        <a class="wire-nav-link" href="./wireframe-home.html">首頁</a><a class="wire-nav-link" href="./wireframe-about.html">關於我們</a><a class="wire-nav-link" href="./wireframe-products-services.html">產品與服務</a><a class="wire-nav-link" style="font-weight:700;color:#2c2c2c;" href="./wireframe-articles.html">文章專區</a><a class="wire-nav-link" href="./wireframe-radiation-training.html">輻防訓練</a><a class="wire-nav-link" href="./wireframe-contact.html">聯絡我們</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div style="display:flex;align-items:center;gap:8px;border:1.5px solid #d4d3cc;border-radius:999px;padding:8px 16px;font-size:13px;color:#9a9994;">SEARCH ⌕</div>
+        <span style="font-size:13px;color:#9a9994;">中 / EN</span>
+      </div>
+    </div>
+
+    <div style="padding:16px 40px 0;font-size:13px;color:#9a9994;">首頁 <span style="margin:0 6px;">›</span> <span style="color:#54534f;font-weight:600;">文章專區</span></div>
+
+    <!-- ---------- 01 頁首 + 分類 Tabs ---------- -->
+    <div style="padding:20px 40px 8px;">
+      
+      <div style="font-size:32px;font-weight:700;margin-bottom:20px;">文章專區 <span style="font-size:16px;color:#9a9994;font-family:'Caveat';">Articles &amp; Insights</span></div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;">
+        <div style="background:#2c2c2c;color:#fff;border-radius:999px;padding:9px 20px;font-size:14px;">全部</div>
+        <div style="border:1.5px solid #ccc;border-radius:999px;padding:9px 20px;font-size:14px;color:#54534f;">醫學會資訊</div>
+        <div style="border:1.5px solid #ccc;border-radius:999px;padding:9px 20px;font-size:14px;color:#54534f;">核醫關係式</div>
+        <div style="border:1.5px solid #ccc;border-radius:999px;padding:9px 20px;font-size:14px;color:#54534f;">核醫白話百科</div>
+        <div style="border:1.5px solid #ccc;border-radius:999px;padding:9px 20px;font-size:14px;color:#54534f;">產業洞察文章</div>
+      </div>
+      <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ true }}">
+        
+      </sc-if>
+    </div>
+
+    <div style="height:1px;background:#e6e5df;margin:0 40px;"></div>
+
+    <!-- ---------- 02 文章列表 + 側邊欄 ---------- -->
+    <div style="padding:36px 40px 44px;">
+      
+      <div style="display:grid;grid-template-columns:1fr 300px;gap:36px;">
+        <!-- list -->
+        <div style="display:flex;flex-direction:column;gap:22px;">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;">
+            <div style="border:1.5px solid #ddddd6;border-radius:13px;background:#fff;overflow:hidden;display:flex;flex-direction:column;">
+              <div style="height:150px;border-bottom:1.5px solid #ddddd6;background:repeating-linear-gradient(45deg,#efeeea,#efeeea 11px,#e7e6e1 11px,#e7e6e1 22px);display:flex;align-items:center;justify-content:center;color:#a9a8a2;font-size:12px;">縮圖</div>
+              <div style="padding:16px;display:flex;flex-direction:column;gap:9px;">
+                <div style="font-size:12px;color:#3b5bdb;font-family:'Caveat';">2026.06 · 產業洞察文章</div>
+                <div style="height:14px;background:#e6e5df;border-radius:99px;width:92%;"></div>
+                <div style="height:11px;background:#eceae3;border-radius:99px;width:70%;"></div>
+              </div>
+            </div>
+            <div style="border:1.5px solid #ddddd6;border-radius:13px;background:#fff;overflow:hidden;display:flex;flex-direction:column;">
+              <div style="height:150px;border-bottom:1.5px solid #ddddd6;background:repeating-linear-gradient(45deg,#efeeea,#efeeea 11px,#e7e6e1 11px,#e7e6e1 22px);display:flex;align-items:center;justify-content:center;color:#a9a8a2;font-size:12px;">縮圖</div>
+              <div style="padding:16px;display:flex;flex-direction:column;gap:9px;">
+                <div style="font-size:12px;color:#3b5bdb;font-family:'Caveat';">2026.05 · 核醫白話百科</div>
+                <div style="height:14px;background:#e6e5df;border-radius:99px;width:84%;"></div>
+                <div style="height:11px;background:#eceae3;border-radius:99px;width:60%;"></div>
+              </div>
+            </div>
+            <div style="border:1.5px solid #ddddd6;border-radius:13px;background:#fff;overflow:hidden;display:flex;flex-direction:column;">
+              <div style="height:150px;border-bottom:1.5px solid #ddddd6;background:repeating-linear-gradient(45deg,#efeeea,#efeeea 11px,#e7e6e1 11px,#e7e6e1 22px);display:flex;align-items:center;justify-content:center;color:#a9a8a2;font-size:12px;">縮圖</div>
+              <div style="padding:16px;display:flex;flex-direction:column;gap:9px;">
+                <div style="font-size:12px;color:#3b5bdb;font-family:'Caveat';">2026.05 · 醫學會資訊</div>
+                <div style="height:14px;background:#e6e5df;border-radius:99px;width:96%;"></div>
+                <div style="height:11px;background:#eceae3;border-radius:99px;width:66%;"></div>
+              </div>
+            </div>
+            <div style="border:1.5px solid #ddddd6;border-radius:13px;background:#fff;overflow:hidden;display:flex;flex-direction:column;">
+              <div style="height:150px;border-bottom:1.5px solid #ddddd6;background:repeating-linear-gradient(45deg,#efeeea,#efeeea 11px,#e7e6e1 11px,#e7e6e1 22px);display:flex;align-items:center;justify-content:center;color:#a9a8a2;font-size:12px;">縮圖</div>
+              <div style="padding:16px;display:flex;flex-direction:column;gap:9px;">
+                <div style="font-size:12px;color:#3b5bdb;font-family:'Caveat';">2026.04 · 核醫關係式</div>
+                <div style="height:14px;background:#e6e5df;border-radius:99px;width:80%;"></div>
+                <div style="height:11px;background:#eceae3;border-radius:99px;width:64%;"></div>
+              </div>
+            </div>
+            <div style="border:1.5px solid #ddddd6;border-radius:13px;background:#fff;overflow:hidden;display:flex;flex-direction:column;">
+              <div style="height:150px;border-bottom:1.5px solid #ddddd6;background:repeating-linear-gradient(45deg,#efeeea,#efeeea 11px,#e7e6e1 11px,#e7e6e1 22px);display:flex;align-items:center;justify-content:center;color:#a9a8a2;font-size:12px;">縮圖</div>
+              <div style="padding:16px;display:flex;flex-direction:column;gap:9px;">
+                <div style="font-size:12px;color:#3b5bdb;font-family:'Caveat';">2026.04 · 產業洞察文章</div>
+                <div style="height:14px;background:#e6e5df;border-radius:99px;width:88%;"></div>
+                <div style="height:11px;background:#eceae3;border-radius:99px;width:58%;"></div>
+              </div>
+            </div>
+            <div style="border:1.5px solid #ddddd6;border-radius:13px;background:#fff;overflow:hidden;display:flex;flex-direction:column;">
+              <div style="height:150px;border-bottom:1.5px solid #ddddd6;background:repeating-linear-gradient(45deg,#efeeea,#efeeea 11px,#e7e6e1 11px,#e7e6e1 22px);display:flex;align-items:center;justify-content:center;color:#a9a8a2;font-size:12px;">縮圖</div>
+              <div style="padding:16px;display:flex;flex-direction:column;gap:9px;">
+                <div style="font-size:12px;color:#3b5bdb;font-family:'Caveat';">2026.03 · 核醫白話百科</div>
+                <div style="height:14px;background:#e6e5df;border-radius:99px;width:90%;"></div>
+                <div style="height:11px;background:#eceae3;border-radius:99px;width:70%;"></div>
+              </div>
+            </div>
+          </div>
+          <!-- pagination -->
+          <div style="display:flex;justify-content:center;gap:8px;margin-top:8px;">
+            <div style="width:34px;height:34px;border-radius:8px;background:#2c2c2c;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;">1</div>
+            <div style="width:34px;height:34px;border-radius:8px;border:1.5px solid #ddddd6;display:flex;align-items:center;justify-content:center;font-size:13px;color:#54534f;">2</div>
+            <div style="width:34px;height:34px;border-radius:8px;border:1.5px solid #ddddd6;display:flex;align-items:center;justify-content:center;font-size:13px;color:#54534f;">3</div>
+            <div style="width:34px;height:34px;border-radius:8px;border:1.5px solid #ddddd6;display:flex;align-items:center;justify-content:center;font-size:13px;color:#54534f;">›</div>
+          </div>
+        </div>
+        <!-- sidebar -->
+        <div style="display:flex;flex-direction:column;gap:24px;">
+          <div style="border:1.5px solid #ddddd6;border-radius:13px;background:#fff;padding:20px;">
+            <div style="font-size:15px;font-weight:700;margin-bottom:14px;">熱門文章</div>
+            <div style="display:flex;flex-direction:column;gap:14px;">
+              <div style="height:11px;background:#e6e5df;border-radius:99px;width:95%;"></div>
+              <div style="height:11px;background:#e6e5df;border-radius:99px;width:80%;"></div>
+              <div style="height:11px;background:#e6e5df;border-radius:99px;width:88%;"></div>
+            </div>
+          </div>
+          <div style="border:1.5px solid #ddddd6;border-radius:13px;background:#fff;padding:20px;">
+            <div style="font-size:15px;font-weight:700;margin-bottom:14px;">分類清單</div>
+            <div style="display:flex;flex-direction:column;gap:11px;font-size:13.5px;color:#54534f;">
+              <div>醫學會資訊 (12)</div><div>核醫關係式 (8)</div><div>核醫白話百科 (15)</div><div>產業洞察文章 (21)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- FOOTER ---------- -->
+    <div style="padding:30px 40px;background:#1f1f1f;color:#9a9994;display:flex;align-items:center;justify-content:space-between;font-size:13px;">
+      <div style="display:flex;align-items:center;gap:10px;"><div style="width:30px;height:30px;border-radius:7px;border:1.5px dashed #5a5a5a;"></div><span>元新醫藥 YuanHsin · Nuclear Medicine</span></div>
+      <div>© 2026 元新醫藥. All rights reserved.</div>
+    </div>
+  </div>
+  <!-- ===================== /PAGE PAPER 分類列表頁 ===================== -->
+
+  <div style="text-align:center;font-family:'Caveat';font-size:20px;color:#8a8a86;margin:12px 0 30px;">↓ 文章內頁 · Article Detail ↓</div>
+
+  <!-- ===================== PAGE PAPER — 文章內頁 ===================== -->
+  <div style="background:#fbfbf9;border:1.5px solid #d8d7d2;border-radius:14px;box-shadow:0 22px 50px -28px rgba(0,0,0,.28);overflow:hidden;">
+
+    <!-- ---------- 00 NAV (同上，略) ---------- -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 40px;border-bottom:1.5px solid #e3e2dd;background:#f4f3ef;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:40px;height:40px;border-radius:9px;border:1.5px dashed #b9b8b2;background:repeating-linear-gradient(45deg,#ededea,#ededea 7px,#e4e3df 7px,#e4e3df 14px);"></div>
+        <div style="line-height:1.05;"><div style="font-weight:700;font-size:18px;">元新醫藥</div><div style="font-size:11px;color:#9a9994;font-family:'Caveat';letter-spacing:.08em;">YuanHsin</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:26px;font-size:15px;color:#54534f;">
+        <a class="wire-nav-link" href="./wireframe-home.html">首頁</a><a class="wire-nav-link" href="./wireframe-about.html">關於我們</a><a class="wire-nav-link" href="./wireframe-products-services.html">產品與服務</a><a class="wire-nav-link" style="font-weight:700;color:#2c2c2c;" href="./wireframe-articles.html">文章專區</a><a class="wire-nav-link" href="./wireframe-radiation-training.html">輻防訓練</a><a class="wire-nav-link" href="./wireframe-contact.html">聯絡我們</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div style="display:flex;align-items:center;gap:8px;border:1.5px solid #d4d3cc;border-radius:999px;padding:8px 16px;font-size:13px;color:#9a9994;">SEARCH ⌕</div>
+        <span style="font-size:13px;color:#9a9994;">中 / EN</span>
+      </div>
+    </div>
+    <div style="padding:16px 40px 0;font-size:13px;color:#9a9994;">首頁 <span style="margin:0 6px;">›</span> 文章專區 <span style="margin:0 6px;">›</span> <span style="color:#54534f;font-weight:600;">產業洞察文章</span></div>
+
+    <!-- ---------- 03 標題區 ---------- -->
+    <div style="padding:22px 40px 8px;">
+      
+      
+      <div style="font-size:34px;font-weight:700;line-height:1.4;max-width:900px;">從 PET/CT 到 theranostics：核醫診療合一的下一個十年</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;">
+        <div style="font-size:13.5px;color:#9a9994;">2026.06.20 · 元新醫藥編輯團隊</div>
+        <div style="display:flex;gap:10px;">
+          <div style="width:34px;height:34px;border-radius:50%;border:1.5px dashed #bdbcb6;display:flex;align-items:center;justify-content:center;color:#a9a8a2;font-size:13px;">FB</div>
+          <div style="width:34px;height:34px;border-radius:50%;border:1.5px dashed #bdbcb6;display:flex;align-items:center;justify-content:center;color:#a9a8a2;font-size:13px;">Li</div>
+          <div style="width:34px;height:34px;border-radius:50%;border:1.5px dashed #bdbcb6;display:flex;align-items:center;justify-content:center;color:#a9a8a2;font-size:13px;">🔗</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:1px;background:#e6e5df;margin:20px 40px 0;"></div>
+
+    <!-- ---------- 04 主體：內文 + 側欄 ---------- -->
+    <div style="padding:30px 40px 44px;">
+      
+      <div style="display:grid;grid-template-columns:1fr 300px;gap:36px;">
+        <div>
+          <div style="height:300px;border:1.5px dashed #c2c1bb;border-radius:13px;background:repeating-linear-gradient(45deg,#efeeea,#efeeea 11px,#e7e6e1 11px,#e7e6e1 22px);display:flex;align-items:center;justify-content:center;color:#a9a8a2;margin-bottom:24px;">內文首圖</div>
+          <div style="display:flex;flex-direction:column;gap:11px;">
+            <div style="height:12px;background:#e6e5df;border-radius:99px;width:100%;"></div>
+            <div style="height:12px;background:#e6e5df;border-radius:99px;width:96%;"></div>
+            <div style="height:12px;background:#e6e5df;border-radius:99px;width:88%;"></div>
+            <div style="height:12px;background:#e6e5df;border-radius:99px;width:92%;"></div>
+            <div style="height:12px;background:#e6e5df;border-radius:99px;width:60%;"></div>
+          </div>
+
+          <!-- 相關商品連結 -->
+          <div style="margin-top:30px;border:1.5px solid #ddddd6;border-radius:13px;padding:22px;background:#f4f3ef;">
+            <div style="font-size:15px;font-weight:700;margin-bottom:14px;">相關商品連結</div>
+            <div style="display:flex;gap:14px;">
+              <div style="flex:1;border:1.5px solid #ddddd6;border-radius:10px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:8px;">
+                <div style="height:50px;border:1.5px dashed #cfcec8;border-radius:7px;background:repeating-linear-gradient(45deg,#efeeea,#efeeea 8px,#e7e6e1 8px,#e7e6e1 16px);"></div>
+                <div style="height:9px;background:#e6e5df;border-radius:99px;width:80%;"></div>
+              </div>
+              <div style="flex:1;border:1.5px solid #ddddd6;border-radius:10px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:8px;">
+                <div style="height:50px;border:1.5px dashed #cfcec8;border-radius:7px;background:repeating-linear-gradient(45deg,#efeeea,#efeeea 8px,#e7e6e1 8px,#e7e6e1 16px);"></div>
+                <div style="height:9px;background:#e6e5df;border-radius:99px;width:70%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 聯繫相關按鈕 -->
+          <div style="margin-top:24px;display:flex;gap:14px;">
+            <div style="border:1.5px solid #2c2c2c;border-radius:999px;padding:12px 26px;font-size:14px;font-weight:700;">聯繫相關業務 →</div>
+            <div style="border:1.5px solid #ccc;border-radius:999px;padding:12px 26px;font-size:14px;color:#54534f;">查看更多文章</div>
+          </div>
+        </div>
+
+        <!-- sidebar -->
+        <div style="display:flex;flex-direction:column;gap:24px;">
+          <div style="border:1.5px solid #ddddd6;border-radius:13px;background:#fff;padding:20px;">
+            <div style="font-size:15px;font-weight:700;margin-bottom:14px;">其他連結</div>
+            <div style="display:flex;flex-direction:column;gap:11px;font-size:13.5px;color:#54534f;">
+              <div>相關文章 A</div><div>相關文章 B</div><div>相關文章 C</div>
+            </div>
+          </div>
+          <!-- 聯繫表單 -->
+          <div style="border:1.5px solid #ddddd6;border-radius:13px;background:#f4f3ef;padding:20px;">
+            <div style="font-size:15px;font-weight:700;margin-bottom:6px;">聯繫表單</div>
+            <div style="font-size:12px;color:#9a9994;font-family:'Caveat';margin-bottom:14px;">對本文有疑問？留下訊息</div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="height:38px;border:1.5px solid #d4d3cc;border-radius:8px;background:#fff;"></div>
+              <div style="height:38px;border:1.5px solid #d4d3cc;border-radius:8px;background:#fff;"></div>
+              <div style="height:70px;border:1.5px solid #d4d3cc;border-radius:8px;background:#fff;"></div>
+              <div style="height:38px;border:1.5px solid #2c2c2c;border-radius:8px;background:#2c2c2c;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:700;">送出</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ true }}">
+        
+      </sc-if>
+    </div>
+
+    <!-- ---------- FOOTER ---------- -->
+    <div style="padding:30px 40px;background:#1f1f1f;color:#9a9994;display:flex;align-items:center;justify-content:space-between;font-size:13px;">
+      <div style="display:flex;align-items:center;gap:10px;"><div style="width:30px;height:30px;border-radius:7px;border:1.5px dashed #5a5a5a;"></div><span>元新醫藥 YuanHsin · Nuclear Medicine</span></div>
+      <div>© 2026 元新醫藥. All rights reserved.</div>
+    </div>
+  </div>
+  <!-- ===================== /PAGE PAPER 文章內頁 ===================== -->
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1440, &quot;height&quot;: 900 },
+  &quot;showAnnotations&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; }
+}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      showAnnotations: this.props.showAnnotations ?? true,
+    };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&amp;display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#ecebe8; font-family:'PingFang TC','Microsoft JhengHei','Noto Sans TC',sans-serif; color:#2c2c2c; -webkit-font-smoothing:antialiased; }
+  * { box-sizing:border-box; }
+  .wire-nav-link { color:inherit; text-decoration:none; }
+  .wire-nav-link:hover { color:#2c2c2c; }
+</style>
+</helmet>
+
+<div style="width:1440px;margin:0 auto;background:#ecebe8;padding:34px 0 60px;">
+
+  <!-- title strip -->
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;padding:0 70px 22px;">
+    <div>
+      <div style="font-family:'Caveat',cursive;font-size:21px;color:#3b5bdb;letter-spacing:.04em;">Wireframe · Low-fidelity</div>
+      <div style="font-size:30px;font-weight:700;margin-top:2px;">元新醫藥 子網站 — 關於我們</div>
+    </div>
+    <div style="font-family:'Caveat',cursive;font-size:18px;color:#8a8a86;text-align:right;line-height:1.45;">
+      Desktop 1440 · 共 4 區塊<br>元新歷史與現況 / 關鍵數據 / ISO認證
+    </div>
+  </div>
+
+  <!-- ===================== PAGE PAPER ===================== -->
+  <div style="background:#fbfbf9;border:1.5px solid #d8d7d2;border-radius:14px;box-shadow:0 22px 50px -28px rgba(0,0,0,.28);overflow:hidden;">
+
+    <!-- ---------- 00 NAV ---------- -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 40px;border-bottom:1.5px solid #e3e2dd;background:#f4f3ef;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:40px;height:40px;border-radius:9px;border:1.5px dashed #b9b8b2;background:repeating-linear-gradient(45deg,#ededea,#ededea 7px,#e4e3df 7px,#e4e3df 14px);"></div>
+        <div style="line-height:1.05;"><div style="font-weight:700;font-size:18px;">元新醫藥</div><div style="font-size:11px;color:#9a9994;font-family:'Caveat';letter-spacing:.08em;">YuanHsin</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:26px;font-size:15px;color:#54534f;">
+        <a class="wire-nav-link" href="./wireframe-home.html">首頁</a><a class="wire-nav-link" style="font-weight:700;color:#2c2c2c;" href="./wireframe-about.html">關於我們</a><a class="wire-nav-link" href="./wireframe-products-services.html">產品與服務</a><a class="wire-nav-link" href="./wireframe-articles.html">文章專區</a><a class="wire-nav-link" href="./wireframe-radiation-training.html">輻防訓練</a><a class="wire-nav-link" href="./wireframe-contact.html">聯絡我們</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div style="display:flex;align-items:center;gap:8px;border:1.5px solid #d4d3cc;border-radius:999px;padding:8px 16px;font-size:13px;color:#9a9994;">SEARCH ⌕</div>
+        <span style="font-size:13px;color:#9a9994;">中 / EN</span>
+      </div>
+    </div>
+
+    <!-- breadcrumb -->
+    <div style="padding:16px 40px 0;font-size:13px;color:#9a9994;">首頁 <span style="margin:0 6px;">›</span> <span style="color:#54534f;font-weight:600;">關於我們</span></div>
+
+    <!-- ---------- 01 HERO ---------- -->
+    <div style="padding:20px 40px 40px;">
+      
+      <div style="display:grid;grid-template-columns:1.05fr 1fr;gap:0;border:1.5px dashed #c2c1bb;border-radius:14px;overflow:hidden;height:320px;">
+        <div style="display:flex;flex-direction:column;justify-content:center;padding:0 48px;background:#f4f3ef;">
+          <div style="font-family:'Caveat';font-size:16px;color:#3b5bdb;letter-spacing:.04em;margin-bottom:12px;">About Us</div>
+          <div style="font-size:38px;font-weight:700;line-height:1.25;">關於元新醫藥</div>
+          <div style="height:9px;background:#e6e5df;border-radius:99px;width:90%;margin-top:22px;"></div>
+          <div style="height:9px;background:#e6e5df;border-radius:99px;width:70%;margin-top:10px;"></div>
+        </div>
+        <div style="position:relative;background:repeating-linear-gradient(45deg,#dcdcd7,#dcdcd7 13px,#d2d2cd 13px,#d2d2cd 26px);display:flex;align-items:center;justify-content:center;color:#9b9a94;font-size:18px;">
+          <div style="text-align:center;"><div style="font-size:36px;margin-bottom:6px;">▦</div>核醫團隊 / 廠房照片</div>
+        </div>
+      </div>
+      <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ true }}">
+        <div style="display:inline-flex;align-items:center;gap:7px;border:1.5px dashed #3b5bdb;color:#3b5bdb;background:#eef1fd;border-radius:999px;padding:6px 14px;font-family:'Caveat';font-size:16px;margin-top:14px;">✎ 左文右圖分割式主視覺，延續首頁配色</div>
+      </sc-if>
+    </div>
+
+    <div style="height:1px;background:#e6e5df;margin:0 40px;"></div>
+
+    <!-- ---------- 02 元新歷史與現況 ---------- -->
+    <div style="padding:36px 40px 44px;">
+      
+      <div style="font-size:26px;font-weight:700;margin-bottom:20px;">關於元新</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;margin-bottom:26px;">
+        <div style="height:260px;border:1.5px dashed #c2c1bb;border-radius:13px;background:repeating-linear-gradient(45deg,#efeeea,#efeeea 11px,#e7e6e1 11px,#e7e6e1 22px);display:flex;align-items:center;justify-content:center;color:#a9a8a2;">歷史照片 / 廠區</div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="font-size:15px;line-height:1.95;color:#3f3f3f;">元新儀器股份有限公司前身隸屬於元英企業股份有限公司，主要進口核醫造影診斷用藥物。自 1984 年起，承蒙各大醫院核子醫學部門持續使用自日本 FUJIFILM TOYAMA CHEMICAL CO. LTD.（前身為 DAIICHI RADIOISOTOPE LABS., LTD.）進口的放射性藥物，用於心臟、骨骼等造影診，從而作為協助臨床醫生在後續治療診斷上的影像依據。</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;margin-bottom:26px;">
+        <div style="display:flex;flex-direction:column;gap:12px;order:1;">
+          <div style="font-size:15px;line-height:1.95;color:#3f3f3f;">除了體內造影用藥物外，核子醫學科亦涵蓋臨床檢驗的放射免疫實驗室。元新自 2016 年起代理自匈牙利 IZOTOP 的 RIA 檢驗試劑，提供核子醫學科放射免疫檢驗的多樣選擇。鑒於近年來核醫藥物開始由診斷走向放射免疫治療，元新亦從美國代理進口 ZEVALIN 作為非何杰金氏 B-CELL 淋巴瘤治療藥物。</div>
+        </div>
+        <div style="height:260px;border:1.5px dashed #c2c1bb;border-radius:13px;background:repeating-linear-gradient(45deg,#efeeea,#efeeea 11px,#e7e6e1 11px,#e7e6e1 22px);display:flex;align-items:center;justify-content:center;color:#a9a8a2;order:2;">現況照片 / 產品陳列</div>
+      </div>
+
+      <div style="font-size:15px;line-height:1.95;color:#3f3f3f;max-width:920px;">除核醫藥物領域外，元新亦代理 GAMMA PROBE 定位儀，搭配核醫藥物，用於乳癌外科手術摘除前哨淋巴結的有效確認。</div>
+
+      <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ true }}">
+        
+      </sc-if>
+    </div>
+
+    <div style="height:1px;background:#e6e5df;margin:0 40px;"></div>
+
+    <!-- ---------- 03 關鍵數據 ---------- -->
+    <div style="padding:36px 40px 44px;">
+      
+      <div style="font-size:26px;font-weight:700;margin-bottom:22px;">關鍵數據</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;">
+        <div style="border:1.5px solid #ddddd6;border-radius:13px;padding:26px 20px;background:#fff;text-align:center;">
+          <div style="font-family:'Caveat';font-weight:700;font-size:44px;color:#3b5bdb;">40+</div>
+          <div style="height:10px;background:#e6e5df;border-radius:99px;width:70%;margin:12px auto 0;"></div>
+        </div>
+        <div style="border:1.5px solid #ddddd6;border-radius:13px;padding:26px 20px;background:#fff;text-align:center;">
+          <div style="font-family:'Caveat';font-weight:700;font-size:44px;color:#3b5bdb;">##</div>
+          <div style="height:10px;background:#e6e5df;border-radius:99px;width:70%;margin:12px auto 0;"></div>
+        </div>
+        <div style="border:1.5px solid #ddddd6;border-radius:13px;padding:26px 20px;background:#fff;text-align:center;">
+          <div style="font-family:'Caveat';font-weight:700;font-size:44px;color:#3b5bdb;">##</div>
+          <div style="height:10px;background:#e6e5df;border-radius:99px;width:70%;margin:12px auto 0;"></div>
+        </div>
+        <div style="border:1.5px solid #ddddd6;border-radius:13px;padding:26px 20px;background:#fff;text-align:center;">
+          <div style="font-family:'Caveat';font-weight:700;font-size:44px;color:#3b5bdb;">##</div>
+          <div style="height:10px;background:#e6e5df;border-radius:99px;width:70%;margin:12px auto 0;"></div>
+        </div>
+      </div>
+      <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ true }}">
+        
+      </sc-if>
+    </div>
+
+    <div style="height:1px;background:#e6e5df;margin:0 40px;"></div>
+
+    <!-- ---------- 04 ISO認證 ---------- -->
+    <div style="padding:36px 40px 44px;">
+      
+      <div style="font-size:26px;font-weight:700;margin-bottom:22px;">品質認證</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;">
+        <div style="border:1.5px solid #ddddd6;border-radius:13px;background:#fff;overflow:hidden;">
+          <div style="height:140px;border-bottom:1.5px dashed #cfcec8;background:repeating-linear-gradient(45deg,#efeeea,#efeeea 11px,#e7e6e1 11px,#e7e6e1 22px);display:flex;align-items:center;justify-content:center;color:#a9a8a2;font-size:13px;">證書縮圖</div>
+          <div style="padding:14px 16px 18px;"><div style="height:11px;background:#e6e5df;border-radius:99px;width:85%;"></div></div>
+        </div>
+        <div style="border:1.5px solid #ddddd6;border-radius:13px;background:#fff;overflow:hidden;">
+          <div style="height:140px;border-bottom:1.5px dashed #cfcec8;background:repeating-linear-gradient(45deg,#efeeea,#efeeea 11px,#e7e6e1 11px,#e7e6e1 22px);display:flex;align-items:center;justify-content:center;color:#a9a8a2;font-size:13px;">證書縮圖</div>
+          <div style="padding:14px 16px 18px;"><div style="height:11px;background:#e6e5df;border-radius:99px;width:80%;"></div></div>
+        </div>
+        <div style="border:1.5px solid #ddddd6;border-radius:13px;background:#fff;overflow:hidden;">
+          <div style="height:140px;border-bottom:1.5px dashed #cfcec8;background:repeating-linear-gradient(45deg,#efeeea,#efeeea 11px,#e7e6e1 11px,#e7e6e1 22px);display:flex;align-items:center;justify-content:center;color:#a9a8a2;font-size:13px;">證書縮圖</div>
+          <div style="padding:14px 16px 18px;"><div style="height:11px;background:#e6e5df;border-radius:99px;width:90%;"></div></div>
+        </div>
+        <div style="border:1.5px solid #ddddd6;border-radius:13px;background:#fff;overflow:hidden;">
+          <div style="height:140px;border-bottom:1.5px dashed #cfcec8;background:repeating-linear-gradient(45deg,#efeeea,#efeeea 11px,#e7e6e1 11px,#e7e6e1 22px);display:flex;align-items:center;justify-content:center;color:#a9a8a2;font-size:13px;">證書縮圖</div>
+          <div style="padding:14px 16px 18px;"><div style="height:11px;background:#e6e5df;border-radius:99px;width:75%;"></div></div>
+        </div>
+      </div>
+      <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ true }}">
+        
+      </sc-if>
+    </div>
+
+    <!-- ---------- FOOTER ---------- -->
+    <div style="padding:30px 40px;background:#1f1f1f;color:#9a9994;display:flex;align-items:center;justify-content:space-between;font-size:13px;">
+      <div style="display:flex;align-items:center;gap:10px;"><div style="width:30px;height:30px;border-radius:7px;border:1.5px dashed #5a5a5a;"></div><span>元新醫藥 YuanHsin · Nuclear Medicine</span></div>
+      <div>© 2026 元新醫藥. All rights reserved.</div>
+    </div>
+
+  </div>
+  <!-- ===================== /PAGE PAPER ===================== -->
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1440, &quot;height&quot;: 900 },
+  &quot;showAnnotations&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; }
+}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      showAnnotations: this.props.showAnnotations ?? true,
+    };
+  }
+}
+
+</script>
+</body>
+</html>
