@@ -19,6 +19,8 @@
   .yh-link { transition:color .2s ease,opacity .2s ease; }
   .yh-link:hover { color:#2E72D6; }
   .yh-svc:hover .yh-svc-title { color:#2E72D6; }
+  .yh-svc-arrow { display:inline-block; transition:transform .25s ease; }
+  .yh-svc:hover .yh-svc-arrow { transform:translateX(5px); }
   @keyframes yhFade { from{opacity:0;transform:translateY(14px);} to{opacity:1;transform:none;} }
   @keyframes yhSpin { to { transform:rotate(360deg); } }
   @keyframes yhFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
@@ -40,12 +42,12 @@
   }
   @media (max-width:900px) {
     .yh-grid3 { grid-template-columns:repeat(2,1fr) !important; }
-    .yh-ms-grid { grid-template-columns:1fr !important; gap:18px !important; }
-    .yh-ms-grid > div:nth-child(1) { order:1; } .yh-ms-grid > div:nth-child(2) { order:2; }
-    .yh-ms-grid > div:nth-child(3) { order:4; } .yh-ms-grid > div:nth-child(4) { order:3; }
-    .yh-ms-grid > div:nth-child(5) { order:5; } .yh-ms-grid > div:nth-child(6) { order:6; }
-    .yh-ms-grid > div:nth-child(7) { order:8; } .yh-ms-grid > div:nth-child(8) { order:7; }
-    .yh-nlgrid { grid-template-columns:1fr !important; gap:40px !important; }
+    .yh-ms-flex { flex-direction:column !important; gap:32px !important; }
+    .yh-ms-pic { flex:1 1 auto !important; height:280px !important; }
+    .yh-ms-list { gap:28px !important; }
+    .yh-tc-card { flex-direction:column !important; }
+    .yh-tc-pic { min-height:240px !important; }
+    .yh-tc-body { padding:32px !important; }
     .yh-cta-grid { grid-template-columns:1fr !important; }
     .yh-cta { height:220px !important; }
   }
@@ -71,7 +73,8 @@
     .yh-grid5 { grid-template-columns:repeat(2,1fr) !important; }
     .yh-stat { font-size:56px !important; }
     .yh-ms-pic { height:220px !important; }
-    .yh-ms-txt { padding:6px 4px !important; }
+    .yh-ms-list { gap:24px !important; }
+    .yh-tc-body { padding:26px !important; }
     .yh-foot { grid-template-columns:1fr 1fr !important; gap:32px !important; }
     .yh-foot > div:first-child { grid-column:1 / -1; }
     .yh-foot-btm { flex-direction:column !important; align-items:flex-start !important; gap:10px !important; }
@@ -166,7 +169,7 @@
           </svg>
         </div>
         <div>
-          <div class="yh-svc-title" style="font-size:21px;font-weight:800;color:#143A82;transition:color .2s;">專業顧問</div>
+          <div class="yh-svc-title" style="font-size:21px;font-weight:800;color:#143A82;transition:color .2s;display:flex;align-items:center;gap:6px;">專業顧問<svg class="yh-svc-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="yh-en" style="font-size:14px;font-weight:600;color:#2E72D6;margin-top:3px;">Professional Consulting</div>
           <div style="font-size:14.5px;line-height:1.85;color:#5A6473;margin-top:14px;">整合專業知識與法規要求，提供客製化的輻射安全規劃與諮詢服務。</div>
         </div>
@@ -184,7 +187,7 @@
           </svg>
         </div>
         <div>
-          <div class="yh-svc-title" style="font-size:21px;font-weight:800;color:#143A82;transition:color .2s;">智慧訂藥</div>
+          <div class="yh-svc-title" style="font-size:21px;font-weight:800;color:#143A82;transition:color .2s;display:flex;align-items:center;gap:6px;">智慧訂藥<svg class="yh-svc-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="yh-en" style="font-size:14px;font-weight:600;color:#2E72D6;margin-top:3px;">Smart Ordering</div>
           <div style="font-size:14.5px;line-height:1.85;color:#5A6473;margin-top:14px;">運用數位化平台串聯供應鏈，優化核醫藥品訂購、庫存與配送流程。</div>
         </div>
@@ -201,7 +204,7 @@
           </svg>
         </div>
         <div>
-          <div class="yh-svc-title" style="font-size:21px;font-weight:800;color:#143A82;transition:color .2s;">輻防教育訓練</div>
+          <div class="yh-svc-title" style="font-size:21px;font-weight:800;color:#143A82;transition:color .2s;display:flex;align-items:center;gap:6px;">輻防教育訓練<svg class="yh-svc-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="yh-en" style="font-size:14px;font-weight:600;color:#2E72D6;margin-top:3px;">Radiation Training</div>
           <div style="font-size:14.5px;line-height:1.85;color:#5A6473;margin-top:14px;">透過專業課程與實務訓練，提升輻射安全意識，將知識向外擴散。</div>
         </div>
@@ -218,7 +221,7 @@
           </svg>
         </div>
         <div>
-          <div class="yh-svc-title yh-en" style="font-size:18px;font-weight:800;color:#2B8A4D;line-height:1.3;transition:color .2s;">Radiopharmaceuticals</div>
+          <div class="yh-svc-title yh-en" style="font-size:18px;font-weight:800;color:#2B8A4D;line-height:1.3;transition:color .2s;display:flex;align-items:center;gap:6px;">Radiopharmaceuticals<svg class="yh-svc-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div style="font-size:14.5px;line-height:1.85;color:#5A6473;margin-top:14px;">提供高品質核醫藥品，確保醫療品質與安全使用，支援精準核醫診斷。</div>
         </div>
       </div>
@@ -234,7 +237,7 @@
           </svg>
         </div>
         <div>
-          <div class="yh-svc-title yh-en" style="font-size:18px;font-weight:800;color:#2B8A4D;line-height:1.3;transition:color .2s;">Radiation Safety Systems</div>
+          <div class="yh-svc-title yh-en" style="font-size:18px;font-weight:800;color:#2B8A4D;line-height:1.3;transition:color .2s;display:flex;align-items:center;gap:6px;">Radiation Safety Systems<svg class="yh-svc-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div style="font-size:14.5px;line-height:1.85;color:#5A6473;margin-top:14px;">提供輻射監測與管理系統，即時數據掌握，提升作業安全與合規性。</div>
         </div>
       </div>
@@ -250,7 +253,7 @@
           </svg>
         </div>
         <div>
-          <div class="yh-svc-title yh-en" style="font-size:18px;font-weight:800;color:#2B8A4D;line-height:1.3;transition:color .2s;">Radiation Protection</div>
+          <div class="yh-svc-title yh-en" style="font-size:18px;font-weight:800;color:#2B8A4D;line-height:1.3;transition:color .2s;display:flex;align-items:center;gap:6px;">Radiation Protection<svg class="yh-svc-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div style="font-size:14.5px;line-height:1.85;color:#5A6473;margin-top:14px;">提供完整輻射防護設備與解決方案，守護人員與環境安全。</div>
         </div>
       </div>
@@ -266,46 +269,31 @@
         <div style="font-size:18px;font-weight:600;color:#5A6473;margin-top:14px;">四十年的核醫發展歷程</div>
       </div>
 
-      <div class="yh-ms-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:30px;max-width:1320px;margin:0 auto;">
+      <div class="yh-ms-flex" style="display:flex;gap:64px;align-items:stretch;">
 
-        <!-- 1984 text -->
-        <div class="yh-ms-txt" style="display:flex;flex-direction:column;justify-content:center;padding:18px 30px;">
-          <div class="yh-stat" style="font-size:80px;">1984</div>
-          <div style="font-size:15.5px;line-height:1.9;color:#5A6473;margin-top:20px;max-width:430px;">配合各大醫院核醫部門導入日本 FUJIFILM TOYAMA 藥物，於心臟與骨骼造影提供關鍵診斷依據。</div>
-        </div>
-        <!-- 1984 image -->
-        <div class="yh-ms-pic" style="height:340px;border-radius:18px;overflow:hidden;">
-          <img src="./assets/P/p1.png" alt="1984 里程碑" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <!-- milestone image -->
+        <div class="yh-ms-pic" style="flex:0 0 44%;border-radius:20px;overflow:hidden;">
+          <img src="./assets/c-milestone.jpg" alt="元新儀器核醫發展歷程" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
 
-        <!-- 2016 image -->
-        <div class="yh-ms-pic" style="height:340px;border-radius:18px;overflow:hidden;">
-          <img src="./assets/P/p2.png" alt="2016 里程碑" style="width:100%;height:100%;object-fit:cover;display:block;">
-        </div>
-        <!-- 2016 text -->
-        <div class="yh-ms-txt" style="display:flex;flex-direction:column;justify-content:center;padding:18px 30px;">
-          <div class="yh-stat" style="font-size:80px;">2016</div>
-          <div style="font-size:15.5px;line-height:1.9;color:#5A6473;margin-top:20px;max-width:430px;">引進 IZOTOP 試劑，導入美國 ZEVALIN 放射免疫治療藥物與 Gamma Probe 定位儀，邁入診療合一世代。</div>
-        </div>
-
-        <!-- 2025 text -->
-        <div class="yh-ms-txt" style="display:flex;flex-direction:column;justify-content:center;padding:18px 30px;">
-          <div class="yh-stat" style="font-size:80px;">2025</div>
-          <div style="font-size:15.5px;line-height:1.9;color:#5A6473;margin-top:20px;max-width:430px;">開展全方位輻防服務，進口日本 UG-05 高精準度注射輔助系統，並聘請輻防師開設輻防訓練課程。</div>
-        </div>
-        <!-- 2025 image -->
-        <div class="yh-ms-pic" style="height:340px;border-radius:18px;overflow:hidden;">
-          <img src="./assets/P/p3.png" alt="2025 里程碑" style="width:100%;height:100%;object-fit:cover;display:block;">
-        </div>
-
-        <!-- 2026 image -->
-        <div class="yh-ms-pic" style="height:340px;border-radius:18px;overflow:hidden;">
-          <img src="./assets/P/p4.png" alt="2026 里程碑" style="width:100%;height:100%;object-fit:cover;display:block;">
-        </div>
-        <!-- 2026 text -->
-        <div class="yh-ms-txt" style="display:flex;flex-direction:column;justify-content:center;padding:18px 30px;">
-          <div class="yh-stat" style="font-size:80px;">2026</div>
-          <div style="font-size:15.5px;line-height:1.9;color:#5A6473;margin-top:20px;max-width:430px;">從業務銷售至運送服務全程符合 PIC/S GMP 相關認證，建立可追溯的核醫供應鏈。</div>
+        <!-- milestone list -->
+        <div class="yh-ms-list" style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:40px;">
+          <div>
+            <div class="yh-stat" style="font-size:46px;">1984</div>
+            <div style="font-size:15.5px;line-height:1.85;color:#5A6473;margin-top:10px;">配合各大醫院核醫部門導入日本 FUJIFILM TOYAMA 藥物，於心臟與骨骼造影提供關鍵診斷依據。</div>
+          </div>
+          <div>
+            <div class="yh-stat" style="font-size:46px;">2016</div>
+            <div style="font-size:15.5px;line-height:1.85;color:#5A6473;margin-top:10px;">引進 IZOTOP 試劑，導入美國 ZEVALIN 放射免疫治療藥物與 Gamma Probe 定位儀，邁入診療合一世代。</div>
+          </div>
+          <div>
+            <div class="yh-stat" style="font-size:46px;">2025</div>
+            <div style="font-size:15.5px;line-height:1.85;color:#5A6473;margin-top:10px;">開展全方位輻防服務，進口日本 UG-05 高精準度注射輔助系統，並聘請輻防師開設輻防訓練課程。</div>
+          </div>
+          <div>
+            <div class="yh-stat" style="font-size:46px;">2026</div>
+            <div style="font-size:15.5px;line-height:1.85;color:#5A6473;margin-top:10px;">從業務銷售至運送服務全程符合 PIC/S GMP 相關認證，建立可追溯的核醫供應鏈。</div>
+          </div>
         </div>
 
       </div>
@@ -383,30 +371,24 @@
       </div>
       <div class="yh-link" style="font-size:15px;color:#143A82;font-weight:600;cursor:pointer;border-bottom:1.5px solid #143A82;padding-bottom:3px;white-space:nowrap;">全部課程　→</div>
     </div>
-    <div class="yh-grid3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:30px;">
+    <div class="yh-tc-card" style="border:1px solid #E5E8EC;border-radius:16px;overflow:hidden;cursor:pointer;display:flex;">
 
-      <div class="yh-card" style="border:1px solid #E5E8EC;border-radius:16px;padding:26px;cursor:pointer;display:flex;flex-direction:column;">
-        <div style="height:158px;border-radius:11px;overflow:hidden;margin-bottom:22px;"><div class="yh-card-img" style="height:100%;background:#F2F5F9 url('https://yuanyu.com.tw/wp-content/uploads/2025/10/OTV-S700.png') center/cover no-repeat;"></div></div>
-        <div class="yh-en" style="font-size:12.5px;color:#1F5BB5;font-weight:600;">2026.06.18 · 台北 · 實體</div>
-        <div style="font-size:19px;font-weight:700;color:#1C2533;line-height:1.55;margin-top:10px;">核醫從業人員輻射防護基礎訓練</div>
-        <div style="font-size:14px;color:#5A6473;line-height:1.75;margin-top:10px;">涵蓋法規、劑量管理與作業安全，完訓核發認證時數。</div>
-        <div style="margin-top:auto;padding-top:18px;"><span style="border:1.5px solid #143A82;color:#143A82;border-radius:999px;padding:10px 24px;font-size:13.5px;font-weight:700;">立即報名　→</span></div>
+      <div class="yh-tc-pic" style="flex:0 0 42%;min-height:360px;">
+        <div class="yh-card-img" style="height:100%;background:#F2F5F9 url('https://yuanyu.com.tw/wp-content/uploads/2025/10/OTV-S700.png') center/cover no-repeat;"></div>
       </div>
 
-      <div class="yh-card" style="border:1px solid #E5E8EC;border-radius:16px;padding:26px;cursor:pointer;display:flex;flex-direction:column;">
-        <div style="height:158px;border-radius:11px;overflow:hidden;margin-bottom:22px;"><div class="yh-card-img" style="height:100%;background:#F2F5F9 url('https://yuanyu.com.tw/wp-content/uploads/2025/10/EU-ME3.jpg') center/cover no-repeat;"></div></div>
-        <div class="yh-en" style="font-size:12.5px;color:#1F5BB5;font-weight:600;">2026.07.02 · 線上 · 直播</div>
-        <div style="font-size:19px;font-weight:700;color:#1C2533;line-height:1.55;margin-top:10px;">放射性藥物作業安全與法規更新</div>
-        <div style="font-size:14px;color:#5A6473;line-height:1.75;margin-top:10px;">即時解析最新法規變動，線上互動 Q&amp;A 解決現場疑問。</div>
-        <div style="margin-top:auto;padding-top:18px;"><span style="border:1.5px solid #143A82;color:#143A82;border-radius:999px;padding:10px 24px;font-size:13.5px;font-weight:700;">立即報名　→</span></div>
-      </div>
+      <div class="yh-tc-body" style="flex:1;padding:44px 48px;display:flex;flex-direction:column;">
+        <div class="yh-en" style="font-size:12.5px;color:#1F5BB5;font-weight:600;letter-spacing:.04em;">實體課程 · 全台巡迴開課</div>
+        <div style="font-size:27px;font-weight:800;color:#1C2533;line-height:1.45;margin-top:14px;">核醫從業人員輻射防護基礎訓練</div>
+        <div style="font-size:15px;color:#5A6473;line-height:1.85;margin-top:14px;max-width:520px;">涵蓋法規、劑量管理與作業安全，完訓核發認證時數，協助從業人員取得輻防專業資格。</div>
 
-      <div class="yh-card" style="border:1px solid #E5E8EC;border-radius:16px;padding:26px;cursor:pointer;display:flex;flex-direction:column;">
-        <div style="height:158px;border-radius:11px;overflow:hidden;margin-bottom:22px;"><div class="yh-card-img" style="height:100%;background:#F2F5F9 url('https://yuanyu.com.tw/wp-content/uploads/2025/10/esg-300_1.jpg') center/cover no-repeat;"></div></div>
-        <div class="yh-en" style="font-size:12.5px;color:#1F5BB5;font-weight:600;">2026.09.10 · 台中 · 實體</div>
-        <div style="font-size:19px;font-weight:700;color:#1C2533;line-height:1.55;margin-top:10px;">核醫供應鏈與品質系統實務工作坊</div>
-        <div style="font-size:14px;color:#5A6473;line-height:1.75;margin-top:10px;">從訂購到配送的 GMP 流程拆解，搭配實際案例演練。</div>
-        <div style="margin-top:auto;padding-top:18px;"><span style="border:1.5px solid #143A82;color:#143A82;border-radius:999px;padding:10px 24px;font-size:13.5px;font-weight:700;">立即報名　→</span></div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;">
+          <span style="border:1px solid #D7DEE8;background:#F5F8FC;color:#143A82;border-radius:999px;padding:8px 18px;font-size:13px;font-weight:600;">2026.06.18 · 台北 · 實體</span>
+          <span style="border:1px solid #D7DEE8;background:#F5F8FC;color:#143A82;border-radius:999px;padding:8px 18px;font-size:13px;font-weight:600;">2026.08.06 · 台中 · 實體</span>
+          <span style="border:1px solid #D7DEE8;background:#F5F8FC;color:#143A82;border-radius:999px;padding:8px 18px;font-size:13px;font-weight:600;">2026.10.15 · 線上 · 直播</span>
+        </div>
+
+        <div style="margin-top:auto;padding-top:28px;"><span style="border:1.5px solid #143A82;color:#143A82;border-radius:999px;padding:10px 24px;font-size:13.5px;font-weight:700;">立即報名　→</span></div>
       </div>
 
     </div>
@@ -519,69 +501,56 @@
 
   </div>
 
-  <!-- ============ SOCIAL + NEWSLETTER ============ -->
-  <div style="background:#0E1C3D;color:#cdd5e4;">
-    <div class="yh-shell yh-nlgrid" style="max-width:1640px;margin:0 auto;padding:72px 56px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
-      <div>
-        <div class="yh-eyebrow" style="color:#9BC0FF;margin-bottom:14px;">Follow Us</div>
-        <div style="font-size:26px;font-weight:800;color:#fff;margin-bottom:24px;">追蹤元新儀器</div>
-        <div style="display:flex;gap:14px;flex-wrap:wrap;">
-          <div class="yh-link" style="border:1px solid #2A3A5C;border-radius:999px;padding:12px 24px;font-size:14px;cursor:pointer;">Facebook</div>
-          <div class="yh-link" style="border:1px solid #2A3A5C;border-radius:999px;padding:12px 24px;font-size:14px;cursor:pointer;">LinkedIn</div>
-          <div class="yh-link" style="border:1px solid #2A3A5C;border-radius:999px;padding:12px 24px;font-size:14px;cursor:pointer;">YouTube</div>
-        </div>
-      </div>
-      <div style="position:relative;padding-left:28px;">
-        <div style="position:absolute;left:0;top:4px;bottom:4px;width:4px;border-radius:99px;background:#D81E2C;"></div>
-        <div class="yh-eyebrow" style="color:#9BC0FF;margin-bottom:14px;">Newsletter</div>
-        <div style="font-size:26px;font-weight:800;color:#fff;margin-bottom:24px;">掌握核醫產業最新動態</div>
-        <div style="display:flex;gap:12px;">
-          <div style="flex:1;height:52px;border:1px solid #2A3A5C;border-radius:999px;background:#142647;display:flex;align-items:center;padding:0 24px;color:#8a95ad;font-size:14px;">輸入您的 Email</div>
-          <div class="yh-link" style="background:#fff;color:#143A82;border-radius:999px;padding:0 34px;display:flex;align-items:center;font-size:15px;font-weight:700;cursor:pointer;">訂閱</div>
-        </div>
-        <div style="font-size:12.5px;color:#7c87a0;margin-top:12px;">送出即表示同意隱私權政策。</div>
-      </div>
-    </div>
-  </div>
-
   <!-- ============ FOOTER ============ -->
-  <div style="background:#091428;color:#8893a8;">
-    <div class="yh-shell yh-foot" style="max-width:1640px;margin:0 auto;padding:60px 56px 0;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px;">
+  <div style="background:#0E1C3D;color:#8893a8;">
+    <div class="yh-shell yh-foot" style="max-width:1640px;margin:0 auto;padding:64px 56px 0;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px;">
       <div>
-        <div style="font-size:24px;font-weight:800;color:#fff;letter-spacing:.02em;">元新儀器</div>
-        <div class="yh-en" style="font-size:12px;letter-spacing:.12em;color:#5f6c84;margin-top:6px;">KEN YUAN HSIN CO., LTD.</div>
-        <div style="font-size:14px;line-height:1.9;margin-top:22px;color:#8893a8;">核子醫學整合服務<br>放射性藥物 · 輻射安全設備 · 輻防教育訓練</div>
+        <div style="display:flex;align-items:center;gap:18px;">
+          <img src="./assets/footer-logo-mark.svg" alt="" style="width:46px;height:35px;display:block;">
+          <div>
+            <div style="font-size:22px;font-weight:900;color:#fff;letter-spacing:.02em;">元新儀器</div>
+            <div class="yh-en" style="font-size:11px;letter-spacing:.12em;color:#5f6c84;margin-top:5px;">KEN YUAN HSIN CO., LTD.</div>
+          </div>
+        </div>
+        <div style="font-size:13.5px;line-height:1.9;margin-top:22px;color:#fff;">核子醫學整合服務<br>放射性藥物 · 輻射安全設備 · 輻防教育訓練</div>
+        <div style="display:flex;gap:14px;margin-top:24px;">
+          <div class="yh-link" style="cursor:pointer;line-height:0;color:#fff;" title="LINE">
+            <svg width="34" height="34" viewBox="0 0 50 50" fill="currentColor"><path d="M 9 4 C 6.24 4 4 6.24 4 9 L 4 41 C 4 43.76 6.24 46 9 46 L 41 46 C 43.76 46 46 43.76 46 41 L 46 9 C 46 6.24 43.76 4 41 4 L 9 4 z M 25 11 C 33.27 11 40 16.359219 40 22.949219 C 40 25.579219 38.959297 27.960781 36.779297 30.300781 C 35.209297 32.080781 32.660547 34.040156 30.310547 35.660156 C 27.960547 37.260156 25.8 38.519609 25 38.849609 C 24.68 38.979609 24.44 39.039062 24.25 39.039062 C 23.59 39.039062 23.649219 38.340781 23.699219 38.050781 C 23.739219 37.830781 23.919922 36.789063 23.919922 36.789062 C 23.969922 36.419063 24.019141 35.830937 23.869141 35.460938 C 23.699141 35.050938 23.029062 34.840234 22.539062 34.740234 C 15.339063 33.800234 10 28.849219 10 22.949219 C 10 16.359219 16.73 11 25 11 z M 23.992188 18.998047 C 23.488379 19.007393 23 19.391875 23 20 L 23 26 C 23 26.552 23.448 27 24 27 C 24.552 27 25 26.552 25 26 L 25 23.121094 L 27.185547 26.580078 C 27.751547 27.372078 29 26.973 29 26 L 29 20 C 29 19.448 28.552 19 28 19 C 27.448 19 27 19.448 27 20 L 27 23 L 24.814453 19.419922 C 24.602203 19.122922 24.294473 18.992439 23.992188 18.998047 z M 15 19 C 14.448 19 14 19.448 14 20 L 14 26 C 14 26.552 14.448 27 15 27 L 18 27 C 18.552 27 19 26.552 19 26 C 19 25.448 18.552 25 18 25 L 16 25 L 16 20 C 16 19.448 15.552 19 15 19 z M 21 19 C 20.448 19 20 19.448 20 20 L 20 26 C 20 26.552 20.448 27 21 27 C 21.552 27 22 26.552 22 26 L 22 20 C 22 19.448 21.552 19 21 19 z M 31 19 C 30.448 19 30 19.448 30 20 L 30 26 C 30 26.552 30.448 27 31 27 L 34 27 C 34.552 27 35 26.552 35 26 C 35 25.448 34.552 25 34 25 L 32 25 L 32 24 L 34 24 C 34.553 24 35 23.552 35 23 C 35 22.448 34.553 22 34 22 L 32 22 L 32 21 L 34 21 C 34.552 21 35 20.552 35 20 C 35 19.448 34.552 19 34 19 L 31 19 z"/></svg>
+          </div>
+          <div class="yh-link" style="cursor:pointer;line-height:0;color:#fff;" title="LinkedIn">
+            <svg width="34" height="34" viewBox="0 0 50 50" fill="currentColor"><path d="M41,4H9C6.24,4,4,6.24,4,9v32c0,2.76,2.24,5,5,5h32c2.76,0,5-2.24,5-5V9C46,6.24,43.76,4,41,4z M17,20v19h-6V20H17z M11,14.47c0-1.4,1.2-2.47,3-2.47s2.93,1.07,3,2.47c0,1.4-1.12,2.53-3,2.53C12.2,17,11,15.87,11,14.47z M39,39h-6c0,0,0-9.26,0-10 c0-2-1-4-3.5-4.04h-0.08C27,24.96,26,27.02,26,29c0,0.91,0,10,0,10h-6V20h6v2.56c0,0,1.93-2.56,5.81-2.56 c3.97,0,7.19,2.73,7.19,8.26V39z"/></svg>
+          </div>
+        </div>
       </div>
       <div>
-        <div style="font-size:14.5px;font-weight:700;color:#fff;margin-bottom:18px;">關於元新</div>
-        <div style="display:flex;flex-direction:column;gap:12px;font-size:14px;">
+        <div style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;margin-bottom:16px;border-bottom:2px solid #fff;">資源</div>
+        <div style="display:flex;flex-direction:column;gap:14px;font-size:13.5px;">
+          <span class="yh-link" style="cursor:pointer;">最新消息</span>
+          <span class="yh-link" style="cursor:pointer;">文章專區</span>
+          <span class="yh-link" style="cursor:pointer;">聯絡我們</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;margin-bottom:16px;border-bottom:2px solid #fff;">關於元新</div>
+        <div style="display:flex;flex-direction:column;gap:14px;font-size:13.5px;">
           <span class="yh-link" style="cursor:pointer;">公司簡介</span>
           <span class="yh-link" style="cursor:pointer;">發展歷程</span>
           <span class="yh-link" style="cursor:pointer;">品質認證</span>
         </div>
       </div>
       <div>
-        <div style="font-size:14.5px;font-weight:700;color:#fff;margin-bottom:18px;">產品與服務</div>
-        <div style="display:flex;flex-direction:column;gap:12px;font-size:14px;">
+        <div style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;margin-bottom:16px;border-bottom:2px solid #fff;">產品與服務</div>
+        <div style="display:flex;flex-direction:column;gap:14px;font-size:13.5px;">
           <span class="yh-link" style="cursor:pointer;">專業顧問</span>
           <span class="yh-link" style="cursor:pointer;">輻射安全設備</span>
           <span class="yh-link" style="cursor:pointer;">輻防教育訓練</span>
         </div>
       </div>
-      <div>
-        <div style="font-size:14.5px;font-weight:700;color:#fff;margin-bottom:18px;">資源</div>
-        <div style="display:flex;flex-direction:column;gap:12px;font-size:14px;">
-          <span class="yh-link" style="cursor:pointer;">最新消息</span>
-          <span class="yh-link" style="cursor:pointer;">文章專區</span>
-          <span class="yh-link" style="cursor:pointer;">聯絡我們</span>
-        </div>
-      </div>
     </div>
-    <div class="yh-shell yh-foot-btm" style="max-width:1640px;margin:48px auto 0;padding:24px 56px;border-top:1px solid #1a2740;display:flex;align-items:center;justify-content:space-between;font-size:12.5px;color:#5f6c84;">
+    <div class="yh-shell yh-foot-btm" style="max-width:1640px;margin:40px auto 0;padding:22px 56px;border-top:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:space-between;font-size:12.5px;color:#fff;">
       <div>© 2026 元新儀器 Ken Yuan Hsin Co., Ltd. All rights reserved.</div>
       <div style="display:flex;gap:18px;"><span class="yh-link" style="cursor:pointer;">隱私權政策</span><span class="yh-link" style="cursor:pointer;">元佑集團 ↗</span></div>
     </div>
-    <div style="height:40px;"></div>
   </div>
 
 </div>
