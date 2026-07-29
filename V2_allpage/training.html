@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<link rel="stylesheet" href="responsive.css">
+<style>
+  * { box-sizing:border-box; }
+  body { margin:0; background:#ffffff; color:#1C2533; font-family:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; -webkit-font-smoothing:antialiased; }
+  a { color:#1F5BB5; text-decoration:none; }
+  a:hover { color:#2E72D6; }
+  .en { font-family:'Manrope',sans-serif; }
+  .ylink { transition:color .2s ease,opacity .2s ease; cursor:pointer; }
+  .ylink:hover { color:#2E72D6; }
+  .ycard { transition:transform .35s ease,box-shadow .35s ease; }
+  .ynews:hover { transform:translateY(-5px); box-shadow:0 18px 40px -22px rgba(20,58,130,.35); }
+  .ynav { transition:color .2s ease; cursor:pointer; position:relative; }
+  .ynav:hover { color:#2E72D6; }
+  .yfilter { transition:border-color .2s ease,background .2s ease; cursor:pointer; }
+  .yfilter:hover { border-color:#1F5BB5; }
+  .ycoursecard { transition:transform .3s ease,box-shadow .3s ease; }
+  .ycoursecard:hover { transform:translateY(-6px); box-shadow:0 22px 44px -24px rgba(20,58,130,.4); }
+  .ybtn-outline { transition:background .2s ease,color .2s ease; cursor:pointer; }
+  .ybtn-outline:hover { background:#143A82; color:#fff !important; }
+  .ywhycell { transition:transform .3s ease; }
+  .ywhycell:hover { transform:translateY(-4px); }
+
+  /* ===== 本頁專屬 RWD（外殼規則見 responsive.css） ===== */
+  @media (max-width:1100px) {
+    .yb-hero { height:360px !important; min-height:320px !important; }
+    .yb-hero h1 { font-size:36px !important; }
+  }
+  @media (max-width:900px) {
+    .yb-hero { height:auto !important; min-height:0 !important; padding:60px 0 !important; }
+    .yb-hero h1 { font-size:32px !important; }
+    .yb-hero p { font-size:15.5px !important; }
+    .yb-sec h2 { font-size:30px !important; }
+    .yb-grid4 { grid-template-columns:repeat(2,1fr) !important; }
+    /* 主打課程卡：橫向改直向，圖片改為固定高度的上半部 */
+    .yb-feature { flex-direction:column !important; }
+    .yb-feature-img { flex:0 0 auto !important; min-height:0 !important; height:240px !important; }
+    .yb-feature-body { padding:28px 32px !important; }
+  }
+  @media (max-width:640px) {
+    .yb-hero { padding:48px 0 !important; }
+    .yb-hero h1 { font-size:28px !important; }
+    .yb-hero p { font-size:14.5px !important; }
+    .yb-sec { padding-top:56px !important; padding-bottom:56px !important; }
+    .yb-sec h2 { font-size:26px !important; }
+    .yb-grid4 { grid-template-columns:1fr !important; }
+    .yb-feature-img { height:180px !important; }
+    .yb-feature-body { padding:24px 22px !important; gap:12px !important; }
+    .yb-feature-body > span:nth-child(2) { font-size:19px !important; }
+  }
+</style>
+</helmet>
+
+<div style="width:100%;overflow-x:clip;">
+
+  <div style="width:100%;background:#0E1C3D;">
+    <div class="yb-util" style="max-width:1200px;margin:0 auto;padding:0 32px;height:38px;display:flex;align-items:center;justify-content:space-between;">
+      <span class="en" style="font-size:12.5px;letter-spacing:.5px;color:#CDD5E4;">YUAN HSIN PHARMA CO., LTD.</span>
+      <div style="display:flex;align-items:center;gap:18px;font-size:12.5px;color:#AEB8CC;">
+        <span class="ylink">元佑集團官網 ↗</span>
+        <span style="opacity:.45;">|</span>
+        <span class="ylink">產品型錄</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="width:100%;background:#fff;border-bottom:1px solid #EEF1F5;position:sticky;top:0;z-index:50;">
+    <div class="yb-navrow" style="max-width:1200px;margin:0 auto;padding:0 32px;height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <img src="assets/logo.png" alt="元新醫藥" style="height:38px;width:auto;flex-shrink:0;display:block;">
+      <div class="yb-navlinks" style="display:flex;align-items:center;gap:30px;font-size:15.5px;font-weight:700;white-space:nowrap;">
+        <a class="ynav" href="index.html" style="color:#143A82;">首頁</a>
+        <a class="ynav" href="about.html" style="color:#143A82;">關於我們</a>
+        <a class="ynav" href="products.html" style="color:#143A82;">產品與服務</a>
+        <a class="ynav" href="articles.html" style="color:#143A82;">文章專區</a>
+        <a class="ynav" href="training.html" style="color:#1F5BB5;">輻防訓練</a>
+        <a class="ynav" href="contact.html" style="color:#143A82;">聯絡我們</a>
+      </div>
+      <div class="ylink yb-search" style="display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:210px;border:1px solid #D7DCE3;border-radius:999px;padding:9px 18px;">
+        <span class="en" style="font-size:13px;color:#9AA1AC;">Search</span>
+        <span style="font-family:monospace;font-size:22px;line-height:1;color:#9AA1AC;">⌕</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="yb-hero" style="position:relative;width:100%;margin:0;height:420px;min-height:360px;overflow:hidden;border-radius:90px 0 90px 0;background:#0B1730;">
+    <img src="assets/class-hero-01.png" alt="輻防訓練現場" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
+    <div style="position:relative;height:100%;max-width:1683px;margin:0 auto;padding:0 clamp(40px,7vw,120px);display:flex;flex-direction:column;justify-content:center;">
+      <div style="max-width:660px;color:#fff;">
+        <span class="en" style="font-size:13px;font-weight:600;letter-spacing:.16em;color:#9BC0FF;">TRAINING &amp; CONSULTING</span>
+        <h1 style="margin:16px 0 0;font-size:42px;line-height:1.2;font-weight:800;">輻防教育與顧問</h1>
+        <p style="margin:22px 0 0;font-size:16.5px;line-height:1.85;color:#EEF3FB;">元新醫藥累積數十年核醫現場經驗，打造小班制、設備實作導向的游離輻射防護課程，完訓即具備取證能力，全程符合《游離輻射防護法》規範。</p>
+        <a href="#course-list" style="display:inline-block;margin-top:28px;background:#fff;color:#143A82;border-radius:999px;padding:14px 30px;font-size:15px;font-weight:800;">查看近期課程場次</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 課程列表 -->
+  <div id="course-list" style="width:100%;background:#fff;">
+    <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:56px 32px 88px;display:flex;flex-direction:column;gap:34px;">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <span class="en" style="font-size:13px;font-weight:600;letter-spacing:.16em;color:#1F5BB5;">UPCOMING SESSIONS</span>
+          <h2 style="margin:0;font-size:32px;font-weight:800;color:#143A82;">近期課程場次</h2>
+        </div>
+        <div style="display:flex;gap:12px;">
+          <div class="yfilter" style="border:1px solid #D7DCE3;border-radius:10px;padding:10px 16px;font-size:13.5px;color:#5A6473;background:#fff;">內容分類 ▾</div>
+          <div class="yfilter" style="border:1px solid #D7DCE3;border-radius:10px;padding:10px 16px;font-size:13.5px;color:#5A6473;background:#fff;">時間 ▾</div>
+        </div>
+      </div>
+
+      <div class="ycoursecard yb-feature" style="border-radius:24px;background:#fff;box-shadow:0 0 0 1px #E5E8EC;overflow:hidden;display:flex;">
+        <div class="yb-feature-img" style="flex:0 0 42%;min-height:280px;background-image:url({{ courses.0.cover }});background-size:cover;background-position:center;"></div>
+        <div class="yb-feature-body" style="flex:1;padding:36px 40px;display:flex;flex-direction:column;gap:14px;justify-content:center;">
+          <span class="en" style="font-size:12.5px;font-weight:600;color:#1F5BB5;">{{ courses.0.date }}</span>
+          <span style="font-size:22px;font-weight:800;color:#1C2533;line-height:1.4;">{{ courses.0.title }}</span>
+          <span style="font-size:14px;color:#5A6473;line-height:1.8;">{{ courses.0.desc }}</span>
+          <a href="course-detail.html" class="ybtn-outline" style="align-self:flex-start;margin-top:8px;background:#143A82;color:#fff;border-radius:999px;padding:12px 28px;font-size:14px;font-weight:700;">立即報名</a>
+        </div>
+      </div>
+
+      <div style="border-radius:24px;background:#F4F6F9;box-shadow:inset 0 0 0 1px #E5E8EC;padding:32px 36px;display:flex;flex-direction:column;gap:16px;">
+        <span style="font-size:14.5px;font-weight:700;color:#143A82;">◎核能安全委員會認可輻訓機構輻訓字第______號</span>
+        <div style="height:1px;background:#E5E8EC;"></div>
+        <span style="font-size:13.5px;line-height:1.9;color:#5A6473;">本課程係依據《游離輻射防護法》第 31 條規定：操作放射性物質或可發生游離輻射設備之人員，應受主管機關指定之訓練，並領有輻射安全證書或執照。</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 為什麼選擇元新 -->
+  <div style="width:100%;background:#F4F6F9;border-top:1px solid #E5E8EC;border-bottom:1px solid #E5E8EC;">
+    <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:80px 32px;display:flex;flex-direction:column;gap:42px;">
+      <div style="display:flex;flex-direction:column;gap:12px;text-align:center;align-items:center;">
+        <span class="en" style="font-size:13px;font-weight:600;letter-spacing:.16em;color:#1F5BB5;">WHY YUAN HSIN</span>
+        <h2 style="margin:0;font-size:32px;font-weight:800;color:#143A82;">為什麼選擇元新？</h2>
+      </div>
+      <div class="yb-grid4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;">
+        <div class="ywhycell" style="display:flex;flex-direction:column;gap:14px;">
+          <div style="height:170px;border-radius:18px;overflow:hidden;"><img src="assets/machi-image.png" alt="核醫設備" style="width:100%;height:100%;object-fit:cover;"></div>
+          <span style="font-size:13.5px;color:#5A6473;line-height:1.7;">課中操作核醫設備，直擊鉛車內部設計，接軌實務</span>
+        </div>
+        <div class="ywhycell" style="display:flex;flex-direction:column;gap:14px;">
+          <div style="height:170px;border-radius:18px;overflow:hidden;"><img src="assets/miniclass-image.png" alt="小班教學" style="width:100%;height:100%;object-fit:cover;"></div>
+          <span style="font-size:13.5px;color:#5A6473;line-height:1.7;">小班制教學，考照率更高</span>
+        </div>
+        <div class="ywhycell" style="display:flex;flex-direction:column;gap:14px;">
+          <div style="height:170px;border-radius:18px;overflow:hidden;"><img src="assets/b2b-image-02.png" alt="企業合作" style="width:100%;height:100%;object-fit:cover;"></div>
+          <span style="font-size:13.5px;color:#5A6473;line-height:1.7;">依企業需求，包班培訓</span>
+        </div>
+        <div class="ywhycell" style="display:flex;flex-direction:column;gap:14px;">
+          <div style="height:170px;border-radius:18px;overflow:hidden;"><img src="assets/MRT-image.png" alt="內湖地區" style="width:100%;height:100%;object-fit:cover;"></div>
+          <span style="font-size:13.5px;color:#5A6473;line-height:1.7;">上課地點位於內湖市區，省下交通成本</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="width:100%;background:#091428;">
+    <div style="height:3px;background:linear-gradient(90deg,#143A82,#2E72D6 50%,#143A82);"></div>
+    <div class="yb-foot-wrap" style="max-width:1200px;margin:0 auto;padding:0 32px;">
+      <div class="yb-foot" style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding:72px 0 56px;">
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <span style="font-size:22px;font-weight:900;letter-spacing:.02em;color:#fff;">元新醫藥</span>
+          <span class="en" style="font-size:12.5px;font-weight:500;letter-spacing:.04em;color:#9BA3A8;">YUAN HSIN PHARMA CO., LTD.</span>
+          <span style="font-size:13px;line-height:1.9;color:#7C87A0;margin-top:6px;">核子醫學整合服務<br>放射性藥物 · 輻射安全設備 · 輻防教育訓練</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">關於元新</span>
+          <div style="display:flex;flex-direction:column;gap:13px;">
+            <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">我們的故事</a>
+            <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">關鍵數據</a>
+            <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">品質認證</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">產品與服務</span>
+          <div style="display:flex;flex-direction:column;gap:13px;">
+            <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">體內診斷</a>
+            <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">體內治療</a>
+            <a class="ylink" href="training.html" style="font-size:13.5px;color:#8893A8;">輻防教育訓練</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">資源</span>
+          <div style="display:flex;flex-direction:column;gap:13px;">
+            <a class="ylink" href="articles.html" style="font-size:13.5px;color:#8893A8;">文章專區</a>
+            <span class="ylink" style="font-size:13.5px;color:#8893A8;">產學資源</span>
+            <a class="ylink" href="contact.html" style="font-size:13.5px;color:#8893A8;">聯絡我們</a>
+          </div>
+        </div>
+      </div>
+      <div class="yb-foot-btm" style="display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-top:1px solid #1A2740;">
+        <span style="font-size:12.5px;color:#5F6C84;">© 2026 元新醫藥 YuanHsin Pharma Co., Ltd. All rights reserved.</span>
+        <div style="display:flex;gap:18px;">
+          <span class="ylink" style="font-size:12.5px;color:#5F6C84;">隱私權政策</span>
+          <span class="ylink" style="font-size:12.5px;color:#5F6C84;">元佑集團 ↗</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const courses = [
+        { id: 1, date: '2026.06.18 · 台北 · 實體', title: '核醫從業人員輻射防護基礎訓練', desc: '18 小時基礎課程，涵蓋輻射防護原理與實務操作', cover: 'assets/cover-1-48a9832c.jpg' },
+        { id: 2, date: '2026.07.02 · 線上 · 直播', title: '游離輻射防護法規與案例研討', desc: '法規解析搭配實際稽核案例，強化合規意識', cover: 'assets/cover-2-2005b258.jpg' },
+        { id: 3, date: '2026.09.10 · 台中 · 實體', title: '核醫設備操作與輻射防護實作', desc: '36 小時進階課程，含鉛車與造影設備實機操作', cover: 'assets/cover-3-cd7dfd7a.jpg' },
+        { id: 4, date: '2026.10.05 · 高雄 · 實體', title: '醫療院所輻射安全管理人員訓練', desc: '針對輻安管理人員設計，強化制度建置能力', cover: 'assets/cover-1-48a9832c.jpg' },
+        { id: 5, date: '2026.11.12 · 線上 · 直播', title: '輻射防護在職教育回訓課程', desc: '證照回訓專班，掌握最新法規與技術更新', cover: 'assets/cover-2-2005b258.jpg' },
+        { id: 6, date: '2026.12.03 · 台北 · 實體', title: '企業包班：客製化輻防教育訓練', desc: '依企業需求規劃課程內容與時數，到府或指定場地授課', cover: 'assets/cover-3-cd7dfd7a.jpg' }
+    ];
+    return { courses, upcoming: courses.slice(1, 4) };
+  }
+}
+
+</script>
+</body>
+</html>

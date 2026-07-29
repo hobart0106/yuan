@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="responsive.css">
+<style>
+  * { box-sizing:border-box; }
+  body { margin:0; background:#ffffff; color:#1C2533; font-family:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; -webkit-font-smoothing:antialiased; }
+  a { color:#1F5BB5; text-decoration:none; }
+  a:hover { color:#2E72D6; }
+  .en { font-family:'Manrope',sans-serif; }
+  .ylink { transition:color .2s ease,opacity .2s ease; cursor:pointer; }
+  .ylink:hover { color:#2E72D6; }
+  .ynav { transition:color .2s ease; cursor:pointer; }
+  .ynav:hover { color:#2E72D6; }
+  .ytab { transition:background .2s ease,color .2s ease,box-shadow .2s ease; cursor:pointer; border-radius:999px; padding:12px 26px; font-size:15px; font-weight:700; background:#fff; color:#5A6473; box-shadow:inset 0 0 0 1px #DCE1E8; }
+  .ytab.is-active { background:#143A82; color:#fff; box-shadow:none; }
+  .ychip { cursor:pointer; border-radius:999px; padding:7px 16px; font-size:13px; font-weight:600; background:#fff; color:#5A6473; box-shadow:inset 0 0 0 1px #DCE1E8; }
+  .ychip.is-active { background:#1C2533; color:#fff; box-shadow:none; }
+  .ymarker { cursor:pointer; transition:transform .2s ease; }
+  .ymarker:hover { transform:scale(1.06); }
+  .yprod-row { cursor:pointer; transition:box-shadow .2s ease,transform .2s ease; }
+  .yprod-row:hover { box-shadow:0 14px 30px -18px rgba(20,58,130,.35); transform:translateY(-2px); }
+  /* ===== 本頁專屬 RWD（外殼規則見 responsive.css） ===== */
+  .yp-tabs { flex-wrap:wrap; }
+  @media (max-width:900px) {
+    .yb-hero { height:auto !important; min-height:0 !important; padding:56px 0 !important; }
+    .yb-hero h1 { font-size:34px !important; }
+    .yp-diag-grid { grid-template-columns:1fr !important; }
+    /* 標記點是百分比定位，人體圖太矮會讓標籤互相重疊，故保留足夠高度 */
+    .yp-diag-grid .yp-organ { order:-1; height:440px !important; }
+    .yp-equip-grid, .yp-invitro-grid { grid-template-columns:1fr !important; }
+  }
+  /* 產品卡標題：品牌標籤不被壓縮，窄螢幕時換行 */
+  .yp-chip { flex-shrink:0; white-space:nowrap; }
+  @media (max-width:640px) {
+    .yb-hero { padding:44px 0 !important; }
+    .yb-hero h1 { font-size:28px !important; }
+    .yb-hero p { font-size:14.5px !important; }
+    .yp-diag-grid { gap:24px !important; }
+    .yp-diag-grid .yp-organ { height:400px !important; }
+    .yp-equip-grid, .yp-invitro-grid { gap:22px !important; }
+    .yp-cardhead { flex-wrap:wrap !important; gap:8px !important; }
+    .yp-cardhead > span:first-child { font-size:18px !important; }
+    .yprod-row { padding:18px 20px !important; gap:12px !important; }
+    .ymarker { font-size:11px !important; padding:5px 10px !important; }
+  }
+</style>
+</helmet>
+
+<div style="width:100%;overflow-x:clip;">
+
+  <!-- UTILITY BAR -->
+  <div style="width:100%;background:#0E1C3D;">
+    <div class="yb-util" style="max-width:1200px;margin:0 auto;padding:0 32px;height:38px;display:flex;align-items:center;justify-content:space-between;">
+      <span class="en" style="font-size:12.5px;letter-spacing:.5px;color:#CDD5E4;">YUAN HSIN PHARMA CO., LTD.</span>
+      <div style="display:flex;align-items:center;gap:18px;font-size:12.5px;color:#AEB8CC;">
+        <span class="ylink">元佑集團官網 ↗</span>
+        <span style="opacity:.45;">|</span>
+        <span class="ylink">產品型錄</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <div style="width:100%;background:#fff;border-bottom:1px solid #EEF1F5;position:sticky;top:0;z-index:50;">
+    <div class="yb-navrow" style="max-width:1200px;margin:0 auto;padding:0 32px;height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <img src="assets/logo.png" alt="元新醫藥" style="height:38px;width:auto;flex-shrink:0;display:block;">
+      <div class="yb-navlinks" style="display:flex;align-items:center;gap:30px;font-size:15.5px;font-weight:700;white-space:nowrap;">
+        <a class="ynav" href="index.html" style="color:#143A82;">首頁</a>
+        <a class="ynav" href="about.html" style="color:#143A82;">關於我們</a>
+        <a class="ynav" href="products.html" style="color:#143A82;">產品與服務</a>
+        <a class="ynav" href="articles.html" style="color:#143A82;">文章專區</a>
+        <a class="ynav" href="training.html" style="color:#143A82;">輻防訓練</a>
+        <a class="ynav" href="contact.html" style="color:#143A82;">聯絡我們</a>
+      </div>
+      <div class="ylink yb-search" style="display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:210px;border:1px solid #D7DCE3;border-radius:999px;padding:9px 18px;">
+        <span class="en" style="font-size:13px;color:#9AA1AC;">Search</span>
+        <span style="font-family:monospace;font-size:22px;line-height:1;color:#9AA1AC;">⌕</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="yb-hero" style="position:relative;width:100%;height:280px;min-height:240px;overflow:hidden;border-radius:90px 0 90px 0;background:linear-gradient(120deg,#0E1C3D,#143A82 70%);">
+    <div style="position:relative;height:100%;max-width:1200px;margin:0 auto;padding:0 clamp(32px,6vw,64px);display:flex;flex-direction:column;justify-content:center;">
+      <span class="en" style="font-size:13px;font-weight:600;letter-spacing:.16em;color:#9BC0FF;">PRODUCTS &amp; SERVICES</span>
+      <h1 style="margin:16px 0 0;font-size:40px;line-height:1.2;font-weight:800;color:#fff;">產品與服務</h1>
+      <p style="margin:18px 0 0;font-size:16px;line-height:1.8;color:#EEF3FB;max-width:600px;">依臨床應用分類的核醫藥物、輻射安全設備與檢驗試劑，並可依原廠品牌篩選。</p>
+    </div>
+  </div>
+
+  <!-- CATEGORY TABS + BRAND CHIPS -->
+  <div style="width:100%;background:#fff;">
+    <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:56px 32px 0;display:flex;flex-direction:column;align-items:center;gap:22px;">
+      <div class="yp-tabs" style="display:flex;gap:12px;">
+        <span class="ytab {{ tab0Cls }}" onClick="{{ setCat0 }}">體內診斷</span>
+        <span class="ytab {{ tab1Cls }}" onClick="{{ setCat1 }}">體內治療</span>
+        <span class="ytab {{ tab2Cls }}" onClick="{{ setCat2 }}">設備</span>
+        <span class="ytab {{ tab3Cls }}" onClick="{{ setCat3 }}">體外診斷</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;">
+        <sc-for list="{{ brandChips }}" as="chip" hint-placeholder-count="4">
+          <span class="ychip {{ chip.cls }}">{{ chip.label }}</span>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <!-- 體內診斷 -->
+  <sc-if value="{{ isDiag }}" hint-placeholder-val="{{ true }}">
+  <div style="width:100%;background:#fff;">
+    <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:52px 32px 96px;">
+      <div class="yp-diag-grid" style="display:grid;grid-template-columns:440px 1fr;gap:36px;">
+        <div class="yp-organ" style="position:relative;height:540px;border-radius:32px;overflow:hidden;background:#0B1730 url('assets/body-diagram-c7a5f396.png') center/cover no-repeat;">
+          <sc-for list="{{ diagMarkers }}" as="m" hint-placeholder-count="3">
+            <div class="ymarker" onClick="{{ m.onClick }}" style="position:absolute;top:{{ m.top }};left:{{ m.left }};transform:translateX(-50%);background:{{ m.bg }};color:{{ m.color }};border:1.5px solid #1F5BB5;font-size:12.5px;font-weight:700;padding:6px 14px;border-radius:999px;box-shadow:{{ m.shadow }};white-space:nowrap;">{{ m.label }}</div>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <sc-for list="{{ diagList }}" as="p" hint-placeholder-count="3">
+            <sc-if value="{{ p.selected }}" hint-placeholder-val="{{ false }}">
+              <div style="border-radius:24px;background:linear-gradient(120deg,#143A82,#1F5BB5);color:#fff;padding:30px 32px;">
+                <div class="yp-cardhead" style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                  <span style="font-size:20px;font-weight:800;">{{ p.title }}</span>
+                  <span class="en yp-chip" style="font-size:11px;background:rgba(255,255,255,.18);padding:4px 12px;border-radius:999px;">{{ p.tag }}</span>
+                </div>
+                <div style="font-size:14px;line-height:1.9;color:#D8E0F5;margin-bottom:20px;">{{ p.desc }}</div>
+                <sc-if value="{{ p.hasButtons }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;gap:12px;">
+                  <span style="border:1.5px solid #fff;border-radius:999px;padding:9px 20px;font-size:13px;font-weight:600;">查看更多</span>
+                  <a href="product-detail.html" style="background:#fff;color:#143A82;border-radius:999px;padding:9px 20px;font-size:13px;font-weight:700;text-decoration:none;">前往產品介紹　→</a>
+                </div>
+                </sc-if>
+              </div>
+            </sc-if>
+            <sc-if value="{{ p.notSelected }}" hint-placeholder-val="{{ true }}">
+              <div class="yprod-row" onClick="{{ p.onClick }}" style="border:1px solid #E5E8EC;border-radius:18px;background:#fff;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+                <div>
+                  <div style="font-size:17px;font-weight:700;color:#1C2533;">{{ p.title }}</div>
+                  <div style="font-size:13.5px;color:#9AA1AC;margin-top:6px;">{{ p.short }}</div>
+                </div>
+                <span class="en" style="font-size:11px;border:1px solid #D7DCE3;color:#9AA1AC;padding:4px 12px;border-radius:999px;flex-shrink:0;">{{ p.tag }}</span>
+              </div>
+            </sc-if>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- 體內治療 -->
+  <sc-if value="{{ isTreat }}" hint-placeholder-val="{{ false }}">
+  <div style="width:100%;background:#fff;">
+    <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:52px 32px 96px;">
+      <div class="yp-diag-grid" style="display:grid;grid-template-columns:1fr 440px;gap:36px;">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <sc-for list="{{ treatList }}" as="p" hint-placeholder-count="3">
+            <sc-if value="{{ p.selected }}" hint-placeholder-val="{{ false }}">
+              <div style="border-radius:24px;background:linear-gradient(120deg,#143A82,#1F5BB5);color:#fff;padding:30px 32px;">
+                <div class="yp-cardhead" style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                  <span style="font-size:20px;font-weight:800;">{{ p.title }}</span>
+                  <span class="en yp-chip" style="font-size:11px;background:rgba(255,255,255,.18);padding:4px 12px;border-radius:999px;">{{ p.tag }}</span>
+                </div>
+                <div style="font-size:14px;line-height:1.9;color:#D8E0F5;margin-bottom:20px;">{{ p.desc }}</div>
+                <sc-if value="{{ p.hasButtons }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;gap:12px;">
+                  <span style="border:1.5px solid #fff;border-radius:999px;padding:9px 20px;font-size:13px;font-weight:600;">查看更多</span>
+                  <a href="product-detail.html" style="background:#fff;color:#143A82;border-radius:999px;padding:9px 20px;font-size:13px;font-weight:700;text-decoration:none;">前往產品介紹　→</a>
+                </div>
+                </sc-if>
+              </div>
+            </sc-if>
+            <sc-if value="{{ p.notSelected }}" hint-placeholder-val="{{ true }}">
+              <div class="yprod-row" onClick="{{ p.onClick }}" style="border:1px solid #E5E8EC;border-radius:18px;background:#fff;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+                <div>
+                  <div style="font-size:17px;font-weight:700;color:#1C2533;">{{ p.title }}</div>
+                  <div style="font-size:13.5px;color:#9AA1AC;margin-top:6px;">{{ p.short }}</div>
+                </div>
+                <span class="en" style="font-size:11px;border:1px solid #D7DCE3;color:#9AA1AC;padding:4px 12px;border-radius:999px;flex-shrink:0;">{{ p.tag }}</span>
+              </div>
+            </sc-if>
+          </sc-for>
+        </div>
+        <div class="yp-organ" style="position:relative;height:540px;border-radius:32px;overflow:hidden;background:#0B1730 url('assets/body-diagram-c7a5f396.png') center/cover no-repeat;">
+          <sc-for list="{{ treatMarkers }}" as="m" hint-placeholder-count="3">
+            <div class="ymarker" onClick="{{ m.onClick }}" style="position:absolute;top:{{ m.top }};left:{{ m.left }};transform:translateX(-50%);background:{{ m.bg }};color:{{ m.color }};border:1.5px solid #1F5BB5;font-size:12.5px;font-weight:700;padding:6px 14px;border-radius:999px;box-shadow:{{ m.shadow }};white-space:nowrap;">{{ m.label }}</div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- 設備 -->
+  <sc-if value="{{ isEquip }}" hint-placeholder-val="{{ false }}">
+  <div style="width:100%;background:#fff;">
+    <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:52px 32px 96px;display:flex;flex-direction:column;gap:32px;">
+      <div class="yp-equip-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:28px;">
+        <div style="border:1px solid #E5E8EC;border-radius:24px;overflow:hidden;background:#fff;">
+          <div style="height:220px;background:#0B1730 url('assets/hero-02.jpg') center/cover no-repeat;"></div>
+          <div style="padding:26px 28px;">
+            <span class="en" style="font-size:11.5px;font-weight:600;color:#1F5BB5;">GAMMA PROBE</span>
+            <div style="font-size:19px;font-weight:800;color:#143A82;margin-top:8px;">GAMMA PROBE 術中定位儀</div>
+            <div style="font-size:14px;line-height:1.85;color:#5A6473;margin-top:12px;">搭配核醫藥物使用，於乳癌外科手術中協助摘除前哨淋巴結，提供術中即時定位確認。</div>
+          </div>
+        </div>
+        <div style="border:1px solid #E5E8EC;border-radius:24px;overflow:hidden;background:#fff;">
+          <div style="height:220px;background:#143A82 url('assets/machi-image.png') center/cover no-repeat;"></div>
+          <div style="padding:26px 28px;">
+            <span class="en" style="font-size:11.5px;font-weight:600;color:#1F5BB5;">UG-05</span>
+            <div style="font-size:19px;font-weight:800;color:#143A82;margin-top:8px;">UG-05 高精準度注射輔助系統</div>
+            <div style="font-size:14px;line-height:1.85;color:#5A6473;margin-top:12px;">日本進口注射輔助設備，提升核醫藥物注射作業的精準度與操作人員輻射防護安全。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- 體外診斷 -->
+  <sc-if value="{{ isInvitro }}" hint-placeholder-val="{{ false }}">
+  <div style="width:100%;background:#fff;">
+    <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:52px 32px 96px;">
+      <div class="yp-invitro-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center;">
+        <div>
+          <span class="en" style="font-size:12.5px;font-weight:600;color:#1F5BB5;">IZOTOP · RIA</span>
+          <div style="font-size:24px;font-weight:800;color:#143A82;margin-top:10px;">RIA 放射免疫檢驗試劑</div>
+          <div style="font-size:15px;line-height:2;color:#5A6473;margin-top:16px;">代理自匈牙利 IZOTOP 的放射免疫檢驗試劑，提供核子醫學科放射免疫檢驗的多樣選擇，涵蓋內分泌、腫瘤標記與代謝相關檢測項目。</div>
+          <div style="margin-top:24px;display:flex;gap:12px;">
+            <a href="product-detail.html" style="background:#143A82;color:#fff;border-radius:999px;padding:10px 22px;font-size:13.5px;font-weight:700;text-decoration:none;">前往產品介紹　→</a>
+          </div>
+        </div>
+        <div style="height:320px;border-radius:24px;background:#143A82 url('assets/hero-02.jpg') center/cover no-repeat;"></div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- 設備 (organ-diagram format) -->
+  <div style="width:100%;background:#fff;">
+    <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:80px 32px 0;">
+      <div class="yp-diag-grid" style="display:grid;grid-template-columns:1fr 440px;gap:36px;">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <sc-for list="{{ equipList }}" as="p" hint-placeholder-count="2">
+            <sc-if value="{{ p.selected }}" hint-placeholder-val="{{ false }}">
+              <div style="border-radius:24px;background:linear-gradient(120deg,#143A82,#1F5BB5);color:#fff;padding:30px 32px;">
+                <div class="yp-cardhead" style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                  <span style="font-size:20px;font-weight:800;">{{ p.title }}</span>
+                  <span class="en yp-chip" style="font-size:11px;background:rgba(255,255,255,.18);padding:4px 12px;border-radius:999px;">{{ p.tag }}</span>
+                </div>
+                <div style="font-size:14px;line-height:1.9;color:#D8E0F5;margin-bottom:20px;">{{ p.desc }}</div>
+                <sc-if value="{{ p.hasButtons }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;gap:12px;">
+                  <span style="border:1.5px solid #fff;border-radius:999px;padding:9px 20px;font-size:13px;font-weight:600;">查看更多</span>
+                  <a href="product-detail.html" style="background:#fff;color:#143A82;border-radius:999px;padding:9px 20px;font-size:13px;font-weight:700;text-decoration:none;">前往產品介紹　→</a>
+                </div>
+                </sc-if>
+              </div>
+            </sc-if>
+            <sc-if value="{{ p.notSelected }}" hint-placeholder-val="{{ true }}">
+              <div class="yprod-row" onClick="{{ p.onClick }}" style="border:1px solid #E5E8EC;border-radius:18px;background:#fff;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+                <div>
+                  <div style="font-size:17px;font-weight:700;color:#1C2533;">{{ p.title }}</div>
+                  <div style="font-size:13.5px;color:#9AA1AC;margin-top:6px;">{{ p.short }}</div>
+                </div>
+                <span class="en" style="font-size:11px;border:1px solid #D7DCE3;color:#9AA1AC;padding:4px 12px;border-radius:999px;flex-shrink:0;">{{ p.tag }}</span>
+              </div>
+            </sc-if>
+          </sc-for>
+        </div>
+        <div class="yp-organ" style="position:relative;height:540px;border-radius:32px;overflow:hidden;background:#0B1730 url('assets/body-diagram-c7a5f396.png') center/cover no-repeat;">
+          <sc-for list="{{ equipMarkers }}" as="m" hint-placeholder-count="2">
+            <div class="ymarker" onClick="{{ m.onClick }}" style="position:absolute;top:{{ m.top }};left:{{ m.left }};transform:translateX(-50%);background:{{ m.bg }};color:{{ m.color }};border:1.5px solid #1F5BB5;font-size:12.5px;font-weight:700;padding:6px 14px;border-radius:999px;box-shadow:{{ m.shadow }};white-space:nowrap;">{{ m.label }}</div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 體外診斷 (organ-diagram format) -->
+  <div style="width:100%;background:#fff;">
+    <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:80px 32px 96px;">
+      <div class="yp-diag-grid" style="display:grid;grid-template-columns:440px 1fr;gap:36px;">
+        <div class="yp-organ" style="position:relative;height:540px;border-radius:32px;overflow:hidden;background:#0B1730 url('assets/body-diagram-c7a5f396.png') center/cover no-repeat;">
+          <sc-for list="{{ invitroMarkers }}" as="m" hint-placeholder-count="2">
+            <div class="ymarker" onClick="{{ m.onClick }}" style="position:absolute;top:{{ m.top }};left:{{ m.left }};transform:translateX(-50%);background:{{ m.bg }};color:{{ m.color }};border:1.5px solid #1F5BB5;font-size:12.5px;font-weight:700;padding:6px 14px;border-radius:999px;box-shadow:{{ m.shadow }};white-space:nowrap;">{{ m.label }}</div>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <sc-for list="{{ invitroList }}" as="p" hint-placeholder-count="2">
+            <sc-if value="{{ p.selected }}" hint-placeholder-val="{{ false }}">
+              <div style="border-radius:24px;background:linear-gradient(120deg,#143A82,#1F5BB5);color:#fff;padding:30px 32px;">
+                <div class="yp-cardhead" style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                  <span style="font-size:20px;font-weight:800;">{{ p.title }}</span>
+                  <span class="en yp-chip" style="font-size:11px;background:rgba(255,255,255,.18);padding:4px 12px;border-radius:999px;">{{ p.tag }}</span>
+                </div>
+                <div style="font-size:14px;line-height:1.9;color:#D8E0F5;margin-bottom:20px;">{{ p.desc }}</div>
+                <sc-if value="{{ p.hasButtons }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;gap:12px;">
+                  <span style="border:1.5px solid #fff;border-radius:999px;padding:9px 20px;font-size:13px;font-weight:600;">查看更多</span>
+                  <a href="product-detail.html" style="background:#fff;color:#143A82;border-radius:999px;padding:9px 20px;font-size:13px;font-weight:700;text-decoration:none;">前往產品介紹　→</a>
+                </div>
+                </sc-if>
+              </div>
+            </sc-if>
+            <sc-if value="{{ p.notSelected }}" hint-placeholder-val="{{ true }}">
+              <div class="yprod-row" onClick="{{ p.onClick }}" style="border:1px solid #E5E8EC;border-radius:18px;background:#fff;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+                <div>
+                  <div style="font-size:17px;font-weight:700;color:#1C2533;">{{ p.title }}</div>
+                  <div style="font-size:13.5px;color:#9AA1AC;margin-top:6px;">{{ p.short }}</div>
+                </div>
+                <span class="en" style="font-size:11px;border:1px solid #D7DCE3;color:#9AA1AC;padding:4px 12px;border-radius:999px;flex-shrink:0;">{{ p.tag }}</span>
+              </div>
+            </sc-if>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="width:100%;background:#091428;">
+    <div style="height:3px;background:linear-gradient(90deg,#143A82,#2E72D6 50%,#143A82);"></div>
+    <div class="yb-foot-wrap" style="max-width:1200px;margin:0 auto;padding:0 32px;">
+      <div class="yb-foot" style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding:72px 0 56px;">
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <span style="font-size:22px;font-weight:900;letter-spacing:.02em;color:#fff;">元新醫藥</span>
+          <span class="en" style="font-size:12.5px;font-weight:500;letter-spacing:.04em;color:#9BA3A8;">YUAN HSIN PHARMA CO., LTD.</span>
+          <span style="font-size:13px;line-height:1.9;color:#7C87A0;margin-top:6px;">核子醫學整合服務<br>放射性藥物 · 輻射安全設備 · 輻防教育訓練</span>
+          <div style="display:flex;gap:12px;margin-top:18px;">
+            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 9H15V6.5h-1.7c-2 0-3.3 1.2-3.3 3.4V11H8v2.5h1.9V21h2.7v-7.5H14.6L15 11h-2.4V10c0-.6.3-1 .9-1z"/></svg>
+            </span>
+            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;" title="LINE">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.9 3 2.8 6.4 2.8 10.6c0 3.7 3.2 6.8 7.6 7.4-.1.5-.5 1.9-.6 2.2 0 .3.1.3.3.2.2 0 2.7-1.8 3.8-2.5 5.1-.3 9.1-3.7 9.1-7.9C23 6.4 17.1 3 12 3z"/></svg>
+            </span>
+            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.4-.4-5a3 3 0 0 0-2.1-2.1C18.9 4.5 12 4.5 12 4.5s-6.9 0-8.5.4A3 3 0 0 0 1.4 7C1 8.6 1 12 1 12s0 3.4.4 5a3 3 0 0 0 2.1 2.1c1.6.4 8.5.4 8.5.4s6.9 0 8.5-.4A3 3 0 0 0 22.6 17c.4-1.6.4-5 .4-5zM9.8 15.5v-7l6 3.5-6 3.5z"/></svg>
+            </span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">關於元新</span>
+          <div style="display:flex;flex-direction:column;gap:13px;">
+            <span class="ylink" style="font-size:13.5px;color:#8893A8;">我們的故事</span>
+            <span class="ylink" style="font-size:13.5px;color:#8893A8;">關鍵數據</span>
+            <span class="ylink" style="font-size:13.5px;color:#8893A8;">品質認證</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">產品與服務</span>
+          <div style="display:flex;flex-direction:column;gap:13px;">
+            <span class="ylink" style="font-size:13.5px;color:#8893A8;">體內診斷</span>
+            <span class="ylink" style="font-size:13.5px;color:#8893A8;">體內治療</span>
+            <span class="ylink" style="font-size:13.5px;color:#8893A8;">輻防教育訓練</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">資源</span>
+          <div style="display:flex;flex-direction:column;gap:13px;">
+            <span class="ylink" style="font-size:13.5px;color:#8893A8;">文章專區</span>
+            <span class="ylink" style="font-size:13.5px;color:#8893A8;">產學資源</span>
+            <span class="ylink" style="font-size:13.5px;color:#8893A8;">聯絡我們</span>
+          </div>
+        </div>
+      </div>
+      <div class="yb-foot-btm" style="display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-top:1px solid #1A2740;">
+        <span style="font-size:12.5px;color:#5F6C84;">© 2026 元新醫藥 YuanHsin Pharma Co., Ltd. All rights reserved.</span>
+        <div style="display:flex;gap:18px;">
+          <span class="ylink" style="font-size:12.5px;color:#5F6C84;">隱私權政策</span>
+          <span class="ylink" style="font-size:12.5px;color:#5F6C84;">元佑集團 ↗</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const DIAG = [
+  { tag:"ZEVALIN", title:"ZEVALIN-NHL 鞏固治療藥物", short:"利用 CD-20 抗體結合 Y-90 核種，放射免疫治療 NHL 及 FL", desc:"放射免疫治療（Radioimmunotherapy, RIT）是將放射性同位素與專一性單株抗體結合，利用抗體精準鎖定癌細胞的表面抗原，將輻射線直接遞送到腫瘤內部消滅癌細胞，同時減少對周圍健康組織的傷害。", top:"34%", left:"50%" },
+  { tag:"PDRadiopharma", title:"PDR-骨骼造影用藥物", short:"全身骨骼掃描造影劑，用於偵測骨轉移病灶", desc:"全身骨骼掃描造影劑，藥物聚集於骨骼代謝活躍區域，協助醫師偵測骨轉移病灶與早期骨骼病變，是核醫骨骼造影的常規檢查用藥。", top:"56%", left:"38%", noButtons:true },
+  { tag:"PDRadiopharma", title:"PDR-腎臟功能評估藥物", short:"腎臟血流灌注造影劑，用於腎功能評估與病灶偵測", desc:"腎臟血流灌注造影劑，透過動態影像評估腎絲球過濾率與左右腎功能分佈，協助臨床診斷腎臟阻塞、發炎或病灶所在位置。", top:"62%", left:"62%" },
+];
+const TREAT = [
+  { tag:"PDRadiopharma", title:"PDR-肝腫瘤定位造影劑", short:"術中定位標記，輔助外科手術精準切除", desc:"結合放射性標記與影像導引技術，協助醫師於術前術中精準定位肝臟病灶位置，降低手術風險並提升病灶清除完整度，適用於肝臟腫瘤相關外科手術。", top:"44%", left:"50%" },
+  { tag:"ZEVALIN", title:"ZEVALIN Y-90 微球體治療劑", short:"經動脈導管遞送 Y-90 微球體，治療原發性肝癌", desc:"經肝動脈導管將含 Y-90 同位素的微球體直接遞送至腫瘤血管床，於腫瘤內部釋放局部高劑量輻射，用於原發性肝癌的選擇性體內放射治療。", top:"56%", left:"38%" },
+  { tag:"Primo Biotechnology", title:"Primo-肝功能造影劑", short:"肝膽動態顯影，評估肝臟代謝與膽道通暢度", desc:"肝膽動態顯影劑，經肝細胞攝取後隨膽汁排出，用於評估肝臟代謝功能與膽道通暢程度，常用於膽道閉鎖及肝功能相關檢查。", top:"38%", left:"62%", noButtons:true },
+];
+const EQUIP = [
+  { tag:"Gamma Probe", title:"GAMMA PROBE 術中定位儀", short:"術中即時偵測，輔助前哨淋巴結摘除", desc:"搭配核醫藥物使用，於乳癌外科手術中協助摘除前哨淋巴結，提供術中即時定位確認，提升手術精準度。", top:"46%", left:"42%" },
+  { tag:"UG-05", title:"UG-05 高精準度注射輔助系統", short:"日本進口注射輔助設備，提升作業精準度", desc:"日本進口注射輔助設備，提升核醫藥物注射作業的精準度與操作人員輻射防護安全。", top:"60%", left:"58%", noButtons:true },
+];
+const INVITRO = [
+  { tag:"IZOTOP", title:"RIA 放射免疫檢驗試劑", short:"內分泌、腫瘤標記與代謝相關檢測項目", desc:"代理自匈牙利 IZOTOP 的放射免疫檢驗試劑，提供核子醫學科放射免疫檢驗的多樣選擇，涵蓋內分泌、腫瘤標記與代謝相關檢測項目。", top:"50%", left:"46%" },
+  { tag:"IZOTOP", title:"甲狀腺功能檢測套組", short:"甲狀腺荷爾蒙定量檢驗，輔助臨床診斷", desc:"用於甲狀腺荷爾蒙定量分析的檢驗套組，協助臨床醫師評估甲狀腺功能異常及相關代謝疾病。", top:"32%", left:"58%", noButtons:true },
+];
+const CHIPS = {
+  0: ["全部","ZEVALIN","PDRadiopharma"],
+  1: ["全部","PDRadiopharma","ZEVALIN","Primo Biotechnology"],
+  2: ["全部","Gamma Probe","UG-05"],
+  3: ["全部","IZOTOP"],
+};
+
+class Component extends DCLogic {
+  state = { cat: 0, diagIdx: 0, treatIdx: 0, activeChip: 0, equipIdx: 0, invitroIdx: 0 };
+
+  setCat(i) { this.setState({ cat: i, activeChip: 0 }); }
+  selectDiag(i) { this.setState({ diagIdx: i }); }
+  selectTreat(i) { this.setState({ treatIdx: i }); }
+  selectChip(i) { this.setState({ activeChip: i }); }
+  selectEquip(i) { this.setState({ equipIdx: i }); }
+  selectInvitro(i) { this.setState({ invitroIdx: i }); }
+
+  renderVals() {
+    const { cat, diagIdx, treatIdx, activeChip, equipIdx, invitroIdx } = this.state;
+    const tabCls = (i) => (cat === i ? "is-active" : "");
+
+    const diagList = DIAG.map((p, i) => ({ ...p, selected: i === diagIdx, notSelected: i !== diagIdx, hasButtons: !p.noButtons, onClick: () => this.selectDiag(i) }));
+    const diagMarkers = DIAG.map((p, i) => ({
+      label: p.title.split(" ")[0], top: p.top, left: p.left, onClick: () => this.selectDiag(i),
+      bg: i === diagIdx ? "#1F5BB5" : "#fff", color: i === diagIdx ? "#fff" : "#1F5BB5",
+      shadow: i === diagIdx ? "0 0 0 4px rgba(31,91,181,.35)" : "none",
+    }));
+
+    const treatList = TREAT.map((p, i) => ({ ...p, selected: i === treatIdx, notSelected: i !== treatIdx, hasButtons: !p.noButtons, onClick: () => this.selectTreat(i) }));
+    const treatMarkers = TREAT.map((p, i) => ({
+      label: p.title.split(" ")[0], top: p.top, left: p.left, onClick: () => this.selectTreat(i),
+      bg: i === treatIdx ? "#1F5BB5" : "#fff", color: i === treatIdx ? "#fff" : "#1F5BB5",
+      shadow: i === treatIdx ? "0 0 0 4px rgba(31,91,181,.35)" : "none",
+    }));
+
+    const brandChips = (CHIPS[cat] || []).map((label, i) => ({ label, cls: activeChip === i ? "is-active" : "" }));
+
+    const equipList = EQUIP.map((p, i) => ({ ...p, selected: i === equipIdx, notSelected: i !== equipIdx, hasButtons: !p.noButtons, onClick: () => this.selectEquip(i) }));
+    const equipMarkers = EQUIP.map((p, i) => ({
+      label: p.title.split(" ")[0], top: p.top, left: p.left, onClick: () => this.selectEquip(i),
+      bg: i === equipIdx ? "#1F5BB5" : "#fff", color: i === equipIdx ? "#fff" : "#1F5BB5",
+      shadow: i === equipIdx ? "0 0 0 4px rgba(31,91,181,.35)" : "none",
+    }));
+
+    const invitroList = INVITRO.map((p, i) => ({ ...p, selected: i === invitroIdx, notSelected: i !== invitroIdx, hasButtons: !p.noButtons, onClick: () => this.selectInvitro(i) }));
+    const invitroMarkers = INVITRO.map((p, i) => ({
+      label: p.title.split(" ")[0], top: p.top, left: p.left, onClick: () => this.selectInvitro(i),
+      bg: i === invitroIdx ? "#1F5BB5" : "#fff", color: i === invitroIdx ? "#fff" : "#1F5BB5",
+      shadow: i === invitroIdx ? "0 0 0 4px rgba(31,91,181,.35)" : "none",
+    }));
+
+    return {
+      isDiag: cat === 0, isTreat: cat === 1, isEquip: cat === 2, isInvitro: cat === 3,
+      tab0Cls: tabCls(0), tab1Cls: tabCls(1), tab2Cls: tabCls(2), tab3Cls: tabCls(3),
+      setCat0: () => this.setCat(0), setCat1: () => this.setCat(1), setCat2: () => this.setCat(2), setCat3: () => this.setCat(3),
+      diagList, diagMarkers,
+      treatList, treatMarkers,
+      brandChips,
+      equipList, equipMarkers,
+      invitroList, invitroMarkers,
+    };
+  }
+}
+
+</script>
+</body>
+</html>

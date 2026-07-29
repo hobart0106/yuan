@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<link rel="stylesheet" href="responsive.css">
+<style>
+  * { box-sizing:border-box; }
+  body { margin:0; background:#ffffff; color:#1C2533; font-family:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; -webkit-font-smoothing:antialiased; }
+  a { color:#1F5BB5; text-decoration:none; }
+  a:hover { color:#2E72D6; }
+  .en { font-family:'Manrope',sans-serif; }
+  .ylink { transition:color .2s ease,opacity .2s ease; cursor:pointer; }
+  .ylink:hover { color:#2E72D6; }
+  .ycard { transition:transform .35s ease,box-shadow .35s ease; }
+  .ynews:hover { transform:translateY(-5px); box-shadow:0 18px 40px -22px rgba(20,58,130,.35); }
+  .ynews:hover .ynews-img { transform:scale(1.06); }
+  .ynews-img { transition:transform .7s ease; }
+  .ypill { transition:transform .2s ease,background .25s ease,color .25s ease,box-shadow .25s ease; cursor:pointer; }
+  .ypill-solid:hover { transform:translateY(-2px); box-shadow:0 14px 26px -14px rgba(20,58,130,.6); }
+  .yacad { transition:border-color .25s ease,background .25s ease,color .25s ease; cursor:pointer; }
+  .yacad:hover { background:#143A82; color:#fff!important; box-shadow:inset 0 0 0 1px #143A82; }
+  .ynav { transition:color .2s ease; cursor:pointer; position:relative; }
+  .ynav:hover { color:#2E72D6; }
+  .ystat-cell { transition:transform .3s ease; }
+  .ystat-cell:hover { transform:translateY(-4px); }
+
+  /* ===== 本頁專屬 RWD（外殼規則見 responsive.css） ===== */
+  @media (max-width:1100px) {
+    .yb-hero { height:400px !important; min-height:340px !important; }
+    .yb-hero h1 { font-size:36px !important; }
+  }
+  @media (max-width:900px) {
+    .yb-hero { height:auto !important; min-height:0 !important; padding:64px 0 !important; }
+    .yb-hero h1 { font-size:32px !important; }
+    .yb-hero p { font-size:15.5px !important; }
+    .yb-sec h2 { font-size:30px !important; }
+    .yb-grid4 { grid-template-columns:repeat(2,1fr) !important; }
+    .yb-statgrid { grid-template-columns:1fr !important; }
+    .yb-statgrid .ystat-cell { box-shadow:none !important; border-bottom:1px solid rgba(20,58,130,.08); }
+    .yb-statgrid .ystat-cell:last-child { border-bottom:none; }
+    .yb-ms-flex { flex-direction:column !important; gap:28px !important; }
+    .yb-ms-pic { flex:1 1 auto !important; height:280px !important; }
+    .yb-cta-grid { grid-template-columns:1fr !important; }
+    .yb-cta { height:220px !important; }
+  }
+  @media (max-width:640px) {
+    .yb-hero { padding:48px 0 !important; }
+    .yb-hero h1 { font-size:28px !important; }
+    .yb-hero p { font-size:14.5px !important; margin-top:14px !important; }
+    .yb-sec { padding-top:56px !important; padding-bottom:56px !important; }
+    .yb-sec h2 { font-size:26px !important; }
+    .yb-grid4 { grid-template-columns:1fr !important; }
+    .yb-ms-pic { height:220px !important; }
+    .yb-ms-list { gap:24px !important; }
+  }
+</style>
+</helmet>
+
+<div style="width:100%;overflow-x:clip;">
+
+  <!-- UTILITY BAR -->
+  <div style="width:100%;background:#0E1C3D;">
+    <div class="yb-util" style="max-width:1200px;margin:0 auto;padding:0 32px;height:38px;display:flex;align-items:center;justify-content:space-between;">
+      <span class="en" style="font-size:12.5px;letter-spacing:.5px;color:#CDD5E4;">YUAN HSIN PHARMA CO., LTD.</span>
+      <div style="display:flex;align-items:center;gap:18px;font-size:12.5px;color:#AEB8CC;">
+        <span class="ylink">元佑集團官網 ↗</span>
+        <span style="opacity:.45;">|</span>
+        <span class="ylink">產品型錄</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <div style="width:100%;background:#fff;border-bottom:1px solid #EEF1F5;position:sticky;top:0;z-index:50;">
+    <div class="yb-navrow" style="max-width:1200px;margin:0 auto;padding:0 32px;height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <img src="assets/logo.png" alt="元新醫藥" style="height:38px;width:auto;flex-shrink:0;display:block;">
+      <div class="yb-navlinks" style="display:flex;align-items:center;gap:30px;font-size:15.5px;font-weight:700;white-space:nowrap;">
+        <a class="ynav" href="index.html" style="color:#143A82;">首頁</a>
+        <a class="ynav" href="about.html" style="color:#143A82;">關於我們</a>
+        <a class="ynav" href="products.html" style="color:#143A82;">產品與服務</a>
+        <a class="ynav" href="articles.html" style="color:#143A82;">文章專區</a>
+        <a class="ynav" href="training.html" style="color:#143A82;">輻防訓練</a>
+        <a class="ynav" href="contact.html" style="color:#143A82;">聯絡我們</a>
+      </div>
+      <div class="ylink yb-search" style="display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:210px;border:1px solid #D7DCE3;border-radius:999px;padding:9px 18px;">
+        <span class="en" style="font-size:13px;color:#9AA1AC;">Search</span>
+        <span style="font-family:monospace;font-size:22px;line-height:1;color:#9AA1AC;">⌕</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="yb-hero" style="position:relative;width:100%;margin:0;height:460px;min-height:380px;overflow:hidden;border-radius:90px 0 90px 0;background:#0B1730;">
+    <img src="assets/about-hero-02.png" alt="核醫團隊" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
+    <div style="position:relative;height:100%;max-width:1683px;margin:0 auto;padding:0 clamp(40px,7vw,120px);display:flex;flex-direction:column;justify-content:center;pointer-events:none;">
+      <div style="max-width:640px;color:#fff;">
+        <span class="en" style="font-size:13px;font-weight:600;letter-spacing:.16em;color:#9BC0FF;">ABOUT US</span>
+        <h1 style="margin:16px 0 0;font-size:44px;line-height:1.2;font-weight:800;">關於元新醫藥</h1>
+        <p style="margin:22px 0 0;font-size:16.5px;line-height:1.85;color:#EEF3FB;">元新醫藥深耕核子醫學領域，為國內各級醫療院所提供涵蓋放射性藥物、輻射安全設備與輻防教育訓練的整合性解決方案，致力建構安全、高效的核醫藥物生態系。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- OUR STORY -->
+  <div style="width:100%;background:#fff;">
+    <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:88px 32px;display:flex;flex-direction:column;gap:48px;">
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <span class="en" style="font-size:13px;font-weight:600;letter-spacing:.16em;color:#1F5BB5;">OUR STORY</span>
+        <h2 style="margin:0;font-size:34px;font-weight:800;color:#143A82;">關於元新</h2>
+      </div>
+
+      <div class="yb-ms-flex" style="display:flex;gap:56px;align-items:center;">
+        <div class="yb-ms-pic" style="flex:0 0 44%;height:300px;border-radius:32px;overflow:hidden;box-shadow:0 30px 60px -34px rgba(20,58,130,.5);">
+          <img src="assets/about_hero-image-170f7c4f.jpg" alt="核醫團隊討論" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div style="flex:1;font-size:15px;line-height:2;color:#5A6473;">元新醫藥前身隸屬於元英企業股份有限公司，主要進口核醫造影診斷用藥物。自 1984 年起，承蒙各大醫院核子醫學部門持續使用自日本 FUJIFILM TOYAMA CHEMICAL CO. LTD.（前身為 DAIICHI RADIOISOTOPE LABS., LTD.）進口的放射性藥物，用於心臟、骨骼等造影診，從而作為協助臨床醫生在後續治療診斷上的影像依據。</div>
+      </div>
+
+      <div class="yb-ms-flex" style="display:flex;gap:56px;align-items:center;">
+        <div style="flex:1;font-size:15px;line-height:2;color:#5A6473;order:1;">除了體內造影用藥物外，核子醫學科亦涵蓋臨床檢驗的放射免疫實驗室。元新自 2016 年起代理自匈牙利 IZOTOP 的 RIA 檢驗試劑，提供核子醫學科放射免疫檢驗的多樣選擇。鑒於近年來核醫藥物開始由診斷走向放射免疫治療，元新亦從美國代理進口 ZEVALIN 作為非何杰金氏 B-CELL 淋巴瘤治療藥物。</div>
+        <div class="yb-ms-pic" style="flex:0 0 44%;height:300px;border-radius:32px;overflow:hidden;order:2;box-shadow:0 30px 60px -34px rgba(20,58,130,.5);">
+          <img src="assets/lab.png" alt="核醫實驗室設備" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+      </div>
+
+      <div style="font-size:15px;line-height:2;color:#5A6473;max-width:920px;">除核醫藥物領域外，元新亦代理 GAMMA PROBE 定位儀，搭配核醫藥物，用於乳癌外科手術摘除前哨淋巴結的有效確認。</div>
+    </div>
+  </div>
+
+  <!-- BY THE NUMBERS -->
+  <div style="width:100%;background:#F4F6F9;border-top:1px solid #E5E8EC;border-bottom:1px solid #E5E8EC;">
+    <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:80px 32px;display:flex;flex-direction:column;gap:42px;">
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <span class="en" style="font-size:13px;font-weight:600;letter-spacing:.16em;color:#1F5BB5;">BY THE NUMBERS</span>
+        <h2 style="margin:0;font-size:34px;font-weight:800;color:#143A82;">關鍵數據</h2>
+        <span style="font-size:15px;color:#5A6473;">以數字呈現元新醫藥的規模與專業實力</span>
+      </div>
+      <div class="yb-statgrid" style="display:grid;grid-template-columns:repeat(4,1fr);border-radius:40px;background:#fff;box-shadow:inset 0 0 0 1px #D6E2F4;overflow:hidden;">
+        <div class="ystat-cell" style="padding:40px 28px;text-align:center;">
+          <div class="en" style="font-size:46px;font-weight:800;color:#1F5BB5;">40+</div>
+          <div style="margin-top:10px;font-size:14px;color:#5A6473;">年核子醫學專業經驗</div>
+        </div>
+        <div class="ystat-cell" style="padding:40px 28px;text-align:center;box-shadow:inset 1px 0 0 #E9EEF6,inset -1px 0 0 #E9EEF6;">
+          <div class="en" style="font-size:46px;font-weight:800;color:#1F5BB5;">3</div>
+          <div style="margin-top:10px;font-size:14px;color:#5A6473;">大服務領域：藥物顧問、輻射安全設備、輻防訓練</div>
+        </div>
+        <div class="ystat-cell" style="padding:40px 28px;text-align:center;box-shadow:inset 1px 0 0 #E9EEF6,inset -1px 0 0 #E9EEF6;">
+          <div class="en" style="font-size:46px;font-weight:800;color:#1F5BB5;">4</div>
+          <div style="margin-top:10px;font-size:14px;color:#5A6473;">大產品分類：體內診斷、體內治療、設備、體外診斷</div>
+        </div>
+        <div class="ystat-cell" style="padding:40px 28px;text-align:center;">
+          <div class="en" style="font-size:34px;font-weight:800;color:#1F5BB5;line-height:1.2;">PIC/S<br>GMP</div>
+          <div style="margin-top:10px;font-size:14px;color:#5A6473;">供應鏈全程符合國際藥品優良運銷規範</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CERTIFICATIONS -->
+  <div style="width:100%;background:#fff;">
+    <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:88px 32px;display:flex;flex-direction:column;gap:42px;">
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <span class="en" style="font-size:13px;font-weight:600;letter-spacing:.16em;color:#1F5BB5;">CERTIFICATIONS</span>
+        <h2 style="margin:0;font-size:34px;font-weight:800;color:#143A82;">品質認證</h2>
+        <span style="font-size:15px;color:#5A6473;">通過國內外主要品質與法規認證，確保產品安全與可靠</span>
+      </div>
+      <div class="yb-grid4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;">
+        <div class="ycard ynews" style="border-radius:20px;background:#F4F6F9;overflow:hidden;">
+          <div style="height:140px;overflow:hidden;"><image-slot id="cert-1" shape="rect" placeholder="PIC/S GMP 證書"></image-slot></div>
+          <div style="padding:18px 20px 22px;"><span style="font-size:14.5px;font-weight:700;color:#1C2533;">PIC/S GMP 認證</span></div>
+        </div>
+        <div class="ycard ynews" style="border-radius:20px;background:#F4F6F9;overflow:hidden;">
+          <div style="height:140px;overflow:hidden;"><image-slot id="cert-2" shape="rect" placeholder="證書縮圖"></image-slot></div>
+          <div style="padding:18px 20px 22px;"><span style="font-size:14.5px;font-weight:700;color:#1C2533;">藥商許可執照</span></div>
+        </div>
+        <div class="ycard ynews" style="border-radius:20px;background:#F4F6F9;overflow:hidden;">
+          <div style="height:140px;overflow:hidden;"><image-slot id="cert-3" shape="rect" placeholder="證書縮圖"></image-slot></div>
+          <div style="padding:18px 20px 22px;"><span style="font-size:14.5px;font-weight:700;color:#1C2533;">放射性物質使用執照</span></div>
+        </div>
+        <div class="ycard ynews" style="border-radius:20px;background:#F4F6F9;overflow:hidden;">
+          <div style="height:140px;overflow:hidden;"><image-slot id="cert-4" shape="rect" placeholder="證書縮圖"></image-slot></div>
+          <div style="padding:18px 20px 22px;"><span style="font-size:14.5px;font-weight:700;color:#1C2533;">品質管理系統認證</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="width:100%;background:#091428;">
+    <div style="height:3px;background:linear-gradient(90deg,#143A82,#2E72D6 50%,#143A82);"></div>
+    <div class="yb-foot-wrap" style="max-width:1200px;margin:0 auto;padding:0 32px;">
+      <div class="yb-foot" style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding:72px 0 56px;">
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <span style="font-size:22px;font-weight:900;letter-spacing:.02em;color:#fff;">元新醫藥</span>
+          <span class="en" style="font-size:12.5px;font-weight:500;letter-spacing:.04em;color:#9BA3A8;">YUAN HSIN PHARMA CO., LTD.</span>
+          <span style="font-size:13px;line-height:1.9;color:#7C87A0;margin-top:6px;">核子醫學整合服務<br>放射性藥物 · 輻射安全設備 · 輻防教育訓練</span>
+          <div style="display:flex;gap:12px;margin-top:18px;">
+            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 9H15V6.5h-1.7c-2 0-3.3 1.2-3.3 3.4V11H8v2.5h1.9V21h2.7v-7.5H14.6L15 11h-2.4V10c0-.6.3-1 .9-1z"/></svg>
+            </span>
+            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;" title="LINE">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.9 3 2.8 6.4 2.8 10.6c0 3.7 3.2 6.8 7.6 7.4-.1.5-.5 1.9-.6 2.2 0 .3.1.3.3.2.2 0 2.7-1.8 3.8-2.5 5.1-.3 9.1-3.7 9.1-7.9C23 6.4 17.1 3 12 3z"/></svg>
+            </span>
+            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.4-.4-5a3 3 0 0 0-2.1-2.1C18.9 4.5 12 4.5 12 4.5s-6.9 0-8.5.4A3 3 0 0 0 1.4 7C1 8.6 1 12 1 12s0 3.4.4 5a3 3 0 0 0 2.1 2.1c1.6.4 8.5.4 8.5.4s6.9 0 8.5-.4A3 3 0 0 0 22.6 17c.4-1.6.4-5 .4-5zM9.8 15.5v-7l6 3.5-6 3.5z"/></svg>
+            </span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">關於元新</span>
+          <div style="display:flex;flex-direction:column;gap:13px;">
+            <span class="ylink" style="font-size:13.5px;color:#8893A8;">我們的故事</span>
+            <span class="ylink" style="font-size:13.5px;color:#8893A8;">關鍵數據</span>
+            <span class="ylink" style="font-size:13.5px;color:#8893A8;">品質認證</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">產品與服務</span>
+          <div style="display:flex;flex-direction:column;gap:13px;">
+            <span class="ylink" style="font-size:13.5px;color:#8893A8;">體內診斷</span>
+            <span class="ylink" style="font-size:13.5px;color:#8893A8;">體內治療</span>
+            <span class="ylink" style="font-size:13.5px;color:#8893A8;">輻防教育訓練</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">資源</span>
+          <div style="display:flex;flex-direction:column;gap:13px;">
+            <span class="ylink" style="font-size:13.5px;color:#8893A8;">文章專區</span>
+            <span class="ylink" style="font-size:13.5px;color:#8893A8;">產學資源</span>
+            <span class="ylink" style="font-size:13.5px;color:#8893A8;">聯絡我們</span>
+          </div>
+        </div>
+      </div>
+      <div class="yb-foot-btm" style="display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-top:1px solid #1A2740;">
+        <span style="font-size:12.5px;color:#5F6C84;">© 2026 元新醫藥 YuanHsin Pharma Co., Ltd. All rights reserved.</span>
+        <div style="display:flex;gap:18px;">
+          <span class="ylink" style="font-size:12.5px;color:#5F6C84;">隱私權政策</span>
+          <span class="ylink" style="font-size:12.5px;color:#5F6C84;">元佑集團 ↗</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</x-dc>
+</body>
+</html>

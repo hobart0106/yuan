@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="responsive.css">
+<style>
+  * { box-sizing:border-box; }
+  body { margin:0; background:#ffffff; color:#1C2533; font-family:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; -webkit-font-smoothing:antialiased; }
+  a { color:#1F5BB5; text-decoration:none; }
+  a:hover { color:#2E72D6; }
+  .en { font-family:'Manrope',sans-serif; }
+  .ylink { transition:color .2s ease,opacity .2s ease; cursor:pointer; }
+  .ylink:hover { color:#2E72D6; }
+  .ynav { transition:color .2s ease; cursor:pointer; position:relative; }
+  .ynav:hover { color:#2E72D6; }
+  .ytab { transition:background .2s ease,color .2s ease; cursor:pointer; }
+  .yinput { border:1px solid #D7DCE3; border-radius:10px; height:46px; background:#fff; font-size:14px; padding:0 16px; color:#1C2533; width:100%; }
+  .ytextarea { border:1px solid #D7DCE3; border-radius:10px; height:120px; background:#fff; font-size:14px; padding:14px 16px; color:#1C2533; width:100%; }
+  .ybtn-solid { transition:transform .2s ease,box-shadow .2s ease; cursor:pointer; }
+  .ybtn-solid:hover { transform:translateY(-2px); box-shadow:0 14px 26px -14px rgba(20,58,130,.6); }
+  .yinfocard { transition:transform .3s ease,box-shadow .3s ease; }
+  .yinfocard:hover { transform:translateY(-4px); box-shadow:0 18px 40px -22px rgba(20,58,130,.3); }
+
+  /* ===== 本頁專屬 RWD（外殼規則見 responsive.css） ===== */
+  @media (max-width:900px) {
+    .yb-form-split { grid-template-columns:1fr !important; gap:36px !important; }
+    .yb-grid3 { grid-template-columns:1fr !important; }
+    .yb-form-grid2 { grid-template-columns:1fr 1fr !important; }
+    .yb-cta-grid { grid-template-columns:1fr !important; }
+    .yb-cta { height:220px !important; }
+  }
+  @media (max-width:640px) {
+    .yb-sec { padding-top:56px !important; padding-bottom:56px !important; }
+    .yb-sec h1 { font-size:28px !important; }
+    .yb-sec h2 { font-size:24px !important; }
+    .yb-form-grid2 { grid-template-columns:1fr !important; }
+    .yb-cta { height:180px !important; }
+  }
+</style>
+</helmet>
+
+<div style="width:100%;overflow-x:clip;">
+
+  <div style="width:100%;background:#0E1C3D;">
+    <div class="yb-util" style="max-width:1200px;margin:0 auto;padding:0 32px;height:38px;display:flex;align-items:center;justify-content:space-between;">
+      <span class="en" style="font-size:12.5px;letter-spacing:.5px;color:#CDD5E4;">YUAN HSIN PHARMA CO., LTD.</span>
+      <div style="display:flex;align-items:center;gap:18px;font-size:12.5px;color:#AEB8CC;">
+        <span class="ylink">元佑集團官網 ↗</span>
+        <span style="opacity:.45;">|</span>
+        <span class="ylink">產品型錄</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="width:100%;background:#fff;border-bottom:1px solid #EEF1F5;position:sticky;top:0;z-index:50;">
+    <div class="yb-navrow" style="max-width:1200px;margin:0 auto;padding:0 32px;height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <img src="assets/logo.png" alt="元新醫藥" style="height:38px;width:auto;flex-shrink:0;display:block;">
+      <div class="yb-navlinks" style="display:flex;align-items:center;gap:30px;font-size:15.5px;font-weight:700;white-space:nowrap;">
+        <a class="ynav" href="index.html" style="color:#143A82;">首頁</a>
+        <a class="ynav" href="about.html" style="color:#143A82;">關於我們</a>
+        <a class="ynav" href="products.html" style="color:#143A82;">產品與服務</a>
+        <a class="ynav" href="articles.html" style="color:#143A82;">文章專區</a>
+        <a class="ynav" href="training.html" style="color:#143A82;">輻防訓練</a>
+        <a class="ynav" href="contact.html" style="color:#1F5BB5;">聯絡我們</a>
+      </div>
+      <div class="ylink yb-search" style="display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:210px;border:1px solid #D7DCE3;border-radius:999px;padding:9px 18px;">
+        <span class="en" style="font-size:13px;color:#9AA1AC;">Search</span>
+        <span style="font-family:monospace;font-size:22px;line-height:1;color:#9AA1AC;">⌕</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 頁首 -->
+  <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:22px 32px 0;">
+    <span class="en" style="font-size:13px;font-weight:600;letter-spacing:.16em;color:#1F5BB5;">CONTACT US</span>
+    <h1 style="margin:16px 0 0;font-size:34px;font-weight:800;color:#143A82;">聯絡我們</h1>
+    <p style="margin:16px 0 0;font-size:15px;line-height:1.9;color:#5A6473;max-width:700px;">無論是產品洽詢、合作提案，或輻防訓練課程問題，歡迎透過下方表單與我們聯繫，我們將盡快與您聯絡。</p>
+  </div>
+
+  <!-- 表單 + 說明 -->
+  <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:44px 32px 88px;">
+    <div class="yb-form-split" style="display:grid;grid-template-columns:1fr 1fr;gap:44px;">
+      <div style="border-radius:24px;background:#F4F6F9;box-shadow:inset 0 0 0 1px #E5E8EC;padding:36px;">
+        <span style="display:block;font-size:15px;font-weight:800;color:#143A82;margin-bottom:16px;">洽詢類別</span>
+        <div style="display:flex;gap:10px;margin-bottom:26px;">
+          <div class="ytab" style="background:#143A82;color:#fff;border-radius:999px;padding:9px 20px;font-size:13.5px;font-weight:700;">合作洽詢</div>
+          <div class="ytab" style="border:1px solid #D7DCE3;border-radius:999px;padding:9px 20px;font-size:13.5px;color:#5A6473;">客戶洽詢</div>
+        </div>
+        <div class="yb-form-grid2" style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+          <div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:12.5px;color:#5A6473;">姓名 *</span><input class="yinput"></div>
+          <div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:12.5px;color:#5A6473;">單位 / 公司名稱 *</span><input class="yinput"></div>
+          <div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:12.5px;color:#5A6473;">聯繫電話 *</span><input class="yinput"></div>
+          <div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:12.5px;color:#5A6473;">Email *</span><input class="yinput"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:18px;"><span style="font-size:12.5px;color:#5A6473;">洽詢內容 *</span><textarea class="ytextarea"></textarea></div>
+        <div class="ybtn-solid" style="margin-top:24px;background:#143A82;color:#fff;border-radius:999px;padding:14px;text-align:center;font-size:15px;font-weight:700;max-width:200px;">送出洽詢</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div class="yinfocard" style="border-radius:20px;background:#fff;box-shadow:0 0 0 1px #E5E8EC;padding:26px;display:flex;gap:18px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:#F4F6F9;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#1F5BB5;font-size:20px;">◈</div>
+          <div><span style="display:block;font-size:16px;font-weight:800;color:#1C2533;">合作洽詢</span><span style="display:block;font-size:13.5px;color:#5A6473;line-height:1.7;margin-top:6px;">原廠合作、代理經銷、通路開發等商業合作提案。</span></div>
+        </div>
+        <div class="yinfocard" style="border-radius:20px;background:#fff;box-shadow:0 0 0 1px #E5E8EC;padding:26px;display:flex;gap:18px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:#F4F6F9;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#1F5BB5;font-size:20px;">▤</div>
+          <div><span style="display:block;font-size:16px;font-weight:800;color:#1C2533;">客戶洽詢</span><span style="display:block;font-size:13.5px;color:#5A6473;line-height:1.7;margin-top:6px;">產品詢價、訂購、技術支援與售後服務等相關問題。</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 聯絡資訊 -->
+  <div class="yb-cta-grid" style="display:grid;grid-template-columns:repeat(3,1fr);width:100%;">
+    <div class="yb-cta" style="position:relative;height:300px;overflow:hidden;cursor:pointer;">
+      <div style="position:absolute;inset:0;background:#0E1C3D url('assets/c-news1.jpg') center/cover no-repeat;"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,23,48,.55),rgba(11,23,48,.78));"></div>
+      <div style="position:relative;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 32px;color:#fff;">
+        <div class="en" style="font-size:26px;font-weight:800;">業務處</div>
+        <div style="font-size:14px;color:#cfdcf2;margin-top:10px;">(02) 2345-6789｜sales@yuanhsin-pharma.com.tw</div>
+        <div style="margin-top:22px;border:1.5px solid rgba(255,255,255,.6);border-radius:999px;padding:11px 28px;font-size:14px;font-weight:700;">聯絡業務處　→</div>
+      </div>
+    </div>
+    <div class="yb-cta" style="position:relative;height:300px;overflow:hidden;cursor:pointer;">
+      <div style="position:absolute;inset:0;background:#143A82 url('assets/c-train2.jpg') center/cover no-repeat;"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,58,130,.5),rgba(15,40,98,.8));"></div>
+      <div style="position:relative;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 32px;color:#fff;">
+        <div class="en" style="font-size:26px;font-weight:800;">輻防訓練窗口</div>
+        <div style="font-size:14px;color:#cfdcf2;margin-top:10px;">(02) 2345-6790｜training@yuanhsin-pharma.com.tw</div>
+        <div style="margin-top:22px;background:#fff;color:#143A82;border-radius:999px;padding:11px 28px;font-size:14px;font-weight:700;">聯絡訓練窗口　→</div>
+      </div>
+    </div>
+    <div class="yb-cta" style="position:relative;height:300px;overflow:hidden;cursor:pointer;">
+      <div style="position:absolute;inset:0;background:#1F5BB5 url('assets/c-milestone.jpg') center/cover no-repeat;"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(31,91,181,.5),rgba(20,58,130,.82));"></div>
+      <div style="position:relative;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 32px;color:#fff;">
+        <div class="en" style="font-size:26px;font-weight:800;">公關合作</div>
+        <div style="font-size:14px;color:#cfdcf2;margin-top:10px;">(02) 2345-6791｜pr@yuanhsin-pharma.com.tw</div>
+        <div style="margin-top:22px;border:1.5px solid rgba(255,255,255,.6);border-radius:999px;padding:11px 28px;font-size:14px;font-weight:700;">聯絡公關窗口　→</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="width:100%;background:#091428;">
+    <div style="height:3px;background:linear-gradient(90deg,#143A82,#2E72D6 50%,#143A82);"></div>
+    <div class="yb-foot-wrap" style="max-width:1200px;margin:0 auto;padding:0 32px;">
+      <div class="yb-foot" style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding:72px 0 56px;">
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <span style="font-size:22px;font-weight:900;letter-spacing:.02em;color:#fff;">元新醫藥</span>
+          <span class="en" style="font-size:12.5px;font-weight:500;letter-spacing:.04em;color:#9BA3A8;">YUAN HSIN PHARMA CO., LTD.</span>
+          <span style="font-size:13px;line-height:1.9;color:#7C87A0;margin-top:6px;">核子醫學整合服務<br>放射性藥物 · 輻射安全設備 · 輻防教育訓練</span>
+          <div style="display:flex;gap:12px;margin-top:18px;">
+            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 9H15V6.5h-1.7c-2 0-3.3 1.2-3.3 3.4V11H8v2.5h1.9V21h2.7v-7.5H14.6L15 11h-2.4V10c0-.6.3-1 .9-1z"/></svg>
+            </span>
+            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;" title="LINE">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.9 3 2.8 6.4 2.8 10.6c0 3.7 3.2 6.8 7.6 7.4-.1.5-.5 1.9-.6 2.2 0 .3.1.3.3.2.2 0 2.7-1.8 3.8-2.5 5.1-.3 9.1-3.7 9.1-7.9C23 6.4 17.1 3 12 3z"/></svg>
+            </span>
+            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.4-.4-5a3 3 0 0 0-2.1-2.1C18.9 4.5 12 4.5 12 4.5s-6.9 0-8.5.4A3 3 0 0 0 1.4 7C1 8.6 1 12 1 12s0 3.4.4 5a3 3 0 0 0 2.1 2.1c1.6.4 8.5.4 8.5.4s6.9 0 8.5-.4A3 3 0 0 0 22.6 17c.4-1.6.4-5 .4-5zM9.8 15.5v-7l6 3.5-6 3.5z"/></svg>
+            </span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">關於元新</span>
+          <div style="display:flex;flex-direction:column;gap:13px;">
+            <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">我們的故事</a>
+            <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">關鍵數據</a>
+            <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">品質認證</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">產品與服務</span>
+          <div style="display:flex;flex-direction:column;gap:13px;">
+            <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">體內診斷</a>
+            <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">體內治療</a>
+            <a class="ylink" href="training.html" style="font-size:13.5px;color:#8893A8;">輻防教育訓練</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">資源</span>
+          <div style="display:flex;flex-direction:column;gap:13px;">
+            <a class="ylink" href="articles.html" style="font-size:13.5px;color:#8893A8;">文章專區</a>
+            <span class="ylink" style="font-size:13.5px;color:#8893A8;">產學資源</span>
+            <a class="ylink" href="contact.html" style="font-size:13.5px;color:#8893A8;">聯絡我們</a>
+          </div>
+        </div>
+      </div>
+      <div class="yb-foot-btm" style="display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-top:1px solid #1A2740;">
+        <span style="font-size:12.5px;color:#5F6C84;">© 2026 元新醫藥 YuanHsin Pharma Co., Ltd. All rights reserved.</span>
+        <div style="display:flex;gap:18px;">
+          <span class="ylink" style="font-size:12.5px;color:#5F6C84;">隱私權政策</span>
+          <span class="ylink" style="font-size:12.5px;color:#5F6C84;">元佑集團 ↗</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</x-dc>
+</body>
+</html>
