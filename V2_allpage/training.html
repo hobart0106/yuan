@@ -45,10 +45,10 @@
     .yb-hero p { font-size:15.5px !important; }
     .yb-sec h2 { font-size:30px !important; }
     .yb-grid4 { grid-template-columns:repeat(2,1fr) !important; }
-    /* 主打課程卡：橫向改直向，圖片改為固定高度的上半部 */
-    .yb-feature { flex-direction:column !important; }
-    .yb-feature-img { flex:0 0 auto !important; min-height:0 !important; height:240px !important; }
-    .yb-feature-body { padding:28px 32px !important; }
+    /* 開課時間圓圈：五欄太窄會擠爆文字，改三欄 */
+    .yb-coursegrid { grid-template-columns:repeat(3,1fr) !important; }
+    /* 課程方案卡：兩欄改單欄，避免條列內容被擠壓 */
+    .yplans-grid { grid-template-columns:1fr !important; }
   }
   @media (max-width:640px) {
     .yb-hero { padding:48px 0 !important; }
@@ -57,9 +57,12 @@
     .yb-sec { padding-top:56px !important; padding-bottom:56px !important; }
     .yb-sec h2 { font-size:26px !important; }
     .yb-grid4 { grid-template-columns:1fr !important; }
-    .yb-feature-img { height:180px !important; }
-    .yb-feature-body { padding:24px 22px !important; gap:12px !important; }
-    .yb-feature-body > span:nth-child(2) { font-size:19px !important; }
+    /* 圓圈改兩欄；正圓在窄螢幕會過高，放寬為圓角卡片 */
+    .yb-coursegrid { grid-template-columns:repeat(2,1fr) !important; gap:14px !important; }
+    .yb-coursegrid > div { aspect-ratio:auto !important; border-radius:20px !important; padding:22px 16px !important; }
+    .yplan-head { height:auto !important; padding:26px 22px !important; }
+    .yplan-head > div > span { font-size:19px !important; }
+    .yplan-body { padding:26px 22px !important; }
   }
 </style>
 </helmet>
@@ -68,7 +71,7 @@
 
   <div style="width:100%;background:#0E1C3D;">
     <div class="yb-util" style="max-width:1200px;margin:0 auto;padding:0 32px;height:38px;display:flex;align-items:center;justify-content:space-between;">
-      <span class="en" style="font-size:12.5px;letter-spacing:.5px;color:#CDD5E4;">YUAN HSIN PHARMA CO., LTD.</span>
+      <span class="en" style="font-size:12.5px;letter-spacing:.5px;color:#CDD5E4;">YUANYU GROUP CO.</span>
       <div style="display:flex;align-items:center;gap:18px;font-size:12.5px;color:#AEB8CC;">
         <span class="ylink">元佑集團官網 ↗</span>
         <span style="opacity:.45;">|</span>
@@ -101,9 +104,48 @@
     <div style="position:relative;height:100%;max-width:1683px;margin:0 auto;padding:0 clamp(40px,7vw,120px);display:flex;flex-direction:column;justify-content:center;">
       <div style="max-width:660px;color:#fff;">
         <span class="en" style="font-size:13px;font-weight:600;letter-spacing:.16em;color:#9BC0FF;">TRAINING &amp; CONSULTING</span>
-        <h1 style="margin:16px 0 0;font-size:42px;line-height:1.2;font-weight:800;">輻防教育與顧問</h1>
-        <p style="margin:22px 0 0;font-size:16.5px;line-height:1.85;color:#EEF3FB;">元新醫藥累積數十年核醫現場經驗，打造小班制、設備實作導向的游離輻射防護課程，完訓即具備取證能力，全程符合《游離輻射防護法》規範。</p>
-        <a href="#course-list" style="display:inline-block;margin-top:28px;background:#fff;color:#143A82;border-radius:999px;padding:14px 30px;font-size:15px;font-weight:800;">查看近期課程場次</a>
+        <h1 style="margin:16px 0 0;font-size:42px;line-height:1.2;font-weight:800;">實務導向，培訓即戰力</h1>
+        <p style="margin:22px 0 0;font-size:16.5px;line-height:1.85;color:#EEF3FB;">元新儀器是輻射防護專家，累積數十年現場經驗打造18小時／36小時游離輻射防護課程。主打小班制、輻防設備實作，學員完訓即有能力取證，並且百分之百配合《游離輻射防護法》的要求，確保運作流程安全、高效。</p>
+        <a href="#course-list" style="display:inline-block;margin-top:28px;background:#fff;color:#143A82;border-radius:999px;padding:14px 30px;font-size:15px;font-weight:800;">立即報名</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 開課時間 -->
+  <div style="width:100%;background:#fff;">
+    <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:64px 32px 0;display:flex;flex-direction:column;gap:28px;">
+
+      <div class="yb-coursegrid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:20px;">
+        <div style="background:#F0F1F3;border-radius:50%;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;padding:16px;">
+          <span style="font-size:13px;color:#5A6473;">技術清潔度</span>
+          <span style="font-size:16px;font-weight:800;color:#1C2533;">檢驗員資格培訓</span>
+          <span style="width:28px;height:1px;background:#C7CFDA;"></span>
+          <span style="font-size:13px;color:#5A6473;">2026/3/19-3/20</span>
+        </div>
+        <div style="background:#F0F1F3;border-radius:50%;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;padding:16px;">
+          <span style="font-size:13px;color:#5A6473;">技術清潔度</span>
+          <span style="font-size:16px;font-weight:800;color:#1C2533;">檢驗員資格培訓</span>
+          <span style="width:28px;height:1px;background:#C7CFDA;"></span>
+          <span style="font-size:13px;color:#5A6473;">2026/6/25-6/26</span>
+        </div>
+        <div style="background:#143A82;border-radius:50%;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;padding:16px;">
+          <span style="font-size:13px;color:#DCE4F0;">技術清潔度</span>
+          <span style="font-size:16px;font-weight:800;color:#fff;">助理資格培訓</span>
+          <span style="width:28px;height:1px;background:rgba(255,255,255,.4);"></span>
+          <span style="font-size:13px;color:#DCE4F0;">2026/8/13-8/14</span>
+        </div>
+        <div style="background:#EAF2FC;border-radius:50%;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;padding:16px;">
+          <span style="font-size:13px;color:#5A6473;">技術清潔度</span>
+          <span style="font-size:16px;font-weight:800;color:#1C2533;">助理資格培訓</span>
+          <span style="width:28px;height:1px;background:#C7CFDA;"></span>
+          <span style="font-size:13px;color:#5A6473;">2026/10/15-10/16</span>
+        </div>
+        <div style="background:#EAF2FC;border-radius:50%;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;padding:16px;">
+          <span style="font-size:13px;color:#5A6473;">技術清潔度</span>
+          <span style="font-size:16px;font-weight:800;color:#1C2533;">檢驗員資格培訓</span>
+          <span style="width:28px;height:1px;background:#C7CFDA;"></span>
+          <span style="font-size:13px;color:#5A6473;">2026/12/3-12/4</span>
+        </div>
       </div>
     </div>
   </div>
@@ -111,24 +153,104 @@
   <!-- 課程列表 -->
   <div id="course-list" style="width:100%;background:#fff;">
     <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:56px 32px 88px;display:flex;flex-direction:column;gap:34px;">
-      <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;">
-        <div style="display:flex;flex-direction:column;gap:12px;">
-          <span class="en" style="font-size:13px;font-weight:600;letter-spacing:.16em;color:#1F5BB5;">UPCOMING SESSIONS</span>
-          <h2 style="margin:0;font-size:32px;font-weight:800;color:#143A82;">近期課程場次</h2>
-        </div>
-        <div style="display:flex;gap:12px;">
-          <div class="yfilter" style="border:1px solid #D7DCE3;border-radius:10px;padding:10px 16px;font-size:13.5px;color:#5A6473;background:#fff;">內容分類 ▾</div>
-          <div class="yfilter" style="border:1px solid #D7DCE3;border-radius:10px;padding:10px 16px;font-size:13.5px;color:#5A6473;background:#fff;">時間 ▾</div>
-        </div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <span class="en" style="font-size:13px;font-weight:600;letter-spacing:.16em;color:#1F5BB5;">TRAINING PLANS</span>
+        <h2 style="margin:0;font-size:32px;font-weight:800;color:#143A82;">課程方案介紹</h2>
       </div>
 
-      <div class="ycoursecard yb-feature" style="border-radius:24px;background:#fff;box-shadow:0 0 0 1px #E5E8EC;overflow:hidden;display:flex;">
-        <div class="yb-feature-img" style="flex:0 0 42%;min-height:280px;background-image:url({{ courses.0.cover }});background-size:cover;background-position:center;"></div>
-        <div class="yb-feature-body" style="flex:1;padding:36px 40px;display:flex;flex-direction:column;gap:14px;justify-content:center;">
-          <span class="en" style="font-size:12.5px;font-weight:600;color:#1F5BB5;">{{ courses.0.date }}</span>
-          <span style="font-size:22px;font-weight:800;color:#1C2533;line-height:1.4;">{{ courses.0.title }}</span>
-          <span style="font-size:14px;color:#5A6473;line-height:1.8;">{{ courses.0.desc }}</span>
-          <a href="course-detail.html" class="ybtn-outline" style="align-self:flex-start;margin-top:8px;background:#143A82;color:#fff;border-radius:999px;padding:12px 28px;font-size:14px;font-weight:700;">立即報名</a>
+      <div class="yplans-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch;">
+        <div class="ycoursecard" onClick="{{ goToDetail }}" style="cursor:pointer;border-radius:24px;background:#fff;box-shadow:0 0 0 1px #E5E8EC;overflow:hidden;display:flex;flex-direction:column;">
+          <div class="yplan-head" style="background:#EAF2FC;padding:32px 34px;display:flex;flex-direction:column;gap:16px;height:220px;">
+            <svg width="72" height="72" viewBox="0 0 52 52" fill="none" style="flex-shrink:0;">
+              <circle cx="26" cy="26" r="15" stroke="#9BC0FF" stroke-width="1.6"/>
+              <circle cx="26" cy="26" r="7.5" stroke="#9BC0FF" stroke-width="1.6"/>
+              <circle cx="26" cy="26" r="3" fill="#143A82"/>
+              <circle cx="26" cy="11" r="2.4" fill="#9BC0FF"/>
+              <circle cx="38.5" cy="33.5" r="2.4" fill="#143A82"/>
+            </svg>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <span style="font-size:21px;font-weight:800;color:#143A82;line-height:1.4;">登記類設備輻射安全訓練（18小時）</span>
+              <p style="margin:0;font-size:14px;line-height:1.8;color:#5A6473;">適合操作 150 keV 以下或登記備查類可發生游離輻射設備之從業人員。</p>
+            </div>
+          </div>
+          <div class="yplan-body" style="padding:32px 34px;display:flex;flex-direction:column;gap:18px;flex:1;">
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <span style="font-size:13.5px;font-weight:700;color:#143A82;">課程費用</span>
+              <span style="font-size:22px;font-weight:800;color:#1C2533;">NT$5,000</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <span style="font-size:13.5px;font-weight:700;color:#143A82;">課程時數</span>
+              <span style="font-size:14px;color:#5A6473;">共 18 小時（2天）</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <span style="font-size:13.5px;font-weight:700;color:#143A82;">課程目標</span>
+              <span style="font-size:14px;line-height:1.8;color:#5A6473;">建立基礎輻射防護觀念，掌握基本安全操作程序與法規要求，完訓並測驗及格即可合法操作 150 keV 以下設備。</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <span style="font-size:13.5px;font-weight:700;color:#143A82;">課程內容</span>
+              <div style="display:flex;flex-direction:column;gap:8px;font-size:13.5px;color:#5A6473;">
+                <div style="display:flex;justify-content:space-between;"><span>基礎輻射</span><span>4小時</span></div>
+                <div style="display:flex;justify-content:space-between;"><span>輻射防護</span><span>4小時</span></div>
+                <div style="display:flex;justify-content:space-between;"><span>輻射應用及防護</span><span>4小時</span></div>
+                <div style="display:flex;justify-content:space-between;"><span>游離輻射防護法規</span><span>3小時</span></div>
+                <div style="display:flex;justify-content:space-between;"><span>輻射防護實習或見習</span><span>3小時</span></div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <span style="font-size:13.5px;font-weight:700;color:#143A82;">授課地點</span>
+              <span style="font-size:14px;color:#5A6473;">台北市內湖區陽光街365巷39號6樓</span>
+            </div>
+            <span style="font-size:12.5px;line-height:1.8;color:#9AA1AC;">備註：課程費用包含培訓教材、結業測驗費及結業證書規費。測驗成績合格者，即頒發主管機關認可之結業證書。</span>
+            <a href="course-detail.html#reg-form" onClick="{{ stopProp }}" style="align-self:stretch;text-align:center;margin-top:auto;background:#143A82;color:#fff;border-radius:999px;padding:16px 38px;font-size:16px;font-weight:700;">立即報名</a>
+          </div>
+        </div>
+
+        <div class="ycoursecard" onClick="{{ goToDetail }}" style="cursor:pointer;border-radius:24px;background:#fff;box-shadow:0 0 0 1px #E5E8EC;overflow:hidden;display:flex;flex-direction:column;">
+          <div class="yplan-head" style="background:#EAF2FC;padding:32px 34px;display:flex;flex-direction:column;gap:16px;height:220px;">
+            <svg width="72" height="72" viewBox="0 0 52 52" fill="none" style="flex-shrink:0;">
+              <line x1="14" y1="16" x2="38" y2="36" stroke="#143A82" stroke-width="1.6"/>
+              <line x1="38" y1="16" x2="14" y2="36" stroke="#9BC0FF" stroke-width="1.6"/>
+              <circle cx="14" cy="16" r="2.6" fill="#9BC0FF"/>
+              <circle cx="38" cy="16" r="2.6" fill="#143A82"/>
+              <circle cx="14" cy="36" r="2.6" fill="#143A82"/>
+              <circle cx="38" cy="36" r="2.6" fill="#9BC0FF"/>
+            </svg>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <span style="font-size:21px;font-weight:800;color:#143A82;line-height:1.4;">許可類輻射安全考照培訓（36小時）</span>
+              <p style="margin:0;font-size:14px;line-height:1.8;color:#5A6473;">針對需操作 150 keV 以上設備、高放射性物質，或欲考取核安會「輻射安全證書」之專業人員。</p>
+            </div>
+          </div>
+          <div class="yplan-body" style="padding:32px 34px;display:flex;flex-direction:column;gap:18px;flex:1;">
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <span style="font-size:13.5px;font-weight:700;color:#143A82;">課程費用</span>
+              <span style="font-size:22px;font-weight:800;color:#1C2533;">NT$9,000</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <span style="font-size:13.5px;font-weight:700;color:#143A82;">課程時數</span>
+              <span style="font-size:14px;color:#5A6473;">共 36 小時（4天）</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <span style="font-size:13.5px;font-weight:700;color:#143A82;">課程目標</span>
+              <span style="font-size:14px;line-height:1.8;color:#5A6473;">深入剖析劑量計算、防護屏蔽設計及法規罰則。結業後取得 36 小時結業證書，即具備報考核安會國家輻安證書測驗之資格。</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <span style="font-size:13.5px;font-weight:700;color:#143A82;">核心課程內容</span>
+              <div style="display:flex;flex-direction:column;gap:8px;font-size:13.5px;color:#5A6473;">
+                <div style="display:flex;justify-content:space-between;"><span>基礎輻射</span><span>6小時</span></div>
+                <div style="display:flex;justify-content:space-between;"><span>輻射度量及劑量</span><span>7小時</span></div>
+                <div style="display:flex;justify-content:space-between;"><span>輻射防護</span><span>7小時</span></div>
+                <div style="display:flex;justify-content:space-between;"><span>輻射應用及防護</span><span>7小時</span></div>
+                <div style="display:flex;justify-content:space-between;"><span>游離輻射防護法規</span><span>6小時</span></div>
+                <div style="display:flex;justify-content:space-between;"><span>輻射防護實習或見習</span><span>3小時</span></div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <span style="font-size:13.5px;font-weight:700;color:#143A82;">授課地點</span>
+              <span style="font-size:14px;color:#5A6473;">台北市內湖區陽光街365巷39號6樓</span>
+            </div>
+            <span style="font-size:12.5px;line-height:1.8;color:#9AA1AC;">備註：課程費用包含培訓教材、結業測驗費及結業證書規費。測驗成績合格者，即頒發主管機關認可之結業證書。</span>
+            <a href="course-detail.html#reg-form" onClick="{{ stopProp }}" style="align-self:stretch;text-align:center;margin-top:auto;background:#143A82;color:#fff;border-radius:999px;padding:16px 38px;font-size:16px;font-weight:700;">立即報名</a>
+          </div>
         </div>
       </div>
 
@@ -170,28 +292,39 @@
   </div>
 
   <!-- FOOTER -->
-  <div style="width:100%;background:#091428;">
+    <div style="width:100%;background:#091428;">
     <div style="height:3px;background:linear-gradient(90deg,#143A82,#2E72D6 50%,#143A82);"></div>
     <div class="yb-foot-wrap" style="max-width:1200px;margin:0 auto;padding:0 32px;">
       <div class="yb-foot" style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding:72px 0 56px;">
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <span style="font-size:22px;font-weight:900;letter-spacing:.02em;color:#fff;">元新醫藥</span>
-          <span class="en" style="font-size:12.5px;font-weight:500;letter-spacing:.04em;color:#9BA3A8;">YUAN HSIN PHARMA CO., LTD.</span>
+          <span style="font-size:22px;font-weight:900;letter-spacing:.02em;color:#fff;">元新儀器</span>
+          <span class="en" style="font-size:12.5px;font-weight:500;letter-spacing:.04em;color:#9BA3A8;">KEN YUAN HSIN CO., LTD.</span>
           <span style="font-size:13px;line-height:1.9;color:#7C87A0;margin-top:6px;">核子醫學整合服務<br>放射性藥物 · 輻射安全設備 · 輻防教育訓練</span>
+          <div style="display:flex;gap:12px;margin-top:18px;">
+            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;" title="Facebook">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 9H15V6.5h-1.7c-2 0-3.3 1.2-3.3 3.4V11H8v2.5h1.9V21h2.7v-7.5H14.6L15 11h-2.4V10c0-.6.3-1 .9-1z"/></svg>
+            </span>
+            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;" title="LINE">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.9 3 2.8 6.4 2.8 10.6c0 3.7 3.2 6.8 7.6 7.4-.1.5-.5 1.9-.6 2.2 0 .3.1.3.3.2.2 0 2.7-1.8 3.8-2.5 5.1-.3 9.1-3.7 9.1-7.9C23 6.4 17.1 3 12 3z"/></svg>
+            </span>
+            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;" title="YouTube">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.4-.4-5a3 3 0 0 0-2.1-2.1C18.9 4.5 12 4.5 12 4.5s-6.9 0-8.5.4A3 3 0 0 0 1.4 7C1 8.6 1 12 1 12s0 3.4.4 5a3 3 0 0 0 2.1 2.1c1.6.4 8.5.4 8.5.4s6.9 0 8.5-.4A3 3 0 0 0 22.6 17c.4-1.6.4-5 .4-5zM9.8 15.5v-7l6 3.5-6 3.5z"/></svg>
+            </span>
+          </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:16px;">
           <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">關於元新</span>
           <div style="display:flex;flex-direction:column;gap:13px;">
-            <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">我們的故事</a>
-            <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">關鍵數據</a>
+            <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">公司簡介</a>
+            <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">發展歷程</a>
             <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">品質認證</a>
           </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:16px;">
           <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">產品與服務</span>
           <div style="display:flex;flex-direction:column;gap:13px;">
-            <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">體內診斷</a>
-            <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">體內治療</a>
+            <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">放射性藥物</a>
+            <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">輻射安全設備</a>
             <a class="ylink" href="training.html" style="font-size:13.5px;color:#8893A8;">輻防教育訓練</a>
           </div>
         </div>
@@ -204,11 +337,17 @@
           </div>
         </div>
       </div>
-      <div class="yb-foot-btm" style="display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-top:1px solid #1A2740;">
-        <span style="font-size:12.5px;color:#5F6C84;">© 2026 元新醫藥 YuanHsin Pharma Co., Ltd. All rights reserved.</span>
+    </div>
+
+    <!-- 品牌字標（裝飾用） -->
+    <div class="yb-foot-mark en" aria-hidden="true" style="font-size:11vw;font-weight:800;letter-spacing:-.02em;line-height:.85;color:#1A2947;text-align:center;white-space:nowrap;-webkit-user-select:none;user-select:none;">KEN YUAN HSIN</div>
+
+    <div class="yb-foot-wrap" style="max-width:1200px;margin:0 auto;padding:0 32px;">
+      <div class="yb-foot-btm" style="display:flex;justify-content:space-between;align-items:center;padding:22px 0;">
+        <span style="font-size:12.5px;color:#5F6C84;">© 2026 元新儀器 Ken Yuan Hsin Co., Ltd. All rights reserved.</span>
         <div style="display:flex;gap:18px;">
           <span class="ylink" style="font-size:12.5px;color:#5F6C84;">隱私權政策</span>
-          <span class="ylink" style="font-size:12.5px;color:#5F6C84;">元佑集團 ↗</span>
+          <span class="ylink" style="font-size:12.5px;color:#5F6C84;">元佑集團</span>
         </div>
       </div>
     </div>
@@ -228,7 +367,12 @@ class Component extends DCLogic {
         { id: 5, date: '2026.11.12 · 線上 · 直播', title: '輻射防護在職教育回訓課程', desc: '證照回訓專班，掌握最新法規與技術更新', cover: 'assets/cover-2-2005b258.jpg' },
         { id: 6, date: '2026.12.03 · 台北 · 實體', title: '企業包班：客製化輻防教育訓練', desc: '依企業需求規劃課程內容與時數，到府或指定場地授課', cover: 'assets/cover-3-cd7dfd7a.jpg' }
     ];
-    return { courses, upcoming: courses.slice(1, 4) };
+    return {
+      courses,
+      upcoming: courses.slice(1, 4),
+      goToDetail: () => { window.location.href = 'course-detail.html'; },
+      stopProp: (e) => { e.stopPropagation(); }
+    };
   }
 }
 

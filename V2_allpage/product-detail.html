@@ -37,6 +37,8 @@
     .yi-hero-img { height:200px !important; }
     .yi-hero h1 { font-size:24px !important; }
     .yi-feat-grid { grid-template-columns:1fr !important; }
+    /* 型錄下載列：窄螢幕改上下排列，避免檔名與下載鈕擠在一起 */
+    .yi-dl { flex-direction:column !important; align-items:flex-start !important; gap:10px !important; }
   }
 </style>
 </helmet>
@@ -45,7 +47,7 @@
 
   <div style="width:100%;background:#0E1C3D;">
     <div class="yb-util" style="max-width:1200px;margin:0 auto;padding:0 32px;height:38px;display:flex;align-items:center;justify-content:space-between;">
-      <span class="en" style="font-size:12.5px;letter-spacing:.5px;color:#CDD5E4;">YUAN HSIN PHARMA CO., LTD.</span>
+      <span class="en" style="font-size:12.5px;letter-spacing:.5px;color:#CDD5E4;">YUANYU GROUP CO.</span>
       <div style="display:flex;align-items:center;gap:18px;font-size:12.5px;color:#AEB8CC;">
         <span class="ylink">元佑集團官網 ↗</span>
         <span style="opacity:.45;">|</span>
@@ -84,7 +86,7 @@
     <!-- HERO -->
     <div class="yi-hero" style="background:linear-gradient(120deg,#0E1C3D,#143A82 75%);border-radius:24px;padding:40px;display:flex;gap:40px;align-items:center;">
       <div class="yi-hero-img" style="width:340px;flex-shrink:0;height:240px;border-radius:16px;overflow:hidden;background:#0B1730;">
-<image-slot id="rg10-photo" shape="rect" fit="contain" style="width:100%;height:100%;" placeholder="RG10 產品圖 / 3D 示意圖"></image-slot>
+<image-slot id="rg10-photo" shape="rect" fit="contain" src="assets/machi-image.png" style="width:100%;height:100%;" placeholder="RG10 產品圖 / 3D 示意圖"></image-slot>
       </div>
       <div style="color:#fff;">
         <span class="en" style="font-size:13px;font-weight:600;letter-spacing:.1em;color:#9BC0FF;">儀器與設備 ｜ 放射免疫分析設備</span>
@@ -159,25 +161,47 @@
       </div>
     </div>
 
+    <!-- 型錄下載 -->
+    <div style="background:#fff;border-radius:20px;box-shadow:0 0 0 1px #E5E8EC;padding:32px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+        <div style="width:4px;height:18px;background:#1F5BB5;border-radius:2px;"></div>
+        <span style="font-size:18px;font-weight:800;color:#143A82;">型錄下載</span>
+      </div>
+      <div style="display:flex;flex-direction:column;">
+        <a class="ylink yi-dl" href="#" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px;background:#F4F6F9;border-radius:10px 10px 0 0;font-size:14px;color:#1C2533;text-decoration:none;">
+          <span style="display:flex;align-items:center;gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1F5BB5" stroke-width="2" style="flex-shrink:0;"><path d="M14 3v5h5M6 3h8l6 6v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/></svg>產品型錄（PDF）</span>
+          <span style="font-size:13px;font-weight:700;color:#fff;background:#143A82;border-radius:999px;padding:7px 16px;flex-shrink:0;">下載</span>
+        </a>
+        <a class="ylink yi-dl" href="#" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px;font-size:14px;color:#1C2533;text-decoration:none;border-top:1px solid #EEF1F5;">
+          <span style="display:flex;align-items:center;gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1F5BB5" stroke-width="2" style="flex-shrink:0;"><path d="M14 3v5h5M6 3h8l6 6v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/></svg>使用說明書（IFU）</span>
+          <span style="font-size:13px;font-weight:700;color:#fff;background:#143A82;border-radius:999px;padding:7px 16px;flex-shrink:0;">下載</span>
+        </a>
+        <a class="ylink yi-dl" href="#" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px;font-size:14px;color:#1C2533;text-decoration:none;border-top:1px solid #EEF1F5;background:#F4F6F9;border-radius:0 0 10px 10px;">
+          <span style="display:flex;align-items:center;gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1F5BB5" stroke-width="2" style="flex-shrink:0;"><path d="M14 3v5h5M6 3h8l6 6v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/></svg>技術規格書</span>
+          <span style="font-size:13px;font-weight:700;color:#fff;background:#143A82;border-radius:999px;padding:7px 16px;flex-shrink:0;">下載</span>
+        </a>
+      </div>
+    </div>
+
   </div>
 
   <!-- FOOTER -->
-  <div style="width:100%;background:#091428;">
+    <div style="width:100%;background:#091428;">
     <div style="height:3px;background:linear-gradient(90deg,#143A82,#2E72D6 50%,#143A82);"></div>
     <div class="yb-foot-wrap" style="max-width:1200px;margin:0 auto;padding:0 32px;">
       <div class="yb-foot" style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding:72px 0 56px;">
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <span style="font-size:22px;font-weight:900;letter-spacing:.02em;color:#fff;">元新醫藥</span>
-          <span class="en" style="font-size:12.5px;font-weight:500;letter-spacing:.04em;color:#9BA3A8;">YUAN HSIN PHARMA CO., LTD.</span>
+          <span style="font-size:22px;font-weight:900;letter-spacing:.02em;color:#fff;">元新儀器</span>
+          <span class="en" style="font-size:12.5px;font-weight:500;letter-spacing:.04em;color:#9BA3A8;">KEN YUAN HSIN CO., LTD.</span>
           <span style="font-size:13px;line-height:1.9;color:#7C87A0;margin-top:6px;">核子醫學整合服務<br>放射性藥物 · 輻射安全設備 · 輻防教育訓練</span>
           <div style="display:flex;gap:12px;margin-top:18px;">
-            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;">
+            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;" title="Facebook">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 9H15V6.5h-1.7c-2 0-3.3 1.2-3.3 3.4V11H8v2.5h1.9V21h2.7v-7.5H14.6L15 11h-2.4V10c0-.6.3-1 .9-1z"/></svg>
             </span>
             <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;" title="LINE">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.9 3 2.8 6.4 2.8 10.6c0 3.7 3.2 6.8 7.6 7.4-.1.5-.5 1.9-.6 2.2 0 .3.1.3.3.2.2 0 2.7-1.8 3.8-2.5 5.1-.3 9.1-3.7 9.1-7.9C23 6.4 17.1 3 12 3z"/></svg>
             </span>
-            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;">
+            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;" title="YouTube">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.4-.4-5a3 3 0 0 0-2.1-2.1C18.9 4.5 12 4.5 12 4.5s-6.9 0-8.5.4A3 3 0 0 0 1.4 7C1 8.6 1 12 1 12s0 3.4.4 5a3 3 0 0 0 2.1 2.1c1.6.4 8.5.4 8.5.4s6.9 0 8.5-.4A3 3 0 0 0 22.6 17c.4-1.6.4-5 .4-5zM9.8 15.5v-7l6 3.5-6 3.5z"/></svg>
             </span>
           </div>
@@ -185,16 +209,16 @@
         <div style="display:flex;flex-direction:column;gap:16px;">
           <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">關於元新</span>
           <div style="display:flex;flex-direction:column;gap:13px;">
-            <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">我們的故事</a>
-            <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">關鍵數據</a>
+            <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">公司簡介</a>
+            <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">發展歷程</a>
             <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">品質認證</a>
           </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:16px;">
           <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">產品與服務</span>
           <div style="display:flex;flex-direction:column;gap:13px;">
-            <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">體內診斷</a>
-            <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">體內治療</a>
+            <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">放射性藥物</a>
+            <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">輻射安全設備</a>
             <a class="ylink" href="training.html" style="font-size:13.5px;color:#8893A8;">輻防教育訓練</a>
           </div>
         </div>
@@ -207,11 +231,17 @@
           </div>
         </div>
       </div>
-      <div class="yb-foot-btm" style="display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-top:1px solid #1A2740;">
-        <span style="font-size:12.5px;color:#5F6C84;">© 2026 元新醫藥 YuanHsin Pharma Co., Ltd. All rights reserved.</span>
+    </div>
+
+    <!-- 品牌字標（裝飾用） -->
+    <div class="yb-foot-mark en" aria-hidden="true" style="font-size:11vw;font-weight:800;letter-spacing:-.02em;line-height:.85;color:#1A2947;text-align:center;white-space:nowrap;-webkit-user-select:none;user-select:none;">KEN YUAN HSIN</div>
+
+    <div class="yb-foot-wrap" style="max-width:1200px;margin:0 auto;padding:0 32px;">
+      <div class="yb-foot-btm" style="display:flex;justify-content:space-between;align-items:center;padding:22px 0;">
+        <span style="font-size:12.5px;color:#5F6C84;">© 2026 元新儀器 Ken Yuan Hsin Co., Ltd. All rights reserved.</span>
         <div style="display:flex;gap:18px;">
           <span class="ylink" style="font-size:12.5px;color:#5F6C84;">隱私權政策</span>
-          <span class="ylink" style="font-size:12.5px;color:#5F6C84;">元佑集團 ↗</span>
+          <span class="ylink" style="font-size:12.5px;color:#5F6C84;">元佑集團</span>
         </div>
       </div>
     </div>

@@ -29,6 +29,9 @@
   .yart-card:hover { transform:translateY(-5px); box-shadow:0 18px 40px -22px rgba(20,58,130,.35); }
   .yart-img { transition:transform .7s ease; }
   .yart-card:hover .yart-img { transform:scale(1.06); }
+  /* 「其他文章」卡片不可點擊，拿掉手指游標與 hover 浮起，避免暗示可以點 */
+  .yart-static { cursor:default; }
+  .yart-static:hover { transform:none; box-shadow:none; }
   .ypage { cursor:pointer; transition:background .2s ease,color .2s ease; }
   .ysidelink { cursor:pointer; transition:color .2s ease; }
   .ysidelink:hover { color:#1F5BB5; }
@@ -50,13 +53,44 @@
   .yd-body thead th { background:#F4F6F9; color:#143A82; font-weight:700; white-space:nowrap; }
   .yd-body tbody th { background:#FAFBFC; color:#1C2533; font-weight:700; white-space:nowrap; }
 
+  /* ===== 章節導覽 ===== */
+  html { scroll-behavior:smooth; }
+  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+  /* 導覽列是 sticky，錨點要留出它的高度，標題才不會被蓋住 */
+  .yd-body h2, .yd-related { scroll-margin-top:110px; }
+  /* 撐滿整列高度，sticky 才有可移動的範圍；
+     若跟著 align-items:start 縮成卡片高度，卡片會直接被捲走 */
+  .yd-toc { align-self:stretch; }
+  .yd-toc-inner {
+    position:sticky; top:96px;
+    border:1px solid #E5E8EC; border-radius:16px; background:#fff; padding:22px 20px;
+  }
+  .yd-toc-title { display:block; font-size:13.5px; font-weight:800; color:#143A82; letter-spacing:.02em; margin-bottom:16px; }
+  .yd-toc nav { display:flex; flex-direction:column; gap:2px; }
+  .yd-toc a {
+    display:block; padding:8px 10px; border-radius:8px;
+    font-size:13.5px; line-height:1.6; color:#5A6473; text-decoration:none;
+    border-left:2px solid transparent;
+    transition:color .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .yd-toc a:hover { color:#1F5BB5; background:#F4F6F9; }
+  .yd-toc a.is-active { color:#143A82; font-weight:700; background:#F4F6F9; border-left-color:#1F5BB5; }
+
   /* ===== 本頁專屬 RWD（外殼規則見 responsive.css） ===== */
   @media (max-width:900px) {
     .yb-hero { height:auto !important; min-height:0 !important; padding:56px 0 !important; }
     .yb-hero h1 { font-size:34px !important; }
     .ya-grid { grid-template-columns:repeat(2,1fr) !important; }
     .ya-rel-grid { grid-template-columns:repeat(2,1fr) !important; }
-    .ya-layout, .yd-layout { grid-template-columns:1fr !important; }
+    /* 用 minmax(0,1fr) 而非 1fr：1fr 的下限是 min-content，
+       會被內文比較表格的 min-width:660px 撐開而破版 */
+    .ya-layout, .yd-layout { grid-template-columns:minmax(0,1fr) !important; gap:28px !important; }
+    /* 單欄時導覽移到內文上方，當作跳轉選單；不再 sticky 免得擋住內容 */
+    .yd-toc { order:-1; }
+    .yd-toc-inner { position:static !important; padding:18px 16px !important; }
+    .yd-toc nav { flex-direction:row !important; flex-wrap:wrap !important; gap:6px !important; }
+    .yd-toc a { border-left:0 !important; background:#F4F6F9; padding:7px 14px !important; border-radius:999px; font-size:13px !important; }
+    .yd-toc a.is-active { background:#143A82; color:#fff !important; }
   }
   @media (max-width:640px) {
     .yb-hero { padding:44px 0 !important; }
@@ -79,7 +113,7 @@
   <!-- UTILITY BAR -->
   <div style="width:100%;background:#0E1C3D;">
     <div class="yb-util" style="max-width:1200px;margin:0 auto;padding:0 32px;height:38px;display:flex;align-items:center;justify-content:space-between;">
-      <span class="en" style="font-size:12.5px;letter-spacing:.5px;color:#CDD5E4;">YUAN HSIN PHARMA CO., LTD.</span>
+      <span class="en" style="font-size:12.5px;letter-spacing:.5px;color:#CDD5E4;">YUANYU GROUP CO.</span>
       <div style="display:flex;align-items:center;gap:18px;font-size:12.5px;color:#AEB8CC;">
         <span class="ylink">元佑集團官網 ↗</span>
         <span style="opacity:.45;">|</span>
@@ -156,168 +190,109 @@
   <div style="width:100%;background:#fff;">
     <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:48px 32px 96px;">
 
-      <div class="ylink" onClick="{{ backToList }}" style="font-size:13.5px;color:#5A6473;margin-bottom:24px;">← 返回文章專區</div>
+      <div style="font-size:13px;line-height:1.9;color:#9AA1AC;margin-bottom:24px;">
+        <span class="ylink" onClick="{{ backToList }}" style="color:#9AA1AC;">文章專區</span>
+        <span style="margin:0 6px;">›</span>
+        <span style="color:#5A6473;font-weight:600;">{{ current.title }}</span>
+      </div>
 
       <h1 class="yd-title" style="font-size:34px;font-weight:800;line-height:1.4;max-width:900px;color:#143A82;margin:0;">{{ current.title }}</h1>
-      <div class="en" style="margin:18px 0 26px;font-size:13.5px;color:#9AA1AC;">{{ current.date }} · 元新醫藥編輯團隊</div>
+      <div class="en" style="margin-top:18px;font-size:13.5px;color:#9AA1AC;">{{ current.date }} · 元新醫藥編輯團隊</div>
 
-      <div class="yd-layout" style="max-width:100%;">
+      <div class="yd-layout" style="display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:48px;align-items:start;max-width:100%;margin-top:32px;">
         <div>
           <div class="yd-photo" style="height:300px;border-radius:18px;overflow:hidden;margin-bottom:28px;background:#F4F6F9 center/cover no-repeat url({{ current.imgUrl }});"></div>
+          <sc-if value="{{ isRichBody }}" hint-placeholder-val="{{ false }}">
           <div class="yd-body">
-
-            <h2>前言</h2>
-            <p>近年來，脊骨神經醫學（Chiropractic）已從傳統以徒手治療為主的治療模式，逐步發展為結合各種非侵入性儀器治療，以提升疼痛控制、降低發炎反應及促進組織修復。其中，四級高能量雷射（Class IV High Power Laser）、脈衝電磁場治療（PEMF）以及體外震波治療（ESWT），已成為臨床上常見且具循證醫學支持的輔助治療方式。</p>
-            <p>雖然三種治療方式皆可應用於肌肉骨骼疼痛與功能障礙，但其作用機制、適應症及治療目標並不相同。醫師若能根據患者的病況、疼痛型態及治療需求，選擇合適的儀器並搭配脊骨神經徒手治療，將有助於提升整體治療成效與患者滿意度。</p>
-            <p>本文將介紹四級高能量雷射、PEMF 與體外震波治療的作用原理、臨床優勢、限制及應用情境，並比較三者的特色，作為臨床治療規劃的參考。</p>
+            <h2 id="sec-intro">前言</h2>
+            <p>核子醫學正經歷從單純影像診斷走向「診療合一」（theranostics）的關鍵轉型。過去十年間，PET/CT 混合影像技術大幅提升病灶定位精準度，而放射性配體療法的成熟，更讓同一分子標的可同時用於診斷與治療。</p>
+            <p>對醫療院所而言，導入這類技術不只是設備升級，更牽涉放射性藥物供應鏈、跨科部協作流程與輻射安全管理的整體調整。本文將分別說明 PET/CT 混合影像、theranostics 診療合一模式，以及放射性藥物供應鏈整合三個面向的發展現況，並比較其臨床定位與導入考量。</p>
 
             <hr>
 
-            <h2>四級高能量雷射治療（Class IV High Power Laser）</h2>
-
+            <h2 id="sec-pet">PET/CT 混合影像技術</h2>
             <h3>概述與作用原理</h3>
-            <p>四級高能量雷射屬於光生物調節治療（Photobiomodulation, PBM）的一種，利用紅光及近紅外光波長（約 600–1000 nm）穿透人體組織，刺激細胞內粒線體中的細胞色素 C 氧化酶（Cytochrome c Oxidase），進而促進 ATP 能量生成、降低氧化壓力並調節發炎反應。</p>
-            <p>相較於早期的三級雷射，四級雷射具有更高的輸出功率，可有效穿透深層肌肉、肌腱、韌帶及關節組織，因此能提供更佳的止痛與組織修復效果。</p>
-            <p>治療時，醫師會依據患者的病灶位置及病況，調整波長、輸出功率、能量密度及治療時間等參數，通常每次治療約 5 至 15 分鐘。</p>
-
+            <p>PET/CT 結合正子造影對代謝活性的敏感度，與電腦斷層的解剖結構解析度，讓醫師能同時掌握病灶的功能狀態與精確位置，是目前腫瘤分期與治療反應追蹤的核心工具。</p>
             <h3>臨床優勢</h3>
             <ul>
-              <li><strong>快速緩解疼痛：</strong>透過調節疼痛傳導路徑及降低促發炎細胞激素，可有效改善關節炎、肌腱炎、神經痛及急慢性疼痛。</li>
-              <li><strong>降低發炎反應：</strong>有助於調節 TNF-α、IL-6 等發炎指標，改善局部發炎環境。</li>
-              <li><strong>促進組織修復：</strong>提升 ATP 生成及膠原蛋白合成，加速肌肉、肌腱、韌帶及傷口癒合。</li>
-              <li><strong>適用範圍廣：</strong>可應用於關節、骨面、開放性傷口、骨折及敏感部位，臨床適應症廣泛。</li>
-              <li><strong>非侵入性且安全：</strong>治療舒適度高、副作用少，多數患者皆能良好耐受，包括植入金屬關節的患者。</li>
+              <li><strong>精準定位病灶：</strong>功能影像疊合解剖影像，大幅降低偽陰性與偽陽性判讀誤差。</li>
+              <li><strong>適用範圍廣：</strong>涵蓋腫瘤學、心臟學及神經學等多重應用情境。</li>
+              <li><strong>治療反應追蹤：</strong>可量化評估化療、標靶或放射治療後的代謝變化。</li>
             </ul>
-
-            <h3>治療限制</h3>
+            <h3>應用限制</h3>
             <ul>
-              <li>治療需符合雷射安全規範，醫護人員及患者皆須配戴雷射護目鏡。</li>
-              <li>儀器設備投資成本較高，對部分診所而言導入門檻較高。</li>
-              <li>操作者需接受專業訓練，以正確設定治療參數並避免組織過熱。</li>
+              <li>放射性藥物半衰期短，檢查排程需與藥物到院時間緊密配合。</li>
+              <li>設備與人力投資成本高，中小型院所導入門檻較高。</li>
             </ul>
-
-            <h3>臨床應用</h3>
-            <p>四級高能量雷射常作為脊骨神經徒手治療的重要輔助工具，可應用於下列疾病：</p>
-            <ul>
-              <li>下背痛</li>
-              <li>坐骨神經痛</li>
-              <li>頸肩疼痛</li>
-              <li>骨關節炎</li>
-              <li>肌腱炎</li>
-              <li>運動傷害</li>
-              <li>周邊神經病變</li>
-            </ul>
-            <p>此外，也可搭配脊椎減壓治療、軟組織治療、PRP 或幹細胞等再生醫療療程，以提升整體治療效果。</p>
 
             <hr>
 
-            <h2>脈衝電磁場治療（PEMF）</h2>
-
+            <h2 id="sec-theranostics">Theranostics：診療合一模式</h2>
             <h3>概述與作用原理</h3>
-            <p>脈衝電磁場治療（Pulsed Electromagnetic Field Therapy, PEMF）利用低頻電磁脈衝（約 1–100 Hz）作用於人體組織，影響細胞膜離子交換及細胞訊號傳遞，促進 ATP 生成、改善微循環並降低氧化壓力。</p>
-            <p>PEMF 同時可調節鈣離子及一氧化氮信號路徑，有助於降低慢性發炎反應、促進細胞修復及維持正常生理功能，因此特別適合慢性疼痛及長期復健患者。</p>
-            <p>治療方式通常以治療墊、局部線圈或專用治療設備進行，每次治療約 20 至 60 分鐘。</p>
-
+            <p>Theranostics 利用同一分子標的的診斷型與治療型配對藥物：先以低劑量診斷型同位素確認病灶表現，再以治療型同位素遞送輻射劑量至同一標的，達成「先影像確認、再精準治療」的個人化療程。</p>
             <h3>臨床優勢</h3>
             <ul>
-              <li><strong>非侵入性且舒適：</strong>治療過程幾乎無疼痛感，患者耐受性高。</li>
-              <li><strong>適合慢性疾病管理：</strong>可改善慢性背痛、骨關節炎、纖維肌痛症及退化性疾病。</li>
-              <li><strong>促進骨骼修復：</strong>刺激骨生成，目前已廣泛應用於骨折延遲癒合及骨不癒合治療。</li>
-              <li><strong>改善整體細胞功能：</strong>促進微循環及細胞代謝，有助於長期健康維持。</li>
+              <li><strong>治療前預先驗證：</strong>診斷影像可事先篩選出真正適合治療的病患，降低無效治療。</li>
+              <li><strong>精準遞送劑量：</strong>輻射集中作用於標的細胞，對周邊正常組織影響較小。</li>
+              <li><strong>可重複追蹤療效：</strong>治療後仍可以診斷型藥物追蹤反應，調整後續療程。</li>
             </ul>
-
-            <h3>治療限制</h3>
+            <h3>應用限制</h3>
             <ul>
-              <li>單次治療時間較長，通常需 20 至 60 分鐘。</li>
-              <li>多數患者需完成 10 至 20 次療程才能獲得較佳治療效果。</li>
-              <li>對急性疼痛的立即止痛效果較有限，不適合作為急性疼痛的主要治療方式。</li>
+              <li>治療型藥物多需專責核醫病房與輻射防護措施配合。</li>
+              <li>藥物來源與供應穩定度直接影響療程排定。</li>
             </ul>
-
-            <h3>臨床應用</h3>
-            <p>PEMF 特別適合慢性疾病及長期疼痛管理，包括：</p>
-            <ul>
-              <li>慢性下背痛</li>
-              <li>骨關節炎</li>
-              <li>退化性關節疾病</li>
-              <li>慢性肌肉痠痛</li>
-              <li>運動後恢復</li>
-              <li>纖維肌痛症</li>
-            </ul>
-            <p>在脊骨神經醫學中，PEMF 常與徒手治療搭配使用，以促進長期組織修復、降低復發率，並提升整體治療成效。</p>
 
             <hr>
 
-            <h2>體外震波治療（Extracorporeal Shock Wave Therapy, ESWT）</h2>
-
-            <h3>概述與作用原理</h3>
-            <p>體外震波治療（ESWT）利用高能量聲波作用於病灶，產生機械刺激，促使組織啟動自然修復反應。</p>
-            <p>震波可刺激 VEGF、TGF-β 等生長因子釋放，促進新生血管形成、增加膠原蛋白生成，同時改善慢性肌腱病變及分解鈣化組織，因此特別適合治療肌腱、韌帶及筋膜相關疾病。</p>
-            <p>依照能量傳遞方式，可分為聚焦式震波（Focused Shock Wave Therapy）及放射式震波（Radial Shock Wave Therapy），臨床上可依病灶深度及治療需求選擇適合的治療模式。</p>
-
+            <h2 id="sec-supply">放射性藥物與供應鏈整合</h2>
+            <h3>概述與挑戰</h3>
+            <p>放射性藥物半衰期短、運輸時效要求高，診療合一模式上線後，院所需要更穩定的冷鏈物流與到貨排程，才能支撐影像與治療兩端的藥物需求。</p>
             <h3>臨床優勢</h3>
             <ul>
-              <li><strong>局部治療效果佳：</strong>對肌腱炎、韌帶病變及足底筋膜炎等疾病具有良好療效。</li>
-              <li><strong>改善速度快：</strong>許多患者於 1 至 3 次療程後即可感受到症狀改善。</li>
-              <li><strong>非侵入性：</strong>提供手術以外的保守治療選擇。</li>
-              <li><strong>療程次數較少：</strong>相較於 PEMF，通常所需療程較短。</li>
+              <li><strong>穩定供應排程：</strong>建立可預期的到貨週期，降低檢查延誤風險。</li>
+              <li><strong>跨院所支援：</strong>集中式供應體系可同時支援多家醫療院所的診療排程。</li>
             </ul>
-
-            <h3>治療限制</h3>
+            <h3>應用限制</h3>
             <ul>
-              <li>治療過程可能產生局部疼痛或不適感。</li>
-              <li>不適用於開放性傷口、急性骨折、凝血功能異常或治療區域有惡性腫瘤的患者。</li>
-              <li>主要作用於局部病灶，較不適合全身性或廣泛性疼痛疾病。</li>
+              <li>供應鏈環節多，任一節點延遲都可能影響當日排程。</li>
+              <li>需要專責團隊持續監控品質與運輸條件。</li>
             </ul>
-
-            <h3>臨床應用</h3>
-            <p>震波治療常見適應症包括：</p>
-            <ul>
-              <li>足底筋膜炎</li>
-              <li>阿基里斯腱炎</li>
-              <li>網球肘（肱骨外上髁炎）</li>
-              <li>鈣化性肩肌腱炎</li>
-              <li>肌筋膜激痛點</li>
-              <li>韌帶扭傷</li>
-              <li>運動傷害</li>
-              <li>慢性肌腱病變</li>
-            </ul>
-            <p>對於接受徒手治療後改善有限或症狀反覆發作的患者，震波治療可作為重要的輔助治療工具。</p>
 
             <hr>
 
-            <h2>三種治療方式比較</h2>
+            <h2 id="sec-compare">三種模式比較</h2>
             <div class="yd-tablewrap">
               <table>
                 <thead>
-                  <tr><th>比較項目</th><th>四級高能量雷射</th><th>PEMF</th><th>體外震波</th></tr>
+                  <tr><th>比較項目</th><th>PET/CT 混合影像</th><th>Theranostics 診療合一</th><th>放射性藥物供應鏈</th></tr>
                 </thead>
                 <tbody>
-                  <tr><th>主要作用</th><td>抗發炎、止痛、促進修復</td><td>細胞修復、改善循環</td><td>機械刺激、促進組織重塑</td></tr>
-                  <tr><th>作用深度</th><td>深層組織</td><td>全身性作用</td><td>局部病灶</td></tr>
-                  <tr><th>起效速度</th><td>快</td><td>較慢</td><td>快</td></tr>
-                  <tr><th>單次治療時間</th><td>5–15 分鐘</td><td>20–60 分鐘</td><td>5–10 分鐘</td></tr>
-                  <tr><th>急性疼痛</th><td>適合</td><td>較不適合</td><td>適合</td></tr>
-                  <tr><th>慢性疼痛</th><td>適合</td><td>非常適合</td><td>適合</td></tr>
-                  <tr><th>運動傷害</th><td>適合</td><td>適合恢復期</td><td>特別適合肌腱病變</td></tr>
-                  <tr><th>治療舒適度</th><td>高</td><td>非常高</td><td>中等</td></tr>
+                  <tr><th>主要作用</th><td>精準定位、分期</td><td>診斷後精準治療</td><td>藥物穩定供應</td></tr>
+                  <tr><th>導入門檻</th><td>高（設備投資）</td><td>高（專責病房）</td><td>中（物流體系）</td></tr>
+                  <tr><th>臨床角色</th><td>影像診斷</td><td>診斷＋治療</td><td>後勤支援</td></tr>
+                  <tr><th>對排程影響</th><td>中</td><td>高</td><td>高</td></tr>
                 </tbody>
               </table>
             </div>
 
             <hr>
 
-            <h2>結論</h2>
-            <p>四級高能量雷射、PEMF 與體外震波治療皆已廣泛應用於現代脊骨神經醫學，各自具有不同的作用機制與臨床優勢，並無絕對優劣之分，而是應依據患者的病因、疼痛型態、組織損傷程度及治療目標進行選擇。</p>
-            <p>若治療目標為快速止痛、降低發炎及促進組織修復，四級高能量雷射通常是較佳選擇；對於慢性疼痛、退化性疾病及長期復健患者，PEMF 可提供持續性的細胞修復效果；而震波治療則特別適合肌腱、韌帶及筋膜等局部慢性病變。</p>
-            <p>臨床上，這三種治療方式亦可依患者需求搭配脊骨神經徒手治療及其他復健療程，透過整合式治療策略，提供更完整且個人化的疼痛管理方案，進一步提升患者的治療效果與生活品質。</p>
-
+            <h2 id="sec-conclusion">結論</h2>
+            <p>PET/CT 混合影像、theranostics 診療合一與穩定的放射性藥物供應鏈，三者環環相扣，共同構成核子醫學下一個十年的發展基礎。醫療院所在規劃導入時，除評估設備與人才投資，也應同步檢視供應鏈韌性，才能讓診療合一的效益真正落地。</p>
           </div>
+          </sc-if>
 
-          <div style="margin-top:32px;">
+          <sc-if value="{{ isPlainBody }}" hint-placeholder-val="{{ true }}">
+          <div class="yd-body" style="max-width:none;">
+            <p>{{ current.body }}</p>
+          </div>
+          </sc-if>
+
+          <div id="sec-related" class="yd-related" style="margin-top:32px;">
             <div style="font-size:15px;font-weight:800;color:#143A82;margin-bottom:16px;">其他文章</div>
             <div class="ya-rel-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
               <sc-for list="{{ related }}" as="r" hint-placeholder-count="3">
-                <div class="yart-card" onClick="{{ r.onClick }}" style="border:1px solid #E5E8EC;border-radius:16px;background:#fff;overflow:hidden;display:flex;flex-direction:column;">
+                <div class="yart-card yart-static" style="border:1px solid #E5E8EC;border-radius:16px;background:#fff;overflow:hidden;display:flex;flex-direction:column;">
                   <div style="height:110px;overflow:hidden;background:#F4F6F9 center/cover no-repeat url({{ r.imgUrl }});"></div>
                   <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;">
                     <span class="en" style="font-size:11px;font-weight:600;color:#1F5BB5;">{{ r.date }} · {{ r.cat }}</span>
@@ -329,6 +304,31 @@
           </div>
 
         </div>
+
+        <aside class="yd-toc">
+          <sc-if value="{{ isRichBody }}" hint-placeholder-val="{{ false }}">
+          <div class="yd-toc-inner">
+            <span class="yd-toc-title">章節導覽</span>
+            <nav>
+              <a href="#sec-intro">前言</a>
+              <a href="#sec-pet">PET/CT 混合影像技術</a>
+              <a href="#sec-theranostics">Theranostics 診療合一模式</a>
+              <a href="#sec-supply">放射性藥物與供應鏈整合</a>
+              <a href="#sec-compare">三種模式比較</a>
+              <a href="#sec-conclusion">結論</a>
+              <a href="#sec-related">其他文章</a>
+            </nav>
+          </div>
+          </sc-if>
+          <sc-if value="{{ isPlainBody }}" hint-placeholder-val="{{ true }}">
+          <div class="yd-toc-inner">
+            <span class="yd-toc-title">章節導覽</span>
+            <nav>
+              <a href="#sec-related">相關文章</a>
+            </nav>
+          </div>
+          </sc-if>
+        </aside>
       </div>
 
     </div>
@@ -336,22 +336,22 @@
   </sc-if>
 
   <!-- FOOTER -->
-  <div style="width:100%;background:#091428;">
+    <div style="width:100%;background:#091428;">
     <div style="height:3px;background:linear-gradient(90deg,#143A82,#2E72D6 50%,#143A82);"></div>
     <div class="yb-foot-wrap" style="max-width:1200px;margin:0 auto;padding:0 32px;">
       <div class="yb-foot" style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding:72px 0 56px;">
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <span style="font-size:22px;font-weight:900;letter-spacing:.02em;color:#fff;">元新醫藥</span>
-          <span class="en" style="font-size:12.5px;font-weight:500;letter-spacing:.04em;color:#9BA3A8;">YUAN HSIN PHARMA CO., LTD.</span>
+          <span style="font-size:22px;font-weight:900;letter-spacing:.02em;color:#fff;">元新儀器</span>
+          <span class="en" style="font-size:12.5px;font-weight:500;letter-spacing:.04em;color:#9BA3A8;">KEN YUAN HSIN CO., LTD.</span>
           <span style="font-size:13px;line-height:1.9;color:#7C87A0;margin-top:6px;">核子醫學整合服務<br>放射性藥物 · 輻射安全設備 · 輻防教育訓練</span>
           <div style="display:flex;gap:12px;margin-top:18px;">
-            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;">
+            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;" title="Facebook">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 9H15V6.5h-1.7c-2 0-3.3 1.2-3.3 3.4V11H8v2.5h1.9V21h2.7v-7.5H14.6L15 11h-2.4V10c0-.6.3-1 .9-1z"/></svg>
             </span>
             <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;" title="LINE">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.9 3 2.8 6.4 2.8 10.6c0 3.7 3.2 6.8 7.6 7.4-.1.5-.5 1.9-.6 2.2 0 .3.1.3.3.2.2 0 2.7-1.8 3.8-2.5 5.1-.3 9.1-3.7 9.1-7.9C23 6.4 17.1 3 12 3z"/></svg>
             </span>
-            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;">
+            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;" title="YouTube">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.4-.4-5a3 3 0 0 0-2.1-2.1C18.9 4.5 12 4.5 12 4.5s-6.9 0-8.5.4A3 3 0 0 0 1.4 7C1 8.6 1 12 1 12s0 3.4.4 5a3 3 0 0 0 2.1 2.1c1.6.4 8.5.4 8.5.4s6.9 0 8.5-.4A3 3 0 0 0 22.6 17c.4-1.6.4-5 .4-5zM9.8 15.5v-7l6 3.5-6 3.5z"/></svg>
             </span>
           </div>
@@ -359,33 +359,39 @@
         <div style="display:flex;flex-direction:column;gap:16px;">
           <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">關於元新</span>
           <div style="display:flex;flex-direction:column;gap:13px;">
-            <span class="ylink" style="font-size:13.5px;color:#8893A8;">我們的故事</span>
-            <span class="ylink" style="font-size:13.5px;color:#8893A8;">關鍵數據</span>
-            <span class="ylink" style="font-size:13.5px;color:#8893A8;">品質認證</span>
+            <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">公司簡介</a>
+            <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">發展歷程</a>
+            <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">品質認證</a>
           </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:16px;">
           <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">產品與服務</span>
           <div style="display:flex;flex-direction:column;gap:13px;">
-            <span class="ylink" style="font-size:13.5px;color:#8893A8;">體內診斷</span>
-            <span class="ylink" style="font-size:13.5px;color:#8893A8;">體內治療</span>
-            <span class="ylink" style="font-size:13.5px;color:#8893A8;">輻防教育訓練</span>
+            <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">放射性藥物</a>
+            <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">輻射安全設備</a>
+            <a class="ylink" href="training.html" style="font-size:13.5px;color:#8893A8;">輻防教育訓練</a>
           </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:16px;">
           <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">資源</span>
           <div style="display:flex;flex-direction:column;gap:13px;">
-            <span class="ylink" style="font-size:13.5px;color:#8893A8;">文章專區</span>
+            <a class="ylink" href="articles.html" style="font-size:13.5px;color:#8893A8;">文章專區</a>
             <span class="ylink" style="font-size:13.5px;color:#8893A8;">產學資源</span>
-            <span class="ylink" style="font-size:13.5px;color:#8893A8;">聯絡我們</span>
+            <a class="ylink" href="contact.html" style="font-size:13.5px;color:#8893A8;">聯絡我們</a>
           </div>
         </div>
       </div>
-      <div class="yb-foot-btm" style="display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-top:1px solid #1A2740;">
-        <span style="font-size:12.5px;color:#5F6C84;">© 2026 元新醫藥 YuanHsin Pharma Co., Ltd. All rights reserved.</span>
+    </div>
+
+    <!-- 品牌字標（裝飾用） -->
+    <div class="yb-foot-mark en" aria-hidden="true" style="font-size:11vw;font-weight:800;letter-spacing:-.02em;line-height:.85;color:#1A2947;text-align:center;white-space:nowrap;-webkit-user-select:none;user-select:none;">KEN YUAN HSIN</div>
+
+    <div class="yb-foot-wrap" style="max-width:1200px;margin:0 auto;padding:0 32px;">
+      <div class="yb-foot-btm" style="display:flex;justify-content:space-between;align-items:center;padding:22px 0;">
+        <span style="font-size:12.5px;color:#5F6C84;">© 2026 元新儀器 Ken Yuan Hsin Co., Ltd. All rights reserved.</span>
         <div style="display:flex;gap:18px;">
           <span class="ylink" style="font-size:12.5px;color:#5F6C84;">隱私權政策</span>
-          <span class="ylink" style="font-size:12.5px;color:#5F6C84;">元佑集團 ↗</span>
+          <span class="ylink" style="font-size:12.5px;color:#5F6C84;">元佑集團</span>
         </div>
       </div>
     </div>
@@ -409,7 +415,14 @@ class Component extends DCLogic {
   state = { view: "list", activeCat: 0, currentIdx: 0 };
 
   setCat(i) { this.setState({ activeCat: i }); }
-  openArticle(i) { this.setState({ view: "detail", currentIdx: i }); }
+  openArticle(i) {
+    this.setState({ view: "detail", currentIdx: i });
+    // 切換文章後必須把畫面帶回頂端。否則從頁尾「其他文章」點進去時，
+    // 捲動位置會留在原地，新文章的中段內容直接出現，看起來像內容自己跳掉。
+    // 指定 behavior:"auto" 蓋掉 CSS 的 scroll-behavior:smooth —— 換文章應該是瞬間切換，
+    // 而不是捲過幾千像素的動畫。
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }
   backToList() { this.setState({ view: "list" }); }
 
   renderVals() {
@@ -426,17 +439,69 @@ class Component extends DCLogic {
       { label:"產業洞察文章", count:21, onClick: () => this.setCat(4) },
     ];
     const current = ARTICLES[currentIdx];
-    const related = ARTICLES.filter((_, i) => i !== currentIdx).slice(0, 3).map((a) => ({ title: a.title, imgUrl: a.imgUrl, date: a.date, onClick: () => this.openArticle(ARTICLES.indexOf(a)) }));
+    const isRichBody = currentIdx === 0;
+    // 「其他文章」卡片不掛 onClick：點擊原地抽換內容的交互不正確
+    const related = ARTICLES.filter((_, i) => i !== currentIdx).slice(0, 3).map((a) => ({ title: a.title, imgUrl: a.imgUrl, date: a.date, cat: a.cat }));
 
     return {
       isList: view === "list", isDetail: view === "detail",
       catTabs, articles, popular, catCounts,
       current, related,
+      isRichBody, isPlainBody: !isRichBody,
       backToList: () => this.backToList(),
     };
   }
 }
 
+</script>
+
+<!-- 章節導覽：捲動時標示目前所在章節。
+     文章內頁是點擊後才渲染的，所以用 MutationObserver 等它出現再初始化。 -->
+<script>
+(function () {
+  var LINE = 130;              // 判定線，與 h2 的 scroll-margin-top 對齊
+  var last = 0, timer = null;
+
+  // 每次都重新查詢節點，不做快取：文章內頁會被重新渲染，
+  // 快取下來的節點會脫離文件，量到的座標全是 0，標示就會一直卡在最後一項。
+  function update() {
+    var toc = document.querySelector('.yd-toc');
+    if (!toc) return;
+
+    var links = Array.prototype.slice.call(toc.querySelectorAll('a[href^="#"]'));
+    var pairs = links
+      .map(function (a) {
+        return { link: a, el: document.getElementById(a.getAttribute('href').slice(1)) };
+      })
+      .filter(function (p) { return p.el; });
+    if (!pairs.length) return;
+
+    // 取「頂端已越過判定線」的最後一個章節；都還沒越過就停在第一項
+    var current = pairs[0].link;
+    for (var i = 0; i < pairs.length; i++) {
+      if (pairs[i].el.getBoundingClientRect().top - LINE > 0) break;
+      current = pairs[i].link;
+    }
+    links.forEach(function (a) { a.classList.toggle('is-active', a === current); });
+  }
+
+  // 以時間節流，不依賴 requestAnimationFrame：
+  // 某些環境（背景分頁、無畫面的執行環境）不會派送動畫影格，導覽就永遠不會更新。
+  function schedule() {
+    var now = Date.now();
+    if (now - last > 100) { last = now; update(); return; }
+    clearTimeout(timer);
+    timer = setTimeout(function () { last = Date.now(); update(); }, 100);
+  }
+
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule);
+  window.addEventListener('load', schedule);
+  // 文章內頁是點擊後才渲染的，DOM 一有變動就重算。
+  // 只觀察 childList，classList 的變動屬於 attributes，不會觸發自我循環。
+  new MutationObserver(schedule).observe(document.body, { childList: true, subtree: true });
+  schedule();
+})();
 </script>
 </body>
 </html>
