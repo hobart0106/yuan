@@ -29,13 +29,25 @@
 
   /* ===== 本頁專屬 RWD（外殼規則見 responsive.css） ===== */
   @media (max-width:900px) {
-    .yb-detail-grid { grid-template-columns:1fr !important; gap:32px !important; }
     .yb-form-grid { grid-template-columns:1fr 1fr !important; }
+    /* 梯次圓圈：五顆並排會擠爆文字，改三顆一列 */
+    .yc-sched { flex-wrap:wrap !important; }
+    .yc-sched > div { flex:1 1 calc(33.333% - 8px) !important; }
   }
   @media (max-width:640px) {
     .yb-sec h1 { font-size:26px !important; }
     .yb-course-photo { height:200px !important; }
     .yb-form-grid { grid-template-columns:1fr !important; gap:16px !important; }
+    .yc-card { padding:24px 20px !important; }
+    /* 標籤與內文改上下排列 */
+    .yc-row { flex-direction:column !important; gap:10px !important; }
+    .yc-row > span:first-child { width:auto !important; }
+    /* 正圓在窄螢幕會過高，改為圓角卡片直向排列 */
+    .yc-sched { flex-direction:column !important; }
+    .yc-sched > div { aspect-ratio:auto !important; border-radius:16px !important; padding:20px !important; gap:8px !important; }
+    .yc-trow { grid-template-columns:1fr 84px !important; padding:12px 14px !important; }
+    .yc-dl { padding:20px !important; }
+    .yb-fab { bottom:16px !important; padding:14px 24px !important; font-size:14px !important; }
   }
 </style>
 </helmet>
@@ -80,69 +92,150 @@
 
   <!-- 課程標題 -->
   <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:22px 32px 0;">
-    <h1 style="margin:0;font-size:34px;line-height:1.4;font-weight:800;color:#143A82;max-width:820px;">核醫從業人員輻射防護基礎訓練</h1>
-    <span class="en" style="display:block;margin-top:16px;font-size:14px;color:#5A6473;">2026.06.18 · 台北 · 09:00–17:00</span>
+    <h1 style="margin:0;font-size:34px;line-height:1.4;font-weight:800;color:#143A82;max-width:820px;">登記類設備輻射安全訓練</h1>
+    <span style="display:block;margin-top:16px;font-size:16px;color:#5A6473;">適合操作 150 keV 以下或登記備查類可發生游離輻射設備之從業人員。</span>
   </div>
 
-  <!-- 內容 + 側欄 -->
-  <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:36px 32px 88px;">
-    <div class="yb-detail-grid" style="display:grid;grid-template-columns:1fr 320px;gap:44px;">
-      <div>
-        <div class="yb-course-photo" style="height:300px;border-radius:24px;overflow:hidden;margin-bottom:32px;"><image-slot id="course-detail-photo" shape="rect" src="assets/miniclass-image.png" placeholder="課程現場 / 講師照片"></image-slot></div>
+  <!-- 課程說明 -->
+  <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:36px 32px 0;display:flex;flex-direction:column;gap:28px;">
 
-        <h2 style="font-size:19px;font-weight:800;color:#1C2533;margin:0 0 16px;">課程大綱</h2>
-        <div style="display:flex;flex-direction:column;gap:10px;font-size:14.5px;line-height:1.9;color:#5A6473;margin-bottom:32px;">
-          <div>1. 輻射基本概念與生物效應</div>
-          <div>2. 游離輻射防護法規與主管機關規範</div>
-          <div>3. 輻射偵測儀器操作與劑量管理</div>
-          <div>4. 核醫設備（鉛車、造影儀）實機操作</div>
-          <div>5. 緊急應變與輻射事故處理</div>
-        </div>
+    <div class="yb-course-photo" style="height:300px;border-radius:24px;overflow:hidden;"><image-slot id="course-detail-photo" shape="rect" src="assets/miniclass-image.png" placeholder="課程現場 / 講師照片"></image-slot></div>
 
-        <h2 style="font-size:19px;font-weight:800;color:#1C2533;margin:0 0 16px;">講師介紹</h2>
-        <div style="display:flex;gap:18px;align-items:center;">
-          <div style="width:68px;height:68px;border-radius:50%;overflow:hidden;flex-shrink:0;"><image-slot id="instructor-photo" shape="circle" src="assets/about_hero-image-1.png" placeholder="講師照片"></image-slot></div>
-          <div style="display:flex;flex-direction:column;gap:6px;">
-            <span style="font-size:15.5px;font-weight:700;color:#1C2533;">王〇〇 資深輻防顧問</span>
-            <span style="font-size:13.5px;color:#5A6473;line-height:1.7;">逾 20 年核子醫學輻射防護實務與教學經驗，曾任多家醫學中心輻安管理人員</span>
-          </div>
-        </div>
+    <!-- 法律依據 -->
+    <div class="yc-card" style="border:1px solid #E5E8EC;border-radius:16px;padding:32px 36px;">
+      <h2 style="display:flex;align-items:center;gap:10px;font-size:19px;font-weight:800;color:#143A82;margin:0 0 18px;">法律依據</h2>
+      <p style="font-size:15px;line-height:1.9;color:#1C2533;margin:0;">本課程係依據<strong>《游離輻射防護法》第 31 條</strong>規定：<br>操作放射性物質或可發生游離輻射設備之人員，應受主管機關指定之訓練，並領有<span style="background:#FDF0C4;">輻射安全證書或執照</span>。</p>
+    </div>
+
+    <!-- 課程效力／講習對象 -->
+    <div class="yc-card" style="border:1px solid #E5E8EC;border-radius:16px;padding:32px 36px;display:flex;flex-direction:column;gap:20px;">
+      <div class="yc-row" style="display:flex;gap:20px;">
+        <span style="flex-shrink:0;width:96px;font-size:14.5px;font-weight:800;color:#1C2533;">課程效力</span>
+        <p style="margin:0;font-size:14.5px;line-height:1.9;color:#5A6473;">本單位係核能安全委員會認可之輻防訓練業，取得本單位核發之結業證書，<strong style="color:#1C2533;">可合法操作及購置X光機及放射性物質</strong>。</p>
       </div>
-
-      <div style="display:flex;flex-direction:column;gap:22px;">
-        <div style="border-radius:20px;background:#F4F6F9;box-shadow:inset 0 0 0 1px #E5E8EC;padding:24px;">
-          <span style="display:block;font-size:15px;font-weight:800;color:#143A82;margin-bottom:16px;">課程資訊</span>
-          <div style="display:flex;flex-direction:column;gap:12px;font-size:13.5px;color:#5A6473;">
-            <span>地點：台北場地（待補）</span>
-            <span>日期：2026.06.18</span>
-            <span>名額：40 人</span>
-            <span>費用：待補</span>
+      <div style="border-top:1px solid #EEF1F5;"></div>
+      <div class="yc-row" style="display:flex;gap:20px;">
+        <span style="flex-shrink:0;width:96px;font-size:14.5px;font-weight:800;color:#1C2533;">講習對象</span>
+        <div style="flex:1;display:flex;flex-direction:column;">
+          <div style="border-left:3px solid #143A82;background:#F4F6F9;padding:16px 20px;margin-bottom:2px;">
+            <div style="font-size:14.5px;font-weight:700;color:#143A82;margin-bottom:8px;">(1) 醫療院所、獸醫及醫事輔助人員</div>
+            <div style="font-size:13.5px;line-height:1.8;color:#5A6473;">操作 X 光（包含診斷用 X 光機、C 型臂影像增強儀）的醫師、牙醫師、獸醫師及助理人員。<br>醫療院所服務之護理或牙科助理人員；完訓取得結業證書，可合法操作動物醫院用 X 光機。</div>
+            <div style="margin-top:10px;font-size:12px;color:#9AA1AC;background:#EEF1F5;display:inline-block;padding:4px 10px;border-radius:6px;">※注意　依中央衛生法令規定，若欲從事醫療有關行為，需具有醫師、牙醫師及放射師(士)資格。</div>
+          </div>
+          <div style="border-left:3px solid #143A82;background:#F4F6F9;padding:16px 20px;margin-bottom:2px;">
+            <div style="font-size:14.5px;font-weight:700;color:#143A82;margin-bottom:8px;">(2) 國內公私立機構操作人員</div>
+            <div style="font-size:13.5px;line-height:1.8;color:#5A6473;">包含學術單位、工業、電子、半導體 IC 封裝測試、資通訊產業、行李檢查、食品加工、銀樓業等機構，實際操作可發生游離輻射設備 (X光機) 或放射性物質之人員。</div>
+          </div>
+          <div style="border-left:3px solid #143A82;background:#F4F6F9;padding:16px 20px;">
+            <div style="font-size:14.5px;font-weight:700;color:#143A82;margin-bottom:8px;">(3) 一般大眾</div>
+            <div style="font-size:13.5px;line-height:1.8;color:#5A6473;">對輻射防護知識有興趣，或欲充實職能專長之一般社會大眾。</div>
           </div>
         </div>
-        <div style="border-radius:20px;background:#F4F6F9;box-shadow:inset 0 0 0 1px #E5E8EC;padding:24px;">
-          <span style="display:block;font-size:15px;font-weight:800;color:#143A82;margin-bottom:16px;">開課梯次</span>
-          <div style="display:flex;flex-direction:column;gap:12px;font-size:13.5px;color:#5A6473;">
-            <span><span class="en">2026.08.13-08.14</span> ・ 登記類設備輻射安全訓練</span>
-            <span><span class="en">2026.10.15-10.16</span> ・ 登記類設備輻射安全訓練</span>
-            <span><span class="en">2026.12.03-12.04</span> ・ 登記類設備輻射安全訓練</span>
-          </div>
-        </div>
-        <div style="border-radius:20px;background:#F4F6F9;box-shadow:inset 0 0 0 1px #E5E8EC;padding:24px;">
-          <span style="display:block;font-size:15px;font-weight:800;color:#143A82;margin-bottom:16px;">其他連結</span>
-          <div style="display:flex;flex-direction:column;gap:12px;font-size:13.5px;">
-            <a class="ylink" href="training.html" style="color:#1F5BB5;">游離輻射防護法規與案例研討</a>
-            <a class="ylink" href="training.html" style="color:#1F5BB5;">核醫設備操作與輻射防護實作</a>
-          </div>
-        </div>
-        <a href="contact.html" class="ybtn-solid" style="text-align:center;background:#143A82;color:#fff;border-radius:999px;padding:14px;font-size:14.5px;font-weight:700;">聯繫課程窗口 →</a>
       </div>
     </div>
+
+    <!-- 課程內容 -->
+    <div class="yc-card" style="border:1px solid #E5E8EC;border-radius:16px;padding:32px 36px;">
+      <div class="yc-row" style="display:flex;gap:20px;margin-bottom:16px;align-items:baseline;">
+        <span style="flex-shrink:0;width:96px;font-size:14.5px;font-weight:800;color:#1C2533;">課程內容</span>
+      </div>
+      <div style="border:1px solid #E5E8EC;border-radius:12px;overflow:hidden;">
+        <div class="yc-trow" style="display:grid;grid-template-columns:1fr 140px;background:#F4F6F9;padding:14px 20px;font-size:13.5px;font-weight:700;color:#1C2533;">
+          <span>課程綱要</span>
+          <span style="text-align:right;">上課時數</span>
+        </div>
+        <div class="yc-trow" style="display:grid;grid-template-columns:1fr 140px;padding:14px 20px;font-size:13.5px;color:#5A6473;border-top:1px solid #EEF1F5;"><span>輻射基礎課程</span><span style="text-align:right;">4小時</span></div>
+        <div class="yc-trow" style="display:grid;grid-template-columns:1fr 140px;padding:14px 20px;font-size:13.5px;color:#5A6473;border-top:1px solid #EEF1F5;"><span>輻射防護課程</span><span style="text-align:right;">3小時</span></div>
+        <div class="yc-trow" style="display:grid;grid-template-columns:1fr 140px;padding:14px 20px;font-size:13.5px;color:#5A6473;border-top:1px solid #EEF1F5;"><span>輻射應用與防護</span><span style="text-align:right;">3小時</span></div>
+        <div class="yc-trow" style="display:grid;grid-template-columns:1fr 140px;padding:14px 20px;font-size:13.5px;color:#5A6473;border-top:1px solid #EEF1F5;"><span>游離輻射防護法規</span><span style="text-align:right;">5小時</span></div>
+        <div class="yc-trow" style="display:grid;grid-template-columns:1fr 140px;padding:14px 20px;font-size:13.5px;color:#5A6473;border-top:1px solid #EEF1F5;"><span>輻射防護實習或見習</span><span style="text-align:right;">3小時</span></div>
+        <div class="yc-trow" style="display:grid;grid-template-columns:1fr 140px;padding:14px 20px;font-size:13.5px;font-weight:700;color:#1C2533;border-top:1px solid #EEF1F5;"><span>結訓測驗</span><span style="text-align:right;">-</span></div>
+      </div>
+      <div style="margin-top:14px;background:#FDEEEE;border:1px solid #F5C9C9;border-radius:10px;padding:12px 18px;font-size:13px;color:#B5312A;">⚠ 依主管機關規定；訓練課程缺課時數超過全部授課時數五分之一者，不得參與該期訓練結業測驗。</div>
+    </div>
+
+    <!-- 課程梯次 -->
+    <div class="yc-card" style="border:1px solid #E5E8EC;border-radius:16px;padding:40px 36px;">
+      <h2 style="font-size:19px;font-weight:800;color:#143A82;margin:0 0 24px;">課程梯次</h2>
+      <div class="yc-sched" style="display:flex;justify-content:space-between;gap:12px;">
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:8px;border-radius:50%;aspect-ratio:1;background:#F0F1F3;">
+          <span style="font-size:13px;color:#8A93A3;">技術清潔度</span>
+          <span style="font-size:16px;font-weight:800;color:#5A6473;">檢驗員資格培訓</span>
+          <span style="width:22px;height:1px;background:#C7CDD6;"></span>
+          <span style="font-size:13px;color:#8A93A3;">2026/3/19-3/20</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:8px;border-radius:50%;aspect-ratio:1;background:#F0F1F3;">
+          <span style="font-size:13px;color:#8A93A3;">技術清潔度</span>
+          <span style="font-size:16px;font-weight:800;color:#5A6473;">檢驗員資格培訓</span>
+          <span style="width:22px;height:1px;background:#C7CDD6;"></span>
+          <span style="font-size:13px;color:#8A93A3;">2026/6/25-6/26</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:8px;border-radius:50%;aspect-ratio:1;background:#123C7E;">
+          <span style="font-size:13px;color:#B9C6E4;">技術清潔度</span>
+          <span style="font-size:16px;font-weight:800;color:#fff;">助理資格培訓</span>
+          <span style="width:22px;height:1px;background:#4C6DA8;"></span>
+          <span style="font-size:13px;color:#B9C6E4;">2026/8/13-8/14</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:8px;border-radius:50%;aspect-ratio:1;background:#DCE5F7;">
+          <span style="font-size:13px;color:#7C8AAE;">技術清潔度</span>
+          <span style="font-size:16px;font-weight:800;color:#3A4E78;">助理資格培訓</span>
+          <span style="width:22px;height:1px;background:#B7C4E2;"></span>
+          <span style="font-size:13px;color:#7C8AAE;">2026/10/15-10/16</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:8px;border-radius:50%;aspect-ratio:1;background:#EAF0FB;">
+          <span style="font-size:13px;color:#8B9AB9;">技術清潔度</span>
+          <span style="font-size:16px;font-weight:800;color:#3A4E78;">檢驗員資格培訓</span>
+          <span style="width:22px;height:1px;background:#CBD8ED;"></span>
+          <span style="font-size:13px;color:#8B9AB9;">2026/12/3-12/4</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 學員注意事項 -->
+    <div class="yc-card" style="background:#EAF1FB;border:1px solid #D3E1F5;border-radius:16px;padding:32px 36px;">
+      <h2 style="display:flex;align-items:center;gap:10px;font-size:17px;font-weight:800;color:#143A82;margin:0 0 20px;">學員注意事項</h2>
+      <div style="display:flex;flex-direction:column;gap:16px;font-size:14px;line-height:1.8;color:#1C2533;">
+        <div style="display:flex;gap:12px;"><span style="flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#143A82;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">1</span><span>課程務必全程參加，如發現代簽名或冒名頂替者，不予核發證書。</span></div>
+        <div style="display:flex;gap:12px;"><span style="flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#143A82;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">2</span><span>報名退費辦法請點下方說明連結，辦理延期、轉讓(限一次)，最晚於開課日前7日申請，逾期恕不受理。</span></div>
+        <div style="display:flex;gap:12px;"><span style="flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#143A82;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">3</span><span>實際開課日當天無故未出席者，則不予以退費，費用亦無法延續下次課程使用。</span></div>
+        <div style="display:flex;gap:12px;"><span style="flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#143A82;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">4</span><span>辦訓期間如遇天災，依各縣市政府公告停班、停課之標準執行，補課時間由主辦單位另行通知。</span></div>
+        <div style="display:flex;gap:12px;"><span style="flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#143A82;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">5</span><span>因招生不足致無法開班，主辦單位將另行通知替代方案或退費辦法。</span></div>
+        <div style="display:flex;gap:12px;"><span style="flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#143A82;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">6</span><span>主辦單位保有課程變更、異動之權利，如有調整以<strong>本官網公告</strong>為準。</span></div>
+      </div>
+      <div style="border-top:1px solid #D3E1F5;margin-top:22px;padding-top:18px;">
+        <a class="ylink" href="#" style="font-size:14px;font-weight:700;color:#143A82;border-bottom:2px solid #143A82;padding-bottom:2px;">➜ 「課程退費辦法與流程」說明</a>
+      </div>
+    </div>
+
+    <!-- 簡章與表格下載 -->
+    <div style="border:1px solid #E5E8EC;border-radius:16px;">
+      <div class="yc-dl" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:24px 32px;border-bottom:1px solid #EEF1F5;">
+        <div>
+          <span style="display:block;font-size:12.5px;color:#9AA1AC;margin-bottom:4px;">課程簡章</span>
+          <span style="font-size:15px;font-weight:700;color:#1C2533;">輻射防護訓練班 招生簡章</span>
+        </div>
+        <span class="ybtn-solid" style="background:#143A82;color:#fff;border-radius:8px;padding:11px 22px;font-size:13.5px;font-weight:700;">簡章PDF下載</span>
+      </div>
+      <div class="yc-dl" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:24px 32px;">
+        <div>
+          <span style="display:block;font-size:12.5px;color:#9AA1AC;margin-bottom:4px;">報名表格</span>
+          <span style="font-size:15px;font-weight:700;color:#1C2533;">紙本報名表格 (若無法線上報名時使用)</span>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <span class="ylink" style="border:1px solid #D7DCE3;border-radius:8px;padding:11px 22px;font-size:13.5px;font-weight:700;color:#5A6473;">WORD 檔</span>
+          <span class="ylink" style="border:1px solid #D7DCE3;border-radius:8px;padding:11px 22px;font-size:13.5px;font-weight:700;color:#5A6473;">PDF 檔</span>
+        </div>
+      </div>
+    </div>
+
   </div>
+
+  <div style="height:88px;"></div>
 
   <!-- 報名表單 -->
   <div id="reg-form" style="width:100%;background:#F4F6F9;border-top:1px solid #E5E8EC;">
     <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:64px 32px 88px;">
-      <h2 style="margin:0 0 6px;font-size:26px;font-weight:800;color:#143A82;">課程報名</h2>
+      <h2 style="margin:0 0 6px;font-size:26px;font-weight:800;color:#143A82;">線上報名</h2>
       <span style="display:block;font-size:13.5px;color:#5A6473;margin-bottom:28px;">送出報名後將顯示匯款帳號提示，並副本寄送至報名信箱</span>
 
       <div style="border-radius:24px;background:#fff;box-shadow:inset 0 0 0 1px #E5E8EC;padding:36px;max-width:840px;">
@@ -171,6 +264,8 @@
     </div>
   </div>
 
+  <a id="yb-fab" href="#reg-form" class="ybtn-solid yb-fab" style="position:fixed;bottom:28px;left:50%;transform:translateX(-50%);z-index:60;background:#143A82;color:#fff;border-radius:999px;padding:16px 32px;font-size:15px;font-weight:700;box-shadow:0 14px 30px -10px rgba(20,58,130,.55);transition:opacity .2s ease;">填寫報名表格</a>
+
   <!-- FOOTER -->
   <div style="width:100%;background:#091428;">
     <div style="height:3px;background:linear-gradient(90deg,#143A82,#2E72D6 50%,#143A82);"></div>
@@ -185,5 +280,26 @@
 </div>
 
 </x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const form = document.getElementById('reg-form');
+    const fab = document.getElementById('yb-fab');
+    if (!form || !fab) return;
+    // 報名表單進入視窗時隱藏浮動按鈕，避免蓋住表單
+    this._io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        fab.style.opacity = e.isIntersecting ? '0' : '1';
+        fab.style.pointerEvents = e.isIntersecting ? 'none' : 'auto';
+      });
+    }, { threshold: 0.05 });
+    this._io.observe(form);
+  }
+  componentWillUnmount() {
+    if (this._io) this._io.disconnect();
+  }
+  renderVals() { return {}; }
+}
+</script>
 </body>
 </html>
