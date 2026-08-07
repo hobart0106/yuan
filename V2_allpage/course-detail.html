@@ -30,6 +30,9 @@
   /* ===== 本頁專屬 RWD（外殼規則見 responsive.css） ===== */
   @media (max-width:900px) {
     .yb-form-grid { grid-template-columns:1fr 1fr !important; }
+    /* 報名表單：右側匯款提示改置於欄位下方 */
+    .yb-reg-grid { grid-template-columns:1fr !important; gap:24px !important; }
+    .yb-reg-side { border-top:1px solid #E5E8EC; padding-top:20px; }
     /* 梯次圓圈：五顆並排會擠爆文字，改三顆一列 */
     .yc-sched { flex-wrap:wrap !important; }
     .yc-sched > div { flex:1 1 calc(33.333% - 8px) !important; }
@@ -238,7 +241,9 @@
       <h2 style="margin:0 0 6px;font-size:26px;font-weight:800;color:#143A82;">線上報名</h2>
       <span style="display:block;font-size:13.5px;color:#5A6473;margin-bottom:28px;">送出報名後將顯示匯款帳號提示，並副本寄送至報名信箱</span>
 
-      <div style="border-radius:24px;background:#fff;box-shadow:inset 0 0 0 1px #E5E8EC;padding:36px;max-width:840px;">
+      <div style="border-radius:24px;background:#fff;box-shadow:inset 0 0 0 1px #E5E8EC;padding:36px;">
+       <div class="yb-reg-grid" style="display:grid;grid-template-columns:1fr 320px;gap:36px;align-items:start;">
+        <div>
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:22px;">
           <span style="font-size:12.5px;color:#5A6473;">參加梯次 *（本課程一年開設四場，請選擇欲報名日期）</span>
           <div class="yinput" style="display:flex;align-items:center;justify-content:space-between;">2026.06.18 · 台北場 <span style="color:#9AA1AC;">▾</span></div>
@@ -253,11 +258,13 @@
           <div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:12.5px;color:#5A6473;">學員類別 *</span><div class="yinput" style="display:flex;align-items:center;justify-content:space-between;">請選擇 <span style="color:#9AA1AC;">▾</span></div></div>
           <div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:12.5px;color:#5A6473;">組別 *</span><div class="yinput" style="display:flex;align-items:center;justify-content:space-between;">請選擇 <span style="color:#9AA1AC;">▾</span></div></div>
         </div>
+        </div>
 
-        <div style="border-top:1px solid #E5E8EC;margin-top:26px;padding-top:20px;">
+        <div class="yb-reg-side">
           <span style="display:block;font-size:13px;font-weight:700;color:#5A6473;margin-bottom:10px;">匯款帳號提示</span>
           <div style="border-radius:14px;background:#F4F6F9;padding:16px 18px;font-size:12.5px;color:#7C879A;line-height:1.8;">銀行：待補　戶名：元新醫藥股份有限公司　帳號：待補<br>送出報名後將顯示於確認頁面，並副本寄送至報名信箱</div>
         </div>
+       </div>
 
         <div class="ybtn-solid" style="margin:26px auto 0;background:#143A82;color:#fff;border-radius:999px;padding:15px;text-align:center;font-size:15px;font-weight:700;max-width:220px;">送出報名</div>
       </div>
