@@ -16,6 +16,149 @@ img, svg, video, canvas, image-slot { max-width:100%; }
 /* 長字串（型號、Email、網址）在窄螢幕不撐破容器 */
 .en, .ybreak { overflow-wrap:anywhere; }
 
+/* 使用者若在系統關閉動態效果，全站停用轉場與循環動畫。
+   首頁的軌道／浮動／閃爍三組 infinite 動畫是主要對象。 */
+@media (prefers-reduced-motion:reduce) {
+  *, *::before, *::after {
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+
+
+/* ==========================================================================
+   手機導覽：漢堡選單 + 全螢幕抽屜（行為見 nav.js）
+
+   .yb-js-nav 由 nav.js 掛在 <html>：沒有 JS 時不會套用，導覽列維持原本的
+   橫向捲動後備，不會變成一個打不開的空殼。
+   ========================================================================== */
+
+.yb-burger { display:none; }
+
+.yb-drawer {
+  position:fixed;
+  inset:0;
+  z-index:200;
+  background:rgba(14,28,61,.45);
+  opacity:0;
+  transition:opacity .28s cubic-bezier(.22,1,.36,1);
+}
+.yb-drawer.is-open { opacity:1; }
+.yb-drawer[hidden] { display:none; }
+
+.yb-drawer-panel {
+  height:100%;
+  margin-left:auto;                 /* 由右側展開，與漢堡鈕同側 */
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+.yb-drawer-head {
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:0 16px;
+  height:62px;                      /* 與 ≤640px 的 .yb-navrow 同高，關閉時不跳動 */
+  border-bottom:1px solid #EEF1F5;
+}
+.yb-drawer-logo { height:28px; width:auto; display:block; }
+
+.yb-drawer-close {
+  flex:0 0 auto;
+  width:44px;
+  height:44px;
+  margin-right:-10px;               /* 視覺切齊右緣，觸控範圍仍是完整 44px */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:0;
+  background:none;
+  padding:0;
+  cursor:pointer;
+  font-size:20px;
+  line-height:1;
+  color:#143A82;
+}
+
+.yb-drawer-nav {
+  display:flex;
+  flex-direction:column;
+  padding:8px 0 32px;
+}
+.yb-drawer-link {
+  display:flex;
+  align-items:center;
+  min-height:56px;
+  padding:0 20px;
+  font-size:17px;
+  font-weight:700;
+  color:#143A82;
+  text-decoration:none;
+  border-bottom:1px solid #F1F4F8;
+}
+.yb-drawer-link:last-child { border-bottom:none; }
+.yb-drawer-link[aria-current="page"] { color:#2E72D6; background:#F5F8FD; }
+
+/* 鍵盤操作看得見焦點；滑鼠點擊不會殘留外框 */
+.yb-burger:focus-visible,
+.yb-drawer-close:focus-visible,
+.yb-drawer-link:focus-visible {
+  outline:2px solid #2E72D6;
+  outline-offset:-3px;
+}
+
+
+/* ---------- ≤720px：連結列放不下，改用抽屜 ---------- */
+/* 6 個連結 + logo 在此寬度以下會溢出導覽列（768px 平板仍放得下，故不提前切換）*/
+@media (max-width:720px) {
+  .yb-js-nav .yb-navlinks { display:none !important; }
+  .yb-js-nav .yb-burger {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:44px;
+    height:44px;
+    margin-right:-10px;
+    border:0;
+    background:none;
+    padding:0;
+    cursor:pointer;
+  }
+  .yb-burger-bars {
+    display:block;
+    position:relative;
+    width:22px;
+    height:16px;
+  }
+  .yb-burger-bars > span {
+    position:absolute;
+    left:0;
+    width:100%;
+    height:2px;
+    border-radius:2px;
+    background:#143A82;
+    transition:transform .28s cubic-bezier(.22,1,.36,1), opacity .18s ease;
+  }
+  .yb-burger-bars > span:nth-child(1) { top:0; }
+  .yb-burger-bars > span:nth-child(2) { top:7px; }
+  .yb-burger-bars > span:nth-child(3) { top:14px; }
+  .yb-burger.is-open .yb-burger-bars > span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+  .yb-burger.is-open .yb-burger-bars > span:nth-child(2) { opacity:0; }
+  .yb-burger.is-open .yb-burger-bars > span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+}
+
+/* 抽屜寬度上限：橫置手機時連結不會被拉成整排空白 */
+@media (min-width:520px) {
+  .yb-drawer-panel { max-width:420px; box-shadow:0 0 60px -20px rgba(14,28,61,.4); }
+}
+
 
 /* ---------- ≤1024px 平板橫向 ---------- */
 @media (max-width:1024px) {
@@ -39,12 +182,15 @@ img, svg, video, canvas, image-slot { max-width:100%; }
 
 /* ---------- ≤640px 手機 ---------- */
 @media (max-width:640px) {
-  /* 頂部資訊列：收掉英文抬頭，只留右側連結 */
-  .yb-util { height:auto !important; padding:8px 16px !important; }
+  /* 頂部資訊列：收掉英文抬頭，只留右側連結。
+     連結加上下 padding，觸控高度從約 16px 提高到 40px。 */
+  .yb-util { height:auto !important; padding:0 16px !important; }
   .yb-util > span { display:none !important; }
-  .yb-util > div { font-size:11.5px !important; gap:12px !important; }
+  .yb-util > div { font-size:12.5px !important; gap:14px !important; }
+  .yb-util > div > .ylink { display:inline-flex; align-items:center; min-height:40px; }
 
-  /* 導覽列：壓低高度，選單改為橫向捲動（不使用漢堡選單，避免額外 JS） */
+  /* 導覽列：壓低高度。載入 nav.js 後由漢堡抽屜接手（見上方 ≤720px 區塊）；
+     以下橫向捲動規則保留為無 JS 時的後備。 */
   .yb-navrow { height:62px !important; padding:0 16px !important; gap:14px !important; }
   .yb-navrow img { height:28px !important; }
   .yb-navlinks {
@@ -63,6 +209,33 @@ img, svg, video, canvas, image-slot { max-width:100%; }
 
   .yb-hero { border-radius:36px 0 36px 0 !important; }
 
+  /* 觸控目標：篩選膠囊與連結標籤原本高約 36px，補到 44px。
+     這些都是單行文字，改 inline-flex 不影響內部排版；
+     .ycattab 是雙行直向卡片、本身已超過 60px，故不納入。 */
+  .ytab, .ychip, .yacad, .ypill {
+    display:inline-flex !important;
+    align-items:center;
+    justify-content:center;
+    min-height:44px;
+  }
+
+  /* 頁尾連結彼此貼太近，手指容易點錯。含底部的隱私權／條款列。 */
+  .yb-foot a, .yb-foot .ylink,
+  .yb-foot-btm a, .yb-foot-btm .ylink {
+    display:inline-flex;
+    align-items:center;
+    min-height:40px;
+  }
+
+  /* 人體圖上的標記點是百分比定位，放大實體尺寸會互相重疊，
+     所以只用透明的 ::after 往外擴張可點範圍，外觀維持不變。 */
+  .ymarker { position:relative; }
+  .ymarker::after {
+    content:"";
+    position:absolute;
+    inset:-9px -6px;
+  }
+
   /* 頁尾：品牌欄獨佔一列，其餘兩欄 */
   .yb-foot { grid-template-columns:1fr 1fr !important; gap:28px !important; padding:40px 0 !important; }
   .yb-foot > div:first-child { grid-column:1 / -1; }
@@ -72,6 +245,62 @@ img, svg, video, canvas, image-slot { max-width:100%; }
     gap:10px !important;
     padding:18px 0 26px !important;
   }
+}
+
+
+/* ==========================================================================
+   手機屏效：把版面密度拉高，減少無效捲動
+
+   量測基準（iPhone 14 Pro，390×844）改造前：
+     首頁 9765px（11.6 屏）、頁尾在每一頁都佔 1082px（1.28 屏）
+   主要成本不是間距，而是「一張直式大卡只放一則標題」。
+   ========================================================================== */
+
+/* ---------- 頁尾連結改為可收合 ---------- */
+/* 桌機維持三欄展開；手機收起來，只留標題列。
+   HTML 寫的是 <details open>，沒有 JS 時維持展開，不會變成打不開的死結。 */
+.yb-footcol { border:0; }
+.yb-footcol > summary { cursor:pointer; list-style:none; }
+.yb-footcol > summary::-webkit-details-marker { display:none; }
+
+@media (min-width:641px) {
+  /* 桌機不需要收合互動，標題回到純標題的樣子 */
+  .yb-footcol > summary { cursor:default; pointer-events:none; }
+}
+
+@media (max-width:640px) {
+  .yb-footcol > summary {
+    position:relative;
+    display:flex;
+    align-items:center;
+    min-height:44px;
+    padding-bottom:0 !important;
+    padding-right:28px;
+    border-bottom:1px solid #1A2740;
+  }
+  /* 開合指示：+ 轉成 −，不用額外圖檔 */
+  .yb-footcol > summary::after,
+  .yb-footcol > summary::before {
+    content:"";
+    position:absolute;
+    right:4px;
+    background:#8893A8;
+    transition:transform .25s cubic-bezier(.22,1,.36,1), opacity .2s ease;
+  }
+  .yb-footcol > summary::before { width:13px; height:1.5px; top:50%; margin-top:-.75px; }
+  .yb-footcol > summary::after  { width:1.5px; height:13px; top:50%; margin-top:-6.5px; right:9.75px; }
+  .yb-footcol[open] > summary::after { transform:rotate(90deg); opacity:0; }
+
+  /* 收合後標題彼此相連，中間不留欄距 */
+  .yb-foot { grid-template-columns:1fr !important; gap:0 !important; padding:28px 0 20px !important; }
+  .yb-foot > div:first-child { margin-bottom:22px; }
+  .yb-footcol > div { padding-bottom:18px; }
+}
+
+/* ---------- 區塊留白：56px → 40px ---------- */
+/* 首頁 9 個區塊，光上下留白就吃掉約 1000px */
+@media (max-width:640px) {
+  .yb-sec { padding-top:40px !important; padding-bottom:40px !important; }
 }
 
 

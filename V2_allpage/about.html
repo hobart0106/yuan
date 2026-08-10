@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<script src="./nav.js" defer></script>
+<script src="./ui.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -49,7 +51,15 @@
     .yb-statgrid .ystat-cell { box-shadow:none !important; border-bottom:1px solid rgba(20,58,130,.08); }
     .yb-statgrid .ystat-cell:last-child { border-bottom:none; }
     .yb-ms-flex { flex-direction:column !important; gap:28px !important; }
-    .yb-ms-pic { flex:1 1 auto !important; height:280px !important; }
+    /* 容器帶 align-items:center，改直向排列後圖片會縮成自身內容寬度
+       （兩張圖各依比例縮成 293px / 330px，既沒撐滿也彼此不等寬）。
+       align-self:stretch 讓它填滿整個欄寬，與內文切齊。 */
+    .yb-ms-pic {
+      flex:1 1 auto !important;
+      align-self:stretch !important;
+      width:100% !important;
+      height:280px !important;
+    }
     .yb-cta-grid { grid-template-columns:1fr !important; }
     .yb-cta { height:220px !important; }
   }
@@ -216,30 +226,21 @@
             </span>
           </div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">關於元新</span>
-          <div style="display:flex;flex-direction:column;gap:13px;">
+        <details class="yb-footcol" open="open"><summary class="yb-footcol-t" style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;list-style:none;">關於元新</summary><div style="display:flex;flex-direction:column;gap:13px;padding-top:16px;">
             <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">公司簡介</a>
             <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">發展歷程</a>
             <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">品質認證</a>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">產品與服務</span>
-          <div style="display:flex;flex-direction:column;gap:13px;">
+          </div></details>
+        <details class="yb-footcol" open="open"><summary class="yb-footcol-t" style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;list-style:none;">產品與服務</summary><div style="display:flex;flex-direction:column;gap:13px;padding-top:16px;">
             <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">放射性藥物</a>
             <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">輻射安全設備</a>
             <a class="ylink" href="training.html" style="font-size:13.5px;color:#8893A8;">輻防教育訓練</a>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">資源</span>
-          <div style="display:flex;flex-direction:column;gap:13px;">
+          </div></details>
+        <details class="yb-footcol" open="open"><summary class="yb-footcol-t" style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;list-style:none;">資源</summary><div style="display:flex;flex-direction:column;gap:13px;padding-top:16px;">
             <a class="ylink" href="articles.html" style="font-size:13.5px;color:#8893A8;">文章專區</a>
             <span class="ylink" style="font-size:13.5px;color:#8893A8;">產學資源</span>
             <a class="ylink" href="contact.html" style="font-size:13.5px;color:#8893A8;">聯絡我們</a>
-          </div>
-        </div>
+          </div></details>
       </div>
     </div>
 

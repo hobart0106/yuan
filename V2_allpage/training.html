@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<script src="./nav.js" defer></script>
+<script src="./ui.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -268,30 +270,21 @@
             </span>
           </div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">關於元新</span>
-          <div style="display:flex;flex-direction:column;gap:13px;">
+        <details class="yb-footcol" open="open"><summary class="yb-footcol-t" style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;list-style:none;">關於元新</summary><div style="display:flex;flex-direction:column;gap:13px;padding-top:16px;">
             <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">公司簡介</a>
             <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">發展歷程</a>
             <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">品質認證</a>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">產品與服務</span>
-          <div style="display:flex;flex-direction:column;gap:13px;">
+          </div></details>
+        <details class="yb-footcol" open="open"><summary class="yb-footcol-t" style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;list-style:none;">產品與服務</summary><div style="display:flex;flex-direction:column;gap:13px;padding-top:16px;">
             <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">放射性藥物</a>
             <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">輻射安全設備</a>
             <a class="ylink" href="training.html" style="font-size:13.5px;color:#8893A8;">輻防教育訓練</a>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">資源</span>
-          <div style="display:flex;flex-direction:column;gap:13px;">
+          </div></details>
+        <details class="yb-footcol" open="open"><summary class="yb-footcol-t" style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;list-style:none;">資源</summary><div style="display:flex;flex-direction:column;gap:13px;padding-top:16px;">
             <a class="ylink" href="articles.html" style="font-size:13.5px;color:#8893A8;">文章專區</a>
             <span class="ylink" style="font-size:13.5px;color:#8893A8;">產學資源</span>
             <a class="ylink" href="contact.html" style="font-size:13.5px;color:#8893A8;">聯絡我們</a>
-          </div>
-        </div>
+          </div></details>
       </div>
     </div>
 
@@ -316,16 +309,26 @@
 class Component extends DCLogic {
   renderVals() {
     const courses = [
-        { id: 1, date: '2026.06.18 · 台北 · 實體', title: '核醫從業人員輻射防護基礎訓練', desc: '18 小時基礎課程，涵蓋輻射防護原理與實務操作', cover: 'assets/cover-1-48a9832c.jpg' },
-        { id: 2, date: '2026.07.02 · 線上 · 直播', title: '游離輻射防護法規與案例研討', desc: '法規解析搭配實際稽核案例，強化合規意識', cover: 'assets/cover-2-2005b258.jpg' },
-        { id: 3, date: '2026.09.10 · 台中 · 實體', title: '核醫設備操作與輻射防護實作', desc: '36 小時進階課程，含鉛車與造影設備實機操作', cover: 'assets/cover-3-cd7dfd7a.jpg' },
-        { id: 4, date: '2026.10.05 · 高雄 · 實體', title: '醫療院所輻射安全管理人員訓練', desc: '針對輻安管理人員設計，強化制度建置能力', cover: 'assets/cover-1-48a9832c.jpg' },
-        { id: 5, date: '2026.11.12 · 線上 · 直播', title: '輻射防護在職教育回訓課程', desc: '證照回訓專班，掌握最新法規與技術更新', cover: 'assets/cover-2-2005b258.jpg' },
-        { id: 6, date: '2026.12.03 · 台北 · 實體', title: '企業包班：客製化輻防教育訓練', desc: '依企業需求規劃課程內容與時數，到府或指定場地授課', cover: 'assets/cover-3-cd7dfd7a.jpg' }
+        { id: 1, until: '2026-06-18', date: '2026.06.18 · 台北 · 實體', title: '核醫從業人員輻射防護基礎訓練', desc: '18 小時基礎課程，涵蓋輻射防護原理與實務操作', cover: 'assets/cover-1-48a9832c.jpg' },
+        { id: 2, until: '2026-07-02', date: '2026.07.02 · 線上 · 直播', title: '游離輻射防護法規與案例研討', desc: '法規解析搭配實際稽核案例，強化合規意識', cover: 'assets/cover-2-2005b258.jpg' },
+        { id: 3, until: '2026-09-10', date: '2026.09.10 · 台中 · 實體', title: '核醫設備操作與輻射防護實作', desc: '36 小時進階課程，含鉛車與造影設備實機操作', cover: 'assets/cover-3-cd7dfd7a.jpg' },
+        { id: 4, until: '2026-10-05', date: '2026.10.05 · 高雄 · 實體', title: '醫療院所輻射安全管理人員訓練', desc: '針對輻安管理人員設計，強化制度建置能力', cover: 'assets/cover-1-48a9832c.jpg' },
+        { id: 5, until: '2026-11-12', date: '2026.11.12 · 線上 · 直播', title: '輻射防護在職教育回訓課程', desc: '證照回訓專班，掌握最新法規與技術更新', cover: 'assets/cover-2-2005b258.jpg' },
+        { id: 6, until: '2026-12-03', date: '2026.12.03 · 台北 · 實體', title: '企業包班：客製化輻防教育訓練', desc: '依企業需求規劃課程內容與時數，到府或指定場地授課', cover: 'assets/cover-3-cd7dfd7a.jpg' }
     ];
+
+    // 過期梯次不展示。以「今天」為界，開課當天仍算有效。
+    // 不寫死要藏哪幾筆，否則過幾個月又會失準。
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const live = courses.filter((c) => {
+      const [y, m, d] = c.until.split('-').map(Number);
+      return new Date(y, m - 1, d) >= today;
+    });
+
     return {
-      courses,
-      upcoming: courses.slice(1, 4),
+      courses: live,
+      upcoming: live.slice(1, 4),
       goToDetail: () => { window.location.href = 'course-detail.html'; },
       stopProp: (e) => { e.stopPropagation(); }
     };

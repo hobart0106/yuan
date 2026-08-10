@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<script src="./nav.js" defer></script>
+<script src="./ui.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -90,19 +92,25 @@
   <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:44px 32px 88px;">
     <div class="yb-form-split" style="display:grid;grid-template-columns:1fr 1fr;gap:44px;">
       <div style="border-radius:24px;background:#F4F6F9;box-shadow:inset 0 0 0 1px #E5E8EC;padding:36px;">
-        <span style="display:block;font-size:15px;font-weight:800;color:#143A82;margin-bottom:16px;">洽詢類別</span>
-        <div style="display:flex;gap:10px;margin-bottom:26px;">
-          <div class="ytab" style="background:#143A82;color:#fff;border-radius:999px;padding:9px 20px;font-size:13.5px;font-weight:700;">合作洽詢</div>
-          <div class="ytab" style="border:1px solid #D7DCE3;border-radius:999px;padding:9px 20px;font-size:13.5px;color:#5A6473;">客戶洽詢</div>
-        </div>
+        <form id="ybContactForm" novalidate>
+        <fieldset style="border:0;padding:0;margin:0;">
+          <legend style="display:block;font-size:15px;font-weight:800;color:#143A82;margin-bottom:16px;padding:0;">洽詢類別</legend>
+          <div class="yb-tabgroup" data-yb-tab-output="ybContactCategory" style="display:flex;gap:10px;margin-bottom:26px;">
+            <button type="button" class="ytab is-active" data-yb-tab="合作洽詢" aria-pressed="true" style="background:#143A82;color:#fff;border:0;border-radius:999px;padding:9px 20px;font-size:13.5px;font-weight:700;font-family:inherit;">合作洽詢</button>
+            <button type="button" class="ytab" data-yb-tab="客戶洽詢" aria-pressed="false" style="background:#fff;border:1px solid #D7DCE3;border-radius:999px;padding:9px 20px;font-size:13.5px;font-weight:700;font-family:inherit;color:#5A6473;">客戶洽詢</button>
+          </div>
+          <input type="hidden" name="category" id="ybContactCategory" value="合作洽詢">
+        </fieldset>
         <div class="yb-form-grid2" style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
-          <div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:12.5px;color:#5A6473;">姓名 *</span><input class="yinput"></div>
-          <div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:12.5px;color:#5A6473;">單位 / 公司名稱 *</span><input class="yinput"></div>
-          <div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:12.5px;color:#5A6473;">聯繫電話 *</span><input class="yinput"></div>
-          <div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:12.5px;color:#5A6473;">Email *</span><input class="yinput"></div>
+          <div style="display:flex;flex-direction:column;gap:8px;"><label for="cf-name" style="font-size:12.5px;color:#5A6473;">姓名 *</label><input class="yinput" id="cf-name" name="name" type="text" autocomplete="name" required="required"></div>
+          <div style="display:flex;flex-direction:column;gap:8px;"><label for="cf-org" style="font-size:12.5px;color:#5A6473;">單位 / 公司名稱 *</label><input class="yinput" id="cf-org" name="organization" type="text" autocomplete="organization" required="required"></div>
+          <div style="display:flex;flex-direction:column;gap:8px;"><label for="cf-tel" style="font-size:12.5px;color:#5A6473;">聯繫電話 *</label><input class="yinput" id="cf-tel" name="tel" type="tel" autocomplete="tel" required="required"></div>
+          <div style="display:flex;flex-direction:column;gap:8px;"><label for="cf-email" style="font-size:12.5px;color:#5A6473;">Email *</label><input class="yinput" id="cf-email" name="email" type="email" autocomplete="email" required="required"></div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:8px;margin-top:18px;"><span style="font-size:12.5px;color:#5A6473;">洽詢內容 *</span><textarea class="ytextarea"></textarea></div>
-        <div class="ybtn-solid" style="margin-top:24px;background:#143A82;color:#fff;border-radius:999px;padding:14px;text-align:center;font-size:15px;font-weight:700;max-width:200px;">送出洽詢</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:18px;"><label for="cf-msg" style="font-size:12.5px;color:#5A6473;">洽詢內容 *</label><textarea class="ytextarea" id="cf-msg" name="message" required="required"></textarea></div>
+        <button type="submit" class="ybtn-solid" style="display:block;width:100%;margin-top:24px;background:#143A82;color:#fff;border:0;border-radius:999px;padding:14px;text-align:center;font-size:15px;font-weight:700;font-family:inherit;max-width:200px;">送出洽詢</button>
+        <p id="ybContactNote" role="status" style="margin:14px 0 0;font-size:13px;line-height:1.7;color:#5A6473;"></p>
+        </form>
       </div>
 
       <div style="display:flex;flex-direction:column;gap:20px;">
@@ -124,7 +132,7 @@
 
   <!-- 聯絡資訊 -->
   <div class="yb-cta-grid" style="display:grid;grid-template-columns:repeat(3,1fr);width:100%;">
-    <div class="yb-cta" style="position:relative;height:300px;overflow:hidden;cursor:pointer;">
+    <a href="mailto:sales@yuanhsin-pharma.com.tw" aria-label="以 Email 聯絡業務處" class="yb-cta" style="text-decoration:none;color:inherit;position:relative;height:300px;overflow:hidden;cursor:pointer;">
       <div style="position:absolute;inset:0;background:#0E1C3D url('assets/c-news1.jpg') center/cover no-repeat;"></div>
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,23,48,.55),rgba(11,23,48,.78));"></div>
       <div style="position:relative;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 32px;color:#fff;">
@@ -132,8 +140,8 @@
         <div style="font-size:14px;color:#cfdcf2;margin-top:10px;">(02) 2345-6789｜sales@yuanhsin-pharma.com.tw</div>
         <div style="margin-top:22px;border:1.5px solid rgba(255,255,255,.6);border-radius:999px;padding:11px 28px;font-size:14px;font-weight:700;">聯絡業務處　→</div>
       </div>
-    </div>
-    <div class="yb-cta" style="position:relative;height:300px;overflow:hidden;cursor:pointer;">
+    </a>
+    <a href="mailto:training@yuanhsin-pharma.com.tw" aria-label="以 Email 聯絡輻防訓練窗口" class="yb-cta" style="text-decoration:none;color:inherit;position:relative;height:300px;overflow:hidden;cursor:pointer;">
       <div style="position:absolute;inset:0;background:#143A82 url('assets/c-train2.jpg') center/cover no-repeat;"></div>
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,58,130,.5),rgba(15,40,98,.8));"></div>
       <div style="position:relative;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 32px;color:#fff;">
@@ -141,8 +149,8 @@
         <div style="font-size:14px;color:#cfdcf2;margin-top:10px;">(02) 2345-6790｜training@yuanhsin-pharma.com.tw</div>
         <div style="margin-top:22px;background:#fff;color:#143A82;border-radius:999px;padding:11px 28px;font-size:14px;font-weight:700;">聯絡訓練窗口　→</div>
       </div>
-    </div>
-    <div class="yb-cta" style="position:relative;height:300px;overflow:hidden;cursor:pointer;">
+    </a>
+    <a href="mailto:pr@yuanhsin-pharma.com.tw" aria-label="以 Email 聯絡公關合作窗口" class="yb-cta" style="text-decoration:none;color:inherit;position:relative;height:300px;overflow:hidden;cursor:pointer;">
       <div style="position:absolute;inset:0;background:#1F5BB5 url('assets/c-milestone.jpg') center/cover no-repeat;"></div>
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(31,91,181,.5),rgba(20,58,130,.82));"></div>
       <div style="position:relative;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 32px;color:#fff;">
@@ -150,7 +158,7 @@
         <div style="font-size:14px;color:#cfdcf2;margin-top:10px;">(02) 2345-6791｜pr@yuanhsin-pharma.com.tw</div>
         <div style="margin-top:22px;border:1.5px solid rgba(255,255,255,.6);border-radius:999px;padding:11px 28px;font-size:14px;font-weight:700;">聯絡公關窗口　→</div>
       </div>
-    </div>
+    </a>
   </div>
 
   <!-- FOOTER -->
@@ -174,30 +182,21 @@
             </span>
           </div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">關於元新</span>
-          <div style="display:flex;flex-direction:column;gap:13px;">
+        <details class="yb-footcol" open="open"><summary class="yb-footcol-t" style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;list-style:none;">關於元新</summary><div style="display:flex;flex-direction:column;gap:13px;padding-top:16px;">
             <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">公司簡介</a>
             <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">發展歷程</a>
             <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">品質認證</a>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">產品與服務</span>
-          <div style="display:flex;flex-direction:column;gap:13px;">
+          </div></details>
+        <details class="yb-footcol" open="open"><summary class="yb-footcol-t" style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;list-style:none;">產品與服務</summary><div style="display:flex;flex-direction:column;gap:13px;padding-top:16px;">
             <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">放射性藥物</a>
             <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">輻射安全設備</a>
             <a class="ylink" href="training.html" style="font-size:13.5px;color:#8893A8;">輻防教育訓練</a>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">資源</span>
-          <div style="display:flex;flex-direction:column;gap:13px;">
+          </div></details>
+        <details class="yb-footcol" open="open"><summary class="yb-footcol-t" style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;list-style:none;">資源</summary><div style="display:flex;flex-direction:column;gap:13px;padding-top:16px;">
             <a class="ylink" href="articles.html" style="font-size:13.5px;color:#8893A8;">文章專區</a>
             <span class="ylink" style="font-size:13.5px;color:#8893A8;">產學資源</span>
             <a class="ylink" href="contact.html" style="font-size:13.5px;color:#8893A8;">聯絡我們</a>
-          </div>
-        </div>
+          </div></details>
       </div>
     </div>
 

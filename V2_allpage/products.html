@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<script src="./nav.js" defer></script>
+<script src="./ui.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -34,6 +36,108 @@
   .ymarker:hover { transform:scale(1.06); }
   .yprod-row { cursor:pointer; transition:box-shadow .2s ease,transform .2s ease; }
   .yprod-row:hover { box-shadow:0 14px 30px -18px rgba(20,58,130,.35); transform:translateY(-2px); }
+  /* ===== 手機產品卡輪播 =====
+     桌機維持「大人體圖 + 產品列」；手機把圖與資訊合成一張卡，橫向滑動切換。
+     預設隱藏，只在 ≤640px 啟用。 */
+  .yp-carousel { display:none; }
+
+  .yp-track {
+    display:flex;
+    /* 卡片間距必須等於區塊左右留白，否則下一張卡會在螢幕右緣露出一條細邊。
+       留白值在 ≤400px 會變成 16px，下方有對應覆寫。 */
+    gap:20px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    /* 讓第一張與最後一張也能貼齊，卡片不會黏在螢幕邊緣 */
+    padding:2px 20px 6px;
+    margin:0 -20px;
+  }
+  .yp-track::-webkit-scrollbar { display:none; }
+
+  .yp-slide {
+    /* 所有卡片同寬：單張與多張一致，都佔滿容器。
+       代價是少了「露出下一張」的暗示，改由分頁點承擔。 */
+    flex:0 0 100%;
+    scroll-snap-align:center;
+    border-radius:20px;
+    overflow:hidden;
+    background:linear-gradient(120deg,#143A82,#1F5BB5);
+    box-shadow:0 14px 30px -20px rgba(11,23,48,.5);
+    display:flex;
+    flex-direction:column;
+  }
+
+  .yp-slide-img {
+    position:relative;
+    height:300px;
+    background:#0B1730 url('assets/body-diagram-c7a5f396.png') center/cover no-repeat;
+  }
+  .yp-slide-marker {
+    position:absolute;
+    transform:translateX(-50%);
+    background:#1F5BB5;
+    color:#fff;
+    border:1.5px solid #4C86D9;
+    box-shadow:0 0 0 4px rgba(31,91,181,.3);
+    font-size:12px;
+    font-weight:700;
+    padding:6px 14px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+
+  .yp-slide-info { padding:20px 22px 22px; }
+  .yp-slide-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px; }
+  .yp-slide-title { font-size:19px; font-weight:800; color:#fff; }
+  .yp-slide-tag {
+    font-size:11px;
+    color:#fff;
+    background:rgba(255,255,255,.18);
+    padding:4px 12px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .yp-slide-desc {
+    margin:0 0 18px;
+    font-size:13.5px;
+    line-height:1.85;
+    color:#D8E0F5;
+  }
+  .yp-slide-cta {
+    display:inline-flex;
+    align-items:center;
+    min-height:44px;
+    background:#fff;
+    color:#143A82;
+    border-radius:999px;
+    padding:0 22px;
+    font-size:13.5px;
+    font-weight:700;
+    text-decoration:none;
+  }
+
+  .yp-dots { display:flex; justify-content:center; align-items:center; gap:7px; margin-top:14px; }
+  .yp-dot {
+    width:7px;
+    height:7px;
+    border-radius:999px;
+    background:#C7CFDA;
+    transition:width .25s cubic-bezier(.22,1,.36,1), background .25s ease;
+  }
+  .yp-dot.is-active { width:22px; background:#8A98AC; }
+
+  /* 該組只有一個產品時，單顆圓點沒有意義，收掉。
+     :only-child 不需要 :has 支援。 */
+  .yp-dot:only-child { display:none; }
+  .yp-dots:has(.yp-dot:only-child) { display:none; }
+
+  /* 小手機的區塊留白縮為 16px，軌道的內外距與間距一起跟上，才不會露邊 */
+  @media (max-width:400px) {
+    .yp-track { gap:16px; padding:2px 16px 6px; margin:0 -16px; }
+  }
+
   /* ===== 本頁專屬 RWD（外殼規則見 responsive.css） ===== */
   .yp-tabs { flex-wrap:wrap; }
   @media (max-width:900px) {
@@ -49,14 +153,21 @@
     .yb-hero { padding:44px 0 !important; }
     .yb-hero h1 { font-size:28px !important; }
     .yb-hero p { font-size:14.5px !important; }
-    .yp-diag-grid { gap:24px !important; }
-    .yp-diag-grid .yp-organ { height:400px !important; }
-    .yp-cardhead { flex-wrap:wrap !important; gap:8px !important; }
-    .yp-cardhead > span:first-child { font-size:18px !important; }
-    .yprod-row { padding:18px 20px !important; gap:12px !important; }
-    .ymarker { font-size:11px !important; padding:5px 10px !important; }
-    /* 分類標籤：窄螢幕不強制 180px，改為兩欄自然分配 */
-    .ycattab { min-width:0 !important; flex:1 1 calc(50% - 7px) !important; padding:13px 16px !important; }
+    /* 手機改用輪播卡：人體圖與產品資訊合成一張，橫向滑動切換產品。
+       原本的「大圖 + 藍卡 + 白色產品列」在手機上一組要約 940px。 */
+    .yp-diag-grid { display:none !important; }
+    .yp-carousel { display:block; }
+    /* 每組之間的距離縮小：外層 gap 是為桌機的 96px 設計的 */
+    .yb-sec { gap:44px !important; }
+    /* 分類標籤：窄螢幕不強制 180px，改為兩欄。
+       原本用 flex-wrap，每一列各自計算高度——第二列被英文換兩行的那張撐高，
+       兩列因此不齊。改用 grid + grid-auto-rows:1fr，四張一律等高。 */
+    .yp-tabs {
+      display:grid !important;
+      grid-template-columns:1fr 1fr !important;
+      grid-auto-rows:1fr !important;
+    }
+    .ycattab { min-width:0 !important; flex:none !important; padding:13px 16px !important; }
     .ycattab .zh { font-size:14.5px !important; }
     .ycattab .en { font-size:11.5px !important; }
   }
@@ -128,7 +239,10 @@
   <div style="width:100%;background:#fff;">
     <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:72px 32px 96px;display:flex;flex-direction:column;gap:96px;">
       <sc-for list="{{ units }}" as="u" hint-placeholder-count="2">
-        <div id="{{ u.anchorId }}" class="yp-diag-grid" style="display:grid;grid-template-columns:{{ u.diagCols }};gap:36px;scroll-margin-top:96px;">
+        <!-- 錨點掛在這層：二級標籤用 #sub-x-y 跳轉，而 .yp-diag-grid 在手機版
+             是 display:none，隱藏元素無法被捲動到，錨點會失效。 -->
+        <div id="{{ u.anchorId }}" class="yp-unit" style="scroll-margin-top:96px;">
+        <div class="yp-diag-grid" style="display:grid;grid-template-columns:{{ u.diagCols }};gap:36px;">
           <sc-if value="{{ u.diagramLeft }}" hint-placeholder-val="{{ true }}">
             <div class="yp-organ" style="position:relative;height:480px;border-radius:32px;overflow:hidden;background:#0B1730 url('assets/body-diagram-c7a5f396.png') center/cover no-repeat;">
               <sc-for list="{{ u.markers }}" as="m" hint-placeholder-count="1">
@@ -168,6 +282,35 @@
             </div>
           </sc-if>
         </div>
+
+        <!-- 手機版：圖與資訊合成一張卡，多張橫向滑動（桌機隱藏）。
+             分頁點也由樣板產生 —— 不在 React 的子樹裡動態插入 DOM，
+             否則重繪會把它清掉（漢堡鈕踩過這個坑）。 -->
+        <div class="yp-carousel">
+          <div class="yp-track">
+            <sc-for list="{{ u.prodList }}" as="p" hint-placeholder-count="4">
+              <div class="yp-slide">
+                <div class="yp-slide-img">
+                  <div class="yp-slide-marker" style="top:{{ p.top }};left:{{ p.left }};">{{ p.title }}</div>
+                </div>
+                <div class="yp-slide-info">
+                  <div class="yp-slide-head">
+                    <span class="yp-slide-title">{{ p.title }}</span>
+                    <span class="en yp-slide-tag">{{ p.tag }}</span>
+                  </div>
+                  <p class="yp-slide-desc">{{ p.desc }}</p>
+                  <a class="yp-slide-cta" href="product-detail.html">前往產品介紹　→</a>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div class="yp-dots" aria-hidden="true">
+            <sc-for list="{{ u.prodList }}" as="p" hint-placeholder-count="4">
+              <span class="yp-dot {{ p.dotCls }}"></span>
+            </sc-for>
+          </div>
+        </div>
+        </div>
       </sc-for>
     </div>
   </div>
@@ -193,30 +336,21 @@
             </span>
           </div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">關於元新</span>
-          <div style="display:flex;flex-direction:column;gap:13px;">
+        <details class="yb-footcol" open="open"><summary class="yb-footcol-t" style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;list-style:none;">關於元新</summary><div style="display:flex;flex-direction:column;gap:13px;padding-top:16px;">
             <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">公司簡介</a>
             <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">發展歷程</a>
             <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">品質認證</a>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">產品與服務</span>
-          <div style="display:flex;flex-direction:column;gap:13px;">
+          </div></details>
+        <details class="yb-footcol" open="open"><summary class="yb-footcol-t" style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;list-style:none;">產品與服務</summary><div style="display:flex;flex-direction:column;gap:13px;padding-top:16px;">
             <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">放射性藥物</a>
             <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">輻射安全設備</a>
             <a class="ylink" href="training.html" style="font-size:13.5px;color:#8893A8;">輻防教育訓練</a>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">資源</span>
-          <div style="display:flex;flex-direction:column;gap:13px;">
+          </div></details>
+        <details class="yb-footcol" open="open"><summary class="yb-footcol-t" style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;list-style:none;">資源</summary><div style="display:flex;flex-direction:column;gap:13px;padding-top:16px;">
             <a class="ylink" href="articles.html" style="font-size:13.5px;color:#8893A8;">文章專區</a>
             <span class="ylink" style="font-size:13.5px;color:#8893A8;">產學資源</span>
             <a class="ylink" href="contact.html" style="font-size:13.5px;color:#8893A8;">聯絡我們</a>
-          </div>
-        </div>
+          </div></details>
       </div>
     </div>
 
@@ -291,6 +425,9 @@ class Component extends DCLogic {
         title: p.title, tag: p.tag, short: p.short || ("子分類：" + p.tag),
         desc: (p.note || ("屬於「" + p.tag + "」子分類。")).replace("（示意說明）", ""),
         selected: i === idx, notSelected: i !== idx, onClick: () => this.selectProduct(u, i),
+        // 手機輪播：每張卡都有自己的人體圖標記，滑動時標記跟著換
+        top: POS[i].top, left: POS[i].left,
+        dotCls: i === 0 ? "is-active" : "",
       }));
       const markers = chunk
         .map((p, i) => ({

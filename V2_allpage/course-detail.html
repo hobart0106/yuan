@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<script src="./nav.js" defer></script>
+<script src="./ui.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -45,9 +47,22 @@
     /* 標籤與內文改上下排列 */
     .yc-row { flex-direction:column !important; gap:10px !important; }
     .yc-row > span:first-child { width:auto !important; }
-    /* 正圓在窄螢幕會過高，改為圓角卡片直向排列 */
-    .yc-sched { flex-direction:column !important; }
-    .yc-sched > div { aspect-ratio:auto !important; border-radius:16px !important; padding:20px !important; gap:8px !important; }
+    /* 正圓在窄螢幕會過高，改為圓角卡片。
+       單欄排列時 5 個梯次要 683px，但每張只放日期與梯次名；改兩欄後約 400px。 */
+    .yc-sched {
+      display:grid !important;
+      grid-template-columns:1fr 1fr !important;
+      gap:10px !important;
+    }
+    .yc-sched > div {
+      flex:none !important;
+      aspect-ratio:auto !important;
+      border-radius:14px !important;
+      padding:14px 12px !important;
+      gap:6px !important;
+    }
+    /* 奇數時最後一張獨佔整列，不留半格空洞 */
+    .yc-sched > div:last-child:nth-child(odd) { grid-column:1 / -1; }
     .yc-trow { grid-template-columns:1fr 84px !important; padding:12px 14px !important; }
     .yc-dl { padding:20px !important; }
     .yb-fab { bottom:16px !important; padding:14px 24px !important; font-size:14px !important; }
@@ -161,31 +176,31 @@
     <div class="yc-card" style="border:1px solid #E5E8EC;border-radius:16px;padding:40px 36px;">
       <h2 style="font-size:19px;font-weight:800;color:#143A82;margin:0 0 24px;">課程梯次</h2>
       <div class="yc-sched" style="display:flex;justify-content:space-between;gap:12px;">
-        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:8px;border-radius:50%;aspect-ratio:1;background:#F0F1F3;">
+        <div data-yb-until="2026-03-20" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:8px;border-radius:50%;aspect-ratio:1;background:#F0F1F3;">
           <span style="font-size:13px;color:#8A93A3;">技術清潔度</span>
           <span style="font-size:16px;font-weight:800;color:#5A6473;">檢驗員資格培訓</span>
           <span style="width:22px;height:1px;background:#C7CDD6;"></span>
           <span style="font-size:13px;color:#8A93A3;">2026/3/19-3/20</span>
         </div>
-        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:8px;border-radius:50%;aspect-ratio:1;background:#F0F1F3;">
+        <div data-yb-until="2026-06-26" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:8px;border-radius:50%;aspect-ratio:1;background:#F0F1F3;">
           <span style="font-size:13px;color:#8A93A3;">技術清潔度</span>
           <span style="font-size:16px;font-weight:800;color:#5A6473;">檢驗員資格培訓</span>
           <span style="width:22px;height:1px;background:#C7CDD6;"></span>
           <span style="font-size:13px;color:#8A93A3;">2026/6/25-6/26</span>
         </div>
-        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:8px;border-radius:50%;aspect-ratio:1;background:#123C7E;">
+        <div data-yb-until="2026-08-14" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:8px;border-radius:50%;aspect-ratio:1;background:#123C7E;">
           <span style="font-size:13px;color:#B9C6E4;">技術清潔度</span>
           <span style="font-size:16px;font-weight:800;color:#fff;">助理資格培訓</span>
           <span style="width:22px;height:1px;background:#4C6DA8;"></span>
           <span style="font-size:13px;color:#B9C6E4;">2026/8/13-8/14</span>
         </div>
-        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:8px;border-radius:50%;aspect-ratio:1;background:#DCE5F7;">
+        <div data-yb-until="2026-10-16" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:8px;border-radius:50%;aspect-ratio:1;background:#DCE5F7;">
           <span style="font-size:13px;color:#7C8AAE;">技術清潔度</span>
           <span style="font-size:16px;font-weight:800;color:#3A4E78;">助理資格培訓</span>
           <span style="width:22px;height:1px;background:#B7C4E2;"></span>
           <span style="font-size:13px;color:#7C8AAE;">2026/10/15-10/16</span>
         </div>
-        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:8px;border-radius:50%;aspect-ratio:1;background:#EAF0FB;">
+        <div data-yb-until="2026-12-04" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:8px;border-radius:50%;aspect-ratio:1;background:#EAF0FB;">
           <span style="font-size:13px;color:#8B9AB9;">技術清潔度</span>
           <span style="font-size:16px;font-weight:800;color:#3A4E78;">檢驗員資格培訓</span>
           <span style="width:22px;height:1px;background:#CBD8ED;"></span>
@@ -246,7 +261,7 @@
         <div>
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:22px;">
           <span style="font-size:12.5px;color:#5A6473;">參加梯次 *（本課程一年開設四場，請選擇欲報名日期）</span>
-          <div class="yinput" style="display:flex;align-items:center;justify-content:space-between;">2026.06.18 · 台北場 <span style="color:#9AA1AC;">▾</span></div>
+          <div class="yinput" style="display:flex;align-items:center;justify-content:space-between;">2026/8/13-8/14 · 助理資格培訓 <span style="color:#9AA1AC;">▾</span></div>
         </div>
         <div class="yb-form-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
           <div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:12.5px;color:#5A6473;">姓名 *</span><div class="yinput"></div></div>
@@ -294,30 +309,21 @@
             </span>
           </div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">關於元新</span>
-          <div style="display:flex;flex-direction:column;gap:13px;">
+        <details class="yb-footcol" open="open"><summary class="yb-footcol-t" style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;list-style:none;">關於元新</summary><div style="display:flex;flex-direction:column;gap:13px;padding-top:16px;">
             <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">公司簡介</a>
             <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">發展歷程</a>
             <a class="ylink" href="about.html" style="font-size:13.5px;color:#8893A8;">品質認證</a>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">產品與服務</span>
-          <div style="display:flex;flex-direction:column;gap:13px;">
+          </div></details>
+        <details class="yb-footcol" open="open"><summary class="yb-footcol-t" style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;list-style:none;">產品與服務</summary><div style="display:flex;flex-direction:column;gap:13px;padding-top:16px;">
             <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">放射性藥物</a>
             <a class="ylink" href="products.html" style="font-size:13.5px;color:#8893A8;">輻射安全設備</a>
             <a class="ylink" href="training.html" style="font-size:13.5px;color:#8893A8;">輻防教育訓練</a>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <span style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;">資源</span>
-          <div style="display:flex;flex-direction:column;gap:13px;">
+          </div></details>
+        <details class="yb-footcol" open="open"><summary class="yb-footcol-t" style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;list-style:none;">資源</summary><div style="display:flex;flex-direction:column;gap:13px;padding-top:16px;">
             <a class="ylink" href="articles.html" style="font-size:13.5px;color:#8893A8;">文章專區</a>
             <span class="ylink" style="font-size:13.5px;color:#8893A8;">產學資源</span>
             <a class="ylink" href="contact.html" style="font-size:13.5px;color:#8893A8;">聯絡我們</a>
-          </div>
-        </div>
+          </div></details>
       </div>
     </div>
 
