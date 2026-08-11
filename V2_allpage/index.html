@@ -142,7 +142,16 @@
 
     /* 合作夥伴：logo 本身不大，兩欄太浪費 */
     .yb-grid5 { grid-template-columns:repeat(3,1fr) !important; gap:10px !important; }
-    .yb-svcgrid .ysvc-cell { padding:24px 20px !important; }
+    .yb-svcgrid .ysvc-cell { position:relative; padding:24px 52px 24px 20px !important; }
+    .yb-svcgrid .ysvc-cell > div:last-child { min-width:0; }
+    /* 英文標題換行時箭頭不再跟著文字行移動，統一固定在卡片右側中央。 */
+    .yb-svcgrid .ysvc-arrow {
+      position:absolute;
+      right:20px;
+      top:50%;
+      transform:translateY(-50%);
+    }
+    .yb-svcgrid .ysvc-cell:hover .ysvc-arrow { transform:translate(3px,-50%); }
     .yb-ms-pic { height:220px !important; }
     .yb-ms-list { gap:24px !important; }
     .yb-course { flex-direction:column !important; }
@@ -319,13 +328,15 @@
   <!-- ============ TRAINING & CONSULTING ============ -->
   <div style="width:100%;background:#fff;">
     <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:88px 32px;display:flex;flex-direction:column;gap:40px;">
-      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;">
-        <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;gap:24px;">
+        <div style="display:flex;flex:1;min-width:0;flex-direction:column;gap:12px;">
           <span class="en" style="font-size:13px;font-weight:600;letter-spacing:.16em;color:#1F5BB5;">TRAINING &amp; CONSULTING</span>
-          <h2 style="margin:0;font-size:34px;font-weight:800;color:#143A82;">輻防教育與專業顧問</h2>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+            <h2 style="margin:0;font-size:34px;font-weight:800;color:#143A82;">輻防教育與專業顧問</h2>
+            <a class="ylink" href="training.html" style="flex-shrink:0;font-size:14.5px;font-weight:700;color:#143A82;border-bottom:1.5px solid #143A82;padding-bottom:3px;text-decoration:none;">全部課程　→</a>
+          </div>
           <span style="font-size:15px;color:#5A6473;">保證取證的訓練課程，解決核醫現場的實務痛點。</span>
         </div>
-        <a class="ylink" href="training.html" style="flex-shrink:0;font-size:14.5px;font-weight:700;color:#143A82;border-bottom:1.5px solid #143A82;padding-bottom:3px;text-decoration:none;">全部課程　→</a>
       </div>
       <a class="ycard yb-course" href="course-detail.html" style="display:flex;border:1px solid #E5E8EC;border-radius:16px;overflow:hidden;cursor:pointer;text-decoration:none;color:inherit;">
         <div style="flex:0 0 42%;min-height:360px;background:#F2F5F9 url('assets/c-train1.png') center/cover no-repeat;"></div>
