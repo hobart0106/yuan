@@ -214,7 +214,7 @@ button:focus-visible,
   background:none;
   padding:0;
   cursor:pointer;
-  font-size:20px;
+  font-size:28px;
   line-height:1;
   color:#143A82;
 }
@@ -496,6 +496,7 @@ button:focus-visible,
 /* ---------- ≤400px 小手機（iPhone SE 等） ---------- */
 @media (max-width:400px) {
   .yb-navrow { padding:0 12px !important; gap:10px !important; }
+  .yb-drawer-head { padding-left:12px; padding-right:12px; }
   .yb-navlinks { gap:15px !important; font-size:13.5px !important; }
   .yb-sec,
   .yb-foot-wrap { padding-left:16px !important; padding-right:16px !important; }
