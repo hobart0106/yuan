@@ -158,7 +158,8 @@
     .yp-diag-grid { display:none !important; }
     .yp-carousel { display:block; }
     /* 每組之間的距離縮小：外層 gap 是為桌機的 96px 設計的 */
-    .yb-sec { gap:44px !important; }
+    .yp-units { gap:44px !important; }
+    .yp-filters { gap:16px !important; }
     /* 分類標籤：窄螢幕不強制 180px，改為兩欄。
        原本用 flex-wrap，每一列各自計算高度——第二列被英文換兩行的那張撐高，
        兩列因此不齊。改用 grid + grid-auto-rows:1fr，四張一律等高。 */
@@ -217,7 +218,7 @@
 
   <!-- CATEGORY TABS + SUB-CATEGORY CHIPS -->
   <div style="width:100%;background:#fff;">
-    <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:56px 32px 0;display:flex;flex-direction:column;gap:24px;">
+    <div class="yb-sec yp-filters" style="max-width:1200px;margin:0 auto;padding:56px 32px 0;display:flex;flex-direction:column;gap:24px;">
       <div class="yp-tabs" style="display:flex;flex-wrap:wrap;gap:14px;">
         <sc-for list="{{ catTabs }}" as="c" hint-placeholder-count="4">
           <div class="ycattab {{ c.cls }}" onClick="{{ c.onClick }}">
@@ -236,7 +237,7 @@
 
   <!-- 產品列表（人體圖 + 產品列，每 4 個一組左右交錯） -->
   <div style="width:100%;background:#fff;">
-    <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:72px 32px 96px;display:flex;flex-direction:column;gap:96px;">
+    <div class="yb-sec yp-units" style="max-width:1200px;margin:0 auto;padding:72px 32px 96px;display:flex;flex-direction:column;gap:96px;">
       <sc-for list="{{ units }}" as="u" hint-placeholder-count="2">
         <!-- 錨點掛在這層：二級標籤用 #sub-x-y 跳轉，而 .yp-diag-grid 在手機版
              是 display:none，隱藏元素無法被捲動到，錨點會失效。 -->
