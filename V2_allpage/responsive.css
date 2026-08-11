@@ -20,8 +20,16 @@
   --yb-body-leading:1.8;
   --yb-heading-leading:1.3;
 }
-html { -webkit-text-size-adjust:100%; }
-body { overflow-x:hidden; }
+html {
+  -webkit-text-size-adjust:100%;
+  scroll-behavior:smooth;
+  scroll-padding-top:94px;
+  scrollbar-gutter:stable;
+}
+body {
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+}
 img, svg, video, canvas, image-slot { max-width:100%; }
 
 /* Grid / flex 子項預設的 min-width:auto 會讓長標題、表格與英文型號把手機
@@ -250,6 +258,7 @@ button:focus-visible,
 /* ---------- ≤720px：連結列放不下，改用抽屜 ---------- */
 /* 6 個連結 + logo 在此寬度以下會溢出導覽列（768px 平板仍放得下，故不提前切換）*/
 @media (max-width:720px) {
+  html { scroll-padding-top:78px; }
   .yb-navrow { position:relative; }
   .yb-js-nav .yb-navlinks { display:none !important; }
   .yb-js-nav .yb-burger {

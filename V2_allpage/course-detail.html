@@ -40,6 +40,7 @@
     .yc-sched > div { flex:1 1 calc(33.333% - 8px) !important; }
   }
   @media (max-width:640px) {
+    #reg-form { scroll-margin-top:78px !important; }
     .yb-sec h1 { font-size:26px !important; }
     .yb-course-photo { height:200px !important; }
     .yb-form-grid { grid-template-columns:1fr !important; gap:16px !important; }
@@ -251,7 +252,7 @@
   <div style="height:88px;"></div>
 
   <!-- 報名表單 -->
-  <div id="reg-form" style="width:100%;background:#F4F6F9;border-top:1px solid #E5E8EC;">
+  <div id="reg-form" style="width:100%;scroll-margin-top:94px;background:#F4F6F9;border-top:1px solid #E5E8EC;">
     <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:64px 32px 88px;">
       <h2 style="margin:0 0 6px;font-size:26px;font-weight:800;color:#143A82;">線上報名</h2>
       <span style="display:block;font-size:13.5px;color:#5A6473;margin-bottom:28px;">送出報名後將顯示匯款帳號提示，並副本寄送至報名信箱</span>
@@ -350,6 +351,18 @@ class Component extends DCLogic {
     const form = document.getElementById('reg-form');
     const fab = document.getElementById('yb-fab');
     if (!form || !fab) return;
+    // 原生 hash 連結會瞬間跳轉；改用 scrollIntoView 平滑捲動，
+    // 並保留 prefers-reduced-motion 使用者的無動畫設定。
+    this._onFabClick = (event) => {
+      event.preventDefault();
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      form.scrollIntoView({
+        behavior: reduceMotion ? 'auto' : 'smooth',
+        block: 'start'
+      });
+      if (history.pushState) history.pushState(null, '', '#reg-form');
+    };
+    fab.addEventListener('click', this._onFabClick);
     // 報名表單進入視窗時隱藏浮動按鈕，避免蓋住表單
     this._io = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
@@ -360,6 +373,8 @@ class Component extends DCLogic {
     this._io.observe(form);
   }
   componentWillUnmount() {
+    const fab = document.getElementById('yb-fab');
+    if (fab && this._onFabClick) fab.removeEventListener('click', this._onFabClick);
     if (this._io) this._io.disconnect();
   }
   renderVals() { return {}; }
