@@ -75,7 +75,7 @@
        舊瀏覽器不認得 dvh，會落回上一行的 vh。
        文案本身只有 269px，原本 62dvh 在 iPhone 上會留下 255px 空白。 */
     .yb-hero { height:50vh !important; height:50dvh !important; min-height:360px !important; }
-    .yb-hero h1 { font-size:30px !important; }
+    .yb-hero h1 { font-size:clamp(26px,7.2vw,30px) !important; line-height:1.16 !important; }
     .yb-hero p { font-size:17px !important; margin-top:16px !important; }
     .yb-hero .ypill { padding:13px 24px !important; font-size:15px !important; }
     .yb-sec { padding-top:56px !important; padding-bottom:56px !important; }
@@ -162,6 +162,10 @@
     /* 發展歷程：頂部照片 220px 幾乎佔掉四分之一屏 */
     .yb-ms-pic { height:150px !important; }
     #ybInsightTabs { flex-wrap:wrap !important; }
+
+    /* 桌機 hero 使用超寬左右留白；手機改用與其他區塊一致的安全邊距。 */
+    .yb-hero > div:last-child { padding-left:20px !important; padding-right:20px !important; }
+    .yb-hero > div:last-child > div { min-width:0; }
   }
   @media (max-width:400px) {
     .yb-hero h1 { font-size:26px !important; }
@@ -328,7 +332,9 @@
         <div style="flex:1;padding:44px 48px;display:flex;flex-direction:column;">
           <span class="en" style="font-size:12.5px;font-weight:600;color:#1F5BB5;letter-spacing:.04em;">實體課程 · 全台巡迴開課</span>
           <span style="font-size:27px;font-weight:800;line-height:1.45;color:#1C2533;margin-top:14px;">核醫從業人員輻射防護基礎訓練</span>
-          <span style="font-size:15px;line-height:1.85;color:#5A6473;margin-top:14px;max-width:520px;">涵蓋法規、劑量管理與作業安全，完訓核發認證時數，協助從業人員取得輻防專業資格。</span>
+          <!-- 單行需要約 585px，但卡片欄寬只有 562px，放不下——這裡的限制是欄寬不是 max-width。
+               既然一定會換行，用 text-wrap:balance 讓兩行長度接近，避免尾行只剩幾個字。 -->
+          <span style="font-size:15px;line-height:1.85;color:#5A6473;margin-top:14px;max-width:520px;text-wrap:balance;">涵蓋法規、劑量管理與作業安全，完訓核發認證時數，協助從業人員取得輻防專業資格。</span>
           <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;">
             <span class="en" data-yb-until="2026-03-20" style="border:1px solid #D7DEE8;background:#F5F8FC;color:#143A82;border-radius:999px;padding:8px 18px;font-size:13px;font-weight:600;">2026/3/19-3/20 · 檢驗員資格培訓</span>
             <span class="en" data-yb-until="2026-06-26" style="border:1px solid #D7DEE8;background:#F5F8FC;color:#143A82;border-radius:999px;padding:8px 18px;font-size:13px;font-weight:600;">2026/6/25-6/26 · 檢驗員資格培訓</span>

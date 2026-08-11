@@ -54,7 +54,7 @@
     var root = document.createElement('div');
     root.className = 'yb-drawer';
     root.id = 'ybDrawer';
-    root.hidden = true;
+    root.appendChild(makeBurger());
 
     panel = document.createElement('div');
     panel.className = 'yb-drawer-panel';
@@ -118,7 +118,7 @@
   /* ---------- 開合 ---------- */
 
   function isOpen() {
-    return !!drawer && !drawer.hidden;
+    return !!drawer && drawer.classList.contains('is-open');
   }
 
   function open() {
@@ -133,7 +133,6 @@
     document.body.style.right = '0';
     document.body.style.width = '100%';
 
-    drawer.hidden = false;
     // 讓瀏覽器先套上初始狀態，下一幀才開始轉場
     requestAnimationFrame(function () {
       drawer.classList.add('is-open');
@@ -162,13 +161,6 @@
     syncBurger(null, false);
 
     document.removeEventListener('keydown', onKeydown, true);
-
-    var done = function () {
-      drawer.hidden = true;
-      drawer.removeEventListener('transitionend', done);
-    };
-    if (reduceMotion.matches) done();
-    else drawer.addEventListener('transitionend', done);
 
     // macOS 的 Safari／Firefox 點按鈕不會給它焦點，lastFocused 這時是 <body>；
     // 焦點若丟回 body，鍵盤使用者會被送回頁首，所以退回漢堡鈕本身。
@@ -220,24 +212,24 @@
     // 抽屜只建立一次，掛在 body 底下避開 React 的 #dc-root
     if (!drawer) {
       drawer = makeDrawer(navlinks, row.querySelector('img'));
+      // 按鈕與抽屜一起掛在 React 根節點之外。動態頁重繪導覽列時，
+      // 這個 portal 不會被移除；關閉狀態只把 panel 推到畫面外。
       document.body.appendChild(drawer);
       document.documentElement.classList.add('yb-js-nav');
     }
 
-    // 按鈕若被 React 重繪移除就補回來
-    var existing = row.querySelector('.yb-burger');
-    if (existing && existing.hasAttribute('data-dc-tpl')) {
-      // React 從樣板渲染出來的空殼（舊版遺留），換成有行為的那顆
-      existing.remove();
-      existing = null;
-    }
-    if (!existing) {
-      var b = makeBurger();
-      syncBurger(b, isOpen());
-      row.appendChild(b);
-    }
+    syncBurgerPosition();
 
     return true;
+  }
+
+  function syncBurgerPosition() {
+    var row = document.querySelector('.yb-navrow');
+    var b = getBurger();
+    if (!row || !b) return;
+    var r = row.getBoundingClientRect();
+    var top = Math.max(0, r.top) + Math.max(0, (r.height - 44) / 2);
+    b.style.setProperty('--yb-burger-top', Math.round(top) + 'px');
   }
 
   // 把開合狀態同步到目前畫面上的按鈕。
@@ -282,7 +274,9 @@
     // 轉回桌機寬度時關閉抽屜，避免隱藏的抽屜還鎖著背景捲動
     window.addEventListener('resize', function () {
       if (window.innerWidth > BREAKPOINT && isOpen()) close();
+      syncBurgerPosition();
     });
+    window.addEventListener('scroll', syncBurgerPosition, { passive:true });
   }
 
   if (document.readyState === 'loading') {

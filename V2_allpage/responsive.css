@@ -8,10 +8,25 @@
    因為本檔以 <link> 載入於各頁 <style> 之前，頁面規則永遠可以覆蓋這裡。
    ========================================================================== */
 
-/* ---------- 全域安全網 ---------- */
+/* ---------- 共用節奏與全域安全網 ---------- */
+:root {
+  --yb-space-1:8px;
+  --yb-space-2:12px;
+  --yb-space-3:16px;
+  --yb-space-4:20px;
+  --yb-space-5:24px;
+  --yb-space-6:32px;
+  --yb-section-mobile:40px;
+  --yb-body-leading:1.8;
+  --yb-heading-leading:1.3;
+}
 html { -webkit-text-size-adjust:100%; }
 body { overflow-x:hidden; }
 img, svg, video, canvas, image-slot { max-width:100%; }
+
+/* Grid / flex 子項預設的 min-width:auto 會讓長標題、表格與英文型號把手機
+   版容器撐寬。共用外殼內一律允許內容收縮，個別需要固定寬度的元件仍可覆寫。 */
+.yb-sec > *, .yb-navrow > *, .yb-foot-wrap > * { min-width:0; }
 
 /* 長字串（型號、Email、網址）在窄螢幕不撐破容器 */
 .en, .ybreak { overflow-wrap:anywhere; }
@@ -25,6 +40,84 @@ img, svg, video, canvas, image-slot { max-width:100%; }
     transition-duration:.001ms !important;
     scroll-behavior:auto !important;
   }
+}
+
+/* ==========================================================================
+   電腦端連結與按鈕互動
+
+   只在支援 hover 的精準游標設備啟用，避免手機點按後卡住。
+   ========================================================================== */
+.yb-linkbtn { text-decoration:none; cursor:pointer; }
+
+@media (hover:hover) and (pointer:fine) {
+  .ynav,
+  .ylink,
+  .yb-linkbtn,
+  .ybtn-solid,
+  .ybtn-outline,
+  .ypill,
+  .ytab,
+  .ychip,
+  .ycattab,
+  .yacad,
+  .yp-slide-cta,
+  .yi-dl,
+  .yb-cta,
+  a.ycard {
+    transition-property:color, background-color, border-color, box-shadow, opacity, transform;
+    transition-duration:.24s;
+    transition-timing-function:cubic-bezier(.22,1,.36,1);
+  }
+
+  .ynav:hover,
+  .ylink:hover { color:#2E72D6 !important; }
+
+  .yb-linkbtn:hover,
+  .ybtn-solid:hover,
+  .ybtn-outline:hover,
+  .ypill:hover,
+  .yp-slide-cta:hover {
+    transform:translateY(-2px);
+    box-shadow:0 14px 28px -16px rgba(20,58,130,.62);
+  }
+
+  .ytab:hover,
+  .ychip:hover,
+  .ycattab:hover {
+    color:#143A82 !important;
+    border-color:#9DBBE8 !important;
+    background:#F4F7FC !important;
+  }
+  .ytab.is-active:hover { color:#fff !important; background:#143A82 !important; }
+
+  /* 產學資源膠囊的背景寫在 inline style，hover 需要 !important
+     才能與白色文字一起切換，避免白字疊在白底。 */
+  .yacad:hover {
+    color:#fff !important;
+    background:#143A82 !important;
+    box-shadow:inset 0 0 0 1px #143A82, 0 12px 24px -18px rgba(20,58,130,.6) !important;
+  }
+
+  .yi-dl:hover { background:#E9F0FA !important; color:#143A82 !important; }
+  .yb-cta:hover,
+  a.ycard:hover {
+    transform:translateY(-4px);
+    box-shadow:0 20px 42px -24px rgba(20,58,130,.38);
+  }
+
+  .yb-linkbtn:active,
+  .ybtn-solid:active,
+  .ybtn-outline:active,
+  .ypill:active,
+  .yb-cta:active,
+  a.ycard:active { transform:translateY(0); }
+}
+
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline:2px solid #2E72D6;
+  outline-offset:3px;
 }
 
 
@@ -41,14 +134,16 @@ img, svg, video, canvas, image-slot { max-width:100%; }
   position:fixed;
   inset:0;
   z-index:200;
-  background:rgba(14,28,61,.45);
-  opacity:0;
-  transition:opacity .28s cubic-bezier(.22,1,.36,1);
+  background:transparent;
+  pointer-events:none;
+  transition:background-color .28s cubic-bezier(.22,1,.36,1);
 }
-.yb-drawer.is-open { opacity:1; }
+.yb-drawer.is-open { background:rgba(14,28,61,.45); pointer-events:auto; }
 .yb-drawer[hidden] { display:none; }
 
 .yb-drawer-panel {
+  width:100%;
+  max-width:none;
   height:100%;
   margin-left:auto;                 /* 由右側展開，與漢堡鈕同側 */
   background:#fff;
@@ -56,7 +151,11 @@ img, svg, video, canvas, image-slot { max-width:100%; }
   flex-direction:column;
   overflow-y:auto;
   -webkit-overflow-scrolling:touch;
+  transform:translateX(100%);
+  transition:transform .28s cubic-bezier(.22,1,.36,1);
 }
+.yb-drawer.is-open .yb-drawer-panel { transform:translateX(0); }
+.yb-drawer > .yb-burger { pointer-events:auto; }
 
 .yb-drawer-head {
   flex:0 0 auto;
@@ -118,6 +217,7 @@ img, svg, video, canvas, image-slot { max-width:100%; }
 /* ---------- ≤720px：連結列放不下，改用抽屜 ---------- */
 /* 6 個連結 + logo 在此寬度以下會溢出導覽列（768px 平板仍放得下，故不提前切換）*/
 @media (max-width:720px) {
+  .yb-navrow { position:relative; }
   .yb-js-nav .yb-navlinks { display:none !important; }
   .yb-js-nav .yb-burger {
     display:flex;
@@ -125,7 +225,11 @@ img, svg, video, canvas, image-slot { max-width:100%; }
     justify-content:center;
     width:44px;
     height:44px;
-    margin-right:-10px;
+    position:fixed;
+    right:10px;
+    top:var(--yb-burger-top, 49px);
+    z-index:120;
+    margin:0;
     border:0;
     background:none;
     padding:0;
@@ -154,11 +258,8 @@ img, svg, video, canvas, image-slot { max-width:100%; }
   .yb-burger.is-open .yb-burger-bars > span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
 }
 
-/* 抽屜寬度上限：橫置手機時連結不會被拉成整排空白 */
-@media (min-width:520px) {
-  .yb-drawer-panel { max-width:420px; box-shadow:0 0 60px -20px rgba(14,28,61,.4); }
-}
-
+/* 抽屜開啟後由抽屜自己的關閉鈕接手，避免兩顆 X 疊在一起。 */
+.yb-burger.is-open { visibility:hidden; }
 
 /* ---------- ≤1024px 平板橫向 ---------- */
 @media (max-width:1024px) {
@@ -193,6 +294,7 @@ img, svg, video, canvas, image-slot { max-width:100%; }
      以下橫向捲動規則保留為無 JS 時的後備。 */
   .yb-navrow { height:62px !important; padding:0 16px !important; gap:14px !important; }
   .yb-navrow img { height:28px !important; }
+  .yb-js-nav .yb-navrow { padding-right:64px !important; }
   .yb-navlinks {
     flex:1 1 auto !important;
     min-width:0 !important;
@@ -208,6 +310,27 @@ img, svg, video, canvas, image-slot { max-width:100%; }
   .yb-foot-wrap { padding-left:20px !important; padding-right:20px !important; }
 
   .yb-hero { border-radius:36px 0 36px 0 !important; }
+
+  /* 手機主視覺：桌機用的固定換行在窄螢幕會形成過長英文行。 */
+  .yb-hero h1 {
+    max-width:100% !important;
+    overflow-wrap:anywhere;
+    text-wrap:balance;
+  }
+  .yb-hero h1 br { display:none; }
+  .yb-hero > div:last-child { padding-left:20px !important; padding-right:20px !important; }
+
+  .yb-sec :is(h1,h2,h3):not([style*="line-height"]) { line-height:var(--yb-heading-leading); }
+  .yb-sec :is(p,li):not([style*="line-height"]) { line-height:var(--yb-body-leading); }
+
+  /* iOS 會把小於 16px 的表單欄位自動放大，造成送出前畫面跳動。 */
+  input, select, textarea { font-size:16px !important; max-width:100%; }
+
+  /* 一般 CTA 在手機上保留完整可點範圍，並避免長文案溢出。 */
+  button, [role="button"], .ybtn-solid, .ybtn-outline {
+    min-height:44px;
+    max-width:100%;
+  }
 
   /* 觸控目標：篩選膠囊與連結標籤原本高約 36px，補到 44px。
      這些都是單行文字，改 inline-flex 不影響內部排版；
@@ -300,7 +423,15 @@ img, svg, video, canvas, image-slot { max-width:100%; }
 /* ---------- 區塊留白：56px → 40px ---------- */
 /* 首頁 9 個區塊，光上下留白就吃掉約 1000px */
 @media (max-width:640px) {
-  .yb-sec { padding-top:40px !important; padding-bottom:40px !important; }
+  /* 提高 specificity，避免各頁較晚載入的舊版 56px 規則把共用節奏蓋回去。 */
+  body .yb-sec:not(.yb-sec-compact) {
+    padding-top:var(--yb-section-mobile) !important;
+    padding-bottom:var(--yb-section-mobile) !important;
+  }
+  body .yb-sec-compact {
+    padding-top:16px !important;
+    padding-bottom:0 !important;
+  }
 }
 
 
@@ -312,4 +443,5 @@ img, svg, video, canvas, image-slot { max-width:100%; }
   .yb-foot-wrap { padding-left:16px !important; padding-right:16px !important; }
   .yb-foot { grid-template-columns:1fr !important; gap:24px !important; }
   .yb-hero { border-radius:28px 0 28px 0 !important; }
+  .yb-js-nav .yb-burger { right:6px; }
 }

@@ -85,7 +85,9 @@
   <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:22px 32px 0;">
     <span class="en" style="font-size:13px;font-weight:600;letter-spacing:.16em;color:#1F5BB5;">CONTACT US</span>
     <h1 style="margin:16px 0 0;font-size:34px;font-weight:800;color:#143A82;">聯絡我們</h1>
-    <p style="margin:16px 0 0;font-size:15px;line-height:1.9;color:#5A6473;max-width:700px;">無論是產品洽詢、合作提案，或輻防訓練課程問題，歡迎透過下方表單與我們聯繫，我們將盡快與您聯絡。</p>
+    <!-- 這句單行需要約 705px，原本 max-width:700px 只差 5px 就會把「絡。」擠到第二行。
+         留到 820px 是為了容納字型 fallback（PingFang / 微軟正黑）造成的寬度差異。 -->
+    <p style="margin:16px 0 0;font-size:15px;line-height:1.9;color:#5A6473;max-width:820px;">無論是產品洽詢、合作提案，或輻防訓練課程問題，歡迎透過下方表單與我們聯繫，我們將盡快與您聯絡。</p>
   </div>
 
   <!-- 表單 + 說明 -->
