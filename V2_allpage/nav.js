@@ -62,6 +62,18 @@
     panel.setAttribute('aria-modal', 'true');
     panel.setAttribute('aria-label', '主選單');
 
+    // 複製原頁面的頂部資訊列，讓滿版選單的 Logo 與原 Nav 維持同一高度。
+    var util = document.createElement('div');
+    util.className = 'yb-drawer-util';
+    var sourceUtil = document.querySelector('.yb-util > div');
+    if (sourceUtil) {
+      var utilLinks = sourceUtil.cloneNode(true);
+      utilLinks.removeAttribute('style');
+      utilLinks.className = 'yb-drawer-util-links';
+      util.appendChild(utilLinks);
+    }
+    panel.appendChild(util);
+
     // 頂列：logo + 關閉鈕，與收合狀態的導覽列對齊
     var head = document.createElement('div');
     head.className = 'yb-drawer-head';
@@ -70,6 +82,9 @@
       var l = logo.cloneNode(true);
       l.removeAttribute('style');
       l.className = 'yb-drawer-logo';
+      l.setAttribute('role', 'link');
+      l.setAttribute('tabindex', '0');
+      l.setAttribute('aria-label', '回到首頁');
       head.appendChild(l);
     } else {
       head.appendChild(document.createElement('span'));
@@ -209,11 +224,19 @@
     var navlinks = row.querySelector('.yb-navlinks');
     if (!navlinks) return false;
 
+    var homeLogo = row.querySelector('img');
+    if (homeLogo) {
+      homeLogo.classList.add('yb-home-logo');
+      homeLogo.setAttribute('role', 'link');
+      homeLogo.setAttribute('tabindex', '0');
+      homeLogo.setAttribute('aria-label', '回到首頁');
+    }
+
     // 抽屜只建立一次，掛在 body 底下避開 React 的 #dc-root
     if (!drawer) {
       drawer = makeDrawer(navlinks, row.querySelector('img'));
       // 按鈕與抽屜一起掛在 React 根節點之外。動態頁重繪導覽列時，
-      // 這個 portal 不會被移除；關閉狀態只把 panel 推到畫面外。
+      // 這個 portal 不會被移除；關閉狀態將 panel 淡出，開啟時滿版淡入。
       document.body.appendChild(drawer);
       document.documentElement.classList.add('yb-js-nav');
     }
@@ -250,10 +273,23 @@
     // 開合用事件委派：不論這顆按鈕是誰建立的（我們自己、或 React 重繪出來的
     // 副本），點擊都會被接到。這是這支檔案唯一的開合入口。
     document.addEventListener('click', function (e) {
+      var logo = e.target.closest && e.target.closest('.yb-home-logo, .yb-drawer-logo');
+      if (logo) {
+        e.preventDefault();
+        location.href = 'index.html';
+        return;
+      }
       var b = e.target.closest && e.target.closest('.yb-burger');
       if (!b) return;
       e.preventDefault();
       isOpen() ? close() : open();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      var logo = e.target.closest && e.target.closest('.yb-home-logo, .yb-drawer-logo');
+      if (!logo || (e.key !== 'Enter' && e.key !== ' ')) return;
+      e.preventDefault();
+      location.href = 'index.html';
     });
 
     mount();
