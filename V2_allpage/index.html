@@ -40,6 +40,16 @@
   .ysvc-cell:hover .ysvc { transform:translateY(-4px) scale(1.04); }
   .ysvc-arrow { display:inline-block; transition:transform .25s ease; }
   .ysvc-cell:hover .ysvc-arrow { transform:translateX(5px); }
+  .yb-company-history { border-top:1px solid #E5EAF1; }
+  .yb-company-history > summary { display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:62px;list-style:none;cursor:pointer;color:#143A82;font-size:16px;font-weight:800; }
+  .yb-company-history > summary::-webkit-details-marker { display:none; }
+  .yb-company-history > summary:focus-visible { outline:2px solid #2E72D6;outline-offset:5px;border-radius:4px; }
+  .yb-company-history-arrow { flex:0 0 auto;transition:transform .25s ease; }
+  .yb-company-history[open] .yb-company-history-arrow { transform:rotate(180deg); }
+  .yb-company-history-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;padding-top:18px; }
+  .yb-company-history-item { padding-top:18px;border-top:2px solid #1F5BB5; }
+  .yb-company-history-year { display:block;font-size:30px;font-weight:800;color:#1F5BB5;letter-spacing:-.01em; }
+  .yb-company-history-copy { margin:8px 0 0;font-size:14px;line-height:1.8;color:#5A6473; }
   @keyframes yhSpin { to { transform:rotate(360deg); } }
   @keyframes yhFloat { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
   @keyframes yhBlink { 0%,100% { opacity:.25; } 50% { opacity:1; } }
@@ -180,6 +190,11 @@
 
     /* 發展歷程：頂部照片 220px 幾乎佔掉四分之一屏 */
     .yb-ms-pic { height:150px !important; }
+    .yb-company-history > summary { min-height:56px;font-size:15px; }
+    .yb-company-history-grid { grid-template-columns:1fr;gap:18px;padding-top:10px; }
+    .yb-company-history-item { display:grid;grid-template-columns:58px minmax(0,1fr);gap:14px;padding-top:15px; }
+    .yb-company-history-year { font-size:22px;line-height:1.5; }
+    .yb-company-history-copy { margin:0;font-size:14px;line-height:1.7; }
     #ybInsightTabs { flex-wrap:wrap !important; }
 
     /* 桌機 hero 使用超寬左右留白；手機改用與其他區塊一致的安全邊距。 */
@@ -473,22 +488,52 @@
         <div class="yb-ms-list" style="flex:1 1 0;display:flex;flex-direction:column;justify-content:center;gap:36px;">
           <div>
             <span class="en" style="display:block;font-size:40px;font-weight:800;color:#1F5BB5;letter-spacing:-.01em;">1984</span>
-            <p style="margin:8px 0 0;font-size:15px;line-height:1.85;color:#5A6473;">公司創立，引進日本 Olympus 醫療影像設備，開啟內視鏡診斷代理業務。</p>
+            <p style="margin:8px 0 0;font-size:15px;line-height:1.85;color:#5A6473;">代理日本 Daiichi Radioisotope Labs，供應心臟、骨骼等關鍵診斷核醫藥。</p>
           </div>
           <div>
-            <span class="en" style="display:block;font-size:40px;font-weight:800;color:#1F5BB5;letter-spacing:-.01em;">1998</span>
-            <p style="margin:8px 0 0;font-size:15px;line-height:1.85;color:#5A6473;">取得 Olympus 內視鏡獨家代理，深入臨床第一線，建立完整維修與技術支援體系。</p>
+            <span class="en" style="display:block;font-size:40px;font-weight:800;color:#1F5BB5;letter-spacing:-.01em;">2016</span>
+            <p style="margin:8px 0 0;font-size:15px;line-height:1.85;color:#5A6473;">引進匈牙利 IZOTOP 放射免疫分析試劑，跨入體外診斷檢測領域。</p>
           </div>
           <div>
-            <span class="en" style="display:block;font-size:40px;font-weight:800;color:#1F5BB5;letter-spacing:-.01em;">2012</span>
-            <p style="margin:8px 0 0;font-size:15px;line-height:1.85;color:#5A6473;">拓展微創手術能量平台與週邊耗材，服務範疇橫跨診斷與治療。</p>
+            <span class="en" style="display:block;font-size:40px;font-weight:800;color:#1F5BB5;letter-spacing:-.01em;">2018</span>
+            <p style="margin:8px 0 0;font-size:15px;line-height:1.85;color:#5A6473;">取得 PIC/S GDP 認證，開展核醫藥品運銷業務。</p>
           </div>
           <div>
-            <span class="en" style="display:block;font-size:40px;font-weight:800;color:#1F5BB5;letter-spacing:-.01em;">2026</span>
-            <p style="margin:8px 0 0;font-size:15px;line-height:1.85;color:#5A6473;">從業務銷售至運送服務全程符合 PIC/S GMP 相關認證，建立可追溯的核醫供應鏈。</p>
+            <span class="en" style="display:block;font-size:40px;font-weight:800;color:#1F5BB5;letter-spacing:-.01em;">2023</span>
+            <p style="margin:8px 0 0;font-size:15px;line-height:1.85;color:#5A6473;">代理韓國 TheTech 全系列 RIA 設備，整合核醫藥品與檢測儀器。</p>
+          </div>
+          <div>
+            <span class="en" style="display:block;font-size:40px;font-weight:800;color:#1F5BB5;letter-spacing:-.01em;">2025</span>
+            <p style="margin:8px 0 0;font-size:15px;line-height:1.85;color:#5A6473;">代理日本 UNIVERSAL GIKEN 自動注射儀 UG-05，優化輻射防護系統。</p>
+          </div>
+          <div>
+            <span class="en" style="display:block;font-size:40px;font-weight:800;color:#1F5BB5;letter-spacing:-.01em;">2027</span>
+            <p style="margin:8px 0 0;font-size:15px;line-height:1.85;color:#5A6473;">推出 18/36 小時輻射防護訓練課程，培養輻防人才。</p>
           </div>
         </div>
       </div>
+      <details class="yb-company-history">
+        <summary>
+          <span>合作夥伴公司沿革</span>
+          <svg class="yb-company-history-arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="yb-company-history-grid">
+          <div class="yb-company-history-item">
+            <span class="en yb-company-history-year">2007</span>
+            <p class="yb-company-history-copy">FUJIFILM 收購 Daiichi Radioisotope Labs. Ltd.，並改名為 FUJIFILM RI Pharma Co., Ltd.</p>
+          </div>
+          <div class="yb-company-history-item">
+            <span class="en yb-company-history-year">2018</span>
+            <p class="yb-company-history-copy">FUJIFILM 合併 TOYAMA CHEMICAL 和 FUJIFILM RI Pharma，並改名為 FUJIFILM Toyama Chemical Co., Ltd.</p>
+          </div>
+          <div class="yb-company-history-item">
+            <span class="en yb-company-history-year">2022</span>
+            <p class="yb-company-history-copy">PeptiDream Inc. 收購 FUJIFILM Toyama Chemical Co., Ltd.，並改名為 PDRadiopharma Inc.</p>
+          </div>
+        </div>
+      </details>
     </div>
   </div>
 
