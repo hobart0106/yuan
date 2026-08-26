@@ -31,6 +31,7 @@
 
   /* ===== 本頁專屬 RWD（外殼規則見 responsive.css） ===== */
   @media (max-width:900px) {
+    .yb-course-intro { grid-template-columns:1fr !important; }
     .yb-form-grid { grid-template-columns:1fr 1fr !important; }
     /* 報名表單：右側匯款提示改置於欄位下方 */
     .yb-reg-grid { grid-template-columns:1fr !important; gap:24px !important; }
@@ -42,7 +43,7 @@
   @media (max-width:640px) {
     #reg-form { scroll-margin-top:78px !important; }
     .yb-sec h1 { font-size:26px !important; }
-    .yb-course-photo { height:200px !important; }
+    .yb-course-photo { height:auto !important; aspect-ratio:4 / 3; }
     .yb-form-grid { grid-template-columns:1fr !important; gap:16px !important; }
     .yc-card { padding:24px 20px !important; }
     /* 標籤與內文改上下排列 */
@@ -91,7 +92,7 @@
         <a class="ynav" href="index.html" style="color:#143A82;">首頁</a>
         <a class="ynav" href="about.html" style="color:#143A82;">關於我們</a>
         <a class="ynav" href="products.html" style="color:#143A82;">產品與服務</a>
-        <a class="ynav" href="articles.html" style="color:#143A82;">文章專區</a>
+        <a class="ynav" href="articles.html" style="color:#143A82;">產業洞察</a>
         <a class="ynav" href="training.html" style="color:#1F5BB5;">輻防訓練</a>
         <a class="ynav" href="contact.html" style="color:#143A82;">聯絡我們</a>
       </div>
@@ -118,21 +119,21 @@
   <!-- 課程說明 -->
   <div class="yb-sec" style="max-width:1200px;margin:0 auto;padding:36px 32px 0;display:flex;flex-direction:column;gap:28px;">
 
-    <div class="yb-course-photo" style="height:300px;border-radius:24px;overflow:hidden;"><image-slot id="course-detail-photo" shape="rect" src="assets/miniclass-image.png" placeholder="課程現場 / 講師照片"></image-slot></div>
+    <div class="yb-course-intro" style="display:grid;grid-template-columns:minmax(0,1.65fr) minmax(340px,1fr);gap:24px;align-items:stretch;">
+      <div class="yb-course-photo" style="width:100%;height:400px;border-radius:24px;overflow:hidden;"><image-slot id="course-detail-photo" shape="rect" src="assets/miniclass-image.png" placeholder="課程現場 / 講師照片"></image-slot></div>
 
-    <!-- 法律依據 -->
-    <div class="yc-card" style="border:1px solid #E5E8EC;border-radius:16px;padding:32px 36px;">
-      <h2 style="display:flex;align-items:center;gap:10px;font-size:19px;font-weight:800;color:#143A82;margin:0 0 18px;">法律依據</h2>
-      <p style="font-size:15px;line-height:1.9;color:#1C2533;margin:0;">本課程係依據<strong>《游離輻射防護法》第 31 條</strong>規定：<br>操作放射性物質或可發生游離輻射設備之人員，應受主管機關指定之訓練，並領有<span style="background:#FDF0C4;">輻射安全證書或執照</span>。</p>
+      <!-- 法律依據 -->
+      <div class="yc-card" style="border:1px solid #E5E8EC;border-radius:24px;padding:30px 32px;display:flex;flex-direction:column;justify-content:center;background:#F8FAFD;">
+        <h2 style="display:flex;align-items:center;gap:10px;font-size:19px;font-weight:800;color:#143A82;margin:0 0 18px;">法律依據</h2>
+        <p style="font-size:14px;line-height:1.75;color:#1C2533;margin:0;">本課程係依據<strong>《游離輻射防護法》第 31 條</strong>規定：<br>操作放射性物質或可發生游離輻射設備之人員，應受主管機關指定之訓練，並領有<span style="background:#FDF0C4;">輻射安全證書或執照</span>。</p>
+        <div style="margin:22px 0 18px;border-top:1px solid #DCE3ED;"></div>
+        <h3 style="font-size:19px;font-weight:800;color:#143A82;margin:0 0 18px;">課程效力</h3>
+        <p style="font-size:14px;line-height:1.75;color:#5A6473;margin:0;">本單位係核能安全委員會認可之輻防訓練業，取得本單位核發之結業證書，<strong style="color:#1C2533;">可合法操作及購置 X 光機及放射性物質</strong>。</p>
+      </div>
     </div>
 
-    <!-- 課程效力／講習對象 -->
+    <!-- 講習對象 -->
     <div class="yc-card" style="border:1px solid #E5E8EC;border-radius:16px;padding:32px 36px;display:flex;flex-direction:column;gap:20px;">
-      <div class="yc-row" style="display:flex;gap:20px;">
-        <span style="flex-shrink:0;width:96px;font-size:14.5px;font-weight:800;color:#1C2533;">課程效力</span>
-        <p style="margin:0;font-size:14.5px;line-height:1.9;color:#5A6473;">本單位係核能安全委員會認可之輻防訓練業，取得本單位核發之結業證書，<strong style="color:#1C2533;">可合法操作及購置X光機及放射性物質</strong>。</p>
-      </div>
-      <div style="border-top:1px solid #EEF1F5;"></div>
       <div class="yc-row" style="display:flex;gap:20px;">
         <span style="flex-shrink:0;width:96px;font-size:14.5px;font-weight:800;color:#1C2533;">講習對象</span>
         <div style="flex:1;display:flex;flex-direction:column;">
@@ -296,7 +297,7 @@
       <div class="yb-foot" style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding:72px 0 56px;">
         <div style="display:flex;flex-direction:column;gap:8px;">
           <span style="font-size:22px;font-weight:900;letter-spacing:.02em;color:#fff;">元新儀器</span>
-          <span class="en" style="font-size:12.5px;font-weight:500;letter-spacing:.04em;color:#9BA3A8;">KEN YUAN HSIN CO., LTD.</span>
+          <span class="en" style="font-size:12.5px;font-weight:500;letter-spacing:.04em;color:#9BA3A8;">YUAN HSIN CO., LTD.</span>
           <span style="font-size:13px;line-height:1.9;color:#7C87A0;margin-top:6px;">核子醫學整合服務<br>放射性藥物 · 輻射安全設備 · 輻防教育訓練</span>
           <div style="display:flex;gap:12px;margin-top:18px;">
             <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;" title="Facebook">
@@ -321,7 +322,7 @@
             <a class="ylink" href="training.html" style="font-size:13.5px;color:#8893A8;">輻防教育訓練</a>
           </div></details>
         <details class="yb-footcol" open="open"><summary class="yb-footcol-t" style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;list-style:none;">資源</summary><div style="display:flex;flex-direction:column;gap:13px;padding-top:16px;">
-            <a class="ylink" href="articles.html" style="font-size:13.5px;color:#8893A8;">文章專區</a>
+            <a class="ylink" href="articles.html" style="font-size:13.5px;color:#8893A8;">產業洞察</a>
             <span class="ylink" style="font-size:13.5px;color:#8893A8;">產學資源</span>
             <a class="ylink" href="contact.html" style="font-size:13.5px;color:#8893A8;">聯絡我們</a>
           </div></details>
@@ -329,11 +330,11 @@
     </div>
 
     <!-- 品牌字標（裝飾用） -->
-    <div class="yb-foot-mark en" aria-hidden="true" style="font-size:11vw;font-weight:800;letter-spacing:-.02em;line-height:.85;color:#1A2947;text-align:center;white-space:nowrap;-webkit-user-select:none;user-select:none;">KEN YUAN HSIN</div>
+    <div class="yb-foot-mark en" aria-hidden="true" style="font-size:11vw;font-weight:800;letter-spacing:-.02em;line-height:.85;color:#1A2947;text-align:center;white-space:nowrap;-webkit-user-select:none;user-select:none;">YUAN HSIN</div>
 
     <div class="yb-foot-wrap" style="max-width:1200px;margin:0 auto;padding:0 32px;">
       <div class="yb-foot-btm" style="display:flex;justify-content:space-between;align-items:center;padding:22px 0;">
-        <span style="font-size:12.5px;color:#5F6C84;">© 2026 元新儀器 Ken Yuan Hsin Co., Ltd. All rights reserved.</span>
+        <span style="font-size:12.5px;color:#5F6C84;">© 2026 元新儀器 Yuan Hsin Co., Ltd. All rights reserved.</span>
         <div style="display:flex;gap:18px;">
           <span class="ylink" style="font-size:12.5px;color:#5F6C84;">隱私權政策</span>
           <span class="ylink" style="font-size:12.5px;color:#5F6C84;">元佑集團</span>

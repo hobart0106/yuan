@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>元新儀器 Ken Yuan Hsin｜核醫專業顧問與輻射安全解決方案（B版）</title>
-<meta name="description" content="元新儀器 Ken Yuan Hsin Co., Ltd.——核醫專業顧問，建構安全、高效的核醫藥物生態系。放射性藥物、輻射安全設備、輻防教育訓練。">
+<title>元新儀器 Yuan Hsin｜核醫專業顧問與輻射安全解決方案（B版）</title>
+<meta name="description" content="元新儀器 Yuan Hsin Co., Ltd.——核醫專業顧問，建構安全、高效的核醫藥物生態系。放射性藥物、輻射安全設備、輻防教育訓練。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -19,6 +19,7 @@
   .ynews:hover { transform:translateY(-5px); box-shadow:0 18px 40px -22px rgba(20,58,130,.35); }
   .ynews:hover .ynews-img { transform:scale(1.06); }
   .ynews-img { transition:transform .7s ease; }
+  .ynews-text:hover { transform:translateY(-3px); box-shadow:0 16px 34px -24px rgba(20,58,130,.38); }
   .ypill { transition:transform .2s ease,background .25s ease,color .25s ease,box-shadow .25s ease; cursor:pointer; }
   .ypill-solid:hover { transform:translateY(-2px); box-shadow:0 14px 26px -14px rgba(20,58,130,.6); }
   .ypill-out:hover { background:#143A82; color:#fff!important; }
@@ -39,17 +40,11 @@
   .ysvc { transition:transform .3s ease; }
   .ysvc-cell:hover .ysvc { transform:translateY(-4px) scale(1.04); }
   .ysvc-arrow { display:inline-block; transition:transform .25s ease; }
+  .ysvc-product-title { overflow-wrap:normal; word-break:normal; hyphens:none; }
+  .ysvc-product-title .ysvc-arrow { flex:0 0 auto; }
+  .yb-company-timeline { position:relative; padding-left:16px; }
+  .yb-company-timeline::before { content:""; position:absolute; top:4px; bottom:4px; left:0; width:3px; border-radius:999px; background:#2E72D6; }
   .ysvc-cell:hover .ysvc-arrow { transform:translateX(5px); }
-  .yb-company-history { border-top:1px solid #E5EAF1; }
-  .yb-company-history > summary { display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:62px;list-style:none;cursor:pointer;color:#143A82;font-size:16px;font-weight:800; }
-  .yb-company-history > summary::-webkit-details-marker { display:none; }
-  .yb-company-history > summary:focus-visible { outline:2px solid #2E72D6;outline-offset:5px;border-radius:4px; }
-  .yb-company-history-arrow { flex:0 0 auto;transition:transform .25s ease; }
-  .yb-company-history[open] .yb-company-history-arrow { transform:rotate(180deg); }
-  .yb-company-history-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;padding-top:18px; }
-  .yb-company-history-item { padding-top:18px;border-top:2px solid #1F5BB5; }
-  .yb-company-history-year { display:block;font-size:30px;font-weight:800;color:#1F5BB5;letter-spacing:-.01em; }
-  .yb-company-history-copy { margin:8px 0 0;font-size:14px;line-height:1.8;color:#5A6473; }
   @keyframes yhSpin { to { transform:rotate(360deg); } }
   @keyframes yhFloat { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
   @keyframes yhBlink { 0%,100% { opacity:.25; } 50% { opacity:1; } }
@@ -97,11 +92,7 @@
     .yb-sec h2 { font-size:26px !important; }
     .yb-grid3, .yb-ins-grid { grid-template-columns:1fr !important; }
 
-    /* 屏效：最新消息由「直式大卡」改為橫式列。
-       原本一張卡 172px 圖 + 100px 文字 ≈ 290px 只承載一則標題；
-       改成左圖右文後每列約 104px，四則從 1160px 壓到 460px。
-
-       產業洞察的三張小卡沿用同一組規則，兩區塊在手機上維持一致的列樣式。 */
+    /* 最新消息維持純文字列表；產業洞察的小卡才保留縮圖。 */
     .yb-grid3 { gap:12px !important; }
     /* 洞察小卡原本靠 space-between 撐開，三張總高剛好等於容器高，
        等於彼此緊貼；改為固定間距。 */
@@ -111,7 +102,6 @@
       gap:12px !important;
     }
 
-    .yb-grid3 .ynews,
     .yb-ins-grid > div:last-child > .ynews {
       display:flex !important;
       align-items:center !important;
@@ -120,7 +110,6 @@
       border-radius:14px !important;
       box-shadow:inset 0 0 0 1px #E8ECF2;
     }
-    .yb-grid3 .ynews > div:first-child,
     .yb-ins-grid > div:last-child > .ynews > div:first-child {
       flex:0 0 96px !important;
       width:96px !important;
@@ -128,13 +117,11 @@
       border-radius:10px !important;
       margin:8px 0 8px 8px;
     }
-    .yb-grid3 .ynews > div:last-child,
     .yb-ins-grid > div:last-child > .ynews > div:last-child {
       padding:10px 14px 10px 0 !important;
       gap:5px !important;
       min-width:0;
     }
-    .yb-grid3 .ynews > div:last-child > span:last-child,
     .yb-ins-grid > div:last-child > .ynews > div:last-child > span:last-child {
       font-size:14.5px !important;
       line-height:1.5 !important;
@@ -144,10 +131,13 @@
       -webkit-box-orient:vertical;
       overflow:hidden;
     }
-    .yb-grid3 .ynews > div:last-child > span:first-child,
     .yb-ins-grid > div:last-child > .ynews > div:last-child > span:first-child {
       font-size:11.5px !important;
     }
+    .yb-grid3 .ynews-text { min-height:0 !important; padding:20px !important; }
+    .yb-grid3 .ynews-text > div { padding:0 !important; gap:7px !important; }
+    .yb-grid3 .ynews-text > div > span:last-child { font-size:15px !important; line-height:1.6 !important; }
+    .yb-grid3 .ynews-text > div > span:first-child { font-size:11.5px !important; }
 
     /* 產業洞察的主打卡：300px 主圖在手機上等於一整屏都在看圖 */
     .yb-ins-grid { gap:12px !important; }
@@ -190,11 +180,6 @@
 
     /* 發展歷程：頂部照片 220px 幾乎佔掉四分之一屏 */
     .yb-ms-pic { height:150px !important; }
-    .yb-company-history > summary { min-height:56px;font-size:15px; }
-    .yb-company-history-grid { grid-template-columns:1fr;gap:18px;padding-top:10px; }
-    .yb-company-history-item { display:grid;grid-template-columns:58px minmax(0,1fr);gap:14px;padding-top:15px; }
-    .yb-company-history-year { font-size:22px;line-height:1.5; }
-    .yb-company-history-copy { margin:0;font-size:14px;line-height:1.7; }
     #ybInsightTabs { flex-wrap:wrap !important; }
 
     /* 桌機 hero 使用超寬左右留白；手機改用與其他區塊一致的安全邊距。 */
@@ -230,12 +215,12 @@
   <!-- ============ NAV ============ -->
   <div style="width:100%;background:#fff;border-bottom:1px solid #EEF1F5;position:sticky;top:0;z-index:50;">
     <div class="yb-navrow" style="max-width:1200px;margin:0 auto;padding:0 32px;height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
-      <img src="assets/c-logo.jpg" alt="元新儀器 Ken Yuan Hsin" style="height:38px;width:auto;display:block;flex-shrink:0;">
+      <img src="assets/c-logo.jpg" alt="元新儀器 Yuan Hsin" style="height:38px;width:auto;display:block;flex-shrink:0;">
       <div class="yb-navlinks" style="display:flex;align-items:center;gap:30px;font-size:15.5px;font-weight:700;white-space:nowrap;">
         <a class="ynav" href="index.html" style="color:#143A82;text-decoration:none;">首頁</a>
         <a class="ynav" href="about.html" style="color:#143A82;text-decoration:none;">關於我們</a>
         <a class="ynav" href="products.html" style="color:#143A82;text-decoration:none;">產品與服務</a>
-        <a class="ynav" href="articles.html" style="color:#143A82;text-decoration:none;">文章專區</a>
+        <a class="ynav" href="articles.html" style="color:#143A82;text-decoration:none;">產業洞察</a>
         <a class="ynav" href="training.html" style="color:#143A82;text-decoration:none;">輻防訓練</a>
         <a class="ynav" href="contact.html" style="color:#143A82;text-decoration:none;">聯絡我們</a>
       </div>
@@ -308,21 +293,21 @@
         <div class="ysvc-cell" style="display:flex;gap:20px;padding:34px 30px;align-items:flex-start;">
           <div style="width:82px;height:82px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><svg class="ysvc yh-orbit" width="70" height="70" viewBox="0 0 80 80" fill="none"><ellipse cx="40" cy="40" rx="32" ry="13" stroke="#2B8A4D" stroke-width="2.6"/><ellipse cx="40" cy="40" rx="32" ry="13" stroke="#2B8A4D" stroke-width="2.6" transform="rotate(60 40 40)"/><ellipse cx="40" cy="40" rx="32" ry="13" stroke="#2B8A4D" stroke-width="2.6" transform="rotate(120 40 40)"/><circle cx="40" cy="40" r="6.5" fill="#1F6E3B"/></svg></div>
           <div style="display:flex;flex-direction:column;">
-            <span class="en" style="font-size:18px;font-weight:800;color:#2B8A4D;line-height:1.3;display:flex;align-items:center;gap:6px;">Radiopharmaceuticals<svg class="ysvc-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="en ysvc-product-title" style="font-size:18px;font-weight:800;color:#2B8A4D;line-height:1.3;display:flex;align-items:center;gap:6px;">Radiopharmaceuticals<svg class="ysvc-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span style="margin-top:12px;font-size:14px;line-height:1.85;color:#5A6473;">提供高品質核醫藥品，確保醫療品質與安全使用，支援精準核醫診斷。</span>
           </div>
         </div>
         <div class="ysvc-cell" style="display:flex;gap:20px;padding:34px 30px;align-items:flex-start;box-shadow:inset 1px 0 0 #DCEBE1,inset -1px 0 0 #DCEBE1;">
           <div style="width:82px;height:82px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><svg class="ysvc" width="70" height="70" viewBox="0 0 80 80" fill="none"><rect x="11" y="15" width="58" height="40" rx="4" stroke="#2B8A4D" stroke-width="2.6"/><path d="M30 67h20M40 55v12" stroke="#2B8A4D" stroke-width="2.6" stroke-linecap="round"/><circle class="yh-scan" cx="27" cy="35" r="4" fill="#2B8A4D"/><path d="M35 28h22M35 36h16M35 44h22" stroke="#7CC295" stroke-width="2.2" stroke-linecap="round"/></svg></div>
           <div style="display:flex;flex-direction:column;">
-            <span class="en" style="font-size:18px;font-weight:800;color:#2B8A4D;line-height:1.3;display:flex;align-items:center;gap:6px;">Radiation Safety Systems<svg class="ysvc-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="en ysvc-product-title" style="font-size:18px;font-weight:800;color:#2B8A4D;line-height:1.3;display:flex;align-items:center;gap:6px;">Radiation Safety Systems<svg class="ysvc-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span style="margin-top:12px;font-size:14px;line-height:1.85;color:#5A6473;">提供輻射監測與管理系統，即時數據掌握，提升作業安全與合規性。</span>
           </div>
         </div>
         <div class="ysvc-cell" style="display:flex;gap:20px;padding:34px 30px;align-items:flex-start;">
           <div style="width:82px;height:82px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><svg class="ysvc yh-float" width="70" height="70" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="26" r="12" stroke="#2B8A4D" stroke-width="2.6"/><path d="M33 25h14" stroke="#2B8A4D" stroke-width="2.6" stroke-linecap="round"/><path d="M22 70 C22 50,30 40,40 40 C50 40,58 50,58 70 Z" stroke="#2B8A4D" stroke-width="2.6" stroke-linejoin="round" fill="#D6ECDD"/><path d="M40 48v14" stroke="#7CC295" stroke-width="2.2" stroke-linecap="round"/></svg></div>
           <div style="display:flex;flex-direction:column;">
-            <span class="en" style="font-size:18px;font-weight:800;color:#2B8A4D;line-height:1.3;display:flex;align-items:center;gap:6px;">Radiation Protection<svg class="ysvc-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="en ysvc-product-title" style="font-size:18px;font-weight:800;color:#2B8A4D;line-height:1.3;display:flex;align-items:center;gap:6px;">Radiation Protection<svg class="ysvc-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span style="margin-top:12px;font-size:14px;line-height:1.85;color:#5A6473;">提供完整輻射防護設備與解決方案，守護人員與環境安全。</span>
           </div>
         </div>
@@ -395,24 +380,21 @@
         </div>
         <a class="ylink en" href="articles.html" style="font-size:14.5px;font-weight:600;color:#143A82;border-bottom:1.5px solid #143A82;padding-bottom:3px;text-decoration:none;">全部文章　→</a>
       </div>
-      <div class="yb-grid3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px;">
-        <a href="articles.html" class="ycard ynews" style="text-decoration:none;color:inherit;border-radius:20px;background:#fff;overflow:hidden;cursor:pointer;">
-          <div style="height:172px;overflow:hidden;"><div class="ynews-img" style="width:100%;height:100%;background:#143A82 url('assets/c-news1.jpg') center/cover no-repeat;"></div></div>
-          <div style="padding:22px 22px 26px;display:flex;flex-direction:column;gap:12px;">
+      <div class="yb-grid3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;">
+        <a href="articles.html" class="ycard ynews ynews-text" style="min-height:170px;padding:26px 26px 28px;border:1px solid #E1E7F0;border-radius:18px;background:#fff;text-decoration:none;color:inherit;cursor:pointer;box-shadow:0 8px 24px -22px rgba(20,58,130,.3);">
+          <div style="display:flex;flex-direction:column;gap:10px;">
             <span class="en" style="font-size:12px;font-weight:600;letter-spacing:.04em;color:#1F5BB5;">2026.05 · 公告</span>
             <span style="font-size:16.5px;font-weight:700;line-height:1.6;color:#1C2533;">元新儀器通過 PIC/S GMP 供應鏈稽核，強化核醫藥物可追溯性</span>
           </div>
         </a>
-        <a href="articles.html" class="ycard ynews" style="text-decoration:none;color:inherit;border-radius:20px;background:#fff;overflow:hidden;cursor:pointer;">
-          <div style="height:172px;overflow:hidden;"><div class="ynews-img" style="width:100%;height:100%;background:#143A82 url('assets/c-milestone.jpg') center/cover no-repeat;"></div></div>
-          <div style="padding:22px 22px 26px;display:flex;flex-direction:column;gap:12px;">
+        <a href="articles.html" class="ycard ynews ynews-text" style="min-height:170px;padding:26px 26px 28px;border:1px solid #E1E7F0;border-radius:18px;background:#fff;text-decoration:none;color:inherit;cursor:pointer;box-shadow:0 8px 24px -22px rgba(20,58,130,.3);">
+          <div style="display:flex;flex-direction:column;gap:10px;">
             <span class="en" style="font-size:12px;font-weight:600;letter-spacing:.04em;color:#1F5BB5;">2026.04 · 產品</span>
             <span style="font-size:16.5px;font-weight:700;line-height:1.6;color:#1C2533;">日本 UG-05 高精準注射輔助系統正式導入台灣臨床現場</span>
           </div>
         </a>
-        <a href="articles.html" class="ycard ynews" style="text-decoration:none;color:inherit;border-radius:20px;background:#fff;overflow:hidden;cursor:pointer;">
-          <div style="height:172px;overflow:hidden;"><div class="ynews-img" style="width:100%;height:100%;background:#143A82 url('assets/c-featured.jpg') center/cover no-repeat;"></div></div>
-          <div style="padding:22px 22px 26px;display:flex;flex-direction:column;gap:12px;">
+        <a href="articles.html" class="ycard ynews ynews-text" style="min-height:170px;padding:26px 26px 28px;border:1px solid #E1E7F0;border-radius:18px;background:#fff;text-decoration:none;color:inherit;cursor:pointer;box-shadow:0 8px 24px -22px rgba(20,58,130,.3);">
+          <div style="display:flex;flex-direction:column;gap:10px;">
             <span class="en" style="font-size:12px;font-weight:600;letter-spacing:.04em;color:#1F5BB5;">2026.03 · 活動</span>
             <span style="font-size:16.5px;font-weight:700;line-height:1.6;color:#1C2533;">2026 春季核醫輻防實務工作坊圓滿落幕，逾百位學員參與</span>
           </div>
@@ -488,7 +470,12 @@
         <div class="yb-ms-list" style="flex:1 1 0;display:flex;flex-direction:column;justify-content:center;gap:36px;">
           <div>
             <span class="en" style="display:block;font-size:40px;font-weight:800;color:#1F5BB5;letter-spacing:-.01em;">1984</span>
-            <p style="margin:8px 0 0;font-size:15px;line-height:1.85;color:#5A6473;">代理日本 Daiichi Radioisotope Labs，供應心臟、骨骼等關鍵診斷核醫藥。</p>
+            <p style="margin:8px 0 0;font-size:15px;line-height:1.85;color:#5A6473;">代理日本 Daiichi Radioisotope Labs（現 PDRadiopharma Inc.），供應心臟、骨骼等關鍵診斷核醫藥。</p>
+            <div class="yb-company-timeline" style="margin-top:12px;display:flex;flex-direction:column;gap:5px;font-size:12.5px;line-height:1.75;color:#8A93A3;">
+              <span><strong class="en" style="font-weight:700;">2007</strong>　FUJIFILM 收購 Daiichi Radioisotope Labs. Ltd.，並改名為 FUJIFILM RI Pharma Co., Ltd.</span>
+              <span><strong class="en" style="font-weight:700;">2018</strong>　FUJIFILM 合併 TOYAMA CHEMICAL 和 FUJIFILM RI Pharma，並改名為 FUJIFILM Toyama Chemical Co., Ltd.</span>
+              <span><strong class="en" style="font-weight:700;">2022</strong>　PeptiDream Inc. 收購 FUJIFILM Toyama Chemical Co., Ltd.，並改名為 PDRadiopharma Inc.</span>
+            </div>
           </div>
           <div>
             <span class="en" style="display:block;font-size:40px;font-weight:800;color:#1F5BB5;letter-spacing:-.01em;">2016</span>
@@ -512,28 +499,6 @@
           </div>
         </div>
       </div>
-      <details class="yb-company-history">
-        <summary>
-          <span>合作夥伴公司沿革</span>
-          <svg class="yb-company-history-arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </summary>
-        <div class="yb-company-history-grid">
-          <div class="yb-company-history-item">
-            <span class="en yb-company-history-year">2007</span>
-            <p class="yb-company-history-copy">FUJIFILM 收購 Daiichi Radioisotope Labs. Ltd.，並改名為 FUJIFILM RI Pharma Co., Ltd.</p>
-          </div>
-          <div class="yb-company-history-item">
-            <span class="en yb-company-history-year">2018</span>
-            <p class="yb-company-history-copy">FUJIFILM 合併 TOYAMA CHEMICAL 和 FUJIFILM RI Pharma，並改名為 FUJIFILM Toyama Chemical Co., Ltd.</p>
-          </div>
-          <div class="yb-company-history-item">
-            <span class="en yb-company-history-year">2022</span>
-            <p class="yb-company-history-copy">PeptiDream Inc. 收購 FUJIFILM Toyama Chemical Co., Ltd.，並改名為 PDRadiopharma Inc.</p>
-          </div>
-        </div>
-      </details>
     </div>
   </div>
 
@@ -596,7 +561,7 @@
       <div class="yb-foot" style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding:72px 0 56px;">
         <div style="display:flex;flex-direction:column;gap:8px;">
           <span style="font-size:22px;font-weight:900;letter-spacing:.02em;color:#fff;">元新儀器</span>
-          <span class="en" style="font-size:12.5px;font-weight:500;letter-spacing:.04em;color:#9BA3A8;">KEN YUAN HSIN CO., LTD.</span>
+          <span class="en" style="font-size:12.5px;font-weight:500;letter-spacing:.04em;color:#9BA3A8;">YUAN HSIN CO., LTD.</span>
           <span style="font-size:13px;line-height:1.9;color:#7C87A0;margin-top:6px;">核子醫學整合服務<br>放射性藥物 · 輻射安全設備 · 輻防教育訓練</span>
           <div style="display:flex;gap:12px;margin-top:18px;">
             <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;" title="Facebook">
@@ -621,7 +586,7 @@
             <a class="ylink" href="training.html" style="font-size:13.5px;color:#8893A8;">輻防教育訓練</a>
           </div></details>
         <details class="yb-footcol" open="open"><summary class="yb-footcol-t" style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;list-style:none;">資源</summary><div style="display:flex;flex-direction:column;gap:13px;padding-top:16px;">
-            <a class="ylink" href="articles.html" style="font-size:13.5px;color:#8893A8;">文章專區</a>
+            <a class="ylink" href="articles.html" style="font-size:13.5px;color:#8893A8;">產業洞察</a>
             <span class="ylink" style="font-size:13.5px;color:#8893A8;">產學資源</span>
             <a class="ylink" href="contact.html" style="font-size:13.5px;color:#8893A8;">聯絡我們</a>
           </div></details>
@@ -629,11 +594,11 @@
     </div>
 
     <!-- 品牌字標（裝飾用） -->
-    <div class="yb-foot-mark en" aria-hidden="true" style="font-size:11vw;font-weight:800;letter-spacing:-.02em;line-height:.85;color:#1A2947;text-align:center;white-space:nowrap;-webkit-user-select:none;user-select:none;">KEN YUAN HSIN</div>
+    <div class="yb-foot-mark en" aria-hidden="true" style="font-size:11vw;font-weight:800;letter-spacing:-.02em;line-height:.85;color:#1A2947;text-align:center;white-space:nowrap;-webkit-user-select:none;user-select:none;">YUAN HSIN</div>
 
     <div class="yb-foot-wrap" style="max-width:1200px;margin:0 auto;padding:0 32px;">
       <div class="yb-foot-btm" style="display:flex;justify-content:space-between;align-items:center;padding:22px 0;">
-        <span style="font-size:12.5px;color:#5F6C84;">© 2026 元新儀器 Ken Yuan Hsin Co., Ltd. All rights reserved.</span>
+        <span style="font-size:12.5px;color:#5F6C84;">© 2026 元新儀器 Yuan Hsin Co., Ltd. All rights reserved.</span>
         <div style="display:flex;gap:18px;">
           <span class="ylink" style="font-size:12.5px;color:#5F6C84;">隱私權政策</span>
           <span class="ylink" style="font-size:12.5px;color:#5F6C84;">元佑集團</span>
