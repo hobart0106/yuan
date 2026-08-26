@@ -32,8 +32,10 @@
   .ycattab.is-active .en { color:#1C2533; }
   .ychip { cursor:pointer; border-radius:999px; padding:9px 20px; font-size:14px; font-weight:700; background:#fff; color:#1C2533; box-shadow:inset 0 0 0 1px #DCE1E8; text-decoration:none; display:inline-block; }
   .ychip.is-active { background:#AFC9EE; color:#0E1C3D; box-shadow:none; }
-  .ymarker { cursor:pointer; transition:transform .2s ease; }
-  .ymarker:hover { transform:scale(1.06); }
+  /* 人體圖標記只是標示器官位置，沒有可點行為 ——
+     一次只顯示選中產品的那一顆，點它等於重選已選的項目。
+     故不給手指游標與 hover 放大，避免暗示可以點。 */
+  .ymarker { cursor:default; }
   .yprod-row { cursor:pointer; transition:box-shadow .2s ease,transform .2s ease; }
   .yprod-row:hover { box-shadow:0 14px 30px -18px rgba(20,58,130,.35); transform:translateY(-2px); }
   /* ===== 手機產品卡輪播 =====
@@ -91,10 +93,11 @@
   .yp-slide-info { padding:20px 22px 22px; }
   .yp-slide-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px; }
   .yp-slide-title { font-size:19px; font-weight:800; color:#fff; }
+  /* 輪播卡是藍底，比照桌機藍卡用白底標籤（同 .yp-chip.is-on-blue） */
   .yp-slide-tag {
     font-size:11px;
-    color:#fff;
-    background:rgba(255,255,255,.18);
+    color:#0E1C3D;
+    background:#fff;
     padding:4px 12px;
     border-radius:999px;
     white-space:nowrap;
@@ -133,6 +136,58 @@
   .yp-dot:only-child { display:none; }
   .yp-dots:has(.yp-dot:only-child) { display:none; }
 
+  /* ===== 版型 B：儀器與 RIA 試劑（不套人體圖） =====
+     RIA 的分類名就是 In Vitro Diagnostics —— 抽血後在試管裡做，
+     標在人體器官上語意矛盾；儀器同理。而且 27 項試劑會被切成 9 組，
+     同一張人體圖連續出現 9 次，光圖就 5,000px 以上。 */
+  /* gap 為 0：分隔號「．」是全形字，本身已帶左右間距，再加 gap 會鬆掉 */
+  .yp-grouphead { display:flex; align-items:baseline; gap:0; margin-bottom:20px; }
+  /* 分類名與數量同字級同色，讀起來是一整句「輻射防護．1項」 */
+  .yp-grouphead .zh,
+  .yp-grouphead .cnt { font-size:22px; font-weight:800; color:#143A82; }
+
+  .yp-cardgrid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  .yp-card { border:1px solid #E5E8EC; border-radius:18px; background:#fff; padding:22px 26px; }
+  .yp-card .zh { font-size:17px; font-weight:700; color:#1C2533; }
+  .yp-card .en { display:block; font-size:12.5px; color:#9AA1AC; margin-top:4px; }
+  /* 有正式文案的產品（目前只有 UG-05）拉成滿版藍卡，與版型 A 的選中卡同一套視覺 */
+  .yp-card.is-feature {
+    grid-column:1 / -1;
+    border:0;
+    background:linear-gradient(120deg,#143A82,#1F5BB5);
+    padding:30px 32px;
+  }
+  .yp-card.is-feature .zh { font-size:20px; font-weight:800; color:#fff; }
+  .yp-card.is-feature .en { font-size:13px; color:#AFC9EE; }
+
+  /* 規格表：桌機三欄，手機改堆疊卡（見下方 media query） */
+  .yp-table { border:1px solid #E5E8EC; border-radius:16px; overflow:hidden; background:#fff; }
+  .yp-tr { display:grid; grid-template-columns:1fr 190px 210px; gap:16px; padding:14px 22px; border-top:1px solid #EEF1F5; }
+  .yp-tr:first-child { border-top:0; }
+  .yp-th { background:#F4F6F9; font-size:13px; font-weight:700; color:#5A6473; }
+  .yp-td { font-size:13.5px; color:#5A6473; align-self:center; }
+  .yp-td-name .code { font-size:14.5px; font-weight:700; color:#1C2533; }
+  .yp-td-name .zh { display:block; font-size:12.5px; color:#5A6473; margin-top:3px; line-height:1.6; }
+  /* 欄位標籤只在手機堆疊時出現 */
+  .yp-td-lbl { display:none; }
+  /* 許可證字號連到食藥署查詢系統。底線用 underline-offset 拉開，
+     中文字距密，貼著底線會糊成一團。 */
+  .yp-cert {
+    color:#1F5BB5; text-decoration:underline; text-underline-offset:3px;
+    text-decoration-color:#B9CCEA; transition:color .2s ease, text-decoration-color .2s ease;
+  }
+  .yp-cert:hover { color:#2E72D6; text-decoration-color:#2E72D6; }
+
+  /* 展開／收合：文案有「未展開／展開」兩版，預設顯示未展開版 */
+  .yp-more {
+    display:inline-flex; align-items:center; gap:6px;
+    margin-bottom:20px;
+    font-size:13px; font-weight:700; color:#AFC9EE;
+    background:none; border:0; padding:0;
+    cursor:pointer;
+  }
+  .yp-more:hover { color:#fff; }
+
   /* 小手機的區塊留白縮為 16px，軌道的內外距與間距一起跟上，才不會露邊 */
   @media (max-width:400px) {
     .yp-track { gap:16px; padding:2px 16px 6px; margin:0 -16px; }
@@ -146,9 +201,25 @@
     .yp-diag-grid { grid-template-columns:1fr !important; }
     /* 標記點是百分比定位，人體圖太矮會讓標籤互相重疊，故保留足夠高度 */
     .yp-diag-grid .yp-organ { order:-1; height:440px !important; }
+    .yp-cardgrid { grid-template-columns:1fr !important; }
+    /* 型號與許可證欄先縮，中文品名仍需要最多空間 */
+    .yp-tr { grid-template-columns:1fr 150px 170px !important; }
   }
-  /* 產品卡標題：品牌標籤不被壓縮，窄螢幕時換行 */
-  .yp-chip { flex-shrink:0; white-space:nowrap; }
+  /* 產品卡標題的子分類標籤。
+     淺藍底沿用站上既有的 token（同 .ycattab.is-active / .ychip.is-active），
+     藍卡與白列共用同一組配色，不再一個白透明、一個灰框線。
+     flex-shrink:0 是避免標籤被長中文品名壓扁。 */
+  .yp-chip {
+    flex-shrink:0;
+    white-space:nowrap;
+    font-size:11px;
+    background:#C6D9F3;
+    color:#0E1C3D;
+    padding:4px 12px;
+    border-radius:999px;
+  }
+  /* 深藍卡上的標籤改白底：淺藍貼在藍卡上對比不夠，會糊進背景 */
+  .yp-chip.is-on-blue { background:#fff; }
   @media (max-width:640px) {
     .yb-hero { padding:44px 0 !important; }
     .yb-hero h1 { font-size:28px !important; }
@@ -171,6 +242,12 @@
     .ycattab { min-width:0 !important; flex:none !important; padding:13px 16px !important; }
     .ycattab .zh { font-size:14.5px !important; }
     .ycattab .en { font-size:11.5px !important; }
+    /* 規格表改堆疊卡：三欄硬擠在 390px 寬會讓中文品名逐字斷行 */
+    .yp-th { display:none !important; }
+    .yp-tr { grid-template-columns:1fr !important; gap:6px !important; padding:16px 18px !important; }
+    .yp-td-lbl { display:inline; color:#9AA1AC; margin-right:6px; }
+    .yp-grouphead .zh,
+    .yp-grouphead .cnt { font-size:18px !important; }
   }
 </style>
 </helmet>
@@ -197,7 +274,7 @@
         <a class="ynav" href="index.html" style="color:#143A82;">首頁</a>
         <a class="ynav" href="about.html" style="color:#143A82;">關於我們</a>
         <a class="ynav" href="products.html" style="color:#143A82;">產品與服務</a>
-        <a class="ynav" href="articles.html" style="color:#143A82;">文章專區</a>
+        <a class="ynav" href="articles.html" style="color:#143A82;">產業洞察</a>
         <a class="ynav" href="training.html" style="color:#143A82;">輻防訓練</a>
         <a class="ynav" href="contact.html" style="color:#143A82;">聯絡我們</a>
       </div>
@@ -235,18 +312,24 @@
     </div>
   </div>
 
-  <!-- 產品列表（人體圖 + 產品列，每 4 個一組左右交錯） -->
+  <!-- 產品列表：依分類切換三種版型
+       organ = 人體圖 + 產品列（診斷/治療藥物，共 5 項）
+       cards = 卡片格（儀器與設備，11 項）
+       table = 規格表（RIA 試劑，27 項，含型號與許可證字號） -->
   <div style="width:100%;background:#fff;">
     <div class="yb-sec yp-units" style="max-width:1200px;margin:0 auto;padding:72px 32px 96px;display:flex;flex-direction:column;gap:96px;">
-      <sc-for list="{{ units }}" as="u" hint-placeholder-count="2">
+      <sc-for list="{{ groups }}" as="u" hint-placeholder-count="2">
         <!-- 錨點掛在這層：二級標籤用 #sub-x-y 跳轉，而 .yp-diag-grid 在手機版
              是 display:none，隱藏元素無法被捲動到，錨點會失效。 -->
         <div id="{{ u.anchorId }}" class="yp-unit" style="scroll-margin-top:96px;">
+
+        <!-- ===== 版型 A：人體圖 ===== -->
+        <sc-if value="{{ u.isOrgan }}" hint-placeholder-val="{{ true }}">
         <div class="yp-diag-grid" style="display:grid;grid-template-columns:{{ u.diagCols }};gap:36px;">
           <sc-if value="{{ u.diagramLeft }}" hint-placeholder-val="{{ true }}">
             <div class="yp-organ" style="position:relative;height:480px;border-radius:32px;overflow:hidden;background:#0B1730 url('assets/body-diagram-c7a5f396.png') center/cover no-repeat;">
               <sc-for list="{{ u.markers }}" as="m" hint-placeholder-count="1">
-                <div class="ymarker" onClick="{{ m.onClick }}" style="position:absolute;top:{{ m.top }};left:{{ m.left }};transform:translateX(-50%);background:{{ m.bg }};color:{{ m.color }};border:1.5px solid #1F5BB5;font-size:12.5px;font-weight:700;padding:6px 14px;border-radius:999px;box-shadow:{{ m.shadow }};white-space:nowrap;">{{ m.label }}</div>
+                <div class="ymarker" style="position:absolute;top:{{ m.top }};left:{{ m.left }};transform:translateX(-50%);background:{{ m.bg }};color:{{ m.color }};border:1.5px solid #1F5BB5;font-size:12.5px;font-weight:700;padding:6px 14px;border-radius:999px;box-shadow:{{ m.shadow }};white-space:nowrap;">{{ m.label }}</div>
               </sc-for>
             </div>
           </sc-if>
@@ -254,22 +337,35 @@
             <sc-for list="{{ u.prodList }}" as="p" hint-placeholder-count="4">
               <sc-if value="{{ p.selected }}" hint-placeholder-val="{{ false }}">
                 <div style="border-radius:24px;background:linear-gradient(120deg,#143A82,#1F5BB5);color:#fff;padding:30px 32px;">
-                  <div class="yp-cardhead" style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                  <div class="yp-cardhead" style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
                     <span style="font-size:20px;font-weight:800;">{{ p.title }}</span>
-                    <span class="en yp-chip" style="font-size:11px;background:rgba(255,255,255,.18);padding:4px 12px;border-radius:999px;">{{ p.tag }}</span>
+                    <span class="en yp-chip is-on-blue">{{ p.tag }}</span>
                   </div>
-                  <div style="font-size:14px;line-height:1.9;color:#D8E0F5;margin-bottom:20px;">{{ p.desc }}</div>
-                  <div style="display:flex;gap:12px;">
-                    <a class="yb-linkbtn" href="product-detail.html" style="background:#fff;color:#143A82;border-radius:999px;padding:9px 20px;font-size:13px;font-weight:700;text-decoration:none;">前往產品介紹　→</a>
-                  </div>
+                  <sc-if value="{{ p.hasEn }}" hint-placeholder-val="{{ true }}">
+                    <div class="en" style="font-size:13px;color:#AFC9EE;margin-bottom:12px;">{{ p.en }}</div>
+                  </sc-if>
+                  <sc-if value="{{ p.hasDesc }}" hint-placeholder-val="{{ true }}">
+                    <div style="font-size:14px;line-height:1.9;color:#D8E0F5;margin-bottom:14px;">{{ p.desc }}</div>
+                  </sc-if>
+                  <sc-if value="{{ p.hasMore }}" hint-placeholder-val="{{ true }}">
+                    <div><button type="button" class="yp-more" onClick="{{ p.onToggle }}">{{ p.moreLabel }}</button></div>
+                  </sc-if>
+                  <sc-if value="{{ p.hasHref }}" hint-placeholder-val="{{ true }}">
+                    <div style="display:flex;gap:12px;">
+                      <a class="yb-linkbtn" href="{{ p.href }}" style="background:#fff;color:#143A82;border-radius:999px;padding:9px 20px;font-size:13px;font-weight:700;text-decoration:none;">前往產品介紹　→</a>
+                    </div>
+                  </sc-if>
                 </div>
               </sc-if>
               <sc-if value="{{ p.notSelected }}" hint-placeholder-val="{{ true }}">
                 <div class="yprod-row" onClick="{{ p.onClick }}" style="border:1px solid #E5E8EC;border-radius:18px;background:#fff;padding:22px 26px;">
                   <div class="yp-cardhead" style="display:flex;align-items:center;gap:10px;">
                     <div style="font-size:17px;font-weight:700;color:#1C2533;">{{ p.title }}</div>
-                    <span class="en yp-chip" style="font-size:11px;border:1px solid #D7DCE3;color:#9AA1AC;padding:4px 12px;border-radius:999px;">{{ p.tag }}</span>
+                    <span class="en yp-chip">{{ p.tag }}</span>
                   </div>
+                  <sc-if value="{{ p.hasEn }}" hint-placeholder-val="{{ true }}">
+                    <div class="en" style="font-size:12.5px;color:#9AA1AC;margin-top:4px;">{{ p.en }}</div>
+                  </sc-if>
                 </div>
               </sc-if>
             </sc-for>
@@ -277,7 +373,7 @@
           <sc-if value="{{ u.diagramRight }}" hint-placeholder-val="{{ false }}">
             <div class="yp-organ" style="position:relative;height:480px;border-radius:32px;overflow:hidden;background:#0B1730 url('assets/body-diagram-c7a5f396.png') center/cover no-repeat;">
               <sc-for list="{{ u.markers }}" as="m" hint-placeholder-count="1">
-                <div class="ymarker" onClick="{{ m.onClick }}" style="position:absolute;top:{{ m.top }};left:{{ m.left }};transform:translateX(-50%);background:{{ m.bg }};color:{{ m.color }};border:1.5px solid #1F5BB5;font-size:12.5px;font-weight:700;padding:6px 14px;border-radius:999px;box-shadow:{{ m.shadow }};white-space:nowrap;">{{ m.label }}</div>
+                <div class="ymarker" style="position:absolute;top:{{ m.top }};left:{{ m.left }};transform:translateX(-50%);background:{{ m.bg }};color:{{ m.color }};border:1.5px solid #1F5BB5;font-size:12.5px;font-weight:700;padding:6px 14px;border-radius:999px;box-shadow:{{ m.shadow }};white-space:nowrap;">{{ m.label }}</div>
               </sc-for>
             </div>
           </sc-if>
@@ -291,15 +387,21 @@
             <sc-for list="{{ u.prodList }}" as="p" hint-placeholder-count="4">
               <div class="yp-slide">
                 <div class="yp-slide-img">
-                  <div class="yp-slide-marker" style="top:{{ p.top }};left:{{ p.left }};">{{ p.title }}</div>
+                  <sc-if value="{{ p.hasMarker }}" hint-placeholder-val="{{ true }}">
+                    <div class="yp-slide-marker" style="top:{{ p.top }};left:{{ p.left }};">{{ p.organ }}</div>
+                  </sc-if>
                 </div>
                 <div class="yp-slide-info">
                   <div class="yp-slide-head">
                     <span class="yp-slide-title">{{ p.title }}</span>
                     <span class="en yp-slide-tag">{{ p.tag }}</span>
                   </div>
-                  <p class="yp-slide-desc">{{ p.desc }}</p>
-                  <a class="yp-slide-cta" href="product-detail.html">前往產品介紹　→</a>
+                  <sc-if value="{{ p.hasDesc }}" hint-placeholder-val="{{ true }}">
+                    <p class="yp-slide-desc">{{ p.brief }}</p>
+                  </sc-if>
+                  <sc-if value="{{ p.hasHref }}" hint-placeholder-val="{{ true }}">
+                    <a class="yp-slide-cta" href="{{ p.href }}">前往產品介紹　→</a>
+                  </sc-if>
                 </div>
               </div>
             </sc-for>
@@ -310,6 +412,67 @@
             </sc-for>
           </div>
         </div>
+        </sc-if>
+
+        <!-- ===== 版型 B-1：卡片格（儀器與設備） ===== -->
+        <sc-if value="{{ u.isCards }}" hint-placeholder-val="{{ false }}">
+          <div class="yp-grouphead">
+            <span class="zh">{{ u.groupName }}</span>
+            <span class="cnt">{{ u.groupCount }}</span>
+          </div>
+          <div class="yp-cardgrid">
+            <sc-for list="{{ u.rows }}" as="r" hint-placeholder-count="4">
+              <div class="yp-card {{ r.cls }}">
+                <span class="zh">{{ r.title }}</span>
+                <sc-if value="{{ r.hasEn }}" hint-placeholder-val="{{ true }}">
+                  <span class="en">{{ r.en }}</span>
+                </sc-if>
+                <sc-if value="{{ r.hasDesc }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:14px;line-height:1.9;color:#D8E0F5;margin:14px 0;">{{ r.desc }}</div>
+                </sc-if>
+                <sc-if value="{{ r.hasMore }}" hint-placeholder-val="{{ false }}">
+                  <div><button type="button" class="yp-more" onClick="{{ r.onToggle }}">{{ r.moreLabel }}</button></div>
+                </sc-if>
+                <sc-if value="{{ r.hasHref }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;gap:12px;">
+                    <a class="yb-linkbtn" href="{{ r.href }}" style="background:#fff;color:#143A82;border-radius:999px;padding:9px 20px;font-size:13px;font-weight:700;text-decoration:none;">前往產品介紹　→</a>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <!-- ===== 版型 B-2：規格表（RIA 試劑） ===== -->
+        <sc-if value="{{ u.isTable }}" hint-placeholder-val="{{ false }}">
+          <div class="yp-grouphead">
+            <span class="zh">{{ u.groupName }}</span>
+            <span class="cnt">{{ u.groupCount }}</span>
+          </div>
+          <div class="yp-table">
+            <div class="yp-tr yp-th">
+              <span>品名</span><span>型號</span><span>許可證字號</span>
+            </div>
+            <sc-for list="{{ u.rows }}" as="r" hint-placeholder-count="5">
+              <div class="yp-tr">
+                <div class="yp-td yp-td-name">
+                  <span class="code en">{{ r.code }}</span>
+                  <span class="zh">{{ r.title }}</span>
+                </div>
+                <div class="yp-td en"><span class="yp-td-lbl">型號</span>{{ r.model }}</div>
+                <div class="yp-td">
+                  <span class="yp-td-lbl">許可證</span>
+                  <sc-if value="{{ r.hasUrl }}" hint-placeholder-val="{{ true }}">
+                    <!-- 連到食藥署醫療器材許可證查詢系統，外部站台故開新分頁 -->
+                    <a class="yp-cert" href="{{ r.url }}" target="_blank" rel="noopener noreferrer">{{ r.cert }}</a>
+                  </sc-if>
+                  <sc-if value="{{ r.noUrl }}" hint-placeholder-val="{{ false }}">{{ r.cert }}</sc-if>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
         </div>
       </sc-for>
     </div>
@@ -322,7 +485,7 @@
       <div class="yb-foot" style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding:72px 0 56px;">
         <div style="display:flex;flex-direction:column;gap:8px;">
           <span style="font-size:22px;font-weight:900;letter-spacing:.02em;color:#fff;">元新儀器</span>
-          <span class="en" style="font-size:12.5px;font-weight:500;letter-spacing:.04em;color:#9BA3A8;">KEN YUAN HSIN CO., LTD.</span>
+          <span class="en" style="font-size:12.5px;font-weight:500;letter-spacing:.04em;color:#9BA3A8;">YUAN HSIN CO., LTD.</span>
           <span style="font-size:13px;line-height:1.9;color:#7C87A0;margin-top:6px;">核子醫學整合服務<br>放射性藥物 · 輻射安全設備 · 輻防教育訓練</span>
           <div style="display:flex;gap:12px;margin-top:18px;">
             <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;" title="Facebook">
@@ -347,7 +510,7 @@
             <a class="ylink" href="training.html" style="font-size:13.5px;color:#8893A8;">輻防教育訓練</a>
           </div></details>
         <details class="yb-footcol" open="open"><summary class="yb-footcol-t" style="font-size:14px;font-weight:700;color:#fff;padding-bottom:14px;border-bottom:1px solid #1A2740;list-style:none;">資源</summary><div style="display:flex;flex-direction:column;gap:13px;padding-top:16px;">
-            <a class="ylink" href="articles.html" style="font-size:13.5px;color:#8893A8;">文章專區</a>
+            <a class="ylink" href="articles.html" style="font-size:13.5px;color:#8893A8;">產業洞察</a>
             <span class="ylink" style="font-size:13.5px;color:#8893A8;">產學資源</span>
             <a class="ylink" href="contact.html" style="font-size:13.5px;color:#8893A8;">聯絡我們</a>
           </div></details>
@@ -355,11 +518,11 @@
     </div>
 
     <!-- 品牌字標（裝飾用） -->
-    <div class="yb-foot-mark en" aria-hidden="true" style="font-size:11vw;font-weight:800;letter-spacing:-.02em;line-height:.85;color:#1A2947;text-align:center;white-space:nowrap;-webkit-user-select:none;user-select:none;">KEN YUAN HSIN</div>
+    <div class="yb-foot-mark en" aria-hidden="true" style="font-size:11vw;font-weight:800;letter-spacing:-.02em;line-height:.85;color:#1A2947;text-align:center;white-space:nowrap;-webkit-user-select:none;user-select:none;">YUAN HSIN</div>
 
     <div class="yb-foot-wrap" style="max-width:1200px;margin:0 auto;padding:0 32px;">
       <div class="yb-foot-btm" style="display:flex;justify-content:space-between;align-items:center;padding:22px 0;">
-        <span style="font-size:12.5px;color:#5F6C84;">© 2026 元新儀器 Ken Yuan Hsin Co., Ltd. All rights reserved.</span>
+        <span style="font-size:12.5px;color:#5F6C84;">© 2026 元新儀器 Yuan Hsin Co., Ltd. All rights reserved.</span>
         <div style="display:flex;gap:18px;">
           <span class="ylink" style="font-size:12.5px;color:#5F6C84;">隱私權政策</span>
           <span class="ylink" style="font-size:12.5px;color:#5F6C84;">元佑集團</span>
@@ -372,76 +535,213 @@
 
 </x-dc>
 <script type="text/x-dc" data-dc-script>
+// 產品資料來源：客戶提供的「元新產品分類.xlsx」
+//
+// 每個子分類用 view 決定呈現方式：
+//   organ = 人體圖 + 產品列 —— 只給打進體內、有明確標的器官的放射性藥物
+//   cards = 卡片格         —— 儀器與設備
+//   table = 三欄規格表     —— RIA 試劑（含型號與衛部醫器許可證字號）
+//
+// 為什麼儀器與 RIA 不套人體圖：RIA 的分類名就是 In Vitro Diagnostics（體外檢驗），
+// 抽血後在試管裡做，標在人體器官上語意矛盾；儀器同理。且 27 項試劑會被切成 9 組，
+// 同一張人體圖連續出現 9 次。
+//
+// pos 是標記點在人體圖上的座標，已對到實際器官位置（心臟 / 腎上腺 / 全身）。
+// 人體圖為胸腹部特寫，垂直方向以 cover 裁切，故座標非原圖百分比。
 const CATS = [
   { zh:"診斷放射性藥物", en:"Diagnostic Radiopharmaceuticals", subs:[
-    { name:"PET", products:["F-18 FDG"], short:"PET 正子造影用放射性藥物", note:"（示意說明）PET 正子造影用放射性藥物，經靜脈注射後於體內特定組織聚集，用於腫瘤代謝活性評估及全身性癌症篩檢造影。" },
-    { name:"SPECT", products:["Tl-201","I-123 MIBG","Tc-99m Generator"], short:"SPECT 造影用放射性藥物", note:"（示意說明）SPECT 造影用放射性藥物，協助臟器血流灌注、代謝功能與病灶位置之核醫斷層造影評估。" },
+    { name:"PET", view:"organ", products:[
+      { title:"氟-18 去氧葡萄糖", en:"18F-FDG",
+        organ:"全身代謝", pos:{ top:"48%", left:"50%" },
+        brief:"全球最廣泛應用之正子造影（PET）診斷藥物，精準追蹤細胞糖代謝，協助早期癌症診斷與療效評估。",
+        full:"全球最廣泛應用之正子造影（PET）診斷藥物，精準追蹤細胞糖代謝，協助早期癌症診斷與療效評估。18F-FDG 模擬葡萄糖結構，能高度聚集於異常組織。適應症：肺癌、大腸癌、淋巴瘤、黑色素瘤、冠心病、癲癇之偵測，為臨床醫療提供關鍵決策依據。" },
+    ]},
+    { name:"SPECT", view:"organ", products:[
+      { title:"沙林可得201氯化亞鉈注射液", en:"Thallium Chloride-Tl201 Injection",
+        href:"product-tl201.html",
+        organ:"心肌", pos:{ top:"35%", left:"53%" },
+        brief:"單光子電腦斷層造影（SPECT）心肌灌流藥物，精準評估心肌血流與細胞活性，協助缺血性心臟病診斷。",
+        full:"單光子電腦斷層造影（SPECT）心肌灌流藥物，精準評估心肌血流與細胞活性，協助缺血性心臟病診斷。Thallium-201 具備優異的心肌細胞攝取特性。適應症：心肌灌流造影、腦部/甲狀腺/肺部/骨骼等腫瘤造影及副甲狀腺疾病偵測，提供臨床穩定可靠的診斷依據。" },
+      { title:"I-123 MIBG 診斷用注射液", en:"MyoMIBG-I123 Injection",
+        href:"product-i123-mibg.html",
+        organ:"心臟交感神經", pos:{ top:"35%", left:"53%" },
+        brief:"心臟交感神經與神經內分泌腫瘤造影劑，協助評估心臟疾病、帕金森氏症、路易氏體失智症、神經母細胞瘤和嗜鉻細胞瘤。",
+        full:"心臟交感神經與神經內分泌腫瘤造影劑，協助評估心臟疾病、帕金森氏症、路易氏體失智症及特定腫瘤。藉由模擬去甲腎上腺素攝取機制，精準反應交感神經功能。適應症：心臟疾病造影、帕金森氏症與路易氏體失智症診斷，以及神經母細胞瘤與嗜鉻細胞瘤之偵測。" },
+      // 產生器不是打進人體的藥物，故不給人體圖標記；文案客戶尚未提供
+      { title:"Tc-99m Generator", en:"" },
+    ]},
   ]},
-  { zh:"治療放射性藥物", en:"Therapeutic Radiopharmaceuticals", subs:[
-    { name:"Targeted Radionuclide Therapy", products:["I-131 MIBG"], short:"標靶放射性核素治療藥物", note:"（示意說明）標靶放射性核素治療藥物，藥物選擇性聚集於病灶細胞，釋放局部輻射消滅目標細胞。未來可擴充 Lu-177、Y-90、Ra-223 等產品。" },
+  { zh:"治療放射性藥物", en:"Therapy Radiopharmaceuticals", subs:[
+    { name:"治療藥物", view:"organ", products:[
+      { title:"I-131 MIBG 治療用注射液", en:"I-131 MIBG Injection for Therapy",
+        href:"product-i131-mibg.html",
+        organ:"腎上腺 / 神經內分泌", pos:{ top:"50%", left:"44%" },
+        brief:"標靶放射性核種治療藥物，專一性聚集於神經內分泌腫瘤，利用 β 射線精準破壞癌細胞。",
+        full:"標靶放射性核種治療藥物，專一性聚集於神經內分泌腫瘤，利用 β 射線精準破壞癌細胞。藉由高度結合嗜鉻細胞之特性，實現病灶局部精準放射治療。適應症：嗜鉻細胞瘤、神經母細胞瘤、副神經節瘤、甲狀腺髓質癌及類癌等神經內分泌腫瘤。" },
+    ]},
+  ]},
+  { zh:"儀器與設備", en:"Instruments & Systems", subs:[
+    { name:"輻射防護", view:"cards", products:[
+      { title:"UG-05 放射性藥品自動分注投藥裝置", en:"UG-05 Auto Dispensing Injector",
+        href:"product-ug05.html",
+        brief:"全自動放射性藥物分注與注射系統，大幅降低醫護人員輻射暴露，實現精準、安全且高效的臨床作業。",
+        full:"全自動放射性藥物分注與注射系統，大幅降低醫護人員輻射暴露，實現精準、安全且高效的臨床作業。具備最高規格屏蔽防護效果，支援院內製劑與商業藥品自動抽取、劑量精確量測與體重客製化投藥，搭載直覺觸控面板與安全防護機制，全面優化核醫作業流程。" },
+    ]},
+    { name:"放射免疫分析設備", view:"cards", products:[
+      { title:"RG10",    en:"Gamma Counter for RIA" },
+      { title:"RG20",    en:"Gamma Counter for RIA" },
+      { title:"RW50",    en:"Tube Washer" },
+      { title:"HYDRA",   en:"Tube Washer" },
+      { title:"RS400",   en:"Orbital Shaker" },
+      { title:"LB30",    en:"Tube Labeller" },
+      { title:"LB60",    en:"Tube Labeller" },
+      { title:"DC100P",  en:"Automatic Tube Decapper" },
+      { title:"KRAKEN",  en:"Automatic Dispenser" },
+      { title:"PROTOSS", en:"RIA Full Automation System" },
+    ]},
   ]},
   { zh:"放射免疫分析", en:"In Vitro Diagnostics (RIA)", subs:[
-    { name:"Tumour Markers", products:["AFP","hCEA","hPSA","Free PSA","CA15-3","CA19-9","CA125","CA72-4","CYFRA21-1","hTG"], short:"腫瘤標記檢驗試劑", note:"（示意說明）腫瘤標記放射免疫檢驗試劑，用於輔助臨床腫瘤篩檢、診斷與治療後追蹤監測。" },
-    { name:"Diabetes", products:["hC-peptide","Insulin","Anti-GAD65","Anti-IA2","IAA"], short:"糖尿病代謝功能檢驗試劑", note:"（示意說明）糖尿病相關代謝功能檢驗試劑，用於胰島素分泌能力與自體免疫性糖尿病之臨床評估。" },
-    { name:"Thyroid Function", products:["TSH","Anti-hTG","hTG","Anti-hTPO","FT4","T4","T3"], short:"甲狀腺功能檢驗試劑", note:"（示意說明）甲狀腺功能檢驗試劑，用於甲狀腺荷爾蒙分泌異常及相關自體免疫疾病之臨床診斷。" },
-    { name:"Steroids", products:["Testosterone","Cortisol"], short:"類固醇激素檢驗試劑", note:"（示意說明）類固醇激素檢驗試劑，用於內分泌系統功能異常之臨床評估。" },
+    { name:"腫瘤標記", view:"table", products:[
+      { code:"AFP",         title:"艾索托甲型胎兒蛋白抗原免疫試驗系統",   model:"RK-800CT", cert:"衛部醫器輸字第031495號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=592a4767-cddc-4e60-82cd-af42d9a93a40" },
+      { code:"hCEA",        title:"艾索托胚胎致癌抗原免疫試驗系統",       model:"RK-38CT",  cert:"衛部醫器輸字第031496號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=4f9867e3-93ce-4698-b7c7-2138d0a3e675" },
+      { code:"hPSA",        title:"艾索托攝護腺抗原免疫試驗系統",         model:"RK-10CT",  cert:"衛部醫器輸字第031498號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=50617b66-a601-4bdd-9a2b-bccadb25e8a4" },
+      { code:"free PSA",    title:"艾索托游離攝護腺抗原免疫試驗系統",     model:"RK-85CT",  cert:"衛部醫器輸字第031499號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=abea0046-5ff5-4895-ab08-1e86a068e783" },
+      { code:"CA 15-3",     title:"艾索托腫瘤抗原CA 15-3免疫試驗系統",    model:"RK-153CT", cert:"衛部醫器輸字第031471號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=e3d0e440-f737-41f8-8f79-9566beca1ec4" },
+      { code:"CA 19-9",     title:"艾索托腫瘤抗原CA19-9免疫試驗系統",     model:"RK-199CT", cert:"衛部醫器輸字第031479號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=46184d5e-5020-4ece-a5c9-a4956aa7b4d1" },
+      { code:"CA125",       title:"艾索托腫瘤抗原CA125免疫試驗系統",      model:"RK-125CT", cert:"衛部醫器輸字第031483號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=c3807833-5444-44ac-a7ae-1e968b2ae4cc" },
+      { code:"CA 72-4",     title:"艾索托腫瘤抗原CA 72-4免疫試驗系統",    model:"RK-724CT", cert:"衛部醫器輸字第031464號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=101a463d-8b0c-4211-9f4a-27d4d1ac4349" },
+      { code:"CYFRA 21.1",  title:"艾索托腫瘤抗原CYFRA 21.1免疫試驗系統", model:"RK-211CT", cert:"衛部醫器輸字第031470號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=9f9bf02a-63ff-4386-ae3c-588dbd35347f" },
+    ]},
+    { name:"糖尿病", view:"table", products:[
+      { code:"hC-peptide",  title:"艾索托 C-胜肽試驗系統",           model:"RK-84CT",              cert:"衛部醫器輸字第036247號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=0b992a12-d392-46ef-ba5f-1ea7c29f15c8" },
+      { code:"INSULIN",     title:"艾索托胰島素試驗系統",             model:"RK-400CT",             cert:"衛部醫器輸字第035670號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=9514e2a4-2c51-4f25-96ff-f9823fb44f6a" },
+      { code:"Anti-GAD65",  title:"艾索托抗榖氨酸脫羧酶試驗系統",     model:"RK-40P50 / RK-40P100", cert:"衛部醫器輸字第035875號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=d7871495-921b-4d9d-a08b-0706e0b23179" },
+      { code:"Anti-IA2",    title:"艾索托抗酪氨酸磷酸酶試驗系統",     model:"RK-20P50 / RK-20P100", cert:"衛部醫器輸字第035876號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=2972c225-5c0d-4651-bba2-d381664bd7a4" },
+      { code:"IAA",         title:"艾索托胰島素自體抗體試驗系統",     model:"RK-50P50 / RK-50P100", cert:"衛部醫器輸字第035879號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=9331ac48-b791-4018-a3f0-74bc603cffaf" },
+    ]},
+    { name:"甲狀腺功能", view:"table", products:[
+      { code:"Turbo TSH",   title:"艾索托甲狀腺刺激賀爾蒙試驗系統",   model:"RK-1CT1",  cert:"衛部醫器輸字第031472號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=13caa65d-3b60-4461-be87-8591104616e3" },
+      { code:"Anti-hTG",    title:"艾索托抗甲狀腺球蛋白試驗系統",     model:"RK-8CT",   cert:"衛部醫器輸字第037090號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=99564992-abb8-4649-aaff-ecc348e93e30" },
+      { code:"hTG",         title:"艾索托甲狀腺球蛋白試驗系統",       model:"RK-51CT",  cert:"衛部醫器輸字第036158號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=b920bc3b-1ae1-4638-ab88-6b547fc5f4af" },
+      { code:"Anti-hTPO",   title:"艾索托抗甲狀腺過氧化酶試驗系統",   model:"RK-36CT",  cert:"衛部醫器輸字第036222號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=95fc3495-af76-4c39-a4e1-cef17a20995e" },
+      { code:"FT4",         title:"艾索托游離四碘甲狀腺素試驗系統",   model:"RK-349CT", cert:"衛部醫器輸字第034158號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=3f9576ba-ff6c-4a0b-b7d5-b2decf99dfd5" },
+      { code:"T4",          title:"艾索托甲狀腺素試驗系統",           model:"RK-11CT1", cert:"衛部醫器輸字第035872號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=74a7ca3f-5a58-4d35-808a-b58e7bcf0a52" },
+      { code:"T3",          title:"艾索托總三碘甲狀腺試驗系統",       model:"RK-609CT", cert:"衛部醫器輸字第031497號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=40e021cb-0593-4c6d-b27f-2b8bcd94277c" },
+    ]},
+    { name:"類固醇", view:"table", products:[
+      { code:"TESTOSTERONE", title:"艾索托睪固酮試驗系統", model:"RK-61CT",  cert:"衛部醫器輸字第035699號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=4186b0c7-f530-4daf-b99d-e7376514a737" },
+      { code:"CORTISOL",     title:"艾索托皮質醇試驗系統", model:"RK-240CT", cert:"衛部醫器輸字第035651號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=2ee952be-ee3b-4cfe-8e2f-615cc15d9254" },
+    ]},
+    { name:"血清蛋白", view:"table", products:[
+      { code:"hLH",      title:"艾索托黃體激素試驗系統",     model:"RK-750CT", cert:"衛部醫器輸字第035685號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=c365218e-5260-4380-aa41-e60a803ac253" },
+      { code:"hPRL",     title:"艾索托催乳素試驗系統",       model:"RK-780CT", cert:"衛部醫器輸字第035673號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=1ea2b124-1dfd-4c02-b143-1bb058fffcd9" },
+      { code:"FERRITIN", title:"艾索托鐵蛋白試驗系統",       model:"RK-900CT", cert:"衛部醫器輸字第035679號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=cbf8c5d4-e171-4664-98f7-99e2124508c0" },
+      { code:"hFSH",     title:"艾索托卵泡剌激激素試驗系統", model:"RK-790CT", cert:"衛部醫器輸字第035684號", url:"https://lmspiq.fda.gov.tw/web/MDPIQ/MDPIQ1000Result?licBaseId=b48d9e30-89c7-4858-84d8-6e7e120169ff" },
+    ]},
   ]},
-  { zh:"核醫儀器與設備", en:"Nuclear Medicine Instruments & Systems", subs:[
-    { name:"Radiation Protection", products:["UG-05 Auto Dispensing Injector"], short:"輻射防護作業設備", note:"（示意說明）輻射防護相關設備，用於降低核醫作業人員於藥物調劑與注射過程中的輻射暴露風險。" },
-    { name:"RIA Laboratory Systems", products:["RG10 Gamma Counter","RG20 Gamma Counter","RW50 Tube Washer","HYDRA Tube Washer","RS400 Orbital Shaker","LB30 Tube Labeller","LB60 Tube Labeller","DC100P Tube Decapper","KRAKEN Automatic Dispenser","PROTOSS RIA Full Automation System"], short:"RIA 實驗室自動化設備", note:"（示意說明）放射免疫分析實驗室自動化設備，涵蓋計數、清洗、標籤與全自動化檢驗流程，提升檢驗效率與精準度。" },
-  ]},
-];
-
-const POS = [
-  { top:"30%", left:"50%" }, { top:"30%", left:"25%" }, { top:"30%", left:"75%" },
-  { top:"58%", left:"38%" }, { top:"58%", left:"62%" }, { top:"78%", left:"50%" },
 ];
 
 class Component extends DCLogic {
-  state = { cat: 0, sel: {} };
-  setCat(i) { this.setState({ cat: i, sel: {} }); }
-  selectProduct(u, i) { this.setState({ sel: { ...this.state.sel, [u]: i } }); }
+  state = { cat: 0, sel: {}, exp: {} };
+  setCat(i) { this.setState({ cat: i, sel: {}, exp: {} }); }
+  selectProduct(g, i) { this.setState({ sel: { ...this.state.sel, [g]: i } }); }
+  // 文案有「未展開／展開」兩版，展開是整段換掉而非接在後面 ——
+  // I-123 MIBG 的兩版首句就不一樣，接續會出現重複語句。
+  toggleMore(k) { this.setState({ exp: { ...this.state.exp, [k]: !this.state.exp[k] } }); }
 
   renderVals() {
-    const { cat, sel } = this.state;
+    const { cat, sel, exp } = this.state;
     const activeCat = CATS[cat];
     const catTabs = CATS.map((c, i) => ({ zh: c.zh, en: c.en, cls: i === cat ? "is-active" : "", onClick: () => this.setCat(i) }));
 
     const subChips = activeCat.subs.map((s, si) => ({ label: s.name, anchorId: "#sub-" + cat + "-" + si, cls: si === 0 ? "is-active" : "" }));
 
-    const chunks = [];
+    // 人體圖版型維持每 4 個一組；卡片與表格版型一個子分類就是一組，不切。
+    const raw = [];
     activeCat.subs.forEach((s, si) => {
-      const items = s.products.map(p => ({ title: p, tag: s.name, short: s.short || "", note: s.note || "" }));
-      for (let i = 0; i < items.length; i += 4) {
-        // 只有每個子分類的第一組掛錨點，供上方 chip 跳轉
-        chunks.push({ items: items.slice(i, i + 4), anchorId: i === 0 ? ("sub-" + cat + "-" + si) : "" });
+      const anchor = "sub-" + cat + "-" + si;
+      if (s.view === "organ") {
+        for (let i = 0; i < s.products.length; i += 4) {
+          raw.push({ view: "organ", sub: s, items: s.products.slice(i, i + 4), anchorId: i === 0 ? anchor : "" });
+        }
+      } else {
+        raw.push({ view: s.view, sub: s, items: s.products, anchorId: anchor });
       }
     });
 
-    const units = chunks.map((chunkObj, u) => {
-      const chunk = chunkObj.items;
-      const idx = Math.min(sel[u] || 0, chunk.length - 1);
-      const prodList = chunk.map((p, i) => ({
-        title: p.title, tag: p.tag, short: p.short || ("子分類：" + p.tag),
-        desc: (p.note || ("屬於「" + p.tag + "」子分類。")).replace("（示意說明）", ""),
-        selected: i === idx, notSelected: i !== idx, onClick: () => this.selectProduct(u, i),
-        // 手機輪播：每張卡都有自己的人體圖標記，滑動時標記跟著換
-        top: POS[i].top, left: POS[i].left,
-        dotCls: i === 0 ? "is-active" : "",
-      }));
-      const markers = chunk
-        .map((p, i) => ({
-          label: p.title, top: POS[i].top, left: POS[i].left, onClick: () => this.selectProduct(u, i),
-          bg: i === idx ? "#1F5BB5" : "#fff", color: i === idx ? "#fff" : "#1F5BB5",
-          shadow: i === idx ? "0 0 0 4px rgba(31,91,181,.35)" : "none",
-          isSel: i === idx,
-        }))
-        .filter(m => m.isSel);
-      const diagramLeft = u % 2 === 0;
-      return { prodList, markers, diagramLeft, diagramRight: !diagramLeft, diagCols: diagramLeft ? "440px 1fr" : "1fr 440px", anchorId: chunkObj.anchorId };
+    let organSeen = 0;
+    const groups = raw.map((g, gi) => {
+      const base = {
+        anchorId: g.anchorId, isOrgan: false, isCards: false, isTable: false,
+        groupName: g.sub.name, groupCount: "．" + g.items.length + "項",
+      };
+
+      if (g.view === "organ") {
+        const idx = Math.min(sel[gi] || 0, g.items.length - 1);
+        const prodList = g.items.map((p, i) => {
+          const key = gi + ":" + i;
+          const open = !!exp[key];
+          const hasMore = !!(p.full && p.full !== p.brief);
+          return {
+            title: p.title, en: p.en || "", hasEn: !!p.en, tag: g.sub.name,
+            brief: p.brief || "", desc: (open && hasMore ? p.full : p.brief) || "",
+            hasDesc: !!p.brief, hasMore, moreLabel: open ? "收合　▴" : "展開更多　▾",
+            onToggle: () => this.toggleMore(key),
+            href: p.href || "", hasHref: !!p.href,
+            selected: i === idx, notSelected: i !== idx, onClick: () => this.selectProduct(gi, i),
+            // 手機輪播：每張卡都有自己的標記，滑動時跟著換
+            organ: p.organ || "", hasMarker: !!p.pos,
+            top: (p.pos || {}).top || "50%", left: (p.pos || {}).left || "50%",
+            dotCls: i === 0 ? "is-active" : "",
+          };
+        });
+        // 桌機人體圖一次只顯示選中產品的標記，標籤用器官名而非產品全名 ——
+        // 「沙林可得201氯化亞鉈注射液」放進膠囊標籤會蓋掉半張圖。
+        const markers = prodList
+          .map((p) => ({
+            label: p.organ, top: p.top, left: p.left,
+            bg: "#1F5BB5", color: "#fff", shadow: "0 0 0 4px rgba(31,91,181,.35)",
+            show: p.selected && p.hasMarker,
+          }))
+          .filter(m => m.show);
+        const diagramLeft = (organSeen++ % 2) === 0;
+        return {
+          ...base, isOrgan: true, prodList, markers,
+          diagramLeft, diagramRight: !diagramLeft,
+          diagCols: diagramLeft ? "440px 1fr" : "1fr 440px",
+        };
+      }
+
+      if (g.view === "cards") {
+        const rows = g.items.map((p, i) => {
+          const key = gi + ":" + i;
+          const open = !!exp[key];
+          const hasMore = !!(p.full && p.full !== p.brief);
+          // 有正式文案的產品拉成滿版藍卡，其餘只列品名
+          const feature = !!p.brief;
+          return {
+            title: p.title, en: p.en || "", hasEn: !!p.en,
+            cls: feature ? "is-feature" : "",
+            desc: (open && hasMore ? p.full : p.brief) || "", hasDesc: feature,
+            hasMore, moreLabel: open ? "收合　▴" : "展開更多　▾",
+            onToggle: () => this.toggleMore(key),
+            href: p.href || "", hasHref: !!p.href,
+          };
+        });
+        return { ...base, isCards: true, rows };
+      }
+
+      return {
+        ...base, isTable: true,
+        rows: g.items.map(p => ({
+          code: p.code, title: p.title, model: p.model, cert: p.cert,
+          // 許可證字號連到食藥署查詢系統（連結來自客戶 Excel 的儲存格超連結）
+          url: p.url || "", hasUrl: !!p.url, noUrl: !p.url,
+        })),
+      };
     });
 
-    return { catTabs, activeCatEn: activeCat.en, subChips, units };
+    return { catTabs, activeCatEn: activeCat.en, subChips, groups };
   }
 }
 
