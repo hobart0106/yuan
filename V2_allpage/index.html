@@ -192,6 +192,13 @@
     .yb-grid5 { grid-template-columns:1fr 1fr !important; }
     .yb-sec h2 { font-size:23px !important; }
   }
+  .yb-hero-slide { position:absolute; inset:0; background-position:center; background-size:cover; opacity:0; transition:opacity .9s ease; }
+  .yb-hero-slide.is-active { opacity:1; }
+  .yb-hero-controls { position:absolute; bottom:24px; left:clamp(40px,7vw,120px); display:flex; align-items:center; gap:12px; }
+  .yb-hero-controls[hidden] { display:none; }
+  .yb-hero-dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.45); transition:background .3s; }
+  .yb-hero-dot.is-active { background:#fff; }
+  @media (max-width:640px) { .yb-hero-controls { left:20px; bottom:12px; } }
 </style>
 <script src="image-slot.js"></script>
 <script src="nav.js" defer></script>
@@ -232,18 +239,29 @@
   </div>
 
   <!-- ============ HERO ============ -->
-  <div class="yb-hero" style="position:relative;width:100%;height:700px;min-height:560px;overflow:hidden;border-radius:90px 0 90px 0;background:#0B1730;">
-    <div id="ybHeroImg" style="position:absolute;inset:0;background:#0B1730 url('assets/hero-02.jpg') center/cover no-repeat;transform:scale(1.04);will-change:transform;"></div>
+  <div class="yb-hero" role="region" aria-roledescription="輪播" aria-label="首頁主視覺" style="position:relative;width:100%;height:700px;min-height:560px;overflow:hidden;border-radius:90px 0 90px 0;background:#0B1730;">
+    <div id="ybHeroImg" aria-hidden="true" style="position:absolute;inset:0;">
+      <div class="yb-hero-slide is-active" style="background-image:url('assets/hero-01.jpg');"></div>
+      <div class="yb-hero-slide" style="background-image:url('assets/hero-02.jpg');"></div>
+      <div class="yb-hero-slide" style="background-image:url('assets/hero-03.jpg');"></div>
+      <div class="yb-hero-slide" style="background-image:url('assets/hero-00.jpg');"></div>
+    </div>
     <div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(6,14,34,.66) 0%,rgba(8,18,42,.34) 46%,rgba(8,18,42,.08) 78%);"></div>
     <div style="position:relative;height:100%;max-width:1683px;margin:0 auto;padding:0 clamp(40px,7vw,120px);display:flex;flex-direction:column;justify-content:center;">
       <div style="max-width:760px;color:#fff;">
         <div style="width:64px;height:3px;background:#fff;border-radius:2px;margin-bottom:30px;opacity:.92;"></div>
-        <h1 class="en" style="margin:0;font-size:48px;line-height:1.06;font-weight:700;letter-spacing:.002em;">Precision and Smart Supply<br>for Nuclear Medicine</h1>
+        <h1 class="en" style="margin:0;font-size:48px;line-height:1.06;font-weight:700;letter-spacing:.002em;">Precision and Smart Supply <br>for Nuclear Medicine</h1>
         <p style="margin:26px 0 0;font-size:30px;line-height:1.55;font-weight:400;color:#eef3fb;">核醫專業顧問，建構安全、高效的核醫藥物生態系</p>
         <div style="margin-top:40px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
           <a class="ypill ypill-solid" href="about.html" style="display:inline-flex;align-items:center;gap:12px;background:#fff;color:#0C2049;border-radius:999px;padding:18px 40px;font-size:20px;font-weight:600;text-decoration:none;">了解更多　→</a>
           <a class="ypill" href="contact.html" style="display:inline-flex;align-items:center;gap:10px;border:1.5px solid rgba(255,255,255,.55);color:#fff;border-radius:999px;padding:17px 34px;font-size:17px;font-weight:600;text-decoration:none;">聯絡我們</a>
         </div>
+      </div>
+      <div class="yb-hero-controls" aria-hidden="true" hidden>
+        <span class="yb-hero-dot is-active"></span>
+        <span class="yb-hero-dot"></span>
+        <span class="yb-hero-dot"></span>
+        <span class="yb-hero-dot"></span>
       </div>
     </div>
   </div>
@@ -281,7 +299,7 @@
         <div class="ysvc-cell" style="display:flex;gap:20px;padding:40px 30px;align-items:flex-start;">
           <div style="width:82px;height:82px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><svg class="ysvc" width="70" height="70" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="30" stroke="#BCD3F3" stroke-width="2"/><circle cx="40" cy="40" r="19" stroke="#6FA6F2" stroke-width="2"/><g class="yh-orbit"><circle cx="40" cy="10" r="4.5" fill="#2E72D6"/><circle cx="59" cy="40" r="3.5" fill="#6FA6F2"/></g><circle cx="40" cy="40" r="7" fill="#143A82"/></svg></div>
           <div style="display:flex;flex-direction:column;gap:4px;">
-            <span style="font-size:21px;font-weight:800;color:#143A82;line-height:1.2;display:flex;align-items:center;gap:6px;">輻防教育訓練<svg class="ysvc-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span style="font-size:21px;font-weight:800;color:#143A82;line-height:1.2;display:flex;align-items:center;gap:6px;">輻防教育<svg class="ysvc-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="en" style="font-size:13px;font-weight:600;letter-spacing:.04em;color:#2E72D6;">Radiation Training</span>
             <span style="margin-top:6px;font-size:14px;line-height:1.85;color:#5A6473;">透過專業課程與實務訓練，提升輻射安全意識，將知識向外擴散。</span>
           </div>
@@ -322,9 +340,9 @@
       <h2 style="margin:12px 0 0;font-size:28px;font-weight:900;color:#143A82;">合作原廠夥伴</h2>
       <div class="yb-grid5" style="display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:30px;">
         <div style="height:140px;border-radius:11px;background:#fff;box-shadow:inset 0 0 0 1px #E5E8EC;overflow:hidden;"><img src="assets/provider2.png" alt="FUJIFILM 合作夥伴 logo" style="width:100%;height:100%;object-fit:contain;padding:16px;box-sizing:border-box;background:#fff;"></div>
-        <div style="height:140px;border-radius:11px;background:#fff;box-shadow:inset 0 0 0 1px #E5E8EC;overflow:hidden;"><img src="assets/provider4.png" alt="TOYAMA 合作夥伴 logo" style="width:100%;height:100%;object-fit:contain;padding:16px;box-sizing:border-box;background:#fff;"></div>
+        <div style="height:140px;border-radius:11px;background:#fff;box-shadow:inset 0 0 0 1px #E5E8EC;overflow:hidden;"><img src="assets/provider6.png" alt="ISORAD 合作夥伴 logo" style="width:100%;height:100%;object-fit:contain;padding:16px;box-sizing:border-box;background:#fff;"></div>
         <div style="height:140px;border-radius:11px;background:#fff;box-shadow:inset 0 0 0 1px #E5E8EC;overflow:hidden;"><img src="assets/provider3.png" alt="IZOTOP 合作夥伴 logo" style="width:100%;height:100%;object-fit:contain;padding:16px;box-sizing:border-box;background:#fff;"></div>
-        <div style="height:140px;border-radius:11px;background:#fff;box-shadow:inset 0 0 0 1px #E5E8EC;overflow:hidden;"><img src="assets/provider1.png" alt="ZEVALIN 合作夥伴 logo" style="width:100%;height:100%;object-fit:contain;padding:16px;box-sizing:border-box;background:#fff;"></div>
+        <div style="height:140px;border-radius:11px;background:#fff;box-shadow:inset 0 0 0 1px #E5E8EC;overflow:hidden;"><img src="assets/provider7.png" alt="TECH 合作夥伴 logo" style="width:100%;height:100%;object-fit:contain;padding:16px;box-sizing:border-box;background:#fff;"></div>
         <div style="height:140px;border-radius:11px;background:#fff;box-shadow:inset 0 0 0 1px #E5E8EC;overflow:hidden;"><img src="assets/provider5.png" alt="UG-05 合作夥伴 logo" style="width:100%;height:100%;object-fit:contain;padding:16px;box-sizing:border-box;background:#fff;"></div>
         <div style="height:140px;border-radius:11px;background:#fff;box-shadow:inset 0 0 0 1px #E5E8EC;overflow:hidden;"><img src="assets/provider_logo.png" alt="合作夥伴 logo" style="width:100%;height:100%;object-fit:contain;padding:16px;box-sizing:border-box;background:#fff;"></div>
         <div style="height:140px;border-radius:11px;background:#fff;box-shadow:inset 0 0 0 1px #E5E8EC;overflow:hidden;"><img src="assets/provider_logo.png" alt="合作夥伴 logo" style="width:100%;height:100%;object-fit:contain;padding:16px;box-sizing:border-box;background:#fff;"></div>
@@ -471,11 +489,6 @@
           <div>
             <span class="en" style="display:block;font-size:40px;font-weight:800;color:#1F5BB5;letter-spacing:-.01em;">1984</span>
             <p style="margin:8px 0 0;font-size:15px;line-height:1.85;color:#5A6473;">代理日本 Daiichi Radioisotope Labs（現 PDRadiopharma Inc.），供應心臟、骨骼等關鍵診斷核醫藥。</p>
-            <div class="yb-company-timeline" style="margin-top:12px;display:flex;flex-direction:column;gap:5px;font-size:12.5px;line-height:1.75;color:#8A93A3;">
-              <span><strong class="en" style="font-weight:700;">2007</strong>　FUJIFILM 收購 Daiichi Radioisotope Labs. Ltd.，並改名為 FUJIFILM RI Pharma Co., Ltd.</span>
-              <span><strong class="en" style="font-weight:700;">2018</strong>　FUJIFILM 合併 TOYAMA CHEMICAL 和 FUJIFILM RI Pharma，並改名為 FUJIFILM Toyama Chemical Co., Ltd.</span>
-              <span><strong class="en" style="font-weight:700;">2022</strong>　PeptiDream Inc. 收購 FUJIFILM Toyama Chemical Co., Ltd.，並改名為 PDRadiopharma Inc.</span>
-            </div>
           </div>
           <div>
             <span class="en" style="display:block;font-size:40px;font-weight:800;color:#1F5BB5;letter-spacing:-.01em;">2016</span>
@@ -492,10 +505,6 @@
           <div>
             <span class="en" style="display:block;font-size:40px;font-weight:800;color:#1F5BB5;letter-spacing:-.01em;">2025</span>
             <p style="margin:8px 0 0;font-size:15px;line-height:1.85;color:#5A6473;">代理日本 UNIVERSAL GIKEN 自動注射儀 UG-05，優化輻射防護系統。</p>
-          </div>
-          <div>
-            <span class="en" style="display:block;font-size:40px;font-weight:800;color:#1F5BB5;letter-spacing:-.01em;">2027</span>
-            <p style="margin:8px 0 0;font-size:15px;line-height:1.85;color:#5A6473;">推出 18/36 小時輻射防護訓練課程，培養輻防人才。</p>
           </div>
         </div>
       </div>
@@ -546,9 +555,9 @@
       <div style="position:absolute;inset:0;background:#1F5BB5 url('assets/c-milestone.jpg') center/cover no-repeat;"></div>
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(31,91,181,.5),rgba(20,58,130,.82));"></div>
       <div style="position:relative;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 32px;color:#fff;">
-        <div class="en" style="font-size:30px;font-weight:800;">Training &amp; Consulting</div>
-        <div style="font-size:15px;color:#cfdcf2;margin-top:10px;">教育訓練｜課程報名與輻防諮詢</div>
-        <div style="margin-top:22px;border:1.5px solid rgba(255,255,255,.6);border-radius:999px;padding:11px 28px;font-size:14px;font-weight:700;">聯絡訓練窗口　→</div>
+        <div class="en" style="font-size:30px;font-weight:800;">Consulting</div>
+        <div style="font-size:15px;color:#cfdcf2;margin-top:10px;">輻防諮詢</div>
+        <div style="margin-top:22px;border:1.5px solid rgba(255,255,255,.6);border-radius:999px;padding:11px 28px;font-size:14px;font-weight:700;">聯絡輻防窗口　→</div>
       </div>
     </a>
 
@@ -620,20 +629,41 @@
     });
   });
 
-  // ---- hero image parallax ----
-  var heroImg = document.getElementById('ybHeroImg');
-  var ticking = false;
-  function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(function () {
-      var y = window.scrollY || 0;
-      heroImg.style.transform = 'scale(1.04) translateY(' + Math.min(y * 0.12, 80) + 'px)';
-      ticking = false;
-    });
+  // ---- hero carousel ----
+  var hero = document.querySelector('.yb-hero');
+  var slides = hero.querySelectorAll('.yb-hero-slide');
+  var dots = hero.querySelectorAll('.yb-hero-dot');
+  var motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var current = 0;
+  var timer;
+  hero.querySelector('.yb-hero-controls').hidden = false;
+
+  function schedule() {
+    clearInterval(timer);
+    if (!motion.matches && !document.hidden) {
+      timer = setInterval(function () { show(current + 1); }, 5000);
+    }
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  function show(index) {
+    current = (index + slides.length) % slides.length;
+    slides.forEach(function (slide, i) { slide.classList.toggle('is-active', i === current); });
+    dots.forEach(function (dot, i) { dot.classList.toggle('is-active', i === current); });
+  }
+  document.addEventListener('visibilitychange', schedule);
+  motion.addEventListener('change', schedule);
+  var touchStart;
+  hero.addEventListener('touchstart', function (event) {
+    touchStart = event.touches.length === 1 ? { x:event.touches[0].clientX, y:event.touches[0].clientY } : null;
+  }, { passive:true });
+  hero.addEventListener('touchend', function (event) {
+    if (!touchStart) return;
+    var dx = event.changedTouches[0].clientX - touchStart.x;
+    var dy = event.changedTouches[0].clientY - touchStart.y;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { show(current + (dx < 0 ? 1 : -1)); schedule(); }
+    touchStart = null;
+  }, { passive:true });
+  hero.addEventListener('touchcancel', function () { touchStart = null; });
+  schedule();
 })();
 </script>
 </body>
