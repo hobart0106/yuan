@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="zh-Hant">
+<title>元新官網 WordPress 開發說明</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+<style>
+  /* 沿用元新設計系統（yuan-tokens.css）的色票與字體；品牌只有淺色版，刻意維持單一主題 */
+  :root {
+    color-scheme:light;
+    --blue-900:#143A82; --blue-700:#1F5BB5; --blue-500:#2E72D6; --blue-200:#AFC9EE; --blue-100:#D6E2F4; --blue-50:#F5F8FC;
+    --ink-950:#091428; --ink-800:#0E1C3D; --ink-600:#2A3A5C;
+    --title:#1C2533; --text:#5A6473; --muted:#8893A8; --line:#E5E8EC; --divider:#EEF1F5; --bg-alt:#F4F6F9; --white:#FFFFFF;
+    --green:#2B8A4D; --green-50:#F4FAF6; --green-100:#CFE6D7;
+    --amber:#9A5B00; --amber-50:#FFF7E8; --amber-100:#F3DDB3;
+    --red:#B3372A; --red-50:#FDF1EF; --red-100:#F2CFC9;
+    --sans:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif;
+    --en:'Manrope','Noto Sans TC',sans-serif;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --gutter:32px;
+  }
+  *, *::before, *::after { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    margin:0; background:var(--bg-alt); color:var(--text);
+    font-family:var(--sans); font-size:15px; line-height:1.8; -webkit-font-smoothing:antialiased;
+  }
+  a { color:var(--blue-900); text-underline-offset:3px; }
+  a:hover { color:var(--blue-500); }
+  a:focus-visible { outline:2px solid var(--blue-500); outline-offset:2px; border-radius:4px; }
+  code { font-family:var(--mono); font-size:.86em; padding:1px 6px; border-radius:6px; background:var(--blue-50); color:var(--blue-900); overflow-wrap:anywhere; }
+  .en { font-family:var(--en); }
+
+  /* 頁首 */
+  .top { background:var(--ink-950); color:#CDD5E4; padding-block:56px 44px; border-radius:0 0 64px 0; }
+  .wrap { max-width:1200px; margin-inline:auto; padding-inline:var(--gutter); }
+  .eyebrow { font-family:var(--en); font-size:13px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--blue-700); }
+  .top .eyebrow { color:#6FA6F2; }
+  .top h1 { margin:12px 0 0; color:var(--white); font-size:clamp(30px, 4vw, 44px); font-weight:900; line-height:1.2; text-wrap:balance; }
+  .top p { margin:14px 0 0; max-width:62ch; color:#AEB8CC; font-size:16px; }
+  .meta { display:flex; flex-wrap:wrap; gap:8px 28px; margin-top:26px; padding-top:22px; border-top:1px solid #1A2740; font-size:13.5px; }
+  .meta b { display:block; font-size:12px; font-weight:500; color:#8893A8; }
+  .meta span { color:var(--white); font-weight:700; }
+
+  /* 版面 */
+  .layout { display:grid; grid-template-columns:210px minmax(0,1fr); gap:44px; max-width:1200px; margin-inline:auto; padding:44px var(--gutter) 96px; }
+  .toc { position:sticky; top:20px; align-self:start; display:flex; flex-direction:column; gap:1px; font-size:13.5px; }
+  .toc a { display:flex; gap:10px; padding:6px 10px; border-radius:10px; color:var(--text); text-decoration:none; font-weight:600; }
+  .toc a span { font-family:var(--en); color:var(--muted); font-weight:700; min-width:1.4em; font-variant-numeric:tabular-nums; }
+  .toc a:hover { background:var(--white); color:var(--blue-900); }
+  main { display:flex; flex-direction:column; gap:24px; min-width:0; }
+
+  section.doc {
+    scroll-margin-top:20px; padding:36px 40px; border-radius:16px;
+    background:var(--white); box-shadow:0 0 0 1px var(--line);
+    display:flex; flex-direction:column; gap:18px;
+  }
+  section.doc > header { display:flex; align-items:baseline; gap:14px; }
+  section.doc > header .num { font-family:var(--en); font-size:14px; font-weight:800; color:var(--blue-700); font-variant-numeric:tabular-nums; }
+  h2 { margin:0; font-size:26px; font-weight:800; line-height:1.35; color:var(--blue-900); text-wrap:balance; }
+  h3 { margin:10px 0 0; font-size:17px; font-weight:800; color:var(--title); }
+  p { margin:0; max-width:70ch; }
+  ul, ol { margin:0; padding-left:1.3em; display:flex; flex-direction:column; gap:6px; max-width:74ch; }
+  li::marker { color:var(--blue-700); }
+  strong { color:var(--title); }
+
+  /* 表格 */
+  .scroll { overflow-x:auto; border-radius:12px; box-shadow:0 0 0 1px var(--line); }
+  table { width:100%; border-collapse:collapse; font-size:14px; line-height:1.65; }
+  th, td { padding:11px 14px; text-align:left; vertical-align:top; border-top:1px solid var(--divider); }
+  thead th { border-top:0; background:var(--bg-alt); color:var(--title); font-weight:700; white-space:nowrap; }
+  td:first-child { color:var(--title); font-weight:700; }
+  td code { white-space:nowrap; }
+
+  /* 提示框 */
+  .note { padding:16px 18px; border-radius:12px; background:var(--blue-50); box-shadow:inset 0 0 0 1px var(--blue-100); font-size:14px; }
+  .note.warn { background:var(--amber-50); box-shadow:inset 0 0 0 1px var(--amber-100); }
+  .note.risk { background:var(--red-50); box-shadow:inset 0 0 0 1px var(--red-100); }
+  .note b { display:block; margin-bottom:4px; color:var(--title); }
+  .note.warn b { color:var(--amber); }
+  .note.risk b { color:var(--red); }
+
+  /* 狀態標籤 */
+  .pill { display:inline-block; padding:1px 10px; border-radius:999px; font-size:12px; font-weight:700; white-space:nowrap; }
+  .pill.todo { background:var(--amber-50); color:var(--amber); box-shadow:inset 0 0 0 1px var(--amber-100); }
+  .pill.ok { background:var(--green-50); color:var(--green); box-shadow:inset 0 0 0 1px var(--green-100); }
+  .pill.p2 { background:var(--blue-50); color:var(--blue-900); box-shadow:inset 0 0 0 1px var(--blue-100); }
+  .pill.must { background:var(--red-50); color:var(--red); box-shadow:inset 0 0 0 1px var(--red-100); }
+
+  /* 內容模型卡 */
+  .models { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px; }
+  .model { padding:20px 22px; border-radius:12px; background:var(--bg-alt); display:flex; flex-direction:column; gap:10px; }
+  .model h3 { margin:0; font-size:16px; }
+  .model .slug { font-family:var(--mono); font-size:12.5px; color:var(--blue-700); }
+  .model dl { margin:0; display:grid; grid-template-columns:auto minmax(0,1fr); gap:6px 14px; font-size:13.5px; line-height:1.6; }
+  .model dt { color:var(--title); font-weight:700; white-space:nowrap; }
+  .model dd { margin:0; }
+
+  /* 驗收清單 */
+  .checks { list-style:none; padding:0; gap:0; max-width:none; }
+  .checks li { display:grid; grid-template-columns:22px minmax(0,1fr); gap:10px; padding:10px 0; border-top:1px solid var(--divider); }
+  .checks li:first-child { border-top:0; }
+  .checks li::before { content:""; width:16px; height:16px; margin-top:5px; border-radius:4px; box-shadow:inset 0 0 0 1.5px var(--blue-200); }
+
+  .steps { counter-reset:s; list-style:none; padding:0; gap:12px; }
+  .steps li { counter-increment:s; display:grid; grid-template-columns:30px minmax(0,1fr); gap:12px; }
+  .steps li::before { content:counter(s); display:flex; align-items:center; justify-content:center; width:26px; height:26px; margin-top:1px; border-radius:50%; background:var(--blue-900); color:var(--white); font-family:var(--en); font-size:13px; font-weight:800; }
+
+  @media (max-width:900px) {
+    :root { --gutter:20px; }
+    .layout { grid-template-columns:1fr; gap:20px; padding-top:24px; }
+    .toc { position:static; flex-direction:row; flex-wrap:wrap; gap:6px; }
+    .toc a { background:var(--white); box-shadow:inset 0 0 0 1px #DCE1E8; border-radius:999px; padding:5px 12px; }
+    .models { grid-template-columns:1fr; }
+    .top { border-radius:0 0 36px 0; }
+  }
+  @media (max-width:640px) {
+    section.doc { padding:24px 20px; }
+    h2 { font-size:22px; }
+    .top { padding-block:40px 32px; }
+  }
+  @media (max-width:400px) { :root { --gutter:16px; } }
+  @media print {
+    body { background:#fff; }
+    .toc { display:none; }
+    .layout { grid-template-columns:1fr; padding:0; }
+    section.doc { box-shadow:none; padding:16px 0; break-inside:avoid-page; }
+    .top { border-radius:0; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <span class="eyebrow">KEN YUAN HSIN · WordPress Handoff</span>
+    <h1>元新官網 WordPress 開發說明</h1>
+    <p>把 V2_allpage 靜態設計稿轉成 WordPress 網站所需的一切：要做哪些頁面、內容怎麼建模、哪些互動要重做、表單與個資要求、還缺哪些資料，以及驗收標準。</p>
+    <div class="meta">
+      <div><b>文件版本</b><span class="en">v1.0 · 2026-09-18</span></div>
+      <div><b>設計稿來源</b><span class="en">github.com/hobart0106/yuan · V2_allpage/</span></div>
+      <div><b>設計系統</b><span class="en">V2_allpage/design-system/</span></div>
+      <div><b>頁面數</b><span class="en">12</span></div>
+      <div><b>第一版範圍</b><span>不含輻防訓練</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc" aria-label="目錄">
+    <a href="#s1"><span>1</span>專案範圍</a>
+    <a href="#phase"><span>1a</span>第一版不上線</a>
+    <a href="#s2"><span>2</span>技術方向</a>
+    <a href="#s3"><span>3</span>頁面與樣板</a>
+    <a href="#s4"><span>4</span>內容模型</a>
+    <a href="#s5"><span>5</span>互動功能</a>
+    <a href="#s6"><span>6</span>表單與個資</a>
+    <a href="#s7"><span>7</span>版面規則</a>
+    <a href="#s8"><span>8</span>SEO 與效能</a>
+    <a href="#s9"><span>9</span>待補資料</a>
+    <a href="#s10"><span>10</span>驗收標準</a>
+  </nav>
+
+  <main>
+
+    <section class="doc" id="s1">
+      <header><span class="num">01</span><h2>專案範圍</h2></header>
+      <p>設計稿已定案，請<strong>照稿還原</strong>，不需要重新設計。所有顏色、字級、間距、圓角都已整理成設計系統，開發時一律引用變數，不要從設計稿 HTML 抄色碼。</p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>交付給你的檔案</th><th>用途</th></tr></thead>
+          <tbody>
+            <tr><td><code>V2_allpage/*.html</code></td><td>12 頁設計稿，瀏覽器直接開就能看。這是<strong>畫面規格</strong>，不是要搬進 WordPress 的程式碼</td></tr>
+            <tr><td><code>design-system/yuan-tokens.css</code></td><td>設計變數：顏色、字級、間距、圓角、陰影，含各斷點調整</td></tr>
+            <tr><td><code>design-system/yuan-components.css</code></td><td>元件樣式（<code>.yh-*</code>）：按鈕、卡片、標籤、Hero、數據、表單、導覽、頁尾</td></tr>
+            <tr><td><code>design-system/theme.json</code></td><td>區塊編輯器設定：色票、字級、間距、陰影、預設元素樣式</td></tr>
+            <tr><td><code>design-system/README.md</code></td><td>安裝步驟、<code>functions.php</code> 範例、舊 class 對照表</td></tr>
+            <tr><td><code>design-system/style-guide.html</code></td><td>視覺化規範頁，每個元件的長相與寫法</td></tr>
+            <tr><td><code>assets/</code></td><td>33 張圖片，已依規則命名（<code>頁面-內容-序號</code>）</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="doc" id="phase">
+      <header><span class="num">1a</span><h2>第一版不上線：輻防訓練</h2></header>
+      <p><strong>第一版上線不包含輻防訓練的任何內容。</strong>課程與報名功能留到第二版。請照下表隱藏；第二版要能<strong>一次打開</strong>，不必改程式。</p>
+      <div class="note">
+        <b>建議做法</b>
+        在選項頁加一個「顯示輻防訓練」開關，預設關閉。關閉時，下表「確定隱藏」的區塊不輸出。導覽列和頁尾用 WordPress 選單管理，第一版不加入「輻防訓練」項目即可。課程內容類型第一版不公開（<code>public =&gt; false</code>），直接輸入網址會回傳 404。
+      </div>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>位置</th><th>內容</th><th>第一版</th></tr></thead>
+          <tbody>
+            <tr><td>全站導覽列</td><td>「輻防訓練」選單項目</td><td><span class="pill must">確定隱藏</span></td></tr>
+            <tr><td>全站頁尾</td><td>「產品與服務」欄的「輻防教育訓練」連結</td><td><span class="pill must">確定隱藏</span></td></tr>
+            <tr><td><code>training.html</code></td><td>輻防訓練列表頁整頁</td><td><span class="pill must">確定隱藏</span> 不建立</td></tr>
+            <tr><td><code>course-detail.html</code></td><td>課程詳細頁與線上報名表</td><td><span class="pill must">確定隱藏</span> 不建立</td></tr>
+            <tr><td>首頁</td><td>「TRAINING &amp; CONSULTING 輻防教育與專業顧問」整個區塊（課程卡、梯次、全部課程）</td><td><span class="pill must">確定隱藏</span></td></tr>
+            <tr><td>首頁</td><td>「服務與產品」裡的「輻防教育 Radiation Training」服務格</td><td><span class="pill must">確定隱藏</span> 剩兩格，需改兩欄排列</td></tr>
+            <tr><td>關於我們</td><td>關鍵數據「18/36 小時游離輻射防護課程」</td><td><span class="pill must">確定隱藏</span> 剩三格，改三欄</td></tr>
+            <tr><td>聯絡我們</td><td>「輻防訓練窗口」聯絡卡，以及說明文字裡的「輻防訓練課程問題」</td><td><span class="pill must">確定隱藏</span></td></tr>
+            <tr><td>首頁</td><td>「Consulting 輻防諮詢／聯絡輻防窗口」聯絡區塊（屬於諮詢服務，不是課程）</td><td><span class="pill todo">待客戶確認</span></td></tr>
+            <tr><td>首頁最新消息</td><td>「2026 春季核醫輻防實務工作坊圓滿落幕」新聞</td><td><span class="pill todo">待客戶確認</span></td></tr>
+            <tr><td>頁尾、關於我們</td><td>品牌標語「放射性藥物 · 輻射安全設備 · 輻防教育訓練」與公司介紹裡提到的輻防教育訓練</td><td><span class="pill todo">待客戶確認</span> 是否改寫</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>本文件後面標示 <span class="pill p2">第二版</span> 的項目，都屬於輻防訓練，第一版不需要開發到前台。後台的課程內容類型可以先建好，方便客戶提前輸入。</p>
+    </section>
+
+    <section class="doc" id="s2">
+      <header><span class="num">02</span><h2>技術方向</h2></header>
+      <ul>
+        <li><strong>自製區塊佈景（block theme）</strong>，搭配 <code>theme.json</code>，讓客戶在編輯器裡只能選品牌色與既定字級。</li>
+        <li>樣式只載入 <code>yuan-tokens.css</code> 與 <code>yuan-components.css</code>，不要另外引入 Bootstrap 或 Tailwind。</li>
+        <li>自訂欄位建議用 <strong>ACF Pro</strong>，需要重複欄位（Repeater）與選項頁（Options Page）。</li>
+        <li>表單建議用 <strong>Gravity Forms</strong> 或 <strong>WPForms</strong>，需要支援「送出後顯示確認內容」和「將資料存進資料庫」。課程報名要能限制誰可以查看資料。</li>
+        <li>網站只有繁體中文，不需要多語系外掛。</li>
+      </ul>
+      <div class="note warn">
+        <b>不要搬進 WordPress 的檔案</b>
+        <code>support.js</code>（設計工具的 React 執行環境）、<code>image-slot.js</code>（設計階段的圖片佔位元件），以及頁面裡的 <code>&lt;x-dc&gt;</code>、<code>{{ }}</code> 樣板語法，都是設計工具輸出的，WordPress 用不到。<code>ui.js</code>、<code>nav.js</code> 的邏輯請參考第 5 節重做，不要直接引用。
+      </div>
+    </section>
+
+    <section class="doc" id="s3">
+      <header><span class="num">03</span><h2>頁面與樣板</h2></header>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>設計稿</th><th>頁面</th><th>WordPress 樣板</th><th>內容來源</th></tr></thead>
+          <tbody>
+            <tr><td><code>index.html</code></td><td>首頁</td><td><code>front-page.html</code></td><td>選項頁：輪播、合作夥伴、發展歷程；自動撈最新文章。最近課程區塊第二版才開</td></tr>
+            <tr><td><code>about.html</code></td><td>關於我們</td><td><code>page-about.html</code></td><td>頁面內容＋選項頁：關鍵數據、認證證書</td></tr>
+            <tr><td><code>products.html</code></td><td>產品與服務</td><td><code>archive-product.html</code></td><td>產品＋產品分類（第 4 節）</td></tr>
+            <tr><td><code>product-i123-mibg.html</code> 等 4 頁</td><td>產品詳細頁</td><td><code>single-product.html</code></td><td>產品欄位；<code>product-detail.html</code> 是同一樣板的另一份稿</td></tr>
+            <tr><td><code>articles.html</code></td><td>產業洞察</td><td><code>home.html</code>、<code>category.html</code></td><td>文章＋分類；目前的 <code>?cat=</code> 改用分類網址</td></tr>
+            <tr><td>（文章展開內容）</td><td>文章內頁</td><td><code>single.html</code></td><td>設計稿是在列表頁點開顯示；正式版請做成獨立網址，方便分享與 SEO</td></tr>
+            <tr><td><code>training.html</code></td><td>輻防訓練 <span class="pill p2">第二版</span></td><td><code>archive-course.html</code></td><td>課程</td></tr>
+            <tr><td><code>course-detail.html</code></td><td>課程詳細＋報名 <span class="pill p2">第二版</span></td><td><code>single-course.html</code></td><td>課程欄位＋報名表</td></tr>
+            <tr><td><code>contact.html</code></td><td>聯絡我們</td><td><code>page-contact.html</code></td><td>頁面內容＋洽詢表單</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>共用區塊（頂部資訊列、導覽列、頁尾）請做成 <strong>template part</strong>：<code>header.html</code>、<code>footer.html</code>。</p>
+    </section>
+
+    <section class="doc" id="s4">
+      <header><span class="num">04</span><h2>內容模型</h2></header>
+      <p>設計稿裡的文章、產品、課程目前寫死在頁面的 JavaScript 陣列裡。WordPress 版要改成後台可以編輯的內容。以下欄位名稱與現有資料一一對應。</p>
+      <div class="models">
+        <div class="model">
+          <h3>文章</h3><span class="slug">post · category</span>
+          <dl>
+            <dt>分類</dt><dd>醫學會資訊、核醫關係式、核醫白話百科、產業洞察文章（4 個，固定）</dd>
+            <dt>標題</dt><dd>文章標題</dd>
+            <dt>日期</dt><dd>發布日期，前台顯示 <code>2026.06</code> 格式</dd>
+            <dt>摘要</dt><dd>列表卡片用，約 80–120 字</dd>
+            <dt>精選圖片</dt><dd>卡片與內頁大圖</dd>
+          </dl>
+        </div>
+        <div class="model">
+          <h3>課程 <span class="pill p2">第二版</span></h3><span class="slug">course（自訂內容類型）</span>
+          <dl>
+            <dt>標題、簡述、封面</dt><dd>列表卡片用</dd>
+            <dt>梯次（重複）</dt><dd>開始日、結束日、地點、形式（實體／線上直播）、資格類型（助理／檢驗員）</dd>
+            <dt>法律依據</dt><dd>文字</dd>
+            <dt>講習對象</dt><dd>清單</dd>
+            <dt>課程綱要（重複）</dt><dd>科目＋時數，例如「游離輻射防護法規・5 小時」</dd>
+            <dt>學員注意事項</dt><dd>文字</dd>
+            <dt>下載檔</dt><dd>招生簡章 PDF、報名表 WORD／PDF</dd>
+            <dt>上架日</dt><dd>到這一天才出現在前台（用 WordPress 的「排程發佈」）</dd>
+            <dt>自動下架</dt><dd>最後一個梯次結束日的<strong>隔天</strong>自動從前台消失，不需人工處理</dd>
+          </dl>
+        </div>
+        <div class="model">
+          <h3>產品</h3><span class="slug">product（自訂內容類型）</span>
+          <dl>
+            <dt>中文名稱</dt><dd>例：I-123 MIBG 診斷用注射液</dd>
+            <dt>英文名／型號</dt><dd>例：MyoMIBG-I123 Injection、RG10</dd>
+            <dt>簡述</dt><dd>卡片上的短介紹</dd>
+            <dt>完整介紹</dt><dd>展開後的長介紹</dd>
+            <dt>對應器官＋座標</dt><dd>只用於人體圖：器官名稱、標記位置（上、左，百分比）</dd>
+            <dt>許可證字號、品號、原廠網址</dt><dd>選填（對應現有欄位 <code>cert</code>、<code>code</code>、<code>url</code>）</dd>
+            <dt>有無詳細頁</dt><dd>目前只有 4 項有詳細頁，其他只在列表顯示</dd>
+            <dt>詳細頁：產品特色</dt><dd>重複：標題＋說明</dd>
+            <dt>詳細頁：臨床適應症</dt><dd>清單</dd>
+            <dt>詳細頁：規格（重複）</dt><dd>名稱＋值：包裝規格、主要成分、活度濃度、pH、儲存條件、有效期限、原廠製造商</dd>
+          </dl>
+        </div>
+        <div class="model">
+          <h3>產品分類</h3><span class="slug">product_cat（階層式）</span>
+          <dl>
+            <dt>第一層</dt><dd>4 大類，需有中文名＋英文名（例：診斷放射性藥物／Diagnostic Radiopharmaceuticals）</dd>
+            <dt>第二層</dt><dd>11 個子分類</dd>
+            <dt>顯示方式</dt><dd>子分類的欄位，三選一：<strong>人體圖</strong>（PET、SPECT、治療藥物）、<strong>卡片</strong>（輻射防護、放射免疫分析設備）、<strong>表格</strong>（RIA 5 個子分類）</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>大類</th><th>子分類（顯示方式・產品數）</th></tr></thead>
+          <tbody>
+            <tr><td>診斷放射性藥物</td><td>PET（人體圖・1）、SPECT（人體圖・3）</td></tr>
+            <tr><td>治療放射性藥物</td><td>治療藥物（人體圖・1）</td></tr>
+            <tr><td>儀器與設備</td><td>輻射防護（卡片・1）、放射免疫分析設備（卡片・10）</td></tr>
+            <tr><td>放射免疫分析</td><td>腫瘤標記（表格・9）、糖尿病（表格・5）、甲狀腺功能（表格・7）、類固醇（表格・2）、血清蛋白（表格・4）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        <b>課程依檔期上架（第二版）</b>
+        課程只在自己的檔期內顯示：<strong>上架日之前看不到；最後一個梯次結束的隔天自動下架</strong>。同一堂課裡，已結束的梯次也會各自隱藏。首頁、列表頁、詳細頁都照同一規則，請在 PHP 查詢條件裡處理，不要只用 JavaScript 或 CSS 藏起來。下架的課程直接輸入網址也要回傳 404，或導回輻防訓練列表頁。
+      </div>
+      <h3>選項頁（網站設定）</h3>
+      <ul>
+        <li><strong>首頁輪播</strong>：4 張，每張有背景圖、英文標題、中文副標、兩顆按鈕的文字與連結。</li>
+        <li><strong>合作夥伴</strong>：logo＋名稱，目前 5 家：PDRadiopharma、ISORAD、IZOTOP、TECH、UNIVERSAL GIKEN。</li>
+        <li><strong>發展歷程</strong>：年份＋說明，目前 5 筆：1984、2016、2018、2023、2025。</li>
+        <li><strong>關鍵數據</strong>：數字＋說明，4 筆：40+、24/7、18/36、100%。</li>
+        <li><strong>聯絡資訊與社群</strong>：Email、電話、地址、Facebook、LINE。</li>
+      </ul>
+    </section>
+
+    <section class="doc" id="s5">
+      <header><span class="num">05</span><h2>要重做的互動功能</h2></header>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>功能</th><th>頁面</th><th>行為規格</th></tr></thead>
+          <tbody>
+            <tr><td>首頁輪播</td><td>首頁</td><td>4 張淡入淡出，每 5 秒換一張，左下有圓點可切換。系統設定「減少動態」時不要自動播放</td></tr>
+            <tr><td>手機選單</td><td>全站</td><td>≤900px 變成漢堡鈕，打開抽屜：Esc 可關閉，Tab 鍵只在抽屜內移動。可用 WordPress 導覽區塊內建功能</td></tr>
+            <tr><td>過期梯次自動隱藏 <span class="pill p2">第二版</span></td><td>首頁、課程</td><td>梯次<strong>結束日當天仍顯示，隔天才隱藏</strong>。全部過期時顯示「下期梯次規劃中，歡迎來電洽詢」。請在 PHP 查詢時就過濾，不要用 JavaScript 藏</td></tr>
+            <tr><td>產品分類切換</td><td>產品</td><td>上方 4 大類切換；子分類標籤是錨點，點了要捲到該區，而且被點的標籤要變成選取狀態</td></tr>
+            <tr><td>人體圖標記</td><td>產品</td><td>依產品的座標在人體圖上放標記點，點了顯示該產品。手機上標記的可點範圍要放大，外觀不變</td></tr>
+            <tr><td>產品卡輪播</td><td>產品</td><td>一次顯示一張，可以左右滑動，下方分頁點跟著捲動位置同步</td></tr>
+            <tr><td>文章分類</td><td>產業洞察</td><td>分類 tab；從首頁分類標籤點進來要直接顯示該分類</td></tr>
+            <tr><td>浮動報名鈕 <span class="pill p2">第二版</span></td><td>課程詳細</td><td>點擊平滑捲到報名表；報名表出現在畫面上時，浮動鈕自動隱藏</td></tr>
+            <tr><td>頁尾品牌字</td><td>全站</td><td>「KEN YUAN HSIN」大字寬度對齊頁尾欄位左右兩側</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="doc" id="s6">
+      <header><span class="num">06</span><h2>表單與個資</h2></header>
+      <h3>洽詢表單（聯絡我們）</h3>
+      <p>欄位：姓名、單位／公司名稱、聯繫電話、Email、洽詢內容，全部必填。收件信箱是 <code>sales@yuanhsin-pharma.com.tw</code>。</p>
+      <div class="note warn"><b>目前沒有後端</b>設計稿的「送出」只會開啟使用者的信件軟體（mailto），WordPress 版要改成真正送出：寄通知信給業務，並把資料存進後台。</div>
+      <h3>課程報名表（課程詳細頁）<span class="pill p2">第二版</span></h3>
+      <p>欄位：參加梯次、姓名、電郵、出生年月日、身分證字號、性別、最高學歷、學員類別、組別，全部必填。送出後顯示匯款帳號，並寄一份副本到報名者信箱。</p>
+      <div class="note risk">
+        <b>身分證字號與生日屬於個資法保護的資料</b>
+        <ul>
+          <li>全站必須使用 HTTPS。</li>
+          <li>資料只存在網站資料庫，而且只有指定的管理者帳號看得到。</li>
+          <li><strong>通知信與報名者副本都不能包含身分證字號</strong>，只寄姓名、梯次和匯款資訊。</li>
+          <li>送出按鈕前面要加上「我已閱讀並同意隱私權政策」勾選框，並連到隱私權政策頁。</li>
+          <li>請和客戶約定資料保存多久（例如結訓後 1 年），時間到了要刪除。</li>
+          <li>加上防機器人驗證，例如 Cloudflare Turnstile 或 reCAPTCHA v3。</li>
+        </ul>
+      </div>
+      <p>「學員類別」「組別」「最高學歷」的選項設計稿裡還沒填，見第 9 節。</p>
+    </section>
+
+    <section class="doc" id="s7">
+      <header><span class="num">07</span><h2>版面規則（已確認的設計決定）</h2></header>
+      <p>以下是和客戶逐項確認過的規則，設計系統 CSS 都已經寫好，照用即可。</p>
+      <ul>
+        <li><strong>斷點</strong>：1024（平板橫向）／900（平板直向）／640（手機）／400（小手機），都用 <code>max-width</code>。</li>
+        <li><strong>圓角只有四種</strong>：獨立配圖 24px、卡片 16px、縮圖與輸入框 10px、按鈕與標籤 999px。Hero 只圓左上和右下，隨螢幕縮小：90 → 64 → 36 → 28px。</li>
+        <li><strong>內頁 Hero 高度</strong>：桌機 420px；手機統一 286px（關於、產品、產業洞察一致，第二版的訓練頁也一樣）。首頁 Hero 手機是螢幕高度的一半。</li>
+        <li><strong>手機頁尾</strong>：品牌資訊佔一整列，下方「關於元新／產品與服務／資源」三欄並排、連結直向排列，<strong>不做收合</strong>。</li>
+        <li><strong>手機首頁</strong>：發展歷程配圖用 2:1 比例；產業洞察大卡配圖 168px（第二版的輻防課程卡也用同一高度）。</li>
+        <li><strong>可點擊範圍</strong>：按鈕最小高度 44px，頁尾連結最小 40px。</li>
+        <li><strong>鍵盤操作</strong>：所有可點元素都要有明顯的焦點框。</li>
+      </ul>
+    </section>
+
+    <section class="doc" id="s8">
+      <header><span class="num">08</span><h2>SEO 與效能</h2></header>
+      <ul>
+        <li>設計稿有 <strong>7 頁沒有 <code>&lt;title&gt;</code></strong>：關於、產業洞察、聯絡、課程詳細、產品詳細（範本）、產品、訓練。WordPress 版每頁都要有標題和描述，建議裝 Yoast SEO 或 Rank Math。</li>
+        <li>首頁標題目前寫「（B版）」，上線前要拿掉。</li>
+        <li>文章圖片目前直接連到 <code>yuanyu.com.tw</code>（例如 <code>colon.jpg</code>、<code>Yuki.png</code>），請<strong>下載後匯入媒體庫</strong>，不要繼續連外站。</li>
+        <li>圖片請輸出 WebP，並設定 <code>srcset</code>；首屏以外的圖片延遲載入。<code>assets/</code> 有幾張 PNG 超過 2MB（例如 <code>training-location-mrt.png</code>、<code>training-hero.png</code>），請先壓縮。</li>
+        <li>字型只載入用到的字重：Noto Sans TC 400/500/700/900、Manrope 400–800。</li>
+        <li>產品詳細頁加上 Product 結構化資料，文章加上 Article 結構化資料。</li>
+      </ul>
+    </section>
+
+    <section class="doc" id="s9">
+      <header><span class="num">09</span><h2>待補資料</h2></header>
+      <p>以下是設計稿裡還是佔位或空白的地方，開發前要跟客戶拿齊。</p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>項目</th><th>位置</th><th>狀態</th></tr></thead>
+          <tbody>
+            <tr><td>匯款銀行與帳號</td><td>課程報名表</td><td><span class="pill p2">第二版</span> 目前寫「待補」</td></tr>
+            <tr><td>隱私權政策頁內容</td><td>頁尾、洽詢表單</td><td><span class="pill must">上線必備</span> 目前沒有連結</td></tr>
+            <tr><td>報名表選項：最高學歷、學員類別、組別</td><td>課程報名表</td><td><span class="pill p2">第二版</span> 目前只有「請選擇」</td></tr>
+            <tr><td>招生簡章 PDF、報名表 WORD／PDF</td><td>課程詳細頁</td><td><span class="pill p2">第二版</span> 按鈕已在，沒有檔案</td></tr>
+            <tr><td>元佑集團官網網址</td><td>頂部資訊列、頁尾</td><td><span class="pill todo">待提供</span> 目前不能點</td></tr>
+            <tr><td>產品型錄檔案</td><td>頂部資訊列</td><td><span class="pill todo">待提供</span> 目前不能點</td></tr>
+            <tr><td>「產學資源」要連到哪裡</td><td>頁尾</td><td><span class="pill todo">待確認</span> 目前不是連結</td></tr>
+            <tr><td>輻防諮詢區塊、工作坊新聞、品牌標語</td><td>首頁、頁尾、關於</td><td><span class="pill todo">待確認</span> 第一版是否保留，見第 1a 節</td></tr>
+            <tr><td>Facebook、LINE 網址</td><td>頁尾</td><td><span class="pill todo">待提供</span> 圖示已在，沒有連結</td></tr>
+            <tr><td>認證證書真實圖片（4 張）</td><td>關於我們</td><td><span class="pill todo">待提供</span> 目前 4 張都是同一張範本圖</td></tr>
+            <tr><td>文章全文</td><td>產業洞察</td><td><span class="pill todo">待提供</span> 設計稿只有摘要</td></tr>
+            <tr><td>其餘產品的詳細資料</td><td>產品</td><td><span class="pill todo">待確認</span> 只有 4 項產品有詳細頁，其他是否也要做</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="doc" id="s10">
+      <header><span class="num">10</span><h2>驗收標準</h2></header>
+      <p>請在以下寬度逐頁比對設計稿：<span class="en"><strong>1280、1024、900、640、390、360px</strong></span>。</p>
+      <ul class="checks">
+        <li>第一版的 10 頁（不含 <code>training.html</code>、<code>course-detail.html</code>）在上述 6 種寬度都和設計稿一致，而且手機上沒有橫向捲軸。</li>
+        <li>全站找不到任何輻防訓練入口：導覽列、頁尾、首頁、關於、聯絡都沒有；直接輸入課程或訓練頁網址會回傳 404。</li>
+        <li>把「顯示輻防訓練」開關打開，第 1a 節的所有區塊都會恢復顯示（第二版上線前驗證）。</li>
+        <li>頁面沒有寫死的色碼或圓角，全部來自 <code>yuan-tokens.css</code> 或 <code>theme.json</code>。</li>
+        <li>後台新增一篇文章、一個產品，前台列表與詳細頁都正確出現。</li>
+        <li><span class="pill p2">第二版</span> 課程上架日設成明天，今天前台看不到；把最後梯次結束日設成昨天，課程自動下架；單一梯次過期會各自隱藏，全部過期時出現「下期梯次規劃中」。</li>
+        <li>洽詢表單送出後，業務信箱有收到信，後台也有紀錄。</li>
+        <li><span class="pill p2">第二版</span> 課程報名送出後：畫面顯示匯款資訊、報名者收到副本、<strong>兩封信都沒有身分證字號</strong>、非管理者帳號看不到報名資料。</li>
+        <li>只用鍵盤可以操作全站：選單、tab、表單、輪播圓點都能用 Tab 鍵移到，而且看得到焦點框。</li>
+        <li>Lighthouse 手機版：效能 ≥ 80、無障礙 ≥ 90、SEO ≥ 90。</li>
+        <li>每頁都有獨立的 title 與 description，首頁標題沒有「（B版）」。</li>
+        <li>所有圖片都在自己的媒體庫，沒有連到 <code>yuanyu.com.tw</code>。</li>
+      </ul>
+      <h3>建議開發順序</h3>
+      <ol class="steps">
+        <li>建立佈景，放入 <code>theme.json</code> 與兩支 CSS，完成頁首、頁尾 template part。</li>
+        <li>建立文章分類、產品與產品分類、選項頁欄位（含「顯示輻防訓練」開關），把設計稿的現有資料匯入。課程類型可以先建好，但不公開。</li>
+        <li>完成各頁樣板，依第 3 節對照表逐頁還原。</li>
+        <li>完成第 5 節的互動功能。</li>
+        <li>接上洽詢表單。課程報名表留到第二版，屆時依第 6 節完成個資保護設定。</li>
+        <li>依第 10 節逐項驗收。</li>
+      </ol>
+    </section>
+
+  </main>
+</div>
+</html>
