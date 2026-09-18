@@ -435,17 +435,15 @@ button:focus-visible,
 .yb-footcol > summary { cursor:pointer; list-style:none; }
 .yb-footcol > summary::-webkit-details-marker { display:none; }
 
-/* Footer 品牌大字最大對齊 1240px 版心，窄視窗則使用可用寬度。
-   字級同步限制，避免超寬螢幕上容器停止變寬後文字仍繼續放大。 */
+/* 品牌大字由 ui.js 依字型實際寬度縮放，對齊頁尾欄位兩側。 */
 .yb-foot-mark {
-  width:min(1240px, calc(100% - 64px));
+  width:min(1200px, calc(100% - 64px));
   margin-inline:auto;
-  font-size:min(11.45vw, 142px) !important;
-  /* Manrope 這組字的自然寬度只佔版心約 83%，透過流動字距讓
-     實際字形邊界與 Footer 內容寬度對齊，不只是外層容器對齊。 */
-  letter-spacing:.04em !important;
-  line-height:.84 !important;
-  overflow:hidden;
+  font-size:min(8vw, 99px) !important;
+  letter-spacing:0 !important;
+  line-height:1 !important;
+  text-align:left !important;
+  overflow:visible;
 }
 
 @media (min-width:641px) {
@@ -456,8 +454,8 @@ button:focus-visible,
 @media (max-width:640px) {
   .yb-foot-mark {
     width:calc(100% - 40px);
-    font-size:11.8vw !important;
-    letter-spacing:.035em !important;
+    font-size:8vw !important;
+    letter-spacing:0 !important;
   }
   .yb-footcol > summary {
     position:relative;

@@ -278,3 +278,40 @@
     }
   });
 })();
+
+// Fit the footer wordmark to the same content edges as the footer columns.
+(function () {
+  var marks = document.querySelectorAll('.yb-foot-mark');
+  if (!marks.length) return;
+  var canvas = document.createElement('canvas');
+  var context = canvas.getContext('2d');
+  if (!context) return;
+  marks.forEach(function (mark) {
+    var columns = mark.parentElement.querySelector('.yb-foot-wrap');
+    if (!columns) return;
+    var label = document.createElement('span');
+    label.textContent = mark.textContent.trim();
+    label.style.display = 'block';
+    label.style.whiteSpace = 'nowrap';
+    mark.textContent = '';
+    mark.appendChild(label);
+    function fit() {
+      var box = columns.getBoundingClientRect();
+      var layout = getComputedStyle(columns);
+      var width = box.width - parseFloat(layout.paddingLeft) - parseFloat(layout.paddingRight);
+      if (width <= 0) return;
+      mark.style.width = width + 'px';
+      var font = getComputedStyle(mark);
+      context.font = font.fontWeight + ' 100px ' + font.fontFamily;
+      var metrics = context.measureText(label.textContent);
+      var inkWidth = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
+      var size = width / (inkWidth || metrics.width) * 100;
+      label.style.fontSize = size + 'px';
+      label.style.transform = 'translateX(' + (metrics.actualBoundingBoxLeft || 0) * size / 100 + 'px)';
+    }
+    fit();
+    if (document.fonts) document.fonts.ready.then(fit);
+    if (window.ResizeObserver) new ResizeObserver(fit).observe(columns);
+    else window.addEventListener('resize', fit);
+  });
+})();

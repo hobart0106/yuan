@@ -249,6 +249,11 @@
     .yp-grouphead .zh,
     .yp-grouphead .cnt { font-size:18px !important; }
   }
+  .yp-category-banner { margin:24px 0 0; width:100%; aspect-ratio:7 / 3; border-radius:20px; overflow:hidden; background:#F4F6F9; }
+  .yp-category-banner img { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
+  @media (max-width:640px) {
+    .yp-category-banner { margin-top:8px; aspect-ratio:3 / 2; border-radius:16px; }
+  }
 </style>
 </helmet>
 
@@ -309,6 +314,11 @@
           <a class="ychip {{ s.cls }}" href="{{ s.anchorId }}">{{ s.label }}</a>
         </sc-for>
       </div>
+      <sc-if value="{{ hasCategoryBanner }}">
+        <figure class="yp-category-banner">
+          <img src="{{ categoryBannerSrc }}" alt="{{ categoryBannerAlt }}">
+        </figure>
+      </sc-if>
     </div>
   </div>
 
@@ -485,17 +495,14 @@
       <div class="yb-foot" style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding:72px 0 56px;">
         <div style="display:flex;flex-direction:column;gap:8px;">
           <span style="font-size:22px;font-weight:900;letter-spacing:.02em;color:#fff;">元新儀器</span>
-          <span class="en" style="font-size:12.5px;font-weight:500;letter-spacing:.04em;color:#9BA3A8;">YUAN HSIN CO., LTD.</span>
-          <span style="font-size:13px;line-height:1.9;color:#7C87A0;margin-top:6px;">核子醫學整合服務<br>放射性藥物 · 輻射安全設備 · 輻防教育訓練</span>
+          <span class="en" style="font-size:12.5px;font-weight:500;letter-spacing:.04em;color:#fff;">KEN YUAN HSIN CO., LTD</span>
+          <span style="font-size:13px;line-height:1.9;color:#fff;margin-top:6px;">核子醫學整合服務<br>放射性藥物 · 輻射安全設備 · 輻防教育訓練</span>
           <div style="display:flex;gap:12px;margin-top:18px;">
             <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;" title="Facebook">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 9H15V6.5h-1.7c-2 0-3.3 1.2-3.3 3.4V11H8v2.5h1.9V21h2.7v-7.5H14.6L15 11h-2.4V10c0-.6.3-1 .9-1z"/></svg>
             </span>
             <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;" title="LINE">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.9 3 2.8 6.4 2.8 10.6c0 3.7 3.2 6.8 7.6 7.4-.1.5-.5 1.9-.6 2.2 0 .3.1.3.3.2.2 0 2.7-1.8 3.8-2.5 5.1-.3 9.1-3.7 9.1-7.9C23 6.4 17.1 3 12 3z"/></svg>
-            </span>
-            <span class="ylink" style="width:38px;height:38px;border-radius:999px;box-shadow:inset 0 0 0 1px #2A3A5C;display:flex;align-items:center;justify-content:center;color:#CDD5E4;" title="YouTube">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.4-.4-5a3 3 0 0 0-2.1-2.1C18.9 4.5 12 4.5 12 4.5s-6.9 0-8.5.4A3 3 0 0 0 1.4 7C1 8.6 1 12 1 12s0 3.4.4 5a3 3 0 0 0 2.1 2.1c1.6.4 8.5.4 8.5.4s6.9 0 8.5-.4A3 3 0 0 0 22.6 17c.4-1.6.4-5 .4-5zM9.8 15.5v-7l6 3.5-6 3.5z"/></svg>
             </span>
           </div>
         </div>
@@ -518,11 +525,11 @@
     </div>
 
     <!-- 品牌字標（裝飾用） -->
-    <div class="yb-foot-mark en" aria-hidden="true" style="font-size:11vw;font-weight:800;letter-spacing:-.02em;line-height:.85;color:#1A2947;text-align:center;white-space:nowrap;-webkit-user-select:none;user-select:none;">YUAN HSIN</div>
+    <div class="yb-foot-mark en" aria-hidden="true" style="font-size:8vw;font-weight:800;letter-spacing:-.02em;line-height:.85;color:#1A2947;text-align:center;white-space:nowrap;-webkit-user-select:none;user-select:none;">KEN YUAN HSIN</div>
 
     <div class="yb-foot-wrap" style="max-width:1200px;margin:0 auto;padding:0 32px;">
       <div class="yb-foot-btm" style="display:flex;justify-content:space-between;align-items:center;padding:22px 0;">
-        <span style="font-size:12.5px;color:#5F6C84;">© 2026 元新儀器 Yuan Hsin Co., Ltd. All rights reserved.</span>
+        <span style="font-size:12.5px;color:#5F6C84;">© 2026 元新儀器 KEN YUAN HSIN CO., LTD All rights reserved.</span>
         <div style="display:flex;gap:18px;">
           <span class="ylink" style="font-size:12.5px;color:#5F6C84;">隱私權政策</span>
           <span class="ylink" style="font-size:12.5px;color:#5F6C84;">元佑集團</span>
@@ -741,7 +748,12 @@ class Component extends DCLogic {
       };
     });
 
-    return { catTabs, activeCatEn: activeCat.en, subChips, groups };
+    return {
+      catTabs, activeCatEn: activeCat.en, subChips, groups,
+      hasCategoryBanner: cat === 2 || cat === 3,
+      categoryBannerSrc: cat === 2 ? "assets/Instruments&Systems.jpg" : "assets/RIA.jpg",
+      categoryBannerAlt: cat === 2 ? "儀器與設備" : "放射免疫分析",
+    };
   }
 }
 
