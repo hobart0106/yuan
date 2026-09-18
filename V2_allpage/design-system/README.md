@@ -161,4 +161,4 @@ add_filter( 'body_class', function ( $classes ) {
 - 字級 13／13.5／14 混用：按鈕、tab 統一 13.5，眉標 13，表單 14
 - 區塊上下留白 80／84／88 混用：統一 88
 - `.ytab` 在兩頁有兩種尺寸：統一為 9px 20px、13.5px
-- 首頁「服務與產品」兩張卡仍是 40px 圓角，WordPress 版請用 `--yh-radius-md`（16px）
+- 首頁「服務與產品」兩張卡、about「關鍵數據」框原本是 40px 圓角，已改為 16px（`--yh-radius-md`）
