@@ -428,11 +428,10 @@ button:focus-visible,
    主要成本不是間距，而是「一張直式大卡只放一則標題」。
    ========================================================================== */
 
-/* ---------- 頁尾連結改為可收合 ---------- */
-/* 桌機維持三欄展開；手機收起來，只留標題列。
-   HTML 寫的是 <details open>，沒有 JS 時維持展開，不會變成打不開的死結。 */
+/* ---------- 頁尾連結：一律展開 ---------- */
+/* HTML 為 <details open>；標題只是標題，不可點擊收合。手機版連結改橫排。 */
 .yb-footcol { border:0; }
-.yb-footcol > summary { cursor:pointer; list-style:none; }
+.yb-footcol > summary { cursor:default; pointer-events:none; list-style:none; }
 .yb-footcol > summary::-webkit-details-marker { display:none; }
 
 /* 品牌大字由 ui.js 依字型實際寬度縮放，對齊頁尾欄位兩側。 */
@@ -446,11 +445,6 @@ button:focus-visible,
   overflow:visible;
 }
 
-@media (min-width:641px) {
-  /* 桌機不需要收合互動，標題回到純標題的樣子 */
-  .yb-footcol > summary { cursor:default; pointer-events:none; }
-}
-
 @media (max-width:640px) {
   .yb-foot-mark {
     width:calc(100% - 40px);
@@ -458,31 +452,13 @@ button:focus-visible,
     letter-spacing:0 !important;
   }
   .yb-footcol > summary {
-    position:relative;
-    display:flex;
-    align-items:center;
-    min-height:44px;
-    padding-bottom:0 !important;
-    padding-right:28px;
-    border-bottom:1px solid #1A2740;
+    padding-bottom:10px !important;
   }
-  /* 開合指示：+ 轉成 −，不用額外圖檔 */
-  .yb-footcol > summary::after,
-  .yb-footcol > summary::before {
-    content:"";
-    position:absolute;
-    right:4px;
-    background:#8893A8;
-    transition:transform .25s cubic-bezier(.22,1,.36,1), opacity .2s ease;
-  }
-  .yb-footcol > summary::before { width:13px; height:1.5px; top:50%; margin-top:-.75px; }
-  .yb-footcol > summary::after  { width:1.5px; height:13px; top:50%; margin-top:-6.5px; right:9.75px; }
-  .yb-footcol[open] > summary::after { transform:rotate(90deg); opacity:0; }
 
-  /* 收合後標題彼此相連，中間不留欄距 */
-  .yb-foot { grid-template-columns:1fr !important; gap:0 !important; padding:28px 0 20px !important; }
-  .yb-foot > div:first-child { margin-bottom:22px; }
-  .yb-footcol > div { padding-bottom:18px; }
+  /* 品牌欄獨佔一列，下方三欄並排、連結直向排列（同桌機） */
+  .yb-foot { grid-template-columns:repeat(3, minmax(0, 1fr)) !important; gap:0 16px !important; padding:28px 0 20px !important; }
+  .yb-foot > div:first-child { grid-column:1 / -1; margin-bottom:28px; }
+  .yb-footcol > div { gap:2px !important; padding-top:8px !important; }
 }
 
 /* ---------- 區塊留白：56px → 40px ---------- */
@@ -507,8 +483,19 @@ button:focus-visible,
   .yb-navlinks { gap:15px !important; font-size:13.5px !important; }
   .yb-sec,
   .yb-foot-wrap { padding-left:16px !important; padding-right:16px !important; }
-  .yb-foot { grid-template-columns:1fr !important; gap:24px !important; }
+  .yb-foot { gap:0 12px !important; }
   .yb-foot-mark { width:calc(100% - 32px); }
   .yb-hero { border-radius:28px 0 28px 0 !important; }
   .yb-js-nav .yb-burger { right:6px; }
+}
+
+/* ---------- 內頁 Hero 手機版統一高度 ---------- */
+/* about／articles／products／training 共用；以 training 原本的 286px 為準，首頁不套用。
+   用 .yb-hero.yb-hero-sub 提高權重，蓋過各頁內嵌的 height:auto + padding 規則。 */
+@media (max-width:640px) {
+  .yb-hero.yb-hero-sub {
+    height:286px !important;
+    min-height:0 !important;
+    padding:0 !important;
+  }
 }

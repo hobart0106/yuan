@@ -177,40 +177,7 @@
     });
   });
 
-  /* ---------- 頁尾欄位收合 ----------
-     HTML 送出時是 <details open>，這樣關掉 JS 也看得到全部連結。
-     這裡只在手機寬度把它收起來，換取約 450px 的垂直空間。 */
-
-  var narrow = window.matchMedia('(max-width:640px)');
-
-  function syncFooterCols() {
-    var cols = document.querySelectorAll('.yb-footcol');
-    for (var i = 0; i < cols.length; i++) {
-      // 使用者手動開過的欄位不要被 resize 重新關上
-      if (cols[i].dataset.ybTouched === '1') continue;
-      cols[i].open = !narrow.matches;
-    }
-  }
-
-  // 只認真正的點擊。不能用 toggle 事件：React 掛載 <details open> 時就會觸發它，
-  // 會把每個欄位都誤判成「使用者開過」，收合因此完全失效。
-  document.addEventListener('click', function (e) {
-    var s = e.target.closest && e.target.closest('.yb-footcol > summary');
-    if (s) s.parentElement.dataset.ybTouched = '1';
-  });
-
-  syncFooterCols();
-  // React 掛載後頁尾才存在，需要再跑一次
-  document.addEventListener('DOMContentLoaded', syncFooterCols);
-  window.addEventListener('load', syncFooterCols);
-  setTimeout(syncFooterCols, 1200);
-  if (narrow.addEventListener) {
-    narrow.addEventListener('change', function () {
-      var cols = document.querySelectorAll('.yb-footcol');
-      for (var i = 0; i < cols.length; i++) delete cols[i].dataset.ybTouched;
-      syncFooterCols();
-    });
-  }
+  /* 頁尾欄位一律展開（HTML 為 <details open>），手機版改由 CSS 橫排，不再收合。 */
 
   /* ---------- 洽詢表單 ----------
      目前沒有後端接收端點。與其讓「送出」按下去毫無反應（或整頁重載），

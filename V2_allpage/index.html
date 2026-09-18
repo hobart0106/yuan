@@ -164,11 +164,12 @@
        原本想要的 170px 從來沒生效過，手機上一直是 360px。 */
     .yb-course > div:first-child {
       width:100% !important;
-      height:150px !important;
+      height:168px !important; /* 與產業洞察大卡配圖（第 144 行）同高 */
       min-height:0 !important;
-      flex:0 0 150px !important;
+      flex:0 0 168px !important;
     }
-    .yb-course > div:last-child { gap:10px !important; padding:22px 20px !important; }
+    /* 「立即報名」需為 inline-block，否則上下 padding 會溢出、吃掉卡片下緣留白 */
+    .yb-course > div:last-child { gap:10px !important; padding:22px 20px 28px !important; }
 
     /* 合作夥伴：每格 140px 是為桌機三欄大圖設計的，手機用不到那麼高 */
     .yb-grid5 > div { height:84px !important; }
@@ -178,8 +179,8 @@
       transform-origin:center;
     }
 
-    /* 發展歷程：頂部照片 220px 幾乎佔掉四分之一屏 */
-    .yb-ms-pic { height:150px !important; }
+    /* 發展歷程：固定 150px 太扁、4:3 又太高，用 2:1 比例隨螢幕寬度縮放 */
+    .yb-ms-pic { height:auto !important; aspect-ratio:2 / 1; }
     #ybInsightTabs { flex-wrap:wrap !important; }
 
     /* 桌機 hero 使用超寬左右留白；手機改用與其他區塊一致的安全邊距。 */
@@ -377,7 +378,7 @@
             <span class="en" data-yb-until="2026-12-04" style="border:1px solid #D7DEE8;background:#F5F8FC;color:#143A82;border-radius:999px;padding:8px 18px;font-size:13px;font-weight:600;">2026/12/3-12/4 · 檢驗員資格培訓</span>
             <span data-yb-empty hidden style="font-size:13px;color:#8A93A3;">下期梯次規劃中，歡迎來電洽詢</span>
           </div>
-          <div style="margin-top:auto;padding-top:28px;"><span style="border:1.5px solid #143A82;color:#143A82;border-radius:999px;padding:10px 24px;font-size:13.5px;font-weight:700;">立即報名　→</span></div>
+          <div style="margin-top:auto;padding-top:28px;"><span style="display:inline-block;border:1.5px solid #143A82;color:#143A82;border-radius:999px;padding:10px 24px;font-size:13.5px;font-weight:700;">立即報名　→</span></div>
         </div>
       </a>
     </div>
