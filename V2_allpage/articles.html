@@ -165,7 +165,7 @@
       <div style="display:flex;flex-direction:column;gap:22px;">
         <div class="ya-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;">
           <sc-for list="{{ articles }}" as="a" hint-placeholder-count="6">
-            <div class="yart-card" onClick="{{ a.onClick }}" style="border:1px solid #E5E8EC;border-radius:18px;background:#fff;overflow:hidden;display:flex;flex-direction:column;">
+            <div class="yart-card" onClick="{{ a.onClick }}" style="border:1px solid #E5E8EC;border-radius:16px;background:#fff;overflow:hidden;display:flex;flex-direction:column;">
               <div style="height:150px;overflow:hidden;background:#F4F6F9 center/cover no-repeat url({{ a.imgUrl }});"></div>
               <div style="padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px;">
                 <span class="en" style="font-size:12px;font-weight:600;color:#1F5BB5;">{{ a.date }} · {{ a.cat }}</span>
@@ -202,7 +202,7 @@
 
       <div class="yd-layout" style="display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:48px;align-items:start;max-width:100%;margin-top:32px;">
         <div>
-          <div class="yd-photo" style="height:300px;border-radius:18px;overflow:hidden;margin-bottom:28px;background:#F4F6F9 center/cover no-repeat url({{ current.imgUrl }});"></div>
+          <div class="yd-photo" style="height:300px;border-radius:24px;overflow:hidden;margin-bottom:28px;background:#F4F6F9 center/cover no-repeat url({{ current.imgUrl }});"></div>
           <sc-if value="{{ isRichBody }}" hint-placeholder-val="{{ false }}">
           <div class="yd-body">
             <h2 id="sec-intro">前言</h2>

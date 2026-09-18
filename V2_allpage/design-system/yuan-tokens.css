@@ -1,0 +1,190 @@
+/* ==========================================================================
+   元新儀器 KEN YUAN HSIN — Design Tokens (yuan-tokens.css)
+   版本：1.0（2026-09-18，依 V2_allpage 現行網站萃取）
+
+   只放變數，不產生任何樣式。WordPress 佈景請先載入本檔，再載入 yuan-components.css。
+   命名：--yh-{類別}-{名稱}。頁面／外掛請使用「語意層」變數（--yh-color-*），
+   不要直接引用「色階層」（--yh-blue-900 等），日後改色只需調整語意層。
+
+   斷點（CSS 變數無法用在 @media，請直接寫數值）：
+     1024px 平板橫向 ／ 900px 平板直向 ／ 640px 手機 ／ 400px 小手機
+   ========================================================================== */
+
+:root {
+  /* ---------- 色階層 ---------- */
+  /* 品牌藍 */
+  --yh-blue-900:#143A82;   /* 主色：標題、主按鈕、導覽連結 */
+  --yh-blue-700:#1F5BB5;   /* 強調：眉標、數據數字、卡片分類 */
+  --yh-blue-500:#2E72D6;   /* 互動：hover、連結 */
+  --yh-blue-300:#6FA6F2;   /* 深底上的強調 */
+  --yh-blue-200:#AFC9EE;   /* 篩選 chip 選取中 */
+  --yh-blue-100:#D6E2F4;   /* 藍色系框線 */
+  --yh-blue-50:#F5F8FC;    /* 日期標籤底色、淺藍底 */
+
+  /* 深藍（深色區塊、頁尾） */
+  --yh-ink-950:#091428;    /* 頁尾底色 */
+  --yh-ink-900:#0B1730;    /* Hero／圖片載入前底色 */
+  --yh-ink-800:#0E1C3D;    /* 深色區塊、漸層起點 */
+  --yh-ink-700:#1A2740;    /* 頁尾分隔線 */
+  --yh-ink-600:#2A3A5C;    /* 頁尾圖示外框 */
+
+  /* 中性灰（帶藍調） */
+  --yh-gray-900:#1C2533;   /* 內文標題、卡片標題 */
+  --yh-gray-700:#3A4250;   /* 次要按鈕文字 */
+  --yh-gray-600:#5A6473;   /* 內文 */
+  --yh-gray-500:#5F6C84;   /* 頁尾版權列 */
+  --yh-gray-400:#8893A8;   /* 輔助說明、日期 */
+  --yh-gray-300:#9AA1AC;   /* 停用、placeholder */
+  --yh-gray-200:#DCE1E8;   /* 控制項框線（按鈕、輸入框、tab） */
+  --yh-gray-150:#E5E8EC;   /* 卡片框線 */
+  --yh-gray-100:#EEF1F5;   /* 分隔線 */
+  --yh-gray-50:#F4F6F9;    /* 淺灰區塊底色 */
+  --yh-white:#FFFFFF;
+
+  /* 綠（認證、成功狀態） */
+  --yh-green-800:#2E6B3F;
+  --yh-green-700:#2B8A4D;
+  --yh-green-100:#CFE6D7;
+  --yh-green-50:#F4FAF6;
+
+  /* 頁尾文字 */
+  --yh-footer-text:#CDD5E4;
+  --yh-footer-muted:#AEB8CC;
+
+  /* ---------- 語意層（請優先使用） ---------- */
+  --yh-color-primary:var(--yh-blue-900);
+  --yh-color-accent:var(--yh-blue-700);
+  --yh-color-interactive:var(--yh-blue-500);
+  --yh-color-heading:var(--yh-blue-900);      /* 區塊大標 h1/h2 */
+  --yh-color-title:var(--yh-gray-900);        /* 卡片標題、h3 以下 */
+  --yh-color-text:var(--yh-gray-600);         /* 內文 */
+  --yh-color-text-muted:var(--yh-gray-400);
+  --yh-color-text-disabled:var(--yh-gray-300);
+  --yh-color-text-inverse:var(--yh-white);
+  --yh-color-bg:var(--yh-white);
+  --yh-color-bg-alt:var(--yh-gray-50);
+  --yh-color-bg-tint:var(--yh-blue-50);
+  --yh-color-bg-dark:var(--yh-ink-800);
+  --yh-color-border:var(--yh-gray-150);
+  --yh-color-border-control:var(--yh-gray-200);
+  --yh-color-border-brand:var(--yh-blue-100);
+  --yh-color-divider:var(--yh-gray-100);
+  --yh-color-success:var(--yh-green-700);
+  --yh-color-focus:var(--yh-blue-500);
+
+  /* ---------- 字體 ---------- */
+  --yh-font-sans:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif;
+  --yh-font-en:'Manrope','Noto Sans TC',sans-serif;   /* 英文眉標、數據、型號 */
+
+  /* 字級（桌機值；≤640px 於下方覆寫） */
+  --yh-fs-caption:12px;    /* 版權、註記 */
+  --yh-fs-sm:13.5px;       /* 按鈕、標籤、tab、卡片分類 */
+  --yh-fs-body-sm:14px;    /* 次要內文、表單 */
+  --yh-fs-body:15px;       /* 內文 */
+  --yh-fs-lead:16px;       /* 導言、Hero 說明 */
+  --yh-fs-h5:18px;         /* 小卡標題 */
+  --yh-fs-h4:22px;         /* 卡片大標 */
+  --yh-fs-h3:26px;         /* 次區塊標題 */
+  --yh-fs-h2:34px;         /* 區塊大標 */
+  --yh-fs-h1:40px;         /* 內頁 Hero 標題 */
+  --yh-fs-display:46px;    /* 關鍵數據 */
+  --yh-fs-eyebrow:13px;    /* 英文眉標 */
+
+  --yh-fw-regular:400;
+  --yh-fw-medium:500;
+  --yh-fw-semibold:600;
+  --yh-fw-bold:700;
+  --yh-fw-extrabold:800;
+  --yh-fw-black:900;
+
+  --yh-lh-tight:1.2;       /* 大標、數字 */
+  --yh-lh-heading:1.35;    /* 標題 */
+  --yh-lh-snug:1.6;        /* 卡片說明、短文 */
+  --yh-lh-body:1.8;        /* 內文 */
+
+  --yh-ls-eyebrow:.16em;   /* 英文眉標 */
+  --yh-ls-label:.04em;     /* 英文小標、分類 */
+  --yh-ls-display:-.02em;  /* 大數字 */
+
+  /* ---------- 間距（4px 基準） ---------- */
+  --yh-space-1:4px;
+  --yh-space-2:8px;
+  --yh-space-3:12px;
+  --yh-space-4:16px;
+  --yh-space-5:20px;
+  --yh-space-6:24px;
+  --yh-space-7:32px;
+  --yh-space-8:40px;
+  --yh-space-9:56px;
+  --yh-space-10:72px;
+  --yh-space-11:88px;
+
+  /* ---------- 版面 ---------- */
+  --yh-container:1200px;        /* 一般內容寬 */
+  --yh-container-wide:1683px;   /* Hero 內文寬 */
+  --yh-gutter:32px;             /* 左右安全邊距 */
+  --yh-section-y:88px;          /* 區塊上下留白 */
+  --yh-section-head-gap:42px;   /* 區塊標題到內容 */
+  --yh-topbar-h:38px;
+  --yh-nav-h:78px;
+
+  /* ---------- 圓角 ---------- */
+  /* 規則：獨立配圖 24／卡片 16／縮圖・輸入框 10／按鈕・標籤 999 */
+  --yh-radius-sm:10px;
+  --yh-radius-md:16px;
+  --yh-radius-lg:24px;
+  --yh-radius-pill:999px;
+  --yh-radius-hero:90px;        /* Hero 只圓左上＋右下 */
+
+  /* ---------- 陰影 ---------- */
+  --yh-shadow-ring:0 0 0 1px var(--yh-gray-150);
+  --yh-shadow-ring-control:inset 0 0 0 1px var(--yh-gray-200);
+  --yh-shadow-sm:0 8px 24px -22px rgba(20,58,130,.3);
+  --yh-shadow-card-hover:0 18px 40px -22px rgba(20,58,130,.35);
+  --yh-shadow-btn-hover:0 14px 26px -14px rgba(20,58,130,.6);
+  --yh-shadow-media:0 30px 60px -34px rgba(20,58,130,.5);
+  --yh-shadow-focus:0 0 0 3px rgba(46,114,214,.35);
+
+  /* ---------- 動態 ---------- */
+  --yh-dur-fast:.2s;       /* 顏色、底色 */
+  --yh-dur-base:.35s;      /* 卡片浮起 */
+  --yh-dur-slow:.7s;       /* 圖片放大 */
+  --yh-ease:ease;
+  --yh-ease-out:cubic-bezier(.22,1,.36,1);
+  --yh-lift:-5px;          /* 卡片 hover 上移 */
+}
+
+/* ---------- 斷點覆寫 ---------- */
+@media (max-width:1024px) {
+  :root {
+    --yh-gutter:24px;
+  }
+}
+@media (max-width:900px) {
+  :root {
+    --yh-fs-h2:30px;
+    --yh-fs-h1:34px;
+    --yh-section-y:64px;
+    --yh-radius-hero:64px;
+  }
+}
+@media (max-width:640px) {
+  :root {
+    --yh-fs-h4:20px;
+    --yh-fs-h3:22px;
+    --yh-fs-h2:26px;
+    --yh-fs-h1:28px;
+    --yh-fs-display:34px;
+    --yh-gutter:20px;
+    --yh-section-y:40px;
+    --yh-section-head-gap:28px;
+    --yh-radius-hero:36px;
+    --yh-nav-h:64px;
+  }
+}
+@media (max-width:400px) {
+  :root {
+    --yh-gutter:16px;
+    --yh-radius-hero:28px;
+  }
+}

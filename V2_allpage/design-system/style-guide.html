@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="zh-Hant">
+<title>元新儀器設計系統</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="yuan-tokens.css">
+<link rel="stylesheet" href="yuan-components.css">
+<style>
+  /* 規範頁本身的版面（sg-），元件一律用 yh- */
+  html { color-scheme:light; scroll-behavior:smooth; }
+  *, *::before, *::after { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--yh-color-bg-alt); color:var(--yh-color-text);
+    font-family:var(--yh-font-sans); font-size:var(--yh-fs-body); line-height:var(--yh-lh-body);
+    -webkit-font-smoothing:antialiased;
+  }
+  code { font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace; font-size:.9em; }
+  .sg-top {
+    background:var(--yh-ink-950);
+    color:var(--yh-footer-text);
+    padding-block:56px 48px;
+  }
+  .sg-top .yh-container { display:flex; flex-direction:column; gap:14px; }
+  .sg-top h1 { margin:0; color:var(--yh-white); font-size:clamp(30px, 4vw, 44px); font-weight:900; line-height:1.2; text-wrap:balance; }
+  .sg-top p { margin:0; max-width:62ch; color:var(--yh-footer-muted); font-size:var(--yh-fs-lead); line-height:var(--yh-lh-body); }
+  .sg-top .yh-eyebrow { color:var(--yh-blue-300); }
+  .sg-files { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+  .sg-files code {
+    padding:6px 12px; border-radius:var(--yh-radius-pill);
+    background:rgba(255,255,255,.07); box-shadow:inset 0 0 0 1px var(--yh-ink-600);
+    color:var(--yh-footer-text); font-size:12.5px;
+  }
+
+  .sg-layout {
+    display:grid; grid-template-columns:200px minmax(0,1fr); gap:48px;
+    max-width:var(--yh-container); margin-inline:auto; padding:48px var(--yh-gutter) 96px;
+  }
+  .sg-toc { position:sticky; top:24px; align-self:start; display:flex; flex-direction:column; gap:2px; }
+  .sg-toc a {
+    padding:7px 12px; border-radius:var(--yh-radius-sm);
+    color:var(--yh-color-text); font-size:var(--yh-fs-sm); font-weight:600; text-decoration:none;
+  }
+  .sg-toc a:hover { background:var(--yh-white); color:var(--yh-color-primary); }
+  .sg-toc a:focus-visible { outline:2px solid var(--yh-color-focus); outline-offset:2px; }
+  .sg-main { display:flex; flex-direction:column; gap:28px; min-width:0; }
+
+  .sg-block {
+    scroll-margin-top:24px;
+    padding:36px; border-radius:var(--yh-radius-md);
+    background:var(--yh-white); box-shadow:var(--yh-shadow-ring);
+    display:flex; flex-direction:column; gap:24px;
+  }
+  .sg-block > header { display:flex; flex-direction:column; gap:8px; }
+  .sg-block > header h2 { margin:0; font-size:var(--yh-fs-h3); font-weight:800; color:var(--yh-color-heading); }
+  .sg-block > header p { margin:0; max-width:65ch; font-size:var(--yh-fs-body); color:var(--yh-color-text); }
+  .sg-sub { margin:0; font-size:var(--yh-fs-body-sm); font-weight:700; color:var(--yh-color-title); }
+  .sg-row { display:flex; flex-wrap:wrap; align-items:center; gap:12px; }
+  .sg-dark { padding:24px; border-radius:var(--yh-radius-md); background:var(--yh-color-bg-dark); }
+  .sg-code {
+    margin:0; padding:14px 16px; overflow-x:auto;
+    border-radius:var(--yh-radius-sm); background:var(--yh-gray-50); box-shadow:inset 0 0 0 1px var(--yh-color-divider);
+    color:var(--yh-gray-700); font:12.5px/1.7 ui-monospace,'SF Mono',Menlo,Consolas,monospace; white-space:pre;
+  }
+  .sg-code b { color:var(--yh-color-accent); font-weight:600; }
+
+  /* 色票 */
+  .sg-swatches { display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:12px; }
+  .sg-swatch { display:flex; flex-direction:column; border-radius:var(--yh-radius-sm); overflow:hidden; box-shadow:var(--yh-shadow-ring); }
+  .sg-swatch i { display:block; height:64px; }
+  .sg-swatch div { display:flex; flex-direction:column; gap:1px; padding:10px 12px 12px; }
+  .sg-swatch b { font-size:13px; color:var(--yh-color-title); }
+  .sg-swatch code { font:12px/1.5 ui-monospace,Menlo,monospace; color:var(--yh-color-text-muted); }
+  .sg-swatch span { font-size:12px; line-height:1.5; color:var(--yh-color-text); }
+
+  /* 字級表 */
+  .sg-scale { display:flex; flex-direction:column; }
+  .sg-scale > div {
+    display:grid; grid-template-columns:132px minmax(0,1fr); gap:20px; align-items:baseline;
+    padding-block:14px; border-top:1px solid var(--yh-color-divider);
+  }
+  .sg-scale > div:first-child { border-top:0; padding-top:0; }
+  .sg-scale dt { font:12px/1.5 ui-monospace,Menlo,monospace; color:var(--yh-color-text-muted); }
+  .sg-scale dt b { display:block; font-family:var(--yh-font-sans); font-size:13px; color:var(--yh-color-title); }
+  .sg-scale dd { margin:0; min-width:0; overflow-wrap:anywhere; }
+
+  /* 間距、圓角、陰影示意 */
+  .sg-spaces { display:flex; flex-direction:column; gap:8px; }
+  .sg-spaces div { display:grid; grid-template-columns:120px minmax(0,1fr); align-items:center; gap:16px; font:12px ui-monospace,Menlo,monospace; color:var(--yh-color-text-muted); }
+  .sg-spaces i { display:block; height:12px; border-radius:3px; background:var(--yh-blue-200); }
+  .sg-tiles { display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:16px; }
+  .sg-tile { display:flex; flex-direction:column; gap:10px; font-size:13px; color:var(--yh-color-text); }
+  .sg-tile i { display:block; height:96px; background:var(--yh-color-bg-tint); box-shadow:inset 0 0 0 1px var(--yh-color-border-brand); }
+  .sg-tile b { color:var(--yh-color-title); }
+  .sg-shadow i { background:var(--yh-white); box-shadow:none; border-radius:var(--yh-radius-md); }
+
+  .sg-bps { width:100%; border-collapse:collapse; font-size:var(--yh-fs-body-sm); }
+  .sg-bps th, .sg-bps td { padding:12px 14px; text-align:left; border-top:1px solid var(--yh-color-divider); vertical-align:top; }
+  .sg-bps th { font-weight:700; color:var(--yh-color-title); background:var(--yh-gray-50); border-top:0; }
+  .sg-bps td:first-child { font-family:var(--yh-font-en); font-weight:700; color:var(--yh-color-accent); white-space:nowrap; font-variant-numeric:tabular-nums; }
+  .sg-scroll { overflow-x:auto; }
+
+  .sg-footer-demo { border-radius:var(--yh-radius-md); overflow:hidden; }
+  .sg-footer-demo .yh-container { max-width:none; }
+
+  @media (max-width:900px) {
+    .sg-layout { grid-template-columns:1fr; gap:24px; padding-top:24px; }
+    .sg-toc { position:static; flex-direction:row; flex-wrap:wrap; gap:6px; }
+    .sg-toc a { background:var(--yh-white); box-shadow:var(--yh-shadow-ring-control); border-radius:var(--yh-radius-pill); padding:6px 14px; }
+  }
+  @media (max-width:640px) {
+    .sg-block { padding:24px 20px; }
+    .sg-scale > div { grid-template-columns:1fr; gap:6px; }
+    .sg-spaces div { grid-template-columns:90px minmax(0,1fr); }
+  }
+</style>
+
+<header class="sg-top">
+  <div class="yh-container">
+    <span class="yh-eyebrow">KEN YUAN HSIN · DESIGN SYSTEM v1.0</span>
+    <h1>元新儀器設計系統</h1>
+    <p>從 V2_allpage 現行網站萃取的顏色、字級、間距、圓角與元件，給 WordPress 開發使用。這一頁的元件都是用下面兩支 CSS 實際渲染出來的，看到什麼就是什麼。</p>
+    <div class="sg-files">
+      <code>yuan-tokens.css</code><code>yuan-components.css</code><code>theme.json</code><code>README.md</code>
+    </div>
+  </div>
+</header>
+
+<div class="sg-layout">
+  <nav class="sg-toc" aria-label="目錄">
+    <a href="#color">顏色</a>
+    <a href="#type">字體與字級</a>
+    <a href="#space">間距與版面</a>
+    <a href="#radius">圓角</a>
+    <a href="#shadow">陰影</a>
+    <a href="#button">按鈕</a>
+    <a href="#tag">標籤與篩選</a>
+    <a href="#card">卡片</a>
+    <a href="#media">圖片</a>
+    <a href="#hero">Hero</a>
+    <a href="#stats">關鍵數據</a>
+    <a href="#form">表單</a>
+    <a href="#footer">頁尾</a>
+    <a href="#bp">斷點</a>
+  </nav>
+
+  <main class="sg-main">
+
+    <!-- 顏色 -->
+    <section class="sg-block" id="color">
+      <header>
+        <h2>顏色</h2>
+        <p>頁面請使用語意層變數（<code>--yh-color-*</code>），不要直接寫色碼。以下依用途分組。</p>
+      </header>
+      <h3 class="sg-sub">品牌藍</h3>
+      <div class="sg-swatches">
+        <div class="sg-swatch"><i style="background:#143A82"></i><div><b>Primary</b><code>--yh-color-primary · #143A82</code><span>主按鈕、區塊大標、導覽</span></div></div>
+        <div class="sg-swatch"><i style="background:#1F5BB5"></i><div><b>Accent</b><code>--yh-color-accent · #1F5BB5</code><span>英文眉標、數據、分類</span></div></div>
+        <div class="sg-swatch"><i style="background:#2E72D6"></i><div><b>Interactive</b><code>--yh-color-interactive · #2E72D6</code><span>hover、焦點框</span></div></div>
+        <div class="sg-swatch"><i style="background:#AFC9EE"></i><div><b>Blue 200</b><code>--yh-blue-200 · #AFC9EE</code><span>篩選 chip 選取中</span></div></div>
+        <div class="sg-swatch"><i style="background:#D6E2F4"></i><div><b>Blue 100</b><code>--yh-color-border-brand · #D6E2F4</code><span>藍色系框線</span></div></div>
+        <div class="sg-swatch"><i style="background:#F5F8FC"></i><div><b>Blue 50</b><code>--yh-color-bg-tint · #F5F8FC</code><span>日期標籤底、淺藍底</span></div></div>
+      </div>
+      <h3 class="sg-sub">深藍（深色區塊、頁尾）</h3>
+      <div class="sg-swatches">
+        <div class="sg-swatch"><i style="background:#091428"></i><div><b>Ink 950</b><code>--yh-ink-950 · #091428</code><span>頁尾、頂部資訊列</span></div></div>
+        <div class="sg-swatch"><i style="background:#0B1730"></i><div><b>Ink 900</b><code>--yh-ink-900 · #0B1730</code><span>Hero 底色</span></div></div>
+        <div class="sg-swatch"><i style="background:#0E1C3D"></i><div><b>Ink 800</b><code>--yh-color-bg-dark · #0E1C3D</code><span>深色區塊、漸層起點</span></div></div>
+        <div class="sg-swatch"><i style="background:#1A2740"></i><div><b>Ink 700</b><code>--yh-ink-700 · #1A2740</code><span>頁尾分隔線</span></div></div>
+      </div>
+      <h3 class="sg-sub">文字與中性色（帶藍調的灰）</h3>
+      <div class="sg-swatches">
+        <div class="sg-swatch"><i style="background:#1C2533"></i><div><b>Title</b><code>--yh-color-title · #1C2533</code><span>卡片標題、h4</span></div></div>
+        <div class="sg-swatch"><i style="background:#5A6473"></i><div><b>Text</b><code>--yh-color-text · #5A6473</code><span>內文</span></div></div>
+        <div class="sg-swatch"><i style="background:#8893A8"></i><div><b>Muted</b><code>--yh-color-text-muted · #8893A8</code><span>日期、輔助說明</span></div></div>
+        <div class="sg-swatch"><i style="background:#DCE1E8"></i><div><b>Border control</b><code>--yh-color-border-control · #DCE1E8</code><span>按鈕、tab、輸入框</span></div></div>
+        <div class="sg-swatch"><i style="background:#E5E8EC"></i><div><b>Border</b><code>--yh-color-border · #E5E8EC</code><span>卡片框線</span></div></div>
+        <div class="sg-swatch"><i style="background:#F4F6F9"></i><div><b>Bg alt</b><code>--yh-color-bg-alt · #F4F6F9</code><span>淺灰區塊底</span></div></div>
+      </div>
+      <h3 class="sg-sub">狀態</h3>
+      <div class="sg-swatches">
+        <div class="sg-swatch"><i style="background:#2B8A4D"></i><div><b>Success</b><code>--yh-color-success · #2B8A4D</code><span>認證、上架中</span></div></div>
+        <div class="sg-swatch"><i style="background:#F4FAF6;box-shadow:inset 0 0 0 1px #CFE6D7"></i><div><b>Green 50</b><code>--yh-green-50 · #F4FAF6</code><span>認證區塊底</span></div></div>
+      </div>
+    </section>
+
+    <!-- 字體 -->
+    <section class="sg-block" id="type">
+      <header>
+        <h2>字體與字級</h2>
+        <p>中文用 Noto Sans TC；英文眉標、數字、型號用 Manrope（加 <code>yh-en</code>）。標題字級在 ≤900px、≤640px 會自動縮小，下表是桌機值。</p>
+      </header>
+      <dl class="sg-scale">
+        <div><dt><b>Display 46</b>--yh-fs-display</dt><dd><span class="yh-stat__value" style="display:block">40+</span></dd></div>
+        <div><dt><b>H1 40</b>--yh-fs-h1 · 800</dt><dd><p class="yh-h1" style="color:var(--yh-color-heading)">關於元新醫藥</p></dd></div>
+        <div><dt><b>H2 34</b>--yh-fs-h2 · 800</dt><dd><p class="yh-h2">四十年的核醫發展歷程</p></dd></div>
+        <div><dt><b>H3 26</b>--yh-fs-h3 · 800</dt><dd><p class="yh-h3">輻防教育與專業顧問</p></dd></div>
+        <div><dt><b>H4 22</b>--yh-fs-h4 · 700</dt><dd><p class="yh-h4">核醫從業人員輻射防護基礎訓練</p></dd></div>
+        <div><dt><b>H5 18</b>--yh-fs-h5 · 800</dt><dd><p class="yh-h5">產品規格</p></dd></div>
+        <div><dt><b>Lead 16</b>--yh-fs-lead</dt><dd><p class="yh-lead">核醫專業顧問，建構安全、高效的核醫藥物生態系。</p></dd></div>
+        <div><dt><b>Body 15</b>--yh-fs-body · 行高 1.8</dt><dd><p class="yh-text">涵蓋法規、劑量管理與作業安全，完訓核發認證時數，協助從業人員取得輻防專業資格。</p></dd></div>
+        <div><dt><b>Body sm 14</b>--yh-fs-body-sm</dt><dd><p class="yh-text-sm">放射性藥物與精準醫療的結合，正重新定義腫瘤診斷與治療的邊界。</p></dd></div>
+        <div><dt><b>Eyebrow 13</b>--yh-fs-eyebrow · .16em</dt><dd><span class="yh-eyebrow">Training &amp; Consulting</span></dd></div>
+        <div><dt><b>Caption 12</b>--yh-fs-caption</dt><dd><span class="yh-caption">© 2026 元新儀器 KEN YUAN HSIN CO., LTD All rights reserved.</span></dd></div>
+      </dl>
+      <h3 class="sg-sub">區塊標題組合</h3>
+      <div class="yh-section-head yh-section-head--split">
+        <div>
+          <span class="yh-eyebrow">Training &amp; Consulting</span>
+          <h2 class="yh-h2">輻防教育與專業顧問</h2>
+          <p class="yh-text">保證取證的訓練課程，解決核醫現場的實務痛點。</p>
+        </div>
+        <a class="yh-link-arrow" href="#type">全部課程 <span aria-hidden="true">→</span></a>
+      </div>
+<pre class="sg-code">&lt;div class="<b>yh-section-head yh-section-head--split</b>"&gt;
+  &lt;div&gt;
+    &lt;span class="<b>yh-eyebrow</b>"&gt;Training &amp;amp; Consulting&lt;/span&gt;
+    &lt;h2 class="<b>yh-h2</b>"&gt;輻防教育與專業顧問&lt;/h2&gt;
+    &lt;p class="<b>yh-text</b>"&gt;…&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;a class="<b>yh-link-arrow</b>" href="…"&gt;全部課程 →&lt;/a&gt;
+&lt;/div&gt;</pre>
+    </section>
+
+    <!-- 間距 -->
+    <section class="sg-block" id="space">
+      <header>
+        <h2>間距與版面</h2>
+        <p>以 4px 為基準。內容最大寬 1200px；左右邊距 32 → 24 → 20 → 16px；區塊上下留白 88 → 64 → 40px，都已寫在 token 的斷點覆寫裡。</p>
+      </header>
+      <div class="sg-spaces">
+        <div>space-1 · 4px<i style="width:4px"></i></div>
+        <div>space-2 · 8px<i style="width:8px"></i></div>
+        <div>space-3 · 12px<i style="width:12px"></i></div>
+        <div>space-4 · 16px<i style="width:16px"></i></div>
+        <div>space-5 · 20px<i style="width:20px"></i></div>
+        <div>space-6 · 24px<i style="width:24px"></i></div>
+        <div>space-7 · 32px<i style="width:32px"></i></div>
+        <div>space-8 · 40px<i style="width:40px"></i></div>
+        <div>space-9 · 56px<i style="width:56px"></i></div>
+        <div>space-10 · 72px<i style="width:72px"></i></div>
+        <div>space-11 · 88px<i style="width:88px"></i></div>
+      </div>
+<pre class="sg-code">&lt;section class="<b>yh-section yh-section--alt</b>"&gt;   ← 88/64/40 上下留白＋底色
+  &lt;div class="<b>yh-container</b>"&gt;                 ← 1200 寬＋左右邊距
+    &lt;div class="<b>yh-section-head</b>"&gt;…&lt;/div&gt;
+    &lt;div class="<b>yh-grid yh-grid--3</b>"&gt;…&lt;/div&gt;  ← 3 欄 → 2 欄（≤900）→ 1 欄（≤640）
+  &lt;/div&gt;
+&lt;/section&gt;</pre>
+    </section>
+
+    <!-- 圓角 -->
+    <section class="sg-block" id="radius">
+      <header>
+        <h2>圓角</h2>
+        <p>只有四個值，依「這是什麼」選，不要自己新增。</p>
+      </header>
+      <div class="sg-tiles">
+        <div class="sg-tile"><i style="border-radius:24px"></i><span><b>24px</b> · radius-lg<br>獨立配圖</span></div>
+        <div class="sg-tile"><i style="border-radius:16px"></i><span><b>16px</b> · radius-md<br>卡片、數據框</span></div>
+        <div class="sg-tile"><i style="border-radius:10px"></i><span><b>10px</b> · radius-sm<br>縮圖、輸入框</span></div>
+        <div class="sg-tile"><i style="border-radius:999px;height:48px"></i><span><b>999px</b> · radius-pill<br>按鈕、標籤</span></div>
+        <div class="sg-tile"><i style="border-radius:44px 0 44px 0"></i><span><b>90→64→36→28</b> · radius-hero<br>Hero 左上＋右下</span></div>
+      </div>
+    </section>
+
+    <!-- 陰影 -->
+    <section class="sg-block" id="shadow">
+      <header>
+        <h2>陰影</h2>
+        <p>陰影帶品牌藍，且大多是 hover 才出現。靜止狀態用 1px 框線區隔即可。</p>
+      </header>
+      <div class="sg-tiles sg-shadow">
+        <div class="sg-tile"><i style="box-shadow:var(--yh-shadow-ring)"></i><span><b>ring</b><br>卡片靜止狀態</span></div>
+        <div class="sg-tile"><i style="box-shadow:var(--yh-shadow-card-hover)"></i><span><b>card-hover</b><br>卡片 hover 上浮</span></div>
+        <div class="sg-tile"><i style="box-shadow:var(--yh-shadow-media)"></i><span><b>media</b><br>獨立配圖</span></div>
+        <div class="sg-tile"><i style="box-shadow:var(--yh-shadow-btn-hover);border-radius:999px;height:48px"></i><span><b>btn-hover</b><br>主按鈕 hover</span></div>
+      </div>
+    </section>
+
+    <!-- 按鈕 -->
+    <section class="sg-block" id="button">
+      <header>
+        <h2>按鈕</h2>
+        <p>一律膠囊形、最小高度 44px（手指好按）。箭頭包在 <code>yh-btn__arrow</code>，hover 時會往右移。</p>
+      </header>
+      <h3 class="sg-sub">淺色底</h3>
+      <div class="sg-row">
+        <a class="yh-btn yh-btn--primary" href="#button">送出洽詢</a>
+        <a class="yh-btn yh-btn--outline" href="#button">立即報名 <span class="yh-btn__arrow" aria-hidden="true">→</span></a>
+        <a class="yh-btn yh-btn--secondary" href="#button">中華民國核醫學學會</a>
+        <a class="yh-btn yh-btn--primary yh-btn--sm" href="#button">小按鈕</a>
+      </div>
+      <h3 class="sg-sub">深色底</h3>
+      <div class="sg-dark sg-row">
+        <a class="yh-btn yh-btn--light yh-btn--lg" href="#button">了解更多 <span class="yh-btn__arrow" aria-hidden="true">→</span></a>
+        <a class="yh-btn yh-btn--ghost-light yh-btn--lg" href="#button">聯絡我們</a>
+      </div>
+<pre class="sg-code">&lt;a class="<b>yh-btn yh-btn--primary</b>"&gt;送出洽詢&lt;/a&gt;
+&lt;a class="<b>yh-btn yh-btn--outline</b>"&gt;立即報名 &lt;span class="<b>yh-btn__arrow</b>"&gt;→&lt;/span&gt;&lt;/a&gt;
+尺寸：<b>yh-btn--sm</b>（36px）／預設（44px）／<b>yh-btn--lg</b>（56px）／<b>yh-btn--block</b>（滿版）</pre>
+    </section>
+
+    <!-- 標籤 -->
+    <section class="sg-block" id="tag">
+      <header>
+        <h2>標籤與篩選</h2>
+        <p>三種長得像但用途不同：<b>tag</b> 只顯示資訊不能點；<b>chip</b> 用來篩選，可以多選；<b>tab</b> 用來切換分類，一次只選一個。</p>
+      </header>
+      <h3 class="sg-sub">tag · 日期梯次、狀態</h3>
+      <div class="sg-row">
+        <span class="yh-tag">2026/10/15-10/16 · 助理資格培訓</span>
+        <span class="yh-tag">2026/12/3-12/4 · 檢驗員資格培訓</span>
+        <span class="yh-tag yh-tag--success">PIC/S GDP 認證</span>
+      </div>
+      <h3 class="sg-sub">chip · 產品篩選</h3>
+      <div class="sg-row">
+        <button type="button" class="yh-chip is-active" aria-pressed="true">放射性藥物</button>
+        <button type="button" class="yh-chip" aria-pressed="false">輻射安全設備</button>
+        <button type="button" class="yh-chip" aria-pressed="false">RIA 檢驗試劑</button>
+      </div>
+      <h3 class="sg-sub">tab · 文章分類</h3>
+      <div class="yh-tabs" role="tablist">
+        <button type="button" class="yh-tab is-active" role="tab" aria-selected="true">全部</button>
+        <button type="button" class="yh-tab" role="tab" aria-selected="false">醫學會資訊</button>
+        <button type="button" class="yh-tab" role="tab" aria-selected="false">核醫白話百科</button>
+        <button type="button" class="yh-tab" role="tab" aria-selected="false">產業洞察</button>
+      </div>
+    </section>
+
+    <!-- 卡片 -->
+    <section class="sg-block" id="card">
+      <header>
+        <h2>卡片</h2>
+        <p>卡片圓角 16px、1px 框線。整張可點的卡片加 <code>yh-card--link</code>：hover 上浮 5px，圖片放大 1.06 倍。</p>
+      </header>
+      <div class="yh-grid yh-grid--2">
+        <a class="yh-card yh-card--link" href="#card">
+          <div class="yh-card__media"><img src="../assets/news-featured.jpg" alt="內視鏡設備"></div>
+          <div class="yh-card__body">
+            <span class="yh-card__meta">產業洞察</span>
+            <h3 class="yh-card__title">從 PET/CT 到 theranostics：核醫診療合一的下一個十年</h3>
+            <p class="yh-card__text">放射性藥物與精準醫療的結合，正重新定義腫瘤診斷與治療的邊界。</p>
+          </div>
+        </a>
+        <a class="yh-card yh-card--link" href="#card">
+          <div class="yh-card__media"><img src="../assets/home-training.png" alt="訓練用核醫設備"></div>
+          <div class="yh-card__body">
+            <span class="yh-card__meta">實體課程 · 全台巡迴開課</span>
+            <h3 class="yh-card__title yh-card__title--lg">核醫從業人員輻射防護基礎訓練</h3>
+            <p class="yh-card__text">涵蓋法規、劑量管理與作業安全，完訓核發認證時數。</p>
+            <div class="yh-card__footer">
+              <span class="yh-tag">2026/10/15-10/16 · 助理資格培訓</span>
+            </div>
+          </div>
+        </a>
+      </div>
+      <h3 class="sg-sub">列表小卡＋縮圖</h3>
+      <div style="display:flex;flex-direction:column;gap:12px;max-width:560px;padding:16px;border-radius:var(--yh-radius-md);background:var(--yh-color-bg-alt)">
+        <a class="yh-list-card yh-card--link" href="#card">
+          <div class="yh-thumb"><img src="../assets/news-cleanroom.jpg" alt="無塵室"></div>
+          <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
+            <span class="yh-card__meta">產業洞察文章</span>
+            <span class="yh-card__title" style="font-size:16px">輻防作業常見疏失與改善建議</span>
+          </div>
+        </a>
+      </div>
+      <h3 class="sg-sub">內容卡＋小標題（產品規格頁）</h3>
+      <div class="yh-card" style="padding:32px;max-width:560px">
+        <div class="yh-card-head"><h4>產品規格</h4></div>
+        <p class="yh-text-sm">I-123 MIBG 診斷用注射液，適用於嗜鉻細胞瘤與神經母細胞瘤之診斷造影。</p>
+      </div>
+<pre class="sg-code">&lt;a class="<b>yh-card yh-card--link</b>" href="…"&gt;
+  &lt;div class="<b>yh-card__media</b>"&gt;&lt;img …&gt;&lt;/div&gt;
+  &lt;div class="<b>yh-card__body</b>"&gt;
+    &lt;span class="<b>yh-card__meta</b>"&gt;產業洞察&lt;/span&gt;
+    &lt;h3 class="<b>yh-card__title</b>"&gt;…&lt;/h3&gt;
+    &lt;p class="<b>yh-card__text</b>"&gt;…&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/a&gt;
+橫式（圖左文右，手機自動改直式）：加 <b>yh-card--horizontal</b></pre>
+    </section>
+
+    <!-- 圖片 -->
+    <section class="sg-block" id="media">
+      <header>
+        <h2>圖片</h2>
+        <p>不在卡片裡的獨立配圖用 <code>yh-media</code>（24px 圓角），可加比例與陰影。小縮圖用 <code>yh-thumb</code>（10px）。</p>
+      </header>
+      <div class="yh-grid yh-grid--2">
+        <div class="yh-media yh-media--shadow yh-media--4x3"><img src="../assets/about-lab.png" alt="核醫實驗室設備"></div>
+        <div style="display:flex;flex-direction:column;gap:16px;justify-content:center">
+          <p class="yh-text"><code>yh-media--4x3</code>／<code>--16x9</code>／<code>--2x1</code> 固定比例；不加比例時高度由外層決定。</p>
+          <p class="yh-text"><code>yh-media--shadow</code> 加品牌藍的柔和陰影，適合放在白底上的主視覺配圖。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hero -->
+    <section class="sg-block" id="hero">
+      <header>
+        <h2>Hero</h2>
+        <p>只有左上、右下兩個角是圓的，這是品牌的招牌造型。圓角隨螢幕縮小：90 → 64 → 36 → 28px。有照片時加 <code>yh-hero--image</code>，會自動加上左深右淺的遮罩。</p>
+      </header>
+      <div class="yh-hero yh-hero--image">
+        <img class="yh-hero__bg" src="../assets/training-hero.png" alt="">
+        <div class="yh-hero__inner">
+          <div>
+            <h3 class="yh-hero__title">實務導向，培訓即戰力</h3>
+            <p class="yh-hero__text">累積數十年現場經驗打造 18 小時／36 小時游離輻射防護課程。</p>
+            <div class="yh-hero__actions"><a class="yh-btn yh-btn--light" href="#hero">查看課程 <span class="yh-btn__arrow" aria-hidden="true">→</span></a></div>
+          </div>
+        </div>
+      </div>
+      <div class="yh-hero yh-hero--short">
+        <div class="yh-hero__inner">
+          <div>
+            <h3 class="yh-hero__title">產品與服務</h3>
+            <p class="yh-hero__text">依臨床應用分類的核醫藥物、輻射安全設備與檢驗試劑。</p>
+          </div>
+        </div>
+      </div>
+<pre class="sg-code">內頁：<b>yh-hero</b>（桌機 420px，手機 286px）
+無照片：<b>yh-hero yh-hero--short</b>（280px，深藍漸層）
+首頁：<b>yh-hero yh-hero--home</b>（桌機 700px，手機 50dvh）</pre>
+    </section>
+
+    <!-- 數據 -->
+    <section class="sg-block" id="stats">
+      <header>
+        <h2>關鍵數據</h2>
+        <p>數字用 Manrope，並用等寬數字對齊。桌機 4 欄，手機 2×2。</p>
+      </header>
+      <div class="yh-stats">
+        <div class="yh-stat"><div class="yh-stat__value">40+</div><div class="yh-stat__label">年核子醫學專業經驗</div></div>
+        <div class="yh-stat"><div class="yh-stat__value">24/7</div><div class="yh-stat__label">智慧訂藥系統高效率調度藥品</div></div>
+        <div class="yh-stat"><div class="yh-stat__value">18/36</div><div class="yh-stat__label">小時游離輻射防護課程，培養即戰力</div></div>
+        <div class="yh-stat"><div class="yh-stat__value">100%</div><div class="yh-stat__label">符合 PIC/S GDP 藥品運銷規範</div></div>
+      </div>
+    </section>
+
+    <!-- 表單 -->
+    <section class="sg-block" id="form">
+      <header>
+        <h2>表單</h2>
+        <p>輸入框高 46px、圓角 10px，聚焦時顯示藍色光暈。手機版字級自動變成 16px，避免 iPhone 點擊時畫面放大。</p>
+      </header>
+      <div class="yh-grid yh-grid--2">
+        <div class="yh-field">
+          <label class="yh-label" for="sg-name">聯絡人姓名<span class="yh-required" aria-hidden="true">*</span></label>
+          <input class="yh-input" id="sg-name" type="text" value="王小明" autocomplete="off">
+        </div>
+        <div class="yh-field">
+          <label class="yh-label" for="sg-topic">洽詢項目</label>
+          <select class="yh-select" id="sg-topic"><option>輻防教育訓練</option><option>放射性藥物</option><option>輻射安全設備</option></select>
+        </div>
+        <div class="yh-field" style="grid-column:1 / -1">
+          <label class="yh-label" for="sg-msg">需求說明</label>
+          <textarea class="yh-textarea" id="sg-msg" placeholder="例如：預計參訓人數、希望的上課地點與日期"></textarea>
+          <span class="yh-help">我們會在 1 個工作天內回覆。</span>
+        </div>
+      </div>
+      <div><button type="button" class="yh-btn yh-btn--primary">送出洽詢</button></div>
+    </section>
+
+    <!-- 頁尾 -->
+    <section class="sg-block" id="footer">
+      <header>
+        <h2>頁尾</h2>
+        <p>桌機四欄；平板品牌欄獨佔一列、下方兩欄；手機品牌獨佔一列、下方三欄並排，連結全部展開，不做收合。</p>
+      </header>
+      <div class="sg-footer-demo">
+        <footer class="yh-footer">
+          <div class="yh-container">
+            <div class="yh-footer__grid">
+              <div class="yh-footer__brand">
+                <span style="font-size:22px;font-weight:900">元新儀器</span>
+                <span class="yh-en" style="font-size:12.5px">KEN YUAN HSIN CO., LTD</span>
+                <span style="font-size:13px;line-height:1.9">核子醫學整合服務<br>放射性藥物 · 輻射安全設備 · 輻防教育訓練</span>
+              </div>
+              <div><h4 class="yh-footer__title">關於元新</h4><ul class="yh-footer__links"><li><a href="#footer">公司簡介</a></li><li><a href="#footer">發展歷程</a></li><li><a href="#footer">品質認證</a></li></ul></div>
+              <div><h4 class="yh-footer__title">產品與服務</h4><ul class="yh-footer__links"><li><a href="#footer">放射性藥物</a></li><li><a href="#footer">輻射安全設備</a></li><li><a href="#footer">輻防教育訓練</a></li></ul></div>
+              <div><h4 class="yh-footer__title">資源</h4><ul class="yh-footer__links"><li><a href="#footer">產業洞察</a></li><li><a href="#footer">產學資源</a></li><li><a href="#footer">聯絡我們</a></li></ul></div>
+            </div>
+            <div class="yh-footer__bottom"><span>© 2026 元新儀器 KEN YUAN HSIN CO., LTD All rights reserved.</span><span>隱私權政策</span></div>
+          </div>
+        </footer>
+      </div>
+    </section>
+
+    <!-- 斷點 -->
+    <section class="sg-block" id="bp">
+      <header>
+        <h2>斷點</h2>
+        <p>全部用 <code>max-width</code>。CSS 變數不能寫在 <code>@media</code> 裡，請直接寫數值。</p>
+      </header>
+      <div class="sg-scroll">
+        <table class="sg-bps">
+          <thead><tr><th>寬度</th><th>裝置</th><th>主要變化</th></tr></thead>
+          <tbody>
+            <tr><td>&gt; 1024</td><td>桌機</td><td>內容 1200px、邊距 32px、區塊留白 88px、Hero 圓角 90px</td></tr>
+            <tr><td>≤ 1024</td><td>平板橫向</td><td>邊距 24px</td></tr>
+            <tr><td>≤ 900</td><td>平板直向</td><td>導覽改漢堡選單；3、4 欄格線變 2 欄；H2 30px；區塊留白 64px；Hero 圓角 64px；頁尾兩欄</td></tr>
+            <tr><td>≤ 640</td><td>手機</td><td>格線變 1 欄；H2 26px、H1 28px；邊距 20px；區塊留白 40px；內頁 Hero 286px；Hero 圓角 36px；頁尾三欄並排</td></tr>
+            <tr><td>≤ 400</td><td>小手機</td><td>邊距 16px；Hero 圓角 28px</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div>
+</html>

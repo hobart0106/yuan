@@ -1,0 +1,504 @@
+/* ==========================================================================
+   元新儀器 KEN YUAN HSIN — Components (yuan-components.css)
+   版本：1.0（2026-09-18）
+
+   需先載入 yuan-tokens.css。所有 class 以 yh- 開頭，避免和 WordPress 核心、
+   佈景或外掛的樣式衝突。修飾用 BEM：.yh-btn--primary、.yh-card__title。
+   除 .yh-visually-hidden 外不使用 !important；需要覆寫時請提高選擇器權重。
+   ========================================================================== */
+
+/* ---------- 1. 基礎 ---------- */
+.yh-scope,
+body.yh-body {
+  font-family:var(--yh-font-sans);
+  font-size:var(--yh-fs-body);
+  line-height:var(--yh-lh-body);
+  color:var(--yh-color-text);
+  background:var(--yh-color-bg);
+  -webkit-font-smoothing:antialiased;
+}
+.yh-scope *, .yh-scope *::before, .yh-scope *::after { box-sizing:border-box; }
+.yh-en { font-family:var(--yh-font-en); overflow-wrap:anywhere; }
+
+.yh-h1, .yh-h2, .yh-h3, .yh-h4, .yh-h5 {
+  margin:0;
+  line-height:var(--yh-lh-heading);
+  text-wrap:balance;
+}
+.yh-h1 { font-size:var(--yh-fs-h1); font-weight:var(--yh-fw-extrabold); line-height:var(--yh-lh-tight); }
+.yh-h2 { font-size:var(--yh-fs-h2); font-weight:var(--yh-fw-extrabold); color:var(--yh-color-heading); }
+.yh-h3 { font-size:var(--yh-fs-h3); font-weight:var(--yh-fw-extrabold); color:var(--yh-color-heading); }
+.yh-h4 { font-size:var(--yh-fs-h4); font-weight:var(--yh-fw-bold); color:var(--yh-color-title); }
+.yh-h5 { font-size:var(--yh-fs-h5); font-weight:var(--yh-fw-extrabold); color:var(--yh-color-heading); }
+.yh-lead { font-size:var(--yh-fs-lead); line-height:var(--yh-lh-body); color:var(--yh-color-text); margin:0; }
+.yh-text { font-size:var(--yh-fs-body); line-height:var(--yh-lh-body); color:var(--yh-color-text); margin:0; }
+.yh-text-sm { font-size:var(--yh-fs-body-sm); line-height:var(--yh-lh-snug); color:var(--yh-color-text); margin:0; }
+.yh-caption { font-size:var(--yh-fs-caption); color:var(--yh-color-text-muted); }
+
+.yh-link {
+  color:var(--yh-color-primary);
+  text-decoration:none;
+  transition:color var(--yh-dur-fast) var(--yh-ease);
+}
+.yh-link:hover { color:var(--yh-color-interactive); }
+
+/* 鍵盤焦點：所有互動元件共用 */
+.yh-btn:focus-visible, .yh-chip:focus-visible, .yh-tab:focus-visible,
+.yh-card--link:focus-visible, .yh-link:focus-visible, .yh-link-arrow:focus-visible,
+.yh-nav__link:focus-visible, .yh-footer a:focus-visible {
+  outline:2px solid var(--yh-color-focus);
+  outline-offset:3px;
+}
+
+/* ---------- 2. 版面 ---------- */
+.yh-container {
+  width:100%;
+  max-width:var(--yh-container);
+  margin-inline:auto;
+  padding-inline:var(--yh-gutter);
+}
+.yh-section { padding-block:var(--yh-section-y); }
+.yh-section--alt { background:var(--yh-color-bg-alt); }
+.yh-section--tint { background:var(--yh-color-bg-tint); }
+.yh-section--dark { background:var(--yh-color-bg-dark); color:var(--yh-color-text-inverse); }
+.yh-section > .yh-container { display:flex; flex-direction:column; gap:var(--yh-section-head-gap); }
+
+.yh-grid { display:grid; gap:var(--yh-space-6); }
+.yh-grid--2 { grid-template-columns:repeat(2, minmax(0,1fr)); }
+.yh-grid--3 { grid-template-columns:repeat(3, minmax(0,1fr)); }
+.yh-grid--4 { grid-template-columns:repeat(4, minmax(0,1fr)); }
+@media (max-width:900px) {
+  .yh-grid--3, .yh-grid--4 { grid-template-columns:repeat(2, minmax(0,1fr)); }
+}
+@media (max-width:640px) {
+  .yh-grid--2, .yh-grid--3, .yh-grid--4 { grid-template-columns:1fr; gap:var(--yh-space-3); }
+}
+
+/* ---------- 3. 區塊標題（英文眉標＋中文大標＋說明） ---------- */
+.yh-section-head { display:flex; flex-direction:column; gap:var(--yh-space-3); }
+.yh-section-head--center { align-items:center; text-align:center; }
+.yh-section-head--split {
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:var(--yh-space-6);
+}
+.yh-section-head--split > :first-child { display:flex; flex-direction:column; gap:var(--yh-space-3); }
+.yh-eyebrow {
+  font-family:var(--yh-font-en);
+  font-size:var(--yh-fs-eyebrow);
+  font-weight:var(--yh-fw-semibold);
+  letter-spacing:var(--yh-ls-eyebrow);
+  text-transform:uppercase;
+  color:var(--yh-color-accent);
+}
+.yh-section--dark .yh-eyebrow { color:var(--yh-blue-300); }
+.yh-section--dark .yh-h2 { color:var(--yh-color-text-inverse); }
+@media (max-width:640px) {
+  .yh-section-head--split { flex-direction:column; align-items:flex-start; }
+}
+
+/* ---------- 4. 按鈕 ---------- */
+.yh-btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:var(--yh-space-3);
+  min-height:44px;
+  padding:10px 24px;
+  border:0;
+  border-radius:var(--yh-radius-pill);
+  font-family:inherit;
+  font-size:var(--yh-fs-sm);
+  font-weight:var(--yh-fw-bold);
+  line-height:1.2;
+  text-decoration:none;
+  white-space:nowrap;
+  cursor:pointer;
+  transition:transform var(--yh-dur-fast) var(--yh-ease),
+             background-color var(--yh-dur-fast) var(--yh-ease),
+             color var(--yh-dur-fast) var(--yh-ease),
+             box-shadow var(--yh-dur-fast) var(--yh-ease);
+}
+.yh-btn__arrow { display:inline-block; transition:transform var(--yh-dur-fast) var(--yh-ease); }
+.yh-btn:hover .yh-btn__arrow { transform:translateX(4px); }
+
+/* 主按鈕：深藍實心 */
+.yh-btn--primary { background:var(--yh-color-primary); color:var(--yh-color-text-inverse); }
+.yh-btn--primary:hover { transform:translateY(-2px); box-shadow:var(--yh-shadow-btn-hover); }
+
+/* 外框按鈕：深藍框，hover 反白 */
+.yh-btn--outline {
+  background:transparent;
+  color:var(--yh-color-primary);
+  box-shadow:inset 0 0 0 1.5px var(--yh-color-primary);
+}
+.yh-btn--outline:hover { background:var(--yh-color-primary); color:var(--yh-color-text-inverse); }
+
+/* 次要按鈕：白底灰框（學會、分類入口等） */
+.yh-btn--secondary {
+  background:var(--yh-white);
+  color:var(--yh-gray-700);
+  box-shadow:var(--yh-shadow-ring-control);
+  font-weight:var(--yh-fw-semibold);
+}
+.yh-btn--secondary:hover { background:var(--yh-color-primary); color:var(--yh-color-text-inverse); box-shadow:inset 0 0 0 1px var(--yh-color-primary); }
+
+/* 深底用：白色實心／白框 */
+.yh-btn--light { background:var(--yh-white); color:var(--yh-color-primary); }
+.yh-btn--light:hover { transform:translateY(-2px); box-shadow:0 14px 26px -14px rgba(0,0,0,.45); }
+.yh-btn--ghost-light {
+  background:transparent;
+  color:var(--yh-white);
+  box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.6);
+}
+.yh-btn--ghost-light:hover { background:rgba(255,255,255,.14); }
+
+.yh-btn--sm { min-height:36px; padding:8px 18px; font-size:13px; }
+.yh-btn--lg { min-height:56px; padding:16px 36px; font-size:var(--yh-fs-lead); }
+.yh-btn--block { display:flex; width:100%; }
+
+/* 文字連結＋箭頭（區塊右上「全部課程 →」） */
+.yh-link-arrow {
+  display:inline-flex;
+  align-items:center;
+  gap:var(--yh-space-5);
+  padding-bottom:6px;
+  border-bottom:2px solid currentColor;
+  color:var(--yh-color-primary);
+  font-size:var(--yh-fs-body);
+  font-weight:var(--yh-fw-bold);
+  text-decoration:none;
+  transition:color var(--yh-dur-fast) var(--yh-ease);
+}
+.yh-link-arrow:hover { color:var(--yh-color-interactive); }
+
+/* ---------- 5. 標籤、篩選、分頁 ---------- */
+/* 資訊標籤：日期、梯次（不可點） */
+.yh-tag {
+  display:inline-flex;
+  align-items:center;
+  padding:8px 18px;
+  border:1px solid #D7DEE8;
+  border-radius:var(--yh-radius-pill);
+  background:var(--yh-color-bg-tint);
+  color:var(--yh-color-primary);
+  font-family:var(--yh-font-en);
+  font-size:13px;
+  font-weight:var(--yh-fw-semibold);
+  line-height:1.4;
+}
+/* 狀態標籤：認證、上架中 */
+.yh-tag--success { background:var(--yh-green-50); border-color:var(--yh-green-100); color:var(--yh-green-800); }
+
+/* 篩選 chip（產品分類） */
+.yh-chip {
+  display:inline-flex;
+  align-items:center;
+  min-height:40px;
+  padding:9px 20px;
+  border:0;
+  border-radius:var(--yh-radius-pill);
+  background:var(--yh-white);
+  box-shadow:var(--yh-shadow-ring-control);
+  color:var(--yh-color-title);
+  font-family:inherit;
+  font-size:var(--yh-fs-body-sm);
+  font-weight:var(--yh-fw-bold);
+  text-decoration:none;
+  cursor:pointer;
+  transition:background-color var(--yh-dur-fast) var(--yh-ease), color var(--yh-dur-fast) var(--yh-ease);
+}
+.yh-chip:hover { box-shadow:inset 0 0 0 1px var(--yh-blue-200); }
+.yh-chip.is-active, .yh-chip[aria-pressed="true"] { background:var(--yh-blue-200); color:var(--yh-ink-800); box-shadow:none; }
+
+/* 分頁 tab（文章分類） */
+.yh-tab {
+  display:inline-flex;
+  align-items:center;
+  min-height:40px;
+  padding:9px 20px;
+  border:0;
+  border-radius:var(--yh-radius-pill);
+  background:var(--yh-white);
+  box-shadow:var(--yh-shadow-ring-control);
+  color:var(--yh-color-text);
+  font-family:inherit;
+  font-size:var(--yh-fs-sm);
+  font-weight:var(--yh-fw-semibold);
+  text-decoration:none;
+  cursor:pointer;
+  transition:background-color var(--yh-dur-fast) var(--yh-ease), color var(--yh-dur-fast) var(--yh-ease);
+}
+.yh-tab:hover { color:var(--yh-color-primary); }
+.yh-tab.is-active, .yh-tab[aria-selected="true"] { background:var(--yh-color-primary); color:var(--yh-white); box-shadow:none; }
+.yh-tabs { display:flex; flex-wrap:wrap; gap:var(--yh-space-2); }
+
+/* ---------- 6. 卡片 ---------- */
+.yh-card {
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  border:1px solid var(--yh-color-border);
+  border-radius:var(--yh-radius-md);
+  background:var(--yh-white);
+  color:inherit;
+  text-decoration:none;
+}
+.yh-card--flat { border:0; background:var(--yh-color-bg-alt); }
+.yh-card--horizontal { flex-direction:row; }
+.yh-card--horizontal > .yh-card__media { flex:0 0 42%; aspect-ratio:auto; min-height:320px; }
+
+/* 整張可點：hover 上浮＋圖片放大 */
+.yh-card--link { cursor:pointer; transition:transform var(--yh-dur-base) var(--yh-ease), box-shadow var(--yh-dur-base) var(--yh-ease); }
+.yh-card--link:hover { transform:translateY(var(--yh-lift)); box-shadow:var(--yh-shadow-card-hover); }
+.yh-card--link:hover .yh-card__media img { transform:scale(1.06); }
+
+.yh-card__media { aspect-ratio:16 / 9; overflow:hidden; background:var(--yh-gray-50); }
+.yh-card__media img {
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform var(--yh-dur-slow) var(--yh-ease);
+}
+.yh-card__body { display:flex; flex:1; flex-direction:column; gap:var(--yh-space-3); padding:var(--yh-space-6); }
+.yh-card__meta {
+  font-size:12.5px;
+  font-weight:var(--yh-fw-semibold);
+  letter-spacing:var(--yh-ls-label);
+  color:var(--yh-color-accent);
+}
+.yh-card__title { margin:0; font-size:var(--yh-fs-h5); font-weight:var(--yh-fw-bold); line-height:1.5; color:var(--yh-color-title); text-wrap:balance; }
+.yh-card__title--lg { font-size:var(--yh-fs-h4); font-weight:var(--yh-fw-extrabold); }
+.yh-card__text { margin:0; font-size:var(--yh-fs-body-sm); line-height:var(--yh-lh-snug); color:var(--yh-color-text); }
+.yh-card__footer { margin-top:auto; padding-top:var(--yh-space-6); display:flex; flex-wrap:wrap; gap:var(--yh-space-2); }
+
+/* 內容卡的小標題（產品規格頁：左側藍色短條） */
+.yh-card-head { display:flex; align-items:center; gap:10px; margin-bottom:var(--yh-space-5); }
+.yh-card-head::before { content:""; width:4px; height:18px; border-radius:2px; background:var(--yh-color-accent); }
+.yh-card-head > * { margin:0; font-size:var(--yh-fs-h5); font-weight:var(--yh-fw-extrabold); color:var(--yh-color-heading); }
+
+/* 列表型小卡：左縮圖＋右文字（產業洞察） */
+.yh-list-card { display:flex; align-items:center; gap:18px; padding:22px; border-radius:var(--yh-radius-md); background:var(--yh-white); text-decoration:none; color:inherit; }
+@media (max-width:640px) {
+  .yh-card__body { padding:22px 20px 28px; }
+  .yh-card--horizontal { flex-direction:column; }
+  .yh-card--horizontal > .yh-card__media { flex:none; min-height:0; height:168px; }
+  .yh-list-card { gap:14px; padding:8px 14px 8px 8px; }
+}
+
+/* ---------- 7. 圖片 ---------- */
+/* 獨立配圖（不在卡片內） */
+.yh-media { overflow:hidden; border-radius:var(--yh-radius-lg); background:var(--yh-gray-50); }
+.yh-media--shadow { box-shadow:var(--yh-shadow-media); }
+.yh-media img { display:block; width:100%; height:100%; object-fit:cover; }
+.yh-media--4x3 { aspect-ratio:4 / 3; }
+.yh-media--16x9 { aspect-ratio:16 / 9; }
+.yh-media--2x1 { aspect-ratio:2 / 1; }
+/* 小縮圖 */
+.yh-thumb { flex:0 0 auto; width:84px; height:84px; overflow:hidden; border-radius:var(--yh-radius-sm); background:var(--yh-gray-50); }
+.yh-thumb img { display:block; width:100%; height:100%; object-fit:cover; }
+
+/* ---------- 8. Hero ---------- */
+.yh-hero {
+  position:relative;
+  display:flex;
+  align-items:center;
+  height:420px;
+  overflow:hidden;
+  border-radius:var(--yh-radius-hero) 0 var(--yh-radius-hero) 0;
+  background:var(--yh-ink-900);
+  color:var(--yh-white);
+}
+.yh-hero--home { height:700px; }
+.yh-hero--short { height:280px; background:linear-gradient(120deg, var(--yh-ink-800), var(--yh-blue-900) 70%); }
+.yh-hero__bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+/* 有背景照片時加 .yh-hero--image：左深右淺的遮罩，讓白字在任何照片上都讀得到 */
+.yh-hero--image::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg, rgba(11,23,48,.78), rgba(11,23,48,.35) 60%, rgba(11,23,48,0));
+}
+.yh-hero__inner {
+  position:relative;
+  z-index:1;
+  width:100%;
+  max-width:var(--yh-container-wide);
+  margin-inline:auto;
+  padding-inline:clamp(20px, 7vw, 120px);
+}
+.yh-hero__inner > * { max-width:660px; }
+.yh-hero__title { margin:0; font-size:var(--yh-fs-h1); font-weight:var(--yh-fw-extrabold); line-height:var(--yh-lh-tight); text-wrap:balance; }
+.yh-hero__text { margin:18px 0 0; font-size:var(--yh-fs-lead); line-height:var(--yh-lh-body); color:#EEF3FB; }
+.yh-hero__actions { display:flex; flex-wrap:wrap; gap:var(--yh-space-4); margin-top:var(--yh-space-7); }
+@media (max-width:900px) {
+  .yh-hero--home { height:480px; }
+}
+@media (max-width:640px) {
+  .yh-hero { height:286px; }                 /* 內頁統一高度 */
+  .yh-hero--home { height:50vh; height:50dvh; min-height:360px; }
+  .yh-hero__text { font-size:var(--yh-fs-body); margin-top:14px; }
+}
+
+/* ---------- 9. 關鍵數據 ---------- */
+.yh-stats {
+  display:grid;
+  grid-template-columns:repeat(4, minmax(0,1fr));
+  overflow:hidden;
+  border-radius:var(--yh-radius-md);
+  background:var(--yh-white);
+  box-shadow:inset 0 0 0 1px var(--yh-color-border-brand);
+}
+.yh-stat { padding:40px 28px; text-align:center; }
+.yh-stat + .yh-stat { box-shadow:inset 1px 0 0 #E9EEF6; }
+.yh-stat__value {
+  font-family:var(--yh-font-en);
+  font-size:var(--yh-fs-display);
+  font-weight:var(--yh-fw-extrabold);
+  line-height:var(--yh-lh-tight);
+  letter-spacing:var(--yh-ls-display);
+  color:var(--yh-color-accent);
+  font-variant-numeric:tabular-nums;
+}
+.yh-stat__label { margin-top:var(--yh-space-3); font-size:var(--yh-fs-body-sm); line-height:var(--yh-lh-snug); color:var(--yh-color-text); }
+@media (max-width:640px) {
+  .yh-stats { grid-template-columns:repeat(2, minmax(0,1fr)); }
+  .yh-stat { padding:24px 16px; }
+  .yh-stat + .yh-stat { box-shadow:none; }
+  .yh-stat:nth-child(odd) { box-shadow:inset -1px 0 0 #E9EEF6; }
+  .yh-stat:nth-child(-n+2) { border-bottom:1px solid #E9EEF6; }
+  .yh-stat__label { font-size:13px; }
+}
+
+/* ---------- 10. 表單 ---------- */
+.yh-field { display:flex; flex-direction:column; gap:var(--yh-space-2); }
+.yh-label { font-size:var(--yh-fs-body-sm); font-weight:var(--yh-fw-bold); color:var(--yh-color-title); }
+.yh-label .yh-required { color:#C8412F; margin-left:2px; }
+.yh-input, .yh-select, .yh-textarea {
+  width:100%;
+  height:46px;
+  padding:0 16px;
+  border:1px solid #D7DCE3;
+  border-radius:var(--yh-radius-sm);
+  background:var(--yh-white);
+  color:var(--yh-color-title);
+  font-family:inherit;
+  font-size:var(--yh-fs-body-sm);
+  transition:border-color var(--yh-dur-fast) var(--yh-ease), box-shadow var(--yh-dur-fast) var(--yh-ease);
+}
+.yh-textarea { height:auto; min-height:140px; padding:12px 16px; line-height:var(--yh-lh-snug); resize:vertical; }
+.yh-input::placeholder, .yh-textarea::placeholder { color:var(--yh-color-text-disabled); }
+.yh-input:focus, .yh-select:focus, .yh-textarea:focus {
+  outline:none;
+  border-color:var(--yh-color-focus);
+  box-shadow:var(--yh-shadow-focus);
+}
+.yh-input[aria-invalid="true"], .yh-textarea[aria-invalid="true"] { border-color:#C8412F; }
+.yh-help { font-size:var(--yh-fs-caption); color:var(--yh-color-text-muted); }
+@media (max-width:640px) {
+  /* iOS 小於 16px 會在聚焦時自動放大畫面 */
+  .yh-input, .yh-select, .yh-textarea { font-size:16px; }
+}
+
+/* ---------- 11. 導覽列 ---------- */
+.yh-topbar { background:var(--yh-ink-950); color:var(--yh-footer-muted); font-size:13px; }
+.yh-topbar > .yh-container { display:flex; align-items:center; justify-content:flex-end; gap:var(--yh-space-6); height:var(--yh-topbar-h); }
+.yh-nav {
+  position:sticky;
+  top:env(safe-area-inset-top, 0px);
+  z-index:50;
+  background:var(--yh-white);
+  border-bottom:1px solid var(--yh-color-divider);
+}
+.yh-nav > .yh-container { display:flex; align-items:center; justify-content:space-between; gap:var(--yh-space-6); height:var(--yh-nav-h); }
+.yh-nav__logo { display:block; height:38px; width:auto; }
+.yh-nav__links { display:flex; align-items:center; gap:30px; }
+.yh-nav__link {
+  color:var(--yh-color-primary);
+  font-size:15.5px;
+  font-weight:var(--yh-fw-bold);
+  text-decoration:none;
+  white-space:nowrap;
+  transition:color var(--yh-dur-fast) var(--yh-ease);
+}
+.yh-nav__link:hover, .yh-nav__link[aria-current="page"] { color:var(--yh-color-interactive); }
+@media (max-width:900px) {
+  .yh-nav__links { display:none; }   /* 改用漢堡選單（WordPress 導覽區塊內建） */
+}
+
+/* ---------- 12. 頁尾 ---------- */
+.yh-footer { background:var(--yh-ink-950); color:var(--yh-footer-text); }
+.yh-footer__grid {
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr 1fr;
+  gap:var(--yh-space-8);
+  padding-block:72px 56px;
+}
+.yh-footer__brand { display:flex; flex-direction:column; gap:var(--yh-space-2); color:var(--yh-white); }
+.yh-footer__title {
+  margin:0 0 var(--yh-space-4);
+  padding-bottom:14px;
+  border-bottom:1px solid var(--yh-ink-700);
+  color:var(--yh-white);
+  font-size:var(--yh-fs-body-sm);
+  font-weight:var(--yh-fw-bold);
+}
+.yh-footer__links { display:flex; flex-direction:column; gap:13px; margin:0; padding:0; list-style:none; }
+.yh-footer__links a { color:var(--yh-gray-400); font-size:var(--yh-fs-sm); text-decoration:none; transition:color var(--yh-dur-fast) var(--yh-ease); }
+.yh-footer__links a:hover { color:var(--yh-white); }
+.yh-footer__social { display:flex; gap:var(--yh-space-3); margin-top:18px; }
+.yh-footer__social a {
+  display:flex; align-items:center; justify-content:center;
+  width:38px; height:38px;
+  border-radius:50%;
+  box-shadow:inset 0 0 0 1px var(--yh-ink-600);
+  color:var(--yh-footer-text);
+}
+.yh-footer__mark {
+  font-family:var(--yh-font-en);
+  font-size:min(8vw, 99px);
+  font-weight:var(--yh-fw-extrabold);
+  line-height:1;
+  letter-spacing:var(--yh-ls-display);
+  color:#1A2947;
+  white-space:nowrap;
+  user-select:none;
+}
+.yh-footer__bottom {
+  display:flex; justify-content:space-between; align-items:center; gap:var(--yh-space-4);
+  padding-block:22px;
+  font-size:12.5px;
+  color:var(--yh-gray-500);
+}
+@media (max-width:900px) {
+  .yh-footer__grid { grid-template-columns:1fr 1fr; gap:28px; padding-block:40px; }
+  .yh-footer__brand { grid-column:1 / -1; }
+}
+@media (max-width:640px) {
+  /* 手機：品牌獨佔一列，下方三欄並排、連結直向排列 */
+  .yh-footer__grid { grid-template-columns:repeat(3, minmax(0,1fr)); gap:0 16px; padding-block:28px 20px; }
+  .yh-footer__brand { margin-bottom:28px; }
+  .yh-footer__title { margin-bottom:8px; padding-bottom:10px; }
+  .yh-footer__links { gap:2px; }
+  .yh-footer__links a { display:inline-flex; align-items:center; min-height:40px; }
+  .yh-footer__bottom { flex-direction:column; align-items:flex-start; gap:10px; padding-block:18px 26px; }
+}
+@media (max-width:400px) {
+  .yh-footer__grid { gap:0 12px; }
+}
+
+/* ---------- 13. 工具 ---------- */
+.yh-visually-hidden {
+  position:absolute !important;
+  width:1px; height:1px;
+  overflow:hidden;
+  clip:rect(0 0 0 0);
+  white-space:nowrap;
+}
+@media (prefers-reduced-motion:reduce) {
+  .yh-btn, .yh-btn__arrow, .yh-card--link, .yh-card__media img, .yh-chip, .yh-tab { transition:none; }
+  .yh-card--link:hover, .yh-btn--primary:hover, .yh-btn--light:hover { transform:none; }
+  .yh-card--link:hover .yh-card__media img { transform:none; }
+}
