@@ -79,7 +79,7 @@
 
   <div style="width:100%;background:#fff;border-bottom:1px solid #EEF1F5;position:sticky;top:0;z-index:50;">
     <div class="yb-navrow" style="max-width:1200px;margin:0 auto;padding:0 32px;height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
-      <img src="assets/logo.png" alt="元新醫藥" style="height:38px;width:auto;flex-shrink:0;display:block;">
+      <img src="assets/brand-logo.png" alt="元新醫藥" style="height:38px;width:auto;flex-shrink:0;display:block;">
       <div class="yb-navlinks" style="display:flex;align-items:center;gap:30px;font-size:15.5px;font-weight:700;white-space:nowrap;">
         <a class="ynav" href="index.html" style="color:#143A82;">首頁</a>
         <a class="ynav" href="about.html" style="color:#143A82;">關於我們</a>
@@ -97,7 +97,7 @@
 
   <!-- HERO -->
   <div class="yb-hero" style="position:relative;width:100%;margin:0;height:420px;min-height:360px;overflow:hidden;border-radius:90px 0 90px 0;background:#0B1730;">
-    <img src="assets/class-hero-01.png" alt="輻防訓練現場" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
+    <img src="assets/training-hero.png" alt="輻防訓練現場" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
     <div style="position:relative;height:100%;max-width:1683px;margin:0 auto;padding:0 clamp(40px,7vw,120px);display:flex;flex-direction:column;justify-content:center;">
       <div style="max-width:660px;color:#fff;">
         <h1 style="margin:0;font-size:42px;line-height:1.2;font-weight:800;">實務導向，培訓即戰力</h1>
@@ -228,19 +228,19 @@
       </div>
       <div class="yb-grid4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;">
         <div class="ywhycell" style="display:flex;flex-direction:column;gap:14px;">
-          <div style="height:170px;border-radius:18px;overflow:hidden;"><img src="assets/machi-image.png" alt="核醫設備" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div style="height:170px;border-radius:18px;overflow:hidden;"><img src="assets/common-equipment.png" alt="核醫設備" style="width:100%;height:100%;object-fit:cover;"></div>
           <span style="font-size:13.5px;color:#5A6473;line-height:1.7;">課中操作核醫設備，直擊鉛車內部設計，接軌實務</span>
         </div>
         <div class="ywhycell" style="display:flex;flex-direction:column;gap:14px;">
-          <div style="height:170px;border-radius:18px;overflow:hidden;"><img src="assets/miniclass-image.png" alt="小班教學" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div style="height:170px;border-radius:18px;overflow:hidden;"><img src="assets/training-small-class.png" alt="小班教學" style="width:100%;height:100%;object-fit:cover;"></div>
           <span style="font-size:13.5px;color:#5A6473;line-height:1.7;">小班制教學，考照率更高</span>
         </div>
         <div class="ywhycell" style="display:flex;flex-direction:column;gap:14px;">
-          <div style="height:170px;border-radius:18px;overflow:hidden;"><img src="assets/b2b-image-02.png" alt="企業合作" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div style="height:170px;border-radius:18px;overflow:hidden;"><img src="assets/training-b2b.png" alt="企業合作" style="width:100%;height:100%;object-fit:cover;"></div>
           <span style="font-size:13.5px;color:#5A6473;line-height:1.7;">依企業需求，包班培訓</span>
         </div>
         <div class="ywhycell" style="display:flex;flex-direction:column;gap:14px;">
-          <div style="height:170px;border-radius:18px;overflow:hidden;"><img src="assets/MRT-image.png" alt="內湖地區" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div style="height:170px;border-radius:18px;overflow:hidden;"><img src="assets/training-location-mrt.png" alt="內湖地區" style="width:100%;height:100%;object-fit:cover;"></div>
           <span style="font-size:13.5px;color:#5A6473;line-height:1.7;">上課地點位於內湖市區，省下交通成本</span>
         </div>
       </div>
@@ -304,12 +304,12 @@
 class Component extends DCLogic {
   renderVals() {
     const courses = [
-        { id: 1, until: '2026-06-18', date: '2026.06.18 · 台北 · 實體', title: '核醫從業人員輻射防護基礎訓練', desc: '18 小時基礎課程，涵蓋輻射防護原理與實務操作', cover: 'assets/cover-1-48a9832c.jpg' },
-        { id: 2, until: '2026-07-02', date: '2026.07.02 · 線上 · 直播', title: '游離輻射防護法規與案例研討', desc: '法規解析搭配實際稽核案例，強化合規意識', cover: 'assets/cover-2-2005b258.jpg' },
-        { id: 3, until: '2026-09-10', date: '2026.09.10 · 台中 · 實體', title: '核醫設備操作與輻射防護實作', desc: '36 小時進階課程，含鉛車與造影設備實機操作', cover: 'assets/cover-3-cd7dfd7a.jpg' },
-        { id: 4, until: '2026-10-05', date: '2026.10.05 · 高雄 · 實體', title: '醫療院所輻射安全管理人員訓練', desc: '針對輻安管理人員設計，強化制度建置能力', cover: 'assets/cover-1-48a9832c.jpg' },
-        { id: 5, until: '2026-11-12', date: '2026.11.12 · 線上 · 直播', title: '輻射防護在職教育回訓課程', desc: '證照回訓專班，掌握最新法規與技術更新', cover: 'assets/cover-2-2005b258.jpg' },
-        { id: 6, until: '2026-12-03', date: '2026.12.03 · 台北 · 實體', title: '企業包班：客製化輻防教育訓練', desc: '依企業需求規劃課程內容與時數，到府或指定場地授課', cover: 'assets/cover-3-cd7dfd7a.jpg' }
+        { id: 1, until: '2026-06-18', date: '2026.06.18 · 台北 · 實體', title: '核醫從業人員輻射防護基礎訓練', desc: '18 小時基礎課程，涵蓋輻射防護原理與實務操作', cover: 'assets/training-cover-01.jpg' },
+        { id: 2, until: '2026-07-02', date: '2026.07.02 · 線上 · 直播', title: '游離輻射防護法規與案例研討', desc: '法規解析搭配實際稽核案例，強化合規意識', cover: 'assets/training-cover-02.jpg' },
+        { id: 3, until: '2026-09-10', date: '2026.09.10 · 台中 · 實體', title: '核醫設備操作與輻射防護實作', desc: '36 小時進階課程，含鉛車與造影設備實機操作', cover: 'assets/training-cover-03.jpg' },
+        { id: 4, until: '2026-10-05', date: '2026.10.05 · 高雄 · 實體', title: '醫療院所輻射安全管理人員訓練', desc: '針對輻安管理人員設計，強化制度建置能力', cover: 'assets/training-cover-01.jpg' },
+        { id: 5, until: '2026-11-12', date: '2026.11.12 · 線上 · 直播', title: '輻射防護在職教育回訓課程', desc: '證照回訓專班，掌握最新法規與技術更新', cover: 'assets/training-cover-02.jpg' },
+        { id: 6, until: '2026-12-03', date: '2026.12.03 · 台北 · 實體', title: '企業包班：客製化輻防教育訓練', desc: '依企業需求規劃課程內容與時數，到府或指定場地授課', cover: 'assets/training-cover-03.jpg' }
     ];
 
     // 過期梯次不展示。以「今天」為界，開課當天仍算有效。

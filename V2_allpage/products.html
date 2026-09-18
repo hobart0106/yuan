@@ -74,7 +74,7 @@
   .yp-slide-img {
     position:relative;
     height:300px;
-    background:#0B1730 url('assets/body-diagram-c7a5f396.png') center/cover no-repeat;
+    background:#0B1730 url('assets/products-body-diagram.png') center/cover no-repeat;
   }
   .yp-slide-marker {
     position:absolute;
@@ -274,7 +274,7 @@
   <!-- NAV -->
   <div style="width:100%;background:#fff;border-bottom:1px solid #EEF1F5;position:sticky;top:0;z-index:50;">
     <div class="yb-navrow" style="max-width:1200px;margin:0 auto;padding:0 32px;height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
-      <img src="assets/logo.png" alt="元新醫藥" style="height:38px;width:auto;flex-shrink:0;display:block;">
+      <img src="assets/brand-logo.png" alt="元新醫藥" style="height:38px;width:auto;flex-shrink:0;display:block;">
       <div class="yb-navlinks" style="display:flex;align-items:center;gap:30px;font-size:15.5px;font-weight:700;white-space:nowrap;">
         <a class="ynav" href="index.html" style="color:#143A82;">首頁</a>
         <a class="ynav" href="about.html" style="color:#143A82;">關於我們</a>
@@ -337,7 +337,7 @@
         <sc-if value="{{ u.isOrgan }}" hint-placeholder-val="{{ true }}">
         <div class="yp-diag-grid" style="display:grid;grid-template-columns:{{ u.diagCols }};gap:36px;">
           <sc-if value="{{ u.diagramLeft }}" hint-placeholder-val="{{ true }}">
-            <div class="yp-organ" style="position:relative;height:480px;border-radius:32px;overflow:hidden;background:#0B1730 url('assets/body-diagram-c7a5f396.png') center/cover no-repeat;">
+            <div class="yp-organ" style="position:relative;height:480px;border-radius:32px;overflow:hidden;background:#0B1730 url('assets/products-body-diagram.png') center/cover no-repeat;">
               <sc-for list="{{ u.markers }}" as="m" hint-placeholder-count="1">
                 <div class="ymarker" style="position:absolute;top:{{ m.top }};left:{{ m.left }};transform:translateX(-50%);background:{{ m.bg }};color:{{ m.color }};border:1.5px solid #1F5BB5;font-size:12.5px;font-weight:700;padding:6px 14px;border-radius:999px;box-shadow:{{ m.shadow }};white-space:nowrap;">{{ m.label }}</div>
               </sc-for>
@@ -381,7 +381,7 @@
             </sc-for>
           </div>
           <sc-if value="{{ u.diagramRight }}" hint-placeholder-val="{{ false }}">
-            <div class="yp-organ" style="position:relative;height:480px;border-radius:32px;overflow:hidden;background:#0B1730 url('assets/body-diagram-c7a5f396.png') center/cover no-repeat;">
+            <div class="yp-organ" style="position:relative;height:480px;border-radius:32px;overflow:hidden;background:#0B1730 url('assets/products-body-diagram.png') center/cover no-repeat;">
               <sc-for list="{{ u.markers }}" as="m" hint-placeholder-count="1">
                 <div class="ymarker" style="position:absolute;top:{{ m.top }};left:{{ m.left }};transform:translateX(-50%);background:{{ m.bg }};color:{{ m.color }};border:1.5px solid #1F5BB5;font-size:12.5px;font-weight:700;padding:6px 14px;border-radius:999px;box-shadow:{{ m.shadow }};white-space:nowrap;">{{ m.label }}</div>
               </sc-for>
@@ -751,7 +751,7 @@ class Component extends DCLogic {
     return {
       catTabs, activeCatEn: activeCat.en, subChips, groups,
       hasCategoryBanner: cat === 2 || cat === 3,
-      categoryBannerSrc: cat === 2 ? "assets/Instruments&Systems.jpg" : "assets/RIA.jpg",
+      categoryBannerSrc: cat === 2 ? "assets/products-banner-instruments.jpg" : "assets/products-banner-ria.jpg",
       categoryBannerAlt: cat === 2 ? "儀器與設備" : "放射免疫分析",
     };
   }
