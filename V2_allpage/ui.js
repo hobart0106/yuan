@@ -246,39 +246,53 @@
   });
 })();
 
-// Fit the footer wordmark to the same content edges as the footer columns.
+// Fit static and asynchronously rendered footers to the column content edges.
 (function () {
-  var marks = document.querySelectorAll('.yb-foot-mark');
-  if (!marks.length) return;
-  var canvas = document.createElement('canvas');
-  var context = canvas.getContext('2d');
+  var context = document.createElement('canvas').getContext('2d');
   if (!context) return;
-  marks.forEach(function (mark) {
-    var columns = mark.parentElement.querySelector('.yb-foot-wrap');
-    if (!columns) return;
-    var label = document.createElement('span');
-    label.textContent = mark.textContent.trim();
-    label.style.display = 'block';
-    label.style.whiteSpace = 'nowrap';
-    mark.textContent = '';
-    mark.appendChild(label);
-    function fit() {
-      var box = columns.getBoundingClientRect();
-      var layout = getComputedStyle(columns);
-      var width = box.width - parseFloat(layout.paddingLeft) - parseFloat(layout.paddingRight);
-      if (width <= 0) return;
-      mark.style.width = width + 'px';
-      var font = getComputedStyle(mark);
-      context.font = font.fontWeight + ' 100px ' + font.fontFamily;
-      var metrics = context.measureText(label.textContent);
-      var inkWidth = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
-      var size = width / (inkWidth || metrics.width) * 100;
-      label.style.fontSize = size + 'px';
-      label.style.transform = 'translateX(' + (metrics.actualBoundingBoxLeft || 0) * size / 100 + 'px)';
-    }
-    fit();
-    if (document.fonts) document.fonts.ready.then(fit);
-    if (window.ResizeObserver) new ResizeObserver(fit).observe(columns);
-    else window.addEventListener('resize', fit);
+  var entries = new Map();
+  function mount() {
+    entries.forEach(function (entry, mark) {
+      if (!mark.isConnected) {
+        if (entry.observer) entry.observer.disconnect();
+        entries.delete(mark);
+      }
+    });
+    document.querySelectorAll('.yb-foot-mark').forEach(function (mark) {
+      // x-dc is the hidden source template, not the rendered page.
+      if (mark.closest('x-dc') || entries.has(mark)) return;
+      var columns = mark.parentElement.querySelector('.yb-foot-wrap');
+      if (!columns) return;
+      function fit() {
+        if (!mark.isConnected) return;
+        var layout = getComputedStyle(columns);
+        var width = columns.getBoundingClientRect().width - parseFloat(layout.paddingLeft) - parseFloat(layout.paddingRight);
+        if (width <= 0) return;
+        var font = getComputedStyle(mark);
+        context.font = font.fontWeight + ' 100px ' + font.fontFamily;
+        var metrics = context.measureText(mark.textContent.trim());
+        var inkWidth = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
+        var size = width / (inkWidth || metrics.width) * 100;
+        mark.style.width = width + 'px';
+        mark.style.setProperty('font-size', size + 'px', 'important');
+        mark.style.transform = 'translateX(' + (metrics.actualBoundingBoxLeft || 0) * size / 100 + 'px)';
+      }
+      var observer = window.ResizeObserver ? new ResizeObserver(fit) : null;
+      entries.set(mark, { fit:fit, observer:observer });
+      fit();
+      if (observer) observer.observe(columns);
+      if (document.fonts) document.fonts.ready.then(fit);
+    });
+  }
+  var queued = false;
+  function schedule() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(function () { queued = false; mount(); });
+  }
+  new MutationObserver(schedule).observe(document.documentElement, { childList:true, subtree:true });
+  window.addEventListener('resize', function () {
+    entries.forEach(function (entry) { entry.fit(); });
   });
+  mount();
 })();
