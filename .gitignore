@@ -7,3 +7,6 @@ V2_allpage/output/
 
 # 本機備份資料夾（不進版控）
 V2_allpage/備份不要commit/
+
+# Playwright CLI 本機快取
+V2_allpage/.playwright-cli/
