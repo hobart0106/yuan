@@ -4,3 +4,6 @@
 
 # QA 預覽截圖（本機產物，不進版控）
 V2_allpage/output/
+
+# 本機備份資料夾（不進版控）
+V2_allpage/備份不要commit/
